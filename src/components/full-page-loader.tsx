@@ -1,25 +1,15 @@
-import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
-import Modal from "@mui/material/Modal";
+import { Spinner } from "@/components/ui/spinner";
 
 type FullPageLoaderType = {
   isLoading: boolean;
 };
 
 export function FullPageLoader({ isLoading }: FullPageLoaderType) {
+  if (!isLoading) return null;
+
   return (
-    <Modal open={isLoading}>
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          outline: "none",
-        }}
-      >
-        <CircularProgress />
-      </Box>
-    </Modal>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-white-0/80 backdrop-blur-sm">
+      <Spinner size="lg" />
+    </div>
   );
 }

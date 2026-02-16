@@ -1,1 +1,793 @@
-/* Your global CSS here */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+
+/*
+ * LMS Design System — AlignUI Tokens
+ * Based on AlignUI v1.2 (https://alignui.com)
+ * Tailwind CSS v4 — CSS-first configuration
+ * Light mode only — no dark mode
+ */
+
+/* ===================================================================
+   @theme — Tailwind v4 utility class generation
+   =================================================================== */
+
+@theme {
+  /* ---- Font Family ---- */
+  --font-sans:
+    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* ---- Border Radius ---- */
+  --radius-10: 0.625rem;
+  --radius-20: 1.25rem;
+
+  /* ---- Spacing (extra) ---- */
+  --spacing-4_5: 1.125rem;
+  --spacing-18: 4.5rem;
+  --spacing-68: 17rem;
+  --spacing-76: 19rem;
+  --spacing-84: 21rem;
+  --spacing-88: 22rem;
+  --spacing-92: 23rem;
+  --spacing-100: 25rem;
+  --spacing-120: 30rem;
+
+  /* ---- Typography ---- */
+  /* Title */
+  --text-title-h1: 3.5rem;
+  --text-title-h1--line-height: 4rem;
+  --text-title-h1--letter-spacing: -0.01em;
+  --text-title-h1--font-weight: 500;
+
+  --text-title-h2: 2.5rem;
+  --text-title-h2--line-height: 3rem;
+  --text-title-h2--letter-spacing: -0.01em;
+  --text-title-h2--font-weight: 500;
+
+  --text-title-h3: 2rem;
+  --text-title-h3--line-height: 2.5rem;
+  --text-title-h3--letter-spacing: -0.01em;
+  --text-title-h3--font-weight: 500;
+
+  --text-title-h4: 1.75rem;
+  --text-title-h4--line-height: 2.25rem;
+  --text-title-h4--letter-spacing: -0.005em;
+  --text-title-h4--font-weight: 500;
+
+  --text-title-h5: 1.5rem;
+  --text-title-h5--line-height: 2rem;
+  --text-title-h5--letter-spacing: -0.005em;
+  --text-title-h5--font-weight: 500;
+
+  --text-title-h6: 1.25rem;
+  --text-title-h6--line-height: 1.75rem;
+  --text-title-h6--letter-spacing: -0.005em;
+  --text-title-h6--font-weight: 500;
+
+  /* Label */
+  --text-label-xl: 1.5rem;
+  --text-label-xl--line-height: 2rem;
+  --text-label-xl--letter-spacing: 0em;
+  --text-label-xl--font-weight: 500;
+
+  --text-label-lg: 1.125rem;
+  --text-label-lg--line-height: 1.5rem;
+  --text-label-lg--letter-spacing: 0em;
+  --text-label-lg--font-weight: 500;
+
+  --text-label-md: 1rem;
+  --text-label-md--line-height: 1.5rem;
+  --text-label-md--letter-spacing: 0em;
+  --text-label-md--font-weight: 500;
+
+  --text-label-sm: 0.875rem;
+  --text-label-sm--line-height: 1.25rem;
+  --text-label-sm--letter-spacing: 0em;
+  --text-label-sm--font-weight: 500;
+
+  --text-label-xs: 0.75rem;
+  --text-label-xs--line-height: 1rem;
+  --text-label-xs--letter-spacing: 0em;
+  --text-label-xs--font-weight: 500;
+
+  /* Paragraph */
+  --text-paragraph-xl: 1.5rem;
+  --text-paragraph-xl--line-height: 2rem;
+  --text-paragraph-xl--letter-spacing: 0em;
+  --text-paragraph-xl--font-weight: 400;
+
+  --text-paragraph-lg: 1.125rem;
+  --text-paragraph-lg--line-height: 1.75rem;
+  --text-paragraph-lg--letter-spacing: 0em;
+  --text-paragraph-lg--font-weight: 400;
+
+  --text-paragraph-md: 1rem;
+  --text-paragraph-md--line-height: 1.5rem;
+  --text-paragraph-md--letter-spacing: 0em;
+  --text-paragraph-md--font-weight: 400;
+
+  --text-paragraph-sm: 0.875rem;
+  --text-paragraph-sm--line-height: 1.25rem;
+  --text-paragraph-sm--letter-spacing: 0em;
+  --text-paragraph-sm--font-weight: 400;
+
+  --text-paragraph-xs: 0.75rem;
+  --text-paragraph-xs--line-height: 1rem;
+  --text-paragraph-xs--letter-spacing: 0em;
+  --text-paragraph-xs--font-weight: 400;
+
+  /* Subheading */
+  --text-subheading-md: 1rem;
+  --text-subheading-md--line-height: 1.5rem;
+  --text-subheading-md--letter-spacing: 0.06em;
+  --text-subheading-md--font-weight: 500;
+
+  --text-subheading-sm: 0.875rem;
+  --text-subheading-sm--line-height: 1.25rem;
+  --text-subheading-sm--letter-spacing: 0.06em;
+  --text-subheading-sm--font-weight: 500;
+
+  --text-subheading-xs: 0.75rem;
+  --text-subheading-xs--line-height: 1rem;
+  --text-subheading-xs--letter-spacing: 0.06em;
+  --text-subheading-xs--font-weight: 500;
+
+  --text-subheading-2xs: 0.6875rem;
+  --text-subheading-2xs--line-height: 0.75rem;
+  --text-subheading-2xs--letter-spacing: 0.06em;
+  --text-subheading-2xs--font-weight: 500;
+
+  /* Doc */
+  --text-doc-label: 1.125rem;
+  --text-doc-label--line-height: 1.75rem;
+  --text-doc-label--letter-spacing: 0em;
+  --text-doc-label--font-weight: 500;
+
+  --text-doc-paragraph: 1.125rem;
+  --text-doc-paragraph--line-height: 1.75rem;
+  --text-doc-paragraph--letter-spacing: 0em;
+  --text-doc-paragraph--font-weight: 400;
+
+  /* ---- Shadows ---- */
+  --shadow-regular-xs: 0 1px 2px 0 rgba(10, 13, 20, 0.03);
+  --shadow-regular-sm:
+    0 2px 4px 0 rgba(10, 13, 20, 0.03), 0 1px 2px 0 rgba(10, 13, 20, 0.08);
+  --shadow-regular-md: 0 16px 32px -12px rgba(10, 13, 20, 0.08);
+  --shadow-button-primary-focus:
+    0 0 0 2px var(--bg-white-0), 0 0 0 4px var(--primary-alpha-10);
+  --shadow-button-important-focus:
+    0 0 0 2px var(--bg-white-0), 0 0 0 4px var(--neutral-alpha-16);
+  --shadow-button-error-focus:
+    0 0 0 2px var(--bg-white-0), 0 0 0 4px var(--red-alpha-10);
+  --shadow-fancy-buttons-neutral:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 0 rgba(10, 13, 20, 0.16);
+  --shadow-fancy-buttons-primary:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 0 rgba(10, 13, 20, 0.24);
+  --shadow-fancy-buttons-error:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 0 rgba(10, 13, 20, 0.24);
+  --shadow-fancy-buttons-stroke: inset 0 1px 0 0 rgba(255, 255, 255, 0.24);
+  --shadow-toggle-switch:
+    0 6px 10px 0 rgba(10, 13, 20, 0.04), 0 2px 4px 0 rgba(10, 13, 20, 0.04);
+  --shadow-switch-thumb:
+    0 2px 4px 0 rgba(10, 13, 20, 0.16), 0 0px 1px 0 rgba(10, 13, 20, 0.24);
+  --shadow-tooltip:
+    0 12px 24px 0 rgba(10, 13, 20, 0.08), 0 1px 2px 0 rgba(10, 13, 20, 0.08);
+  --shadow-custom-xs: 0 1px 2px 0 rgba(10, 13, 20, 0.06);
+  --shadow-custom-sm:
+    0 2px 6px 0 rgba(10, 13, 20, 0.06), 0 1px 2px 0 rgba(10, 13, 20, 0.04);
+  --shadow-custom-md:
+    0 6px 16px 0 rgba(10, 13, 20, 0.06), 0 1px 2px 0 rgba(10, 13, 20, 0.04);
+  --shadow-custom-lg:
+    0 16px 40px 0 rgba(10, 13, 20, 0.06), 0 2px 4px 0 rgba(10, 13, 20, 0.02);
+
+  /* ================================================================
+     Base Color Scales
+     ================================================================ */
+
+  /* Gray (Slate-tinted) */
+  --color-gray-0: var(--gray-0);
+  --color-gray-50: var(--gray-50);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+  --color-gray-950: var(--gray-950);
+
+  /* Blue */
+  --color-blue-50: var(--blue-50);
+  --color-blue-100: var(--blue-100);
+  --color-blue-200: var(--blue-200);
+  --color-blue-300: var(--blue-300);
+  --color-blue-400: var(--blue-400);
+  --color-blue-500: var(--blue-500);
+  --color-blue-600: var(--blue-600);
+  --color-blue-700: var(--blue-700);
+  --color-blue-800: var(--blue-800);
+  --color-blue-900: var(--blue-900);
+  --color-blue-950: var(--blue-950);
+
+  /* Red */
+  --color-red-50: var(--red-50);
+  --color-red-100: var(--red-100);
+  --color-red-200: var(--red-200);
+  --color-red-300: var(--red-300);
+  --color-red-400: var(--red-400);
+  --color-red-500: var(--red-500);
+  --color-red-600: var(--red-600);
+  --color-red-700: var(--red-700);
+  --color-red-800: var(--red-800);
+  --color-red-900: var(--red-900);
+  --color-red-950: var(--red-950);
+
+  /* Green */
+  --color-green-50: var(--green-50);
+  --color-green-100: var(--green-100);
+  --color-green-200: var(--green-200);
+  --color-green-300: var(--green-300);
+  --color-green-400: var(--green-400);
+  --color-green-500: var(--green-500);
+  --color-green-600: var(--green-600);
+  --color-green-700: var(--green-700);
+  --color-green-800: var(--green-800);
+  --color-green-900: var(--green-900);
+  --color-green-950: var(--green-950);
+
+  /* Yellow */
+  --color-yellow-50: var(--yellow-50);
+  --color-yellow-100: var(--yellow-100);
+  --color-yellow-200: var(--yellow-200);
+  --color-yellow-300: var(--yellow-300);
+  --color-yellow-400: var(--yellow-400);
+  --color-yellow-500: var(--yellow-500);
+  --color-yellow-600: var(--yellow-600);
+  --color-yellow-700: var(--yellow-700);
+  --color-yellow-800: var(--yellow-800);
+  --color-yellow-900: var(--yellow-900);
+  --color-yellow-950: var(--yellow-950);
+
+  /* Orange */
+  --color-orange-50: var(--orange-50);
+  --color-orange-100: var(--orange-100);
+  --color-orange-200: var(--orange-200);
+  --color-orange-300: var(--orange-300);
+  --color-orange-400: var(--orange-400);
+  --color-orange-500: var(--orange-500);
+  --color-orange-600: var(--orange-600);
+  --color-orange-700: var(--orange-700);
+  --color-orange-800: var(--orange-800);
+  --color-orange-900: var(--orange-900);
+  --color-orange-950: var(--orange-950);
+
+  /* Purple */
+  --color-purple-50: var(--purple-50);
+  --color-purple-100: var(--purple-100);
+  --color-purple-200: var(--purple-200);
+  --color-purple-300: var(--purple-300);
+  --color-purple-400: var(--purple-400);
+  --color-purple-500: var(--purple-500);
+  --color-purple-600: var(--purple-600);
+  --color-purple-700: var(--purple-700);
+  --color-purple-800: var(--purple-800);
+  --color-purple-900: var(--purple-900);
+  --color-purple-950: var(--purple-950);
+
+  /* Sky */
+  --color-sky-50: var(--sky-50);
+  --color-sky-100: var(--sky-100);
+  --color-sky-200: var(--sky-200);
+  --color-sky-300: var(--sky-300);
+  --color-sky-400: var(--sky-400);
+  --color-sky-500: var(--sky-500);
+  --color-sky-600: var(--sky-600);
+  --color-sky-700: var(--sky-700);
+  --color-sky-800: var(--sky-800);
+  --color-sky-900: var(--sky-900);
+  --color-sky-950: var(--sky-950);
+
+  /* Pink */
+  --color-pink-50: var(--pink-50);
+  --color-pink-100: var(--pink-100);
+  --color-pink-200: var(--pink-200);
+  --color-pink-300: var(--pink-300);
+  --color-pink-400: var(--pink-400);
+  --color-pink-500: var(--pink-500);
+  --color-pink-600: var(--pink-600);
+  --color-pink-700: var(--pink-700);
+  --color-pink-800: var(--pink-800);
+  --color-pink-900: var(--pink-900);
+  --color-pink-950: var(--pink-950);
+
+  /* Teal */
+  --color-teal-50: var(--teal-50);
+  --color-teal-100: var(--teal-100);
+  --color-teal-200: var(--teal-200);
+  --color-teal-300: var(--teal-300);
+  --color-teal-400: var(--teal-400);
+  --color-teal-500: var(--teal-500);
+  --color-teal-600: var(--teal-600);
+  --color-teal-700: var(--teal-700);
+  --color-teal-800: var(--teal-800);
+  --color-teal-900: var(--teal-900);
+  --color-teal-950: var(--teal-950);
+
+  /* Neutral */
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-950: var(--neutral-950);
+
+  /* ================================================================
+     Semantic Colors (AlignUI)
+     ================================================================ */
+
+  /* Background */
+  --color-bg-strong-950: var(--bg-strong-950);
+  --color-bg-surface-800: var(--bg-surface-800);
+  --color-bg-sub-300: var(--bg-sub-300);
+  --color-bg-soft-200: var(--bg-soft-200);
+  --color-bg-weak-50: var(--bg-weak-50);
+  --color-bg-white-0: var(--bg-white-0);
+
+  /* Text */
+  --color-text-strong-950: var(--text-strong-950);
+  --color-text-sub-600: var(--text-sub-600);
+  --color-text-soft-400: var(--text-soft-400);
+  --color-text-disabled-300: var(--text-disabled-300);
+  --color-text-white-0: var(--text-white-0);
+
+  /* Stroke */
+  --color-stroke-strong-950: var(--stroke-strong-950);
+  --color-stroke-sub-300: var(--stroke-sub-300);
+  --color-stroke-soft-200: var(--stroke-soft-200);
+  --color-stroke-white-0: var(--stroke-white-0);
+
+  /* Static */
+  --color-static-black: var(--static-black);
+  --color-static-white: var(--static-white);
+
+  /* Primary */
+  --color-primary-base: var(--primary-base);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-darker: var(--primary-darker);
+  --color-primary-alpha-10: var(--primary-alpha-10);
+  --color-primary-alpha-24: var(--primary-alpha-24);
+
+  /* ---- Status Colors ---- */
+  --color-faded-dark: var(--faded-dark);
+  --color-faded-base: var(--faded-base);
+  --color-faded-light: var(--faded-light);
+  --color-faded-lighter: var(--faded-lighter);
+
+  --color-information-dark: var(--information-dark);
+  --color-information-base: var(--information-base);
+  --color-information-light: var(--information-light);
+  --color-information-lighter: var(--information-lighter);
+
+  --color-warning-dark: var(--warning-dark);
+  --color-warning-base: var(--warning-base);
+  --color-warning-light: var(--warning-light);
+  --color-warning-lighter: var(--warning-lighter);
+
+  --color-error-dark: var(--error-dark);
+  --color-error-base: var(--error-base);
+  --color-error-light: var(--error-light);
+  --color-error-lighter: var(--error-lighter);
+
+  --color-success-dark: var(--success-dark);
+  --color-success-base: var(--success-base);
+  --color-success-light: var(--success-light);
+  --color-success-lighter: var(--success-lighter);
+
+  --color-away-dark: var(--away-dark);
+  --color-away-base: var(--away-base);
+  --color-away-light: var(--away-light);
+  --color-away-lighter: var(--away-lighter);
+
+  --color-feature-dark: var(--feature-dark);
+  --color-feature-base: var(--feature-base);
+  --color-feature-light: var(--feature-light);
+  --color-feature-lighter: var(--feature-lighter);
+
+  --color-verified-dark: var(--verified-dark);
+  --color-verified-base: var(--verified-base);
+  --color-verified-light: var(--verified-light);
+  --color-verified-lighter: var(--verified-lighter);
+
+  --color-highlighted-dark: var(--highlighted-dark);
+  --color-highlighted-base: var(--highlighted-base);
+  --color-highlighted-light: var(--highlighted-light);
+  --color-highlighted-lighter: var(--highlighted-lighter);
+
+  --color-stable-dark: var(--stable-dark);
+  --color-stable-base: var(--stable-base);
+  --color-stable-light: var(--stable-light);
+  --color-stable-lighter: var(--stable-lighter);
+
+  /* Special */
+  --color-overlay: var(--overlay);
+
+  /* ================================================================
+     Breakpoints
+     ================================================================ */
+  --breakpoint-xs: 30rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+
+  /* ================================================================
+     Animations
+     ================================================================ */
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-fade-out: fade-out 0.15s ease-in;
+  --animate-slide-in-from-top: slide-in-from-top 0.2s ease-out;
+  --animate-slide-in-from-bottom: slide-in-from-bottom 0.2s ease-out;
+  --animate-scale-in: scale-in 0.15s ease-out;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes slide-in-from-top {
+    from {
+      transform: translateY(-0.5rem);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slide-in-from-bottom {
+    from {
+      transform: translateY(0.5rem);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes scale-in {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+/* ===================================================================
+   Design Token Values — Light Mode Only
+   =================================================================== */
+
+@layer base {
+  :root {
+    /* ---- Gray (Slate-tinted) ---- */
+    --gray-0: #ffffff;
+    --gray-50: #f8f9fb;
+    --gray-100: #eef0f4;
+    --gray-200: #d5d9e2;
+    --gray-300: #b8bfcc;
+    --gray-400: #9ba3b3;
+    --gray-500: #717b8e;
+    --gray-600: #525c6e;
+    --gray-700: #3d4654;
+    --gray-800: #282f3d;
+    --gray-900: #161b26;
+    --gray-950: #0a0d14;
+    --gray-alpha-24: #0e121b3d;
+    --gray-alpha-16: #0e121b29;
+
+    /* ---- Blue ---- */
+    --blue-50: #eef4ff;
+    --blue-100: #d9e6ff;
+    --blue-200: #bbcfff;
+    --blue-300: #8badff;
+    --blue-400: #5481ff;
+    --blue-500: #335cff;
+    --blue-600: #1b40f5;
+    --blue-700: #132de1;
+    --blue-800: #1626b6;
+    --blue-900: #18258f;
+    --blue-950: #141957;
+
+    /* ---- Red ---- */
+    --red-50: #fef2f2;
+    --red-100: #fee2e2;
+    --red-200: #fecaca;
+    --red-300: #fca5a5;
+    --red-400: #f87171;
+    --red-500: #ef4444;
+    --red-600: #dc2626;
+    --red-700: #b91c1c;
+    --red-800: #991b1b;
+    --red-900: #7f1d1d;
+    --red-950: #450a0a;
+    --red-alpha-10: #ef44441a;
+    --red-alpha-24: #ef44443d;
+
+    /* ---- Green ---- */
+    --green-50: #f0fdf4;
+    --green-100: #dcfce7;
+    --green-200: #bbf7d0;
+    --green-300: #86efac;
+    --green-400: #4ade80;
+    --green-500: #22c55e;
+    --green-600: #16a34a;
+    --green-700: #15803d;
+    --green-800: #166534;
+    --green-900: #14532d;
+    --green-950: #052e16;
+
+    /* ---- Yellow ---- */
+    --yellow-50: #fefce8;
+    --yellow-100: #fef9c3;
+    --yellow-200: #fef08a;
+    --yellow-300: #fde047;
+    --yellow-400: #facc15;
+    --yellow-500: #eab308;
+    --yellow-600: #ca8a04;
+    --yellow-700: #a16207;
+    --yellow-800: #854d0e;
+    --yellow-900: #713f12;
+    --yellow-950: #422006;
+
+    /* ---- Orange ---- */
+    --orange-50: #fff7ed;
+    --orange-100: #ffedd5;
+    --orange-200: #fed7aa;
+    --orange-300: #fdba74;
+    --orange-400: #fb923c;
+    --orange-500: #f97316;
+    --orange-600: #ea580c;
+    --orange-700: #c2410c;
+    --orange-800: #9a3412;
+    --orange-900: #7c2d12;
+    --orange-950: #431407;
+
+    /* ---- Purple ---- */
+    --purple-50: #faf5ff;
+    --purple-100: #f3e8ff;
+    --purple-200: #e9d5ff;
+    --purple-300: #d8b4fe;
+    --purple-400: #c084fc;
+    --purple-500: #a855f7;
+    --purple-600: #9333ea;
+    --purple-700: #7e22ce;
+    --purple-800: #6b21a8;
+    --purple-900: #581c87;
+    --purple-950: #3b0764;
+
+    /* ---- Sky ---- */
+    --sky-50: #f0f9ff;
+    --sky-100: #e0f2fe;
+    --sky-200: #bae6fd;
+    --sky-300: #7dd3fc;
+    --sky-400: #38bdf8;
+    --sky-500: #0ea5e9;
+    --sky-600: #0284c7;
+    --sky-700: #0369a1;
+    --sky-800: #075985;
+    --sky-900: #0c4a6e;
+    --sky-950: #082f49;
+
+    /* ---- Pink ---- */
+    --pink-50: #fdf2f8;
+    --pink-100: #fce7f3;
+    --pink-200: #fbcfe8;
+    --pink-300: #f9a8d4;
+    --pink-400: #f472b6;
+    --pink-500: #ec4899;
+    --pink-600: #db2777;
+    --pink-700: #be185d;
+    --pink-800: #9d174d;
+    --pink-900: #831843;
+    --pink-950: #500724;
+
+    /* ---- Teal ---- */
+    --teal-50: #f0fdfa;
+    --teal-100: #ccfbf1;
+    --teal-200: #99f6e4;
+    --teal-300: #5eead4;
+    --teal-400: #2dd4bf;
+    --teal-500: #14b8a6;
+    --teal-600: #0d9488;
+    --teal-700: #0f766e;
+    --teal-800: #115e59;
+    --teal-900: #134e4a;
+    --teal-950: #042f2e;
+
+    /* ---- Neutral ---- */
+    --neutral-50: #fafafa;
+    --neutral-100: #f5f5f5;
+    --neutral-200: #e5e5e5;
+    --neutral-300: #d4d4d4;
+    --neutral-400: #a3a3a3;
+    --neutral-500: #737373;
+    --neutral-600: #525252;
+    --neutral-700: #404040;
+    --neutral-800: #262626;
+    --neutral-900: #171717;
+    --neutral-950: #0a0a0a;
+    --neutral-alpha-16: #0a0a0a29;
+    --neutral-alpha-24: #0a0a0a3d;
+
+    /* ---- Static ---- */
+    --static-black: #000000;
+    --static-white: #ffffff;
+
+    /* ---- Primary ---- */
+    --primary-base: var(--blue-500);
+    --primary-dark: var(--blue-950);
+    --primary-darker: var(--blue-900);
+    --primary-alpha-10: #335cff1a;
+    --primary-alpha-24: #335cff3d;
+
+    /* ---- Background Semantic ---- */
+    --bg-strong-950: var(--gray-950);
+    --bg-surface-800: var(--gray-800);
+    --bg-sub-300: var(--gray-300);
+    --bg-soft-200: var(--gray-200);
+    --bg-weak-50: var(--gray-50);
+    --bg-white-0: var(--gray-0);
+
+    /* ---- Text Semantic ---- */
+    --text-strong-950: var(--gray-950);
+    --text-sub-600: var(--gray-600);
+    --text-soft-400: var(--gray-400);
+    --text-disabled-300: var(--gray-300);
+    --text-white-0: var(--gray-0);
+
+    /* ---- Stroke Semantic ---- */
+    --stroke-strong-950: var(--gray-950);
+    --stroke-sub-300: var(--gray-300);
+    --stroke-soft-200: var(--gray-200);
+    --stroke-white-0: var(--gray-0);
+
+    /* ---- Status: Faded ---- */
+    --faded-dark: var(--gray-400);
+    --faded-base: var(--gray-300);
+    --faded-light: var(--gray-200);
+    --faded-lighter: var(--gray-100);
+
+    /* ---- Status: Information ---- */
+    --information-dark: var(--blue-700);
+    --information-base: var(--blue-500);
+    --information-light: var(--blue-300);
+    --information-lighter: var(--blue-100);
+
+    /* ---- Status: Warning ---- */
+    --warning-dark: var(--yellow-700);
+    --warning-base: var(--yellow-500);
+    --warning-light: var(--yellow-300);
+    --warning-lighter: var(--yellow-100);
+
+    /* ---- Status: Error ---- */
+    --error-dark: var(--red-600);
+    --error-base: var(--red-500);
+    --error-light: var(--red-300);
+    --error-lighter: var(--red-100);
+
+    /* ---- Status: Success ---- */
+    --success-dark: var(--green-600);
+    --success-base: var(--green-500);
+    --success-light: var(--green-300);
+    --success-lighter: var(--green-100);
+
+    /* ---- Status: Away ---- */
+    --away-dark: var(--yellow-700);
+    --away-base: var(--yellow-500);
+    --away-light: var(--yellow-300);
+    --away-lighter: var(--yellow-100);
+
+    /* ---- Status: Feature ---- */
+    --feature-dark: var(--purple-700);
+    --feature-base: var(--purple-500);
+    --feature-light: var(--purple-300);
+    --feature-lighter: var(--purple-100);
+
+    /* ---- Status: Verified ---- */
+    --verified-dark: var(--sky-700);
+    --verified-base: var(--sky-500);
+    --verified-light: var(--sky-300);
+    --verified-lighter: var(--sky-100);
+
+    /* ---- Status: Highlighted ---- */
+    --highlighted-dark: var(--orange-700);
+    --highlighted-base: var(--orange-500);
+    --highlighted-light: var(--orange-300);
+    --highlighted-lighter: var(--orange-100);
+
+    /* ---- Status: Stable ---- */
+    --stable-dark: var(--teal-700);
+    --stable-base: var(--teal-500);
+    --stable-light: var(--teal-300);
+    --stable-lighter: var(--teal-100);
+
+    /* ---- Overlay ---- */
+    --overlay: rgba(10, 13, 20, 0.4);
+  }
+}
+
+/* ===================================================================
+   Base Styles
+   =================================================================== */
+
+@layer base {
+  * {
+    @apply border-stroke-soft-200;
+  }
+
+  body {
+    @apply bg-bg-white-0 text-text-strong-950 font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ===================================================================
+   Remix Icon Scaling
+   =================================================================== */
+
+.remixicon path {
+  transform: scale(0.8996);
+  transform-origin: center;
+}
+
+/* ===================================================================
+   Prose / Typography Plugin Customization
+   =================================================================== */
+
+@layer utilities {
+  .prose-lms {
+    --tw-prose-body: var(--text-sub-600);
+    --tw-prose-headings: var(--text-strong-950);
+    --tw-prose-lead: var(--text-sub-600);
+    --tw-prose-links: var(--primary-base);
+    --tw-prose-bold: var(--text-strong-950);
+    --tw-prose-counters: var(--text-soft-400);
+    --tw-prose-bullets: var(--text-disabled-300);
+    --tw-prose-hr: var(--stroke-soft-200);
+    --tw-prose-quotes: var(--text-strong-950);
+    --tw-prose-quote-borders: var(--stroke-soft-200);
+    --tw-prose-captions: var(--text-soft-400);
+    --tw-prose-code: var(--text-strong-950);
+    --tw-prose-pre-code: var(--gray-200);
+    --tw-prose-pre-bg: var(--gray-900);
+    --tw-prose-th-borders: var(--stroke-sub-300);
+    --tw-prose-td-borders: var(--stroke-soft-200);
+  }
+}

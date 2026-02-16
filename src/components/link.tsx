@@ -6,9 +6,14 @@ import {
 // Need for leave page logic
 // eslint-disable-next-line no-restricted-imports
 import NextLink, { LinkProps } from "next/link";
-import { Ref, useContext } from "react";
+import { AnchorHTMLAttributes, Ref, useContext } from "react";
 
-function Link(props: LinkProps & { ref?: Ref<HTMLAnchorElement> }) {
+function Link(
+  props: LinkProps &
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> & {
+      ref?: Ref<HTMLAnchorElement>;
+    }
+) {
   const language = useLanguage();
   const { isLeavePage } = useContext(LeavePageContext);
   const { setLeavePage, openModal } = useContext(LeavePageActionsContext);

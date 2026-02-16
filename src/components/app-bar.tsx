@@ -1,286 +1,232 @@
 "use client";
 import { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+import { RiMenuLine, RiCloseLine } from "@remixicon/react";
 import useAuth from "@/services/auth/use-auth";
 import useAuthActions from "@/services/auth/use-auth-actions";
-import CircularProgress from "@mui/material/CircularProgress";
+import useTenant from "@/services/tenant/use-tenant";
 import { useTranslation } from "@/services/i18n/client";
 import Link from "@/components/link";
 import { RoleEnum } from "@/services/api/types/role";
-import Divider from "@mui/material/Divider";
-import ThemeSwitchButton from "@/components/switch-theme-button";
 import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Spinner } from "@/components/ui/spinner";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
+import TenantSelector from "@/components/tenant/tenant-selector";
+import BranchSelector from "@/components/tenant/branch-selector";
 
 function ResponsiveAppBar() {
   const { t } = useTranslation("common");
   const { user, isLoaded } = useAuth();
   const { logOut } = useAuthActions();
-  const [anchorElementNav, setAnchorElementNav] = useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElementUser, setAnchorElementUser] =
-    useState<null | HTMLElement>(null);
+  const { tenants, clearTenant } = useTenant();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElementNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElementUser(event.currentTarget);
-  };
+  const isAdmin =
+    !!user?.role && [RoleEnum.ADMIN].includes(Number(user?.role?.id));
 
-  const handleCloseNavMenu = () => {
-    setAnchorElementNav(null);
-  };
+  const hasTenants = tenants.length > 0;
 
-  const handleCloseUserMenu = () => {
-    setAnchorElementUser(null);
+  const handleLogOut = async () => {
+    clearTenant();
+    await logOut();
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {t("common:app-name")}
-          </Typography>
+    <header className="sticky top-0 z-40 w-full border-b border-stroke-soft-200 bg-primary-base text-static-white">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="hidden font-mono text-lg font-bold tracking-widest text-inherit no-underline md:flex"
+        >
+          {t("common:app-name")}
+        </Link>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElementNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElementNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              <MenuItem onClick={handleCloseNavMenu} component={Link} href="/">
-                <Typography textAlign="center">
-                  {t("common:navigation.home")}
-                </Typography>
-              </MenuItem>
-
-              {!!user?.role &&
-                [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && [
-                  <MenuItem
-                    key="users"
-                    onClick={handleCloseNavMenu}
-                    component={Link}
-                    href="/admin-panel/users"
-                  >
-                    <Typography textAlign="center">
-                      {t("common:navigation.users")}
-                    </Typography>
-                  </MenuItem>,
-                  // mobile-menu-items
-                ]}
-              {isLoaded &&
-                !user && [
-                  <Divider key="divider" />,
-                  <MenuItem
-                    key="sign-in"
-                    onClick={handleCloseNavMenu}
-                    component={Link}
-                    href="/sign-in"
-                  >
-                    <Typography textAlign="center">
-                      {t("common:navigation.signIn")}
-                    </Typography>
-                  </MenuItem>,
-                  IS_SIGN_UP_ENABLED ? (
-                    <MenuItem
-                      key="sign-up"
-                      onClick={handleCloseNavMenu}
-                      component={Link}
-                      href="/sign-up"
-                    >
-                      <Typography textAlign="center">
-                        {t("common:navigation.signUp")}
-                      </Typography>
-                    </MenuItem>
-                  ) : null,
-                ]}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
+        {/* Mobile hamburger */}
+        <div className="flex md:hidden">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation"
+            className="text-static-white hover:bg-primary-dark"
           >
-            {t("common:app-name")}
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {mobileMenuOpen ? (
+              <RiCloseLine className="h-6 w-6" />
+            ) : (
+              <RiMenuLine className="h-6 w-6" />
+            )}
+          </Button>
+        </div>
+
+        {/* Mobile logo (centered) */}
+        <Link
+          href="/"
+          className="flex flex-1 font-mono text-lg font-bold tracking-widest text-inherit no-underline md:hidden"
+        >
+          {t("common:app-name")}
+        </Link>
+
+        {/* Desktop nav links */}
+        <nav className="hidden flex-1 items-center gap-1 md:flex">
+          <Button
+            variant="ghost"
+            asChild
+            className="text-static-white hover:bg-primary-dark"
+          >
+            <Link href="/">{t("common:navigation.home")}</Link>
+          </Button>
+
+          {isAdmin && (
             <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              component={Link}
-              href="/"
+              variant="ghost"
+              asChild
+              className="text-static-white hover:bg-primary-dark"
             >
-              {t("common:navigation.home")}
+              <Link href="/admin-panel/users">
+                {t("common:navigation.users")}
+              </Link>
             </Button>
+          )}
+          {/* desktop-menu-items */}
+        </nav>
 
-            {!!user?.role &&
-              [RoleEnum.ADMIN].includes(Number(user?.role?.id)) && (
-                <>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
-                    component={Link}
-                    href="/admin-panel/users"
-                  >
-                    {t("common:navigation.users")}
-                  </Button>
-                  {/* desktop-menu-items */}
-                </>
-              )}
-          </Box>
+        {/* Tenant/Branch selectors (desktop) */}
+        {user && hasTenants && (
+          <div className="hidden items-center gap-1 md:flex">
+            <Separator
+              orientation="vertical"
+              className="mx-2 h-6 bg-static-white/30"
+            />
+            <TenantSelector compact />
+            <BranchSelector compact />
+          </div>
+        )}
 
-          <Box
-            sx={{
-              display: "flex",
-              mr: 1,
-            }}
-          >
-            <ThemeSwitchButton />
-          </Box>
-
+        {/* Right side: auth */}
+        <div className="flex items-center gap-2">
           {!isLoaded ? (
-            <CircularProgress color="inherit" />
+            <Spinner size="sm" className="text-static-white" />
           ) : user ? (
-            <>
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Profile menu">
-                  <IconButton
-                    onClick={handleOpenUserMenu}
-                    sx={{ p: 0 }}
-                    data-testid="profile-menu-item"
-                  >
-                    <Avatar
-                      alt={user?.firstName + " " + user?.lastName}
-                      src={user.photo?.path}
-                    />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: 5.5 }}
-                  id="menu-appbar"
-                  anchorEl={anchorElementUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElementUser)}
-                  onClose={handleCloseUserMenu}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className="rounded-full outline-none ring-primary-base focus-visible:ring-2"
+                  data-testid="profile-menu-item"
                 >
-                  <MenuItem
-                    onClick={handleCloseUserMenu}
-                    component={Link}
-                    href="/profile"
-                    data-testid="user-profile"
-                  >
-                    <Typography textAlign="center">
-                      {t("common:navigation.profile")}
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => {
-                      logOut();
-                      handleCloseUserMenu();
-                    }}
-                    data-testid="logout-menu-item"
-                  >
-                    <Typography textAlign="center">
-                      {t("common:navigation.logout")}
-                    </Typography>
-                  </MenuItem>
-                </Menu>
-              </Box>
-            </>
+                  <Avatar className="h-9 w-9">
+                    <AvatarImage
+                      src={user.photo?.path}
+                      alt={user?.firstName + " " + user?.lastName}
+                    />
+                    <AvatarFallback>
+                      {(user?.firstName?.[0] ?? "") +
+                        (user?.lastName?.[0] ?? "")}
+                    </AvatarFallback>
+                  </Avatar>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild data-testid="user-profile">
+                  <Link href="/profile">{t("common:navigation.profile")}</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleLogOut}
+                  data-testid="logout-menu-item"
+                >
+                  {t("common:navigation.logout")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
-            <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+            <div className="hidden items-center gap-1 md:flex">
               <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-                component={Link}
-                href="/sign-in"
+                variant="ghost"
+                asChild
+                className="text-static-white hover:bg-primary-dark"
               >
-                {t("common:navigation.signIn")}
+                <Link href="/sign-in">{t("common:navigation.signIn")}</Link>
               </Button>
               {IS_SIGN_UP_ENABLED && (
                 <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                  component={Link}
-                  href="/sign-up"
+                  variant="ghost"
+                  asChild
+                  className="text-static-white hover:bg-primary-dark"
                 >
-                  {t("common:navigation.signUp")}
+                  <Link href="/sign-up">{t("common:navigation.signUp")}</Link>
                 </Button>
               )}
-            </Box>
+            </div>
           )}
-        </Toolbar>
-      </Container>
-    </AppBar>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <nav className="border-t border-static-white/20 md:hidden">
+          <div className="space-y-1 px-4 py-3">
+            <Link
+              href="/"
+              className="block rounded-md px-3 py-2 text-sm font-medium text-static-white hover:bg-primary-dark"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {t("common:navigation.home")}
+            </Link>
+
+            {isAdmin && (
+              <Link
+                href="/admin-panel/users"
+                className="block rounded-md px-3 py-2 text-sm font-medium text-static-white hover:bg-primary-dark"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("common:navigation.users")}
+              </Link>
+            )}
+            {/* mobile-menu-items */}
+
+            {/* Tenant/Branch selectors (mobile) */}
+            {user && hasTenants && (
+              <>
+                <Separator className="my-2 bg-static-white/20" />
+                <div className="space-y-1">
+                  <TenantSelector />
+                  <BranchSelector />
+                </div>
+              </>
+            )}
+
+            {isLoaded && !user && (
+              <>
+                <Separator className="my-2 bg-static-white/20" />
+                <Link
+                  href="/sign-in"
+                  className="block rounded-md px-3 py-2 text-sm font-medium text-static-white hover:bg-primary-dark"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("common:navigation.signIn")}
+                </Link>
+                {IS_SIGN_UP_ENABLED && (
+                  <Link
+                    href="/sign-up"
+                    className="block rounded-md px-3 py-2 text-sm font-medium text-static-white hover:bg-primary-dark"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {t("common:navigation.signUp")}
+                  </Link>
+                )}
+              </>
+            )}
+          </div>
+        </nav>
+      )}
+    </header>
   );
 }
 export default ResponsiveAppBar;

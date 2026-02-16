@@ -1,25 +1,37 @@
-import { useGetUsersService } from "@/services/api/services/users";
-import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
-import { createQueryKeys } from "@/services/react-query/query-key-factory";
+import {
+  usersControllerFindAllV1,
+  getUsersControllerFindAllV1InfiniteQueryKey,
+} from "@/services/api/generated/endpoints/users/users";
+import type { UsersControllerFindAllV1Params } from "@/services/api/generated/models";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { UserFilterType, UserSortType } from "../user-filter-types";
 
-export const usersQueryKeys = createQueryKeys(["users"], {
-  list: () => ({
-    key: [],
-    sub: {
-      by: ({
-        sort,
-        filter,
-      }: {
-        filter: UserFilterType | undefined;
-        sort?: UserSortType | undefined;
-      }) => ({
-        key: [sort, filter],
-      }),
-    },
-  }),
-});
+function buildUsersParams(
+  filter?: UserFilterType,
+  sort?: UserSortType
+): UsersControllerFindAllV1Params {
+  return {
+    page: 1,
+    limit: 10,
+    filters: filter ? JSON.stringify({ roles: filter.roles }) : undefined,
+    sort: sort ? JSON.stringify([sort]) : undefined,
+  };
+}
+
+export function getUsersListQueryKey(
+  filter?: UserFilterType,
+  sort?: UserSortType
+) {
+  return getUsersControllerFindAllV1InfiniteQueryKey(
+    buildUsersParams(filter, sort)
+  );
+}
+
+/** Broad query key prefix — matches ALL user list queries regardless of params */
+export const usersListBaseQueryKey = [
+  "infinite",
+  getUsersControllerFindAllV1InfiniteQueryKey()[1],
+];
 
 export const useGetUsersQuery = ({
   sort,
@@ -28,30 +40,21 @@ export const useGetUsersQuery = ({
   filter?: UserFilterType | undefined;
   sort?: UserSortType | undefined;
 } = {}) => {
-  const fetch = useGetUsersService();
+  const params = buildUsersParams(filter, sort);
 
   const query = useInfiniteQuery({
-    queryKey: usersQueryKeys.list().sub.by({ sort, filter }).key,
+    queryKey: getUsersControllerFindAllV1InfiniteQueryKey(params),
     initialPageParam: 1,
     queryFn: async ({ pageParam, signal }) => {
-      const { status, data } = await fetch(
-        {
-          page: pageParam,
-          limit: 10,
-          filters: filter,
-          sort: sort ? [sort] : undefined,
-        },
-        {
-          signal,
-        }
+      const { data } = await usersControllerFindAllV1(
+        { ...params, page: pageParam },
+        { signal }
       );
 
-      if (status === HTTP_CODES_ENUM.OK) {
-        return {
-          data: data.data,
-          nextPage: data.hasNextPage ? pageParam + 1 : undefined,
-        };
-      }
+      return {
+        data: data.data,
+        nextPage: data.hasNextPage ? pageParam + 1 : undefined,
+      };
     },
     getNextPageParam: (lastPage) => {
       return lastPage?.nextPage;

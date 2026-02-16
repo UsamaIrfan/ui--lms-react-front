@@ -1,10 +1,7 @@
 "use client";
 
-import Button from "@mui/material/Button";
+import { Button } from "@/components/ui/button";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import FormTextInput from "@/components/form/text-input/form-text-input";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,10 +11,9 @@ import Link from "@/components/link";
 import FormAvatarInput from "@/components/form/avatar-input/form-avatar-input";
 import { FileEntity } from "@/services/api/types/file-entity";
 import useLeavePage from "@/services/leave-page/use-leave-page";
-import Box from "@mui/material/Box";
-import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
-import { usePostUserService } from "@/services/api/services/users";
+import { usersControllerCreateV1 } from "@/services/api/generated/endpoints/users/users";
+import { isValidationError } from "@/services/api/generated/custom-fetch";
 import { useRouter } from "next/navigation";
 import { Role, RoleEnum } from "@/services/api/types/role";
 import FormSelectInput from "@/components/form/select/form-select";
@@ -87,12 +83,7 @@ function CreateUserFormActions() {
   useLeavePage(isDirty);
 
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      type="submit"
-      disabled={isSubmitting}
-    >
+    <Button type="submit" disabled={isSubmitting}>
       {t("admin-panel-users-create:actions.submit")}
     </Button>
   );
@@ -100,7 +91,6 @@ function CreateUserFormActions() {
 
 function FormCreateUser() {
   const router = useRouter();
-  const fetchPostUser = usePostUserService();
   const { t } = useTranslation("admin-panel-users-create");
   const validationSchema = useValidationSchema();
 
@@ -124,52 +114,59 @@ function FormCreateUser() {
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
-    const { data, status } = await fetchPostUser(formData);
-    if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
-      (Object.keys(data.errors) as Array<keyof CreateFormData>).forEach(
-        (key) => {
-          setError(key, {
-            type: "manual",
-            message: t(
-              `admin-panel-users-create:inputs.${key}.validation.server.${data.errors[key]}`
-            ),
-          });
-        }
-      );
-      return;
-    }
-    if (status === HTTP_CODES_ENUM.CREATED) {
+    try {
+      await usersControllerCreateV1({
+        email: formData.email,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        photo: formData.photo ? { id: String(formData.photo.id) } : undefined,
+        role: { id: Number(formData.role.id) },
+      });
       enqueueSnackbar(t("admin-panel-users-create:alerts.user.success"), {
         variant: "success",
       });
       router.push("/admin-panel/users");
+    } catch (error) {
+      if (isValidationError(error)) {
+        (Object.keys(error.body.errors) as Array<keyof CreateFormData>).forEach(
+          (key) => {
+            setError(key, {
+              type: "manual",
+              message: t(
+                `admin-panel-users-create:inputs.${key}.validation.server.${error.body.errors[key]}`
+              ),
+            });
+          }
+        );
+      }
     }
   });
 
   return (
     <FormProvider {...methods}>
-      <Container maxWidth="xs">
+      <div className="mx-auto max-w-xs px-4">
         <form onSubmit={onSubmit} autoComplete="create-new-user">
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="h6">
+          <div className="my-6 grid gap-4">
+            <div>
+              <h6 className="text-lg font-semibold">
                 {t("admin-panel-users-create:title")}
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
+              </h6>
+            </div>
+            <div>
               <FormAvatarInput<CreateFormData> name="photo" testId="photo" />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<CreateFormData>
                 name="email"
                 testId="new-user-email"
                 autoComplete="new-user-email"
                 label={t("admin-panel-users-create:inputs.email.label")}
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<CreateFormData>
                 name="password"
                 type="password"
@@ -177,9 +174,9 @@ function FormCreateUser() {
                 autoComplete="new-user-password"
                 label={t("admin-panel-users-create:inputs.password.label")}
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<CreateFormData>
                 name="passwordConfirmation"
                 testId="new-user-password-confirmation"
@@ -188,25 +185,25 @@ function FormCreateUser() {
                 )}
                 type="password"
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<CreateFormData>
                 name="firstName"
                 testId="first-name"
                 label={t("admin-panel-users-create:inputs.firstName.label")}
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<CreateFormData>
                 name="lastName"
                 testId="last-name"
                 label={t("admin-panel-users-create:inputs.lastName.label")}
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormSelectInput<CreateFormData, Pick<Role, "id">>
                 name="role"
                 testId="role"
@@ -224,24 +221,19 @@ function FormCreateUser() {
                   t(`admin-panel-users-create:inputs.role.options.${option.id}`)
                 }
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div className="flex items-center gap-2">
               <CreateUserFormActions />
-              <Box ml={1} component="span">
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  LinkComponent={Link}
-                  href="/admin-panel/users"
-                >
+              <Button variant="secondary" asChild>
+                <Link href="/admin-panel/users">
                   {t("admin-panel-users-create:actions.cancel")}
-                </Button>
-              </Box>
-            </Grid>
-          </Grid>
+                </Link>
+              </Button>
+            </div>
+          </div>
         </form>
-      </Container>
+      </div>
     </FormProvider>
   );
 }

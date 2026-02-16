@@ -1,19 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-import { useAuthConfirmEmailService } from "@/services/api/services/auth";
+import { Spinner } from "@/components/ui/spinner";
+import { authControllerConfirmEmailV1 } from "@/services/api/generated/endpoints/auth/auth";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
 
 export default function ConfirmEmail() {
   const { enqueueSnackbar } = useSnackbar();
-  const fetchConfirmEmail = useAuthConfirmEmailService();
   const router = useRouter();
   const { t } = useTranslation("confirm-email");
 
@@ -23,16 +18,14 @@ export default function ConfirmEmail() {
       const hash = params.get("hash");
 
       if (hash) {
-        const { status } = await fetchConfirmEmail({
-          hash,
-        });
+        try {
+          await authControllerConfirmEmailV1({ hash });
 
-        if (status === HTTP_CODES_ENUM.NO_CONTENT) {
           enqueueSnackbar(t("confirm-email:emailConfirmed"), {
             variant: "success",
           });
           router.replace("/profile");
-        } else {
+        } catch {
           enqueueSnackbar(t("confirm-email:emailConfirmFailed"), {
             variant: "error",
           });
@@ -42,24 +35,13 @@ export default function ConfirmEmail() {
     };
 
     confirm();
-  }, [fetchConfirmEmail, router, enqueueSnackbar, t]);
+  }, [router, enqueueSnackbar, t]);
 
   return (
-    <Container maxWidth="sm">
-      <Grid container>
-        <Grid size={{ xs: 12 }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              p: 2,
-            }}
-          >
-            <CircularProgress />
-          </Box>
-        </Grid>
-      </Grid>
-    </Container>
+    <div className="mx-auto max-w-xl px-4">
+      <div className="flex items-center justify-center p-8">
+        <Spinner size="lg" />
+      </div>
+    </div>
   );
 }

@@ -3,51 +3,42 @@
 import { RoleEnum } from "@/services/api/types/role";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useTranslation } from "@/services/i18n/client";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+import { PropsWithChildren, useCallback, useMemo, useState } from "react";
 import {
-  PropsWithChildren,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { useGetUsersQuery, usersQueryKeys } from "./queries/queries";
+  useGetUsersQuery,
+  getUsersListQueryKey,
+  usersListBaseQueryKey,
+} from "./queries/queries";
 import { TableVirtuoso } from "react-virtuoso";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
-import Avatar from "@mui/material/Avatar";
-import LinearProgress from "@mui/material/LinearProgress";
-import { styled } from "@mui/material/styles";
-import TableComponents from "@/components/table/table-components";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Button from "@mui/material/Button";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Grow from "@mui/material/Grow";
-import Paper from "@mui/material/Paper";
-import Popper from "@mui/material/Popper";
-import MenuItem from "@mui/material/MenuItem";
-import MenuList from "@mui/material/MenuList";
+import { TableCell, TableRow, TableHead } from "@/components/ui/table";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Spinner } from "@/components/ui/spinner";
+import VirtuosoTableComponents from "@/components/table/table-components";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import {
+  RiArrowDownSLine,
+  RiArrowUpSLine,
+  RiArrowUpDownLine,
+} from "@remixicon/react";
 import { User } from "@/services/api/types/user";
 import Link from "@/components/link";
 import useAuth from "@/services/auth/use-auth";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
-import { useDeleteUsersService } from "@/services/api/services/users";
+import { usersControllerRemoveV1 } from "@/services/api/generated/endpoints/users/users";
 import removeDuplicatesFromArrayObjects from "@/services/helpers/remove-duplicates-from-array-of-objects";
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import UserFilter from "./user-filter";
 import { useRouter, useSearchParams } from "next/navigation";
-import TableSortLabel from "@mui/material/TableSortLabel";
 import { UserFilterType, UserSortType } from "./user-filter-types";
 import { SortEnum } from "@/services/api/types/sort-type";
 
 type UsersKeys = keyof User;
-
-const TableCellLoadingContainer = styled(TableCell)(() => ({
-  padding: 0,
-}));
 
 function TableSortCellWrapper(
   props: PropsWithChildren<{
@@ -62,45 +53,32 @@ function TableSortCellWrapper(
   }>
 ) {
   return (
-    <TableCell
-      style={{ width: props.width }}
-      sortDirection={props.orderBy === props.column ? props.order : false}
-    >
-      <TableSortLabel
-        active={props.orderBy === props.column}
-        direction={props.orderBy === props.column ? props.order : SortEnum.ASC}
+    <TableHead style={{ width: props.width }}>
+      <button
+        className="inline-flex items-center gap-1 font-medium hover:text-text-strong-950"
         onClick={(event) => props.handleRequestSort(event, props.column)}
       >
         {props.children}
-      </TableSortLabel>
-    </TableCell>
+        {props.orderBy === props.column ? (
+          props.order === SortEnum.ASC ? (
+            <RiArrowUpSLine className="h-4 w-4" />
+          ) : (
+            <RiArrowDownSLine className="h-4 w-4" />
+          )
+        ) : (
+          <RiArrowUpDownLine className="h-4 w-4 opacity-50" />
+        )}
+      </button>
+    </TableHead>
   );
 }
 
 function Actions({ user }: { user: User }) {
-  const [open, setOpen] = useState(false);
   const { user: authUser } = useAuth();
   const { confirmDialog } = useConfirmDialog();
-  const fetchUserDelete = useDeleteUsersService();
   const queryClient = useQueryClient();
-  const anchorRef = useRef<HTMLDivElement>(null);
   const canDelete = user.id !== authUser?.id;
   const { t: tUsers } = useTranslation("admin-panel-users");
-
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleClose = (event: Event) => {
-    if (
-      anchorRef.current &&
-      anchorRef.current.contains(event.target as HTMLElement)
-    ) {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   const handleDelete = async () => {
     const isConfirmed = await confirmDialog({
@@ -109,8 +87,6 @@ function Actions({ user }: { user: User }) {
     });
 
     if (isConfirmed) {
-      setOpen(false);
-
       const searchParams = new URLSearchParams(window.location.search);
       const searchParamsFilter = searchParams.get("filter");
       const searchParamsSort = searchParams.get("sort");
@@ -129,11 +105,13 @@ function Actions({ user }: { user: User }) {
         sort = JSON.parse(searchParamsSort);
       }
 
-      const previousData = queryClient.getQueryData<
-        InfiniteData<{ nextPage: number; data: User[] }>
-      >(usersQueryKeys.list().sub.by({ sort, filter }).key);
+      const queryKey = getUsersListQueryKey(filter, sort);
+      const previousData =
+        queryClient.getQueryData<
+          InfiniteData<{ nextPage: number; data: User[] }>
+        >(queryKey);
 
-      await queryClient.cancelQueries({ queryKey: usersQueryKeys.list().key });
+      await queryClient.cancelQueries({ queryKey: usersListBaseQueryKey });
 
       const newData = {
         ...previousData,
@@ -143,95 +121,42 @@ function Actions({ user }: { user: User }) {
         })),
       };
 
-      queryClient.setQueryData(
-        usersQueryKeys.list().sub.by({ sort, filter }).key,
-        newData
-      );
+      queryClient.setQueryData(queryKey, newData);
 
-      await fetchUserDelete({
-        id: user.id,
-      });
+      await usersControllerRemoveV1(String(user.id));
     }
   };
 
-  const mainButton = (
-    <Button
-      size="small"
-      variant="contained"
-      LinkComponent={Link}
-      href={`/admin-panel/users/edit/${user.id}`}
-    >
-      {tUsers("admin-panel-users:actions.edit")}
-    </Button>
-  );
-
   return (
-    <>
-      {[!canDelete].every(Boolean) ? (
-        mainButton
-      ) : (
-        <ButtonGroup
-          variant="contained"
-          ref={anchorRef}
-          aria-label="split button"
-          size="small"
-        >
-          {mainButton}
-
-          <Button
-            size="small"
-            aria-controls={open ? "split-button-menu" : undefined}
-            aria-expanded={open ? "true" : undefined}
-            aria-label="select merge strategy"
-            aria-haspopup="menu"
-            onClick={handleToggle}
-          >
-            <ArrowDropDownIcon />
-          </Button>
-        </ButtonGroup>
+    <div className="flex items-center gap-1">
+      <Button size="sm" asChild>
+        <Link href={`/admin-panel/users/edit/${user.id}`}>
+          {tUsers("admin-panel-users:actions.edit")}
+        </Link>
+      </Button>
+      {canDelete && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              size="sm"
+              variant="outline"
+              className="px-1"
+              aria-label="select merge strategy"
+            >
+              <RiArrowDownSLine className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              className="bg-error-base text-static-white focus:bg-error-base/90 cursor-pointer"
+              onClick={handleDelete}
+            >
+              {tUsers("admin-panel-users:actions.delete")}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )}
-      <Popper
-        sx={{
-          zIndex: 1,
-        }}
-        open={open}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        transition
-        disablePortal
-      >
-        {({ TransitionProps, placement }) => (
-          <Grow
-            {...TransitionProps}
-            style={{
-              transformOrigin:
-                placement === "bottom" ? "center top" : "center bottom",
-            }}
-          >
-            <Paper>
-              <ClickAwayListener onClickAway={handleClose}>
-                <MenuList id="split-button-menu" autoFocusItem>
-                  {canDelete && (
-                    <MenuItem
-                      sx={{
-                        bgcolor: "error.main",
-                        color: `var(--mui-palette-common-white)`,
-                        "&:hover": {
-                          bgcolor: "error.light",
-                        },
-                      }}
-                      onClick={handleDelete}
-                    >
-                      {tUsers("admin-panel-users:actions.delete")}
-                    </MenuItem>
-                  )}
-                </MenuList>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>
-    </>
+    </div>
   );
 }
 
@@ -289,42 +214,37 @@ function Users() {
 
   const result = useMemo(() => {
     const result =
-      (data?.pages.flatMap((page) => page?.data) as User[]) ?? ([] as User[]);
+      (data?.pages.flatMap((page) => page?.data) as unknown as User[]) ??
+      ([] as User[]);
 
     return removeDuplicatesFromArrayObjects(result, "id");
   }, [data]);
 
   return (
-    <Container maxWidth="xl">
-      <Grid container spacing={3} pt={3}>
-        <Grid container spacing={3} size={{ xs: 12 }}>
-          <Grid size="grow">
-            <Typography variant="h3">
-              {tUsers("admin-panel-users:title")}
-            </Typography>
-          </Grid>
-          <Grid container size="auto" wrap="nowrap" spacing={2}>
-            <Grid size="auto">
-              <UserFilter />
-            </Grid>
-            <Grid size="auto">
-              <Button
-                variant="contained"
-                LinkComponent={Link}
-                href="/admin-panel/users/create"
-                color="success"
-              >
+    <div className="mx-auto max-w-7xl px-4">
+      <div className="grid gap-6 pt-6">
+        <div className="flex items-center justify-between gap-4">
+          <h3 className="text-3xl font-bold tracking-tight">
+            {tUsers("admin-panel-users:title")}
+          </h3>
+          <div className="flex items-center gap-2">
+            <UserFilter />
+            <Button
+              asChild
+              className="bg-green-600 hover:bg-green-700 text-white"
+            >
+              <Link href="/admin-panel/users/create">
                 {tUsers("admin-panel-users:actions.create")}
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
+              </Link>
+            </Button>
+          </div>
+        </div>
 
-        <Grid size={{ xs: 12 }} mb={2}>
+        <div className="mb-4">
           <TableVirtuoso
             style={{ height: 500 }}
             data={result}
-            components={TableComponents}
+            components={VirtuosoTableComponents}
             endReached={handleScroll}
             overscan={20}
             useWindowScroll
@@ -332,7 +252,7 @@ function Users() {
             fixedHeaderContent={() => (
               <>
                 <TableRow>
-                  <TableCell style={{ width: 50 }}></TableCell>
+                  <TableHead style={{ width: 50 }}></TableHead>
                   <TableSortCellWrapper
                     width={100}
                     orderBy={orderBy}
@@ -342,9 +262,9 @@ function Users() {
                   >
                     {tUsers("admin-panel-users:table.column1")}
                   </TableSortCellWrapper>
-                  <TableCell style={{ width: 200 }}>
+                  <TableHead style={{ width: 200 }}>
                     {tUsers("admin-panel-users:table.column2")}
-                  </TableCell>
+                  </TableHead>
                   <TableSortCellWrapper
                     orderBy={orderBy}
                     order={order}
@@ -354,16 +274,16 @@ function Users() {
                     {tUsers("admin-panel-users:table.column3")}
                   </TableSortCellWrapper>
 
-                  <TableCell style={{ width: 80 }}>
+                  <TableHead style={{ width: 80 }}>
                     {tUsers("admin-panel-users:table.column4")}
-                  </TableCell>
-                  <TableCell style={{ width: 130 }}></TableCell>
+                  </TableHead>
+                  <TableHead style={{ width: 130 }}></TableHead>
                 </TableRow>
                 {isFetchingNextPage && (
                   <TableRow>
-                    <TableCellLoadingContainer colSpan={6}>
-                      <LinearProgress />
-                    </TableCellLoadingContainer>
+                    <TableCell colSpan={6} className="p-0">
+                      <Spinner size="sm" />
+                    </TableCell>
                   </TableRow>
                 )}
               </>
@@ -371,10 +291,16 @@ function Users() {
             itemContent={(index, user) => (
               <>
                 <TableCell style={{ width: 50 }}>
-                  <Avatar
-                    alt={user?.firstName + " " + user?.lastName}
-                    src={user?.photo?.path}
-                  />
+                  <Avatar>
+                    <AvatarImage
+                      alt={user?.firstName + " " + user?.lastName}
+                      src={user?.photo?.path}
+                    />
+                    <AvatarFallback>
+                      {user?.firstName?.[0]}
+                      {user?.lastName?.[0]}
+                    </AvatarFallback>
+                  </Avatar>
                 </TableCell>
                 <TableCell style={{ width: 100 }}>{user?.id}</TableCell>
                 <TableCell style={{ width: 200 }}>
@@ -390,9 +316,9 @@ function Users() {
               </>
             )}
           />
-        </Grid>
-      </Grid>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 }
 

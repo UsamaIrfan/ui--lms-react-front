@@ -1,10 +1,7 @@
 "use client";
 
-import Button from "@mui/material/Button";
+import { Button } from "@/components/ui/button";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import FormTextInput from "@/components/form/text-input/form-text-input";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,13 +12,12 @@ import Link from "@/components/link";
 import FormAvatarInput from "@/components/form/avatar-input/form-avatar-input";
 import { FileEntity } from "@/services/api/types/file-entity";
 import useLeavePage from "@/services/leave-page/use-leave-page";
-import Box from "@mui/material/Box";
-import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
 import {
-  useGetUserService,
-  usePatchUserService,
-} from "@/services/api/services/users";
+  usersControllerFindOneV1,
+  usersControllerUpdateV1,
+} from "@/services/api/generated/endpoints/users/users";
+import { isValidationError } from "@/services/api/generated/custom-fetch";
 import { useParams } from "next/navigation";
 import { Role, RoleEnum } from "@/services/api/types/role";
 import FormSelectInput from "@/components/form/select/form-select";
@@ -99,12 +95,7 @@ function EditUserFormActions() {
   useLeavePage(isDirty);
 
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      type="submit"
-      disabled={isSubmitting}
-    >
+    <Button type="submit" disabled={isSubmitting}>
       {t("admin-panel-users-edit:actions.submit")}
     </Button>
   );
@@ -116,12 +107,7 @@ function ChangePasswordUserFormActions() {
   useLeavePage(isDirty);
 
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      type="submit"
-      disabled={isSubmitting}
-    >
+    <Button type="submit" disabled={isSubmitting}>
       {t("admin-panel-users-edit:actions.submit")}
     </Button>
   );
@@ -130,8 +116,6 @@ function ChangePasswordUserFormActions() {
 function FormEditUser() {
   const params = useParams<{ id: string }>();
   const userId = params.id;
-  const fetchGetUser = useGetUserService();
-  const fetchPatchUser = usePatchUserService();
   const { t } = useTranslation("admin-panel-users-edit");
   const validationSchema = useValidationEditUserSchema();
   const { enqueueSnackbar } = useSnackbar();
@@ -151,93 +135,90 @@ function FormEditUser() {
 
   const onSubmit = handleSubmit(async (formData) => {
     const isEmailDirty = methods.getFieldState("email").isDirty;
-    const { data, status } = await fetchPatchUser({
-      id: userId,
-      data: {
+    try {
+      await usersControllerUpdateV1(userId, {
         ...formData,
         email: isEmailDirty ? formData.email : undefined,
-      },
-    });
-    if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
-      (Object.keys(data.errors) as Array<keyof EditUserFormData>).forEach(
-        (key) => {
-          setError(key, {
-            type: "manual",
-            message: t(
-              `admin-panel-users-edit:inputs.${key}.validation.server.${data.errors[key]}`
-            ),
-          });
-        }
-      );
-      return;
-    }
-    if (status === HTTP_CODES_ENUM.OK) {
+        photo: formData.photo ? { id: String(formData.photo.id) } : undefined,
+        role: formData.role ? { id: Number(formData.role.id) } : undefined,
+      });
       reset(formData);
       enqueueSnackbar(t("admin-panel-users-edit:alerts.user.success"), {
         variant: "success",
       });
+    } catch (error) {
+      if (isValidationError(error)) {
+        (
+          Object.keys(error.body.errors) as Array<keyof EditUserFormData>
+        ).forEach((key) => {
+          setError(key, {
+            type: "manual",
+            message: t(
+              `admin-panel-users-edit:inputs.${key}.validation.server.${error.body.errors[key]}`
+            ),
+          });
+        });
+      }
     }
   });
 
   useEffect(() => {
     const getInitialDataForEdit = async () => {
-      const { status, data: user } = await fetchGetUser({ id: userId });
+      const { data: user } = await usersControllerFindOneV1(userId);
 
-      if (status === HTTP_CODES_ENUM.OK) {
-        reset({
-          email: user?.email ?? "",
-          firstName: user?.firstName ?? "",
-          lastName: user?.lastName ?? "",
-          role: {
-            id: Number(user?.role?.id),
-          },
-          photo: user?.photo,
-        });
-      }
+      reset({
+        email: user?.email ?? "",
+        firstName: user?.firstName ?? "",
+        lastName: user?.lastName ?? "",
+        role: {
+          id: Number(user?.role?.id),
+        },
+        photo: user?.photo,
+      });
     };
 
     getInitialDataForEdit();
-  }, [userId, reset, fetchGetUser]);
+  }, [userId, reset]);
 
   return (
     <FormProvider {...methods}>
-      <Container maxWidth="xs">
+      <div className="mx-auto max-w-xs px-4">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="h6">
+          <div className="my-6 grid gap-4">
+            <div>
+              <h6 className="text-lg font-semibold">
                 {t("admin-panel-users-edit:title1")}
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
+              </h6>
+            </div>
+            <div>
               <FormAvatarInput<EditUserFormData> name="photo" testId="photo" />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<EditUserFormData>
                 name="email"
                 testId="email"
                 label={t("admin-panel-users-edit:inputs.email.label")}
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<EditUserFormData>
                 name="firstName"
                 testId="first-name"
                 label={t("admin-panel-users-edit:inputs.firstName.label")}
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<EditUserFormData>
                 name="lastName"
                 testId="last-name"
                 label={t("admin-panel-users-edit:inputs.lastName.label")}
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormSelectInput<EditUserFormData, Pick<Role, "id">>
                 name="role"
                 testId="role"
@@ -255,24 +236,19 @@ function FormEditUser() {
                   t(`admin-panel-users-edit:inputs.role.options.${option.id}`)
                 }
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div className="flex items-center gap-2">
               <EditUserFormActions />
-              <Box ml={1} component="span">
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  LinkComponent={Link}
-                  href="/admin-panel/users"
-                >
+              <Button variant="secondary" asChild>
+                <Link href="/admin-panel/users">
                   {t("admin-panel-users-edit:actions.cancel")}
-                </Button>
-              </Box>
-            </Grid>
-          </Grid>
+                </Link>
+              </Button>
+            </div>
+          </div>
         </form>
-      </Container>
+      </div>
     </FormProvider>
   );
 }
@@ -280,7 +256,6 @@ function FormEditUser() {
 function FormChangePasswordUser() {
   const params = useParams<{ id: string }>();
   const userId = params.id;
-  const fetchPatchUser = usePatchUserService();
   const { t } = useTranslation("admin-panel-users-edit");
   const validationSchema = useValidationChangePasswordSchema();
   const { enqueueSnackbar } = useSnackbar();
@@ -296,51 +271,52 @@ function FormChangePasswordUser() {
   const { handleSubmit, setError, reset } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
-    const { data, status } = await fetchPatchUser({
-      id: userId,
-      data: formData,
-    });
-    if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
-      (
-        Object.keys(data.errors) as Array<keyof ChangeUserPasswordFormData>
-      ).forEach((key) => {
-        setError(key, {
-          type: "manual",
-          message: t(
-            `admin-panel-users-edit:inputs.${key}.validation.server.${data.errors[key]}`
-          ),
-        });
+    try {
+      await usersControllerUpdateV1(userId, {
+        password: formData.password,
       });
-      return;
-    }
-    if (status === HTTP_CODES_ENUM.OK) {
       reset();
       enqueueSnackbar(t("admin-panel-users-edit:alerts.password.success"), {
         variant: "success",
       });
+    } catch (error) {
+      if (isValidationError(error)) {
+        (
+          Object.keys(error.body.errors) as Array<
+            keyof ChangeUserPasswordFormData
+          >
+        ).forEach((key) => {
+          setError(key, {
+            type: "manual",
+            message: t(
+              `admin-panel-users-edit:inputs.${key}.validation.server.${error.body.errors[key]}`
+            ),
+          });
+        });
+      }
     }
   });
 
   return (
     <FormProvider {...methods}>
-      <Container maxWidth="xs">
+      <div className="mx-auto max-w-xs px-4">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="h6">
+          <div className="my-6 grid gap-4">
+            <div>
+              <h6 className="text-lg font-semibold">
                 {t("admin-panel-users-edit:title2")}
-              </Typography>
-            </Grid>
+              </h6>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<ChangeUserPasswordFormData>
                 name="password"
                 type="password"
                 label={t("admin-panel-users-edit:inputs.password.label")}
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<ChangeUserPasswordFormData>
                 name="passwordConfirmation"
                 label={t(
@@ -348,24 +324,19 @@ function FormChangePasswordUser() {
                 )}
                 type="password"
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div className="flex items-center gap-2">
               <ChangePasswordUserFormActions />
-              <Box ml={1} component="span">
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  LinkComponent={Link}
-                  href="/admin-panel/users"
-                >
+              <Button variant="secondary" asChild>
+                <Link href="/admin-panel/users">
                   {t("admin-panel-users-edit:actions.cancel")}
-                </Button>
-              </Box>
-            </Grid>
-          </Grid>
+                </Link>
+              </Button>
+            </div>
+          </div>
         </form>
-      </Container>
+      </div>
     </FormProvider>
   );
 }

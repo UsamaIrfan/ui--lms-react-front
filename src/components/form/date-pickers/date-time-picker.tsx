@@ -1,25 +1,21 @@
 import * as React from "react";
 import {
-  DateTimePicker,
-  DateOrTimeView,
-  LocalizationProvider,
-} from "@mui/x-date-pickers";
-import {
   Controller,
   ControllerProps,
   FieldPath,
   FieldValues,
 } from "react-hook-form";
 import { Ref } from "react";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import useLanguage from "@/services/i18n/use-language";
-import { getValueByKey } from "@/components/form/date-pickers/helper";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 type ValueDateType = Date | null | undefined;
 export type DateTimePickerFieldProps = {
   disabled?: boolean;
   className?: string;
-  views?: readonly DateOrTimeView[];
+  views?: readonly string[];
   minDate?: Date;
   maxDate?: Date;
   autoFocus?: boolean;
@@ -39,39 +35,46 @@ function DateTimePickerInput(
     ref?: Ref<HTMLDivElement | null>;
   }
 ) {
-  const language = useLanguage();
+  const stringValue = props.value
+    ? format(props.value, "yyyy-MM-dd'T'HH:mm")
+    : "";
 
   return (
-    <LocalizationProvider
-      dateAdapter={AdapterDateFns}
-      adapterLocale={getValueByKey(language)}
-    >
-      <DateTimePicker
-        ref={props.ref}
+    <div ref={props.ref} className="space-y-2">
+      <Label
+        htmlFor={props.name}
+        className={cn(props.error && "text-error-base")}
+      >
+        {props.label}
+      </Label>
+      <Input
+        id={props.name}
         name={props.name}
-        label={props.label}
-        value={props.value}
-        onClose={props.onBlur}
-        disabled={props.disabled}
-        autoFocus={props.autoFocus}
-        defaultValue={props.defaultValue}
-        readOnly={props.readOnly}
-        slotProps={{
-          textField: {
-            helperText: props.error,
-            error: !!props.error,
-            InputProps: {
-              readOnly: props.readOnly,
-            },
-          },
+        type="datetime-local"
+        value={stringValue}
+        onChange={(e) => {
+          const date = e.target.value ? new Date(e.target.value) : null;
+          props.onChange(date);
         }}
-        onChange={props.onChange}
-        minDate={props.minDate}
-        maxDate={props.maxDate}
-        views={props.views}
+        onBlur={props.onBlur}
+        disabled={props.disabled}
+        readOnly={props.readOnly}
+        autoFocus={props.autoFocus}
+        min={
+          props.minDate
+            ? format(props.minDate, "yyyy-MM-dd'T'HH:mm")
+            : undefined
+        }
+        max={
+          props.maxDate
+            ? format(props.maxDate, "yyyy-MM-dd'T'HH:mm")
+            : undefined
+        }
         data-testid={props.testId}
+        className={cn(props.error && "border-destructive")}
       />
-    </LocalizationProvider>
+      {props.error && <p className="text-sm text-error-base">{props.error}</p>}
+    </div>
   );
 }
 

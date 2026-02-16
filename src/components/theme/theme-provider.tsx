@@ -1,29 +1,10 @@
 "use client";
 
-import {
-  createTheme,
-  ThemeProvider as MuiThemeProvider,
-} from "@mui/material/styles";
-import { useMemo, PropsWithChildren } from "react";
-import StyledJsxRegistry from "./registry";
+import { PropsWithChildren } from "react";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 function ThemeProvider(props: PropsWithChildren) {
-  const theme = useMemo(
-    () =>
-      createTheme({
-        cssVariables: {
-          colorSchemeSelector: "class",
-        },
-        colorSchemes: { light: true, dark: true },
-      }),
-    []
-  );
-
-  return (
-    <StyledJsxRegistry>
-      <MuiThemeProvider theme={theme}>{props.children}</MuiThemeProvider>
-    </StyledJsxRegistry>
-  );
+  return <TooltipProvider>{props.children}</TooltipProvider>;
 }
 
 export default ThemeProvider;

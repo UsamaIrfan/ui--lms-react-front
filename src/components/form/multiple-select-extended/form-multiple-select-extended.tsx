@@ -1,12 +1,5 @@
 "use client";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import TextField from "@mui/material/TextField";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import React, { Ref, useState, useRef, useEffect } from "react";
+import React, { Ref, useState, useRef, useEffect, useCallback } from "react";
 import {
   Controller,
   ControllerProps,
@@ -14,8 +7,9 @@ import {
   FieldValues,
 } from "react-hook-form";
 import { ItemProps, ListProps, Virtuoso } from "react-virtuoso";
-import ListItemText from "@mui/material/ListItemText";
-import Box from "@mui/material/Box";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 export type MultipleSelectExtendedInputProps<T extends object> = {
   label: string;
@@ -40,28 +34,24 @@ export type MultipleSelectExtendedInputProps<T extends object> = {
     }
 );
 
-const MUIComponents = {
-  List: function MuiList({
+const VirtuosoComponents = {
+  List: function VirtuosoList({
     style,
     children,
     ref,
   }: ListProps & { ref?: Ref<HTMLDivElement> }) {
     return (
-      <List
-        style={{ padding: 0, ...style, margin: 0 }}
-        component="div"
-        ref={ref}
-      >
+      <div style={{ padding: 0, ...style, margin: 0 }} role="listbox" ref={ref}>
         {children}
-      </List>
+      </div>
     );
   },
 
   Item: ({ children, ...props }: ItemProps<unknown>) => {
     return (
-      <ListItem component="div" {...props} style={{ margin: 0 }} disablePadding>
+      <div {...props} style={{ margin: 0 }}>
         {children}
-      </ListItem>
+      </div>
     );
   },
 };
@@ -76,9 +66,24 @@ function MultipleSelectExtendedInput<T extends object>(
   }
 ) {
   const [isOpen, setIsOpen] = useState(false);
-  const boxRef = useRef<HTMLInputElement | null>(null);
+  const boxRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const valueKeys = props.value?.map(props.keyExtractor) ?? [];
+
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (
+      containerRef.current &&
+      !containerRef.current.contains(e.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [handleClickOutside]);
 
   useEffect(() => {
     if (isOpen) {
@@ -87,99 +92,97 @@ function MultipleSelectExtendedInput<T extends object>(
   }, [isOpen]);
 
   return (
-    <ClickAwayListener onClickAway={() => setIsOpen(false)}>
-      <div>
-        <Box mb={0.5} ref={boxRef}>
-          <TextField
-            ref={props.ref}
+    <div ref={containerRef}>
+      <div className="mb-1 space-y-2" ref={boxRef}>
+        <Label
+          htmlFor={props.name}
+          className={cn(props.error && "text-error-base")}
+        >
+          {props.label}
+        </Label>
+        <div
+          ref={props.ref as Ref<HTMLDivElement>}
+          onClick={() => {
+            if (props.disabled) return;
+            setIsOpen((prev) => !prev);
+          }}
+          className="cursor-pointer"
+        >
+          <Input
             name={props.name}
-            value={props.value ? props.renderSelected(props.value) : ""}
+            value={props.value ? String(props.renderSelected(props.value)) : ""}
             onBlur={props.onBlur}
-            label={props.label}
-            variant="outlined"
-            onClick={() => {
-              if (props.disabled) return;
-
-              setIsOpen((prev) => !prev);
-            }}
-            fullWidth
-            error={!!props.error}
-            data-testid={props.testId}
-            helperText={props.error}
+            readOnly
             disabled={props.disabled}
-            slotProps={{
-              input: {
-                readOnly: true,
-              },
-              formHelperText: {
-                ["data-testid" as string]: `${props.testId}-error`,
-              },
-            }}
+            data-testid={props.testId}
+            className={cn(
+              "cursor-pointer",
+              props.error && "border-destructive"
+            )}
           />
-        </Box>
-
-        {isOpen && (
-          <Card>
-            <CardContent
-              sx={{
-                p: 0,
-                "&:last-child": {
-                  pb: 0,
-                },
-              }}
-            >
-              {props.isSearchable && (
-                <Box p={2}>
-                  <TextField
-                    placeholder={props.searchPlaceholder}
-                    value={props.search}
-                    onChange={(e) => props.onSearchChange?.(e.target.value)}
-                    label={props.searchLabel}
-                    variant="outlined"
-                    autoFocus
-                    fullWidth
-                    data-testid={`${props.testId}-search`}
-                  />
-                </Box>
-              )}
-
-              <Virtuoso
-                style={{
-                  height:
-                    props.options.length <= 6 ? props.options.length * 48 : 320,
-                }}
-                data={props.options}
-                endReached={props.onEndReached}
-                components={MUIComponents}
-                itemContent={(index, item) => (
-                  <ListItemButton
-                    selected={valueKeys.includes(props.keyExtractor(item))}
-                    onClick={() => {
-                      const newValue = props.value
-                        ? valueKeys.includes(props.keyExtractor(item))
-                          ? props.value.filter(
-                              (selectedItem) =>
-                                props.keyExtractor(selectedItem) !==
-                                props.keyExtractor(item)
-                            )
-                          : [...props.value, item]
-                        : [item];
-                      props.onChange(newValue);
-                    }}
-                  >
-                    {item ? (
-                      <ListItemText primary={props.renderOption(item)} />
-                    ) : (
-                      <></>
-                    )}
-                  </ListItemButton>
-                )}
-              />
-            </CardContent>
-          </Card>
+        </div>
+        {!!props.error && (
+          <p
+            className="text-sm text-error-base"
+            data-testid={`${props.testId}-error`}
+          >
+            {props.error}
+          </p>
         )}
       </div>
-    </ClickAwayListener>
+
+      {isOpen && (
+        <div className="rounded-md border bg-bg-white-0 shadow-md">
+          <div className="p-0">
+            {props.isSearchable && (
+              <div className="p-3">
+                <Input
+                  placeholder={props.searchPlaceholder}
+                  value={props.search}
+                  onChange={(e) => props.onSearchChange?.(e.target.value)}
+                  autoFocus
+                  data-testid={`${props.testId}-search`}
+                />
+              </div>
+            )}
+
+            <Virtuoso
+              style={{
+                height:
+                  props.options.length <= 6 ? props.options.length * 48 : 320,
+              }}
+              data={props.options}
+              endReached={props.onEndReached}
+              components={VirtuosoComponents}
+              itemContent={(index, item) => (
+                <button
+                  type="button"
+                  className={cn(
+                    "w-full px-3 py-2 text-left text-sm hover:bg-bg-weak-50 hover:text-text-strong-950",
+                    valueKeys.includes(props.keyExtractor(item)) &&
+                      "bg-bg-weak-50 text-text-strong-950"
+                  )}
+                  onClick={() => {
+                    const newValue = props.value
+                      ? valueKeys.includes(props.keyExtractor(item))
+                        ? props.value.filter(
+                            (selectedItem) =>
+                              props.keyExtractor(selectedItem) !==
+                              props.keyExtractor(item)
+                          )
+                        : [...props.value, item]
+                      : [item];
+                    props.onChange(newValue);
+                  }}
+                >
+                  {item ? props.renderOption(item) : null}
+                </button>
+              )}
+            />
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 

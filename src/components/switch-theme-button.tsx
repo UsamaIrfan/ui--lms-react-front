@@ -1,25 +1,25 @@
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import IconButton from "@mui/material/IconButton";
-import { useColorScheme } from "@mui/material/styles";
+"use client";
+
+import { useTheme } from "next-themes";
+import { RiMoonLine, RiSunLine } from "@remixicon/react";
+import { Button } from "@/components/ui/button";
 
 const ThemeSwitchButton = () => {
-  const { colorScheme, setMode } = useColorScheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   return (
-    <IconButton
-      disableRipple
-      onClick={() => {
-        setMode(colorScheme === "light" ? "dark" : "light");
-      }}
-      color="inherit"
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      aria-label="Toggle theme"
     >
-      {colorScheme === "dark" ? (
-        <Brightness7Icon sx={{ width: 35, height: 35 }} />
+      {resolvedTheme === "dark" ? (
+        <RiSunLine className="h-[1.4rem] w-[1.4rem]" />
       ) : (
-        <Brightness4Icon sx={{ width: 35, height: 35 }} />
+        <RiMoonLine className="h-[1.4rem] w-[1.4rem]" />
       )}
-    </IconButton>
+    </Button>
   );
 };
 

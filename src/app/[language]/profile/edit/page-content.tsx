@@ -1,11 +1,9 @@
 "use client";
-import Button from "@mui/material/Button";
+import { Button } from "@/components/ui/button";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
-import { useAuthPatchMeService } from "@/services/api/services/auth";
+import { authControllerUpdateV1 } from "@/services/api/generated/endpoints/auth/auth";
+import { isValidationError } from "@/services/api/generated/custom-fetch";
 import useAuthActions from "@/services/auth/use-auth-actions";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import FormTextInput from "@/components/form/text-input/form-text-input";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,10 +15,8 @@ import Link from "@/components/link";
 import FormAvatarInput from "@/components/form/avatar-input/form-avatar-input";
 import { FileEntity } from "@/services/api/types/file-entity";
 import useLeavePage from "@/services/leave-page/use-leave-page";
-import Box from "@mui/material/Box";
-import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
-import { UserProviderEnum } from "@/services/api/types/user";
+import { User, UserProviderEnum } from "@/services/api/types/user";
 
 type EditProfileBasicInfoFormData = {
   firstName: string;
@@ -103,13 +99,7 @@ function BasicInfoFormActions() {
   useLeavePage(isDirty);
 
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      type="submit"
-      disabled={isSubmitting}
-      data-testid="save-profile"
-    >
+    <Button type="submit" disabled={isSubmitting} data-testid="save-profile">
       {t("profile:actions.submit")}
     </Button>
   );
@@ -121,13 +111,7 @@ function ChangeEmailFormActions() {
   useLeavePage(isDirty);
 
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      type="submit"
-      disabled={isSubmitting}
-      data-testid="save-email"
-    >
+    <Button type="submit" disabled={isSubmitting} data-testid="save-email">
       {t("profile:actions.submit")}
     </Button>
   );
@@ -139,13 +123,7 @@ function ChangePasswordFormActions() {
   useLeavePage(isDirty);
 
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      type="submit"
-      disabled={isSubmitting}
-      data-testid="save-password"
-    >
+    <Button type="submit" disabled={isSubmitting} data-testid="save-password">
       {t("profile:actions.submit")}
     </Button>
   );
@@ -154,7 +132,6 @@ function ChangePasswordFormActions() {
 function FormBasicInfo() {
   const { setUser } = useAuthActions();
   const { user } = useAuth();
-  const fetchAuthPatchMe = useAuthPatchMeService();
   const { t } = useTranslation("profile");
   const validationSchema = useValidationBasicInfoSchema();
   const { enqueueSnackbar } = useSnackbar();
@@ -171,29 +148,33 @@ function FormBasicInfo() {
   const { handleSubmit, setError, reset } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
-    const { data, status } = await fetchAuthPatchMe(formData);
-
-    if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
-      (
-        Object.keys(data.errors) as Array<keyof EditProfileBasicInfoFormData>
-      ).forEach((key) => {
-        setError(key, {
-          type: "manual",
-          message: t(
-            `profile:inputs.${key}.validation.server.${data.errors[key]}`
-          ),
-        });
+    try {
+      const { data } = await authControllerUpdateV1({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        photo: formData.photo ? { id: formData.photo.id } : undefined,
       });
 
-      return;
-    }
-
-    if (status === HTTP_CODES_ENUM.OK) {
-      setUser(data);
+      setUser(data as unknown as User);
 
       enqueueSnackbar(t("profile:alerts.profile.success"), {
         variant: "success",
       });
+    } catch (error) {
+      if (isValidationError(error)) {
+        (
+          Object.keys(error.body.errors) as Array<
+            keyof EditProfileBasicInfoFormData
+          >
+        ).forEach((key) => {
+          setError(key, {
+            type: "manual",
+            message: t(
+              `profile:inputs.${key}.validation.server.${error.body.errors[key]}`
+            ),
+          });
+        });
+      }
     }
   });
 
@@ -207,58 +188,51 @@ function FormBasicInfo() {
 
   return (
     <FormProvider {...methods}>
-      <Container maxWidth="xs">
+      <div className="mx-auto max-w-xs px-4">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3} mt={3}>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="h6">{t("profile:title1")}</Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
+          <div className="mb-6 mt-6 grid gap-4">
+            <div>
+              <h6 className="text-lg font-semibold">{t("profile:title1")}</h6>
+            </div>
+            <div>
               <FormAvatarInput<EditProfileBasicInfoFormData>
                 name="photo"
                 testId="photo"
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<EditProfileBasicInfoFormData>
                 name="firstName"
                 label={t("profile:inputs.firstName.label")}
                 testId="first-name"
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<EditProfileBasicInfoFormData>
                 name="lastName"
                 label={t("profile:inputs.lastName.label")}
                 testId="last-name"
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div className="flex items-center gap-2">
               <BasicInfoFormActions />
-              <Box ml={1} component="span">
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  LinkComponent={Link}
-                  href="/profile"
-                  data-testid="cancel-edit-profile"
-                >
+              <Button variant="secondary" asChild>
+                <Link href="/profile" data-testid="cancel-edit-profile">
                   {t("profile:actions.cancel")}
-                </Button>
-              </Box>
-            </Grid>
-          </Grid>
+                </Link>
+              </Button>
+            </div>
+          </div>
         </form>
-      </Container>
+      </div>
     </FormProvider>
   );
 }
 
 function FormChangeEmail() {
-  const fetchAuthPatchMe = useAuthPatchMeService();
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation("profile");
   const validationSchema = useValidationChangeEmailSchema();
@@ -275,87 +249,80 @@ function FormChangeEmail() {
   const { handleSubmit, reset, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
-    const { data, status } = await fetchAuthPatchMe({
-      email: formData.email,
-    });
-
-    if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
-      (
-        Object.keys(data.errors) as Array<keyof EditProfileChangeEmailFormData>
-      ).forEach((key) => {
-        setError(key, {
-          type: "manual",
-          message: t(
-            `profile:inputs.${key}.validation.server.${data.errors[key]}`
-          ),
-        });
+    try {
+      await authControllerUpdateV1({
+        email: formData.email,
       });
 
-      return;
-    }
-
-    if (status === HTTP_CODES_ENUM.OK) {
       reset();
 
       enqueueSnackbar(t("profile:alerts.email.success"), {
         variant: "success",
         autoHideDuration: 15000,
       });
+    } catch (error) {
+      if (isValidationError(error)) {
+        (
+          Object.keys(error.body.errors) as Array<
+            keyof EditProfileChangeEmailFormData
+          >
+        ).forEach((key) => {
+          setError(key, {
+            type: "manual",
+            message: t(
+              `profile:inputs.${key}.validation.server.${error.body.errors[key]}`
+            ),
+          });
+        });
+      }
     }
   });
 
   return (
     <FormProvider {...methods}>
-      <Container maxWidth="xs">
+      <div className="mx-auto max-w-xs px-4">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={3}>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="h6">{t("profile:title2")}</Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="body1">{user?.email}</Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
+          <div className="mb-6 grid gap-4">
+            <div>
+              <h6 className="text-lg font-semibold">{t("profile:title2")}</h6>
+            </div>
+            <div>
+              <p className="text-base">{user?.email}</p>
+            </div>
+            <div>
               <FormTextInput<EditProfileChangeEmailFormData>
                 name="email"
                 label={t("profile:inputs.email.label")}
                 type="email"
                 testId="email"
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<EditProfileChangeEmailFormData>
                 name="emailConfirmation"
                 label={t("profile:inputs.emailConfirmation.label")}
                 type="email"
                 testId="email-confirmation"
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div className="flex items-center gap-2">
               <ChangeEmailFormActions />
-              <Box ml={1} component="span">
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  LinkComponent={Link}
-                  href="/profile"
-                  data-testid="cancel-edit-email"
-                >
+              <Button variant="secondary" asChild>
+                <Link href="/profile" data-testid="cancel-edit-email">
                   {t("profile:actions.cancel")}
-                </Button>
-              </Box>
-            </Grid>
-          </Grid>
+                </Link>
+              </Button>
+            </div>
+          </div>
         </form>
-      </Container>
+      </div>
     </FormProvider>
   );
 }
 
 function FormChangePassword() {
-  const fetchAuthPatchMe = useAuthPatchMeService();
   const { t } = useTranslation("profile");
   const validationSchema = useValidationChangePasswordSchema();
   const { enqueueSnackbar } = useSnackbar();
@@ -372,89 +339,81 @@ function FormChangePassword() {
   const { handleSubmit, setError, reset } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
-    const { data, status } = await fetchAuthPatchMe({
-      password: formData.password,
-      oldPassword: formData.oldPassword,
-    });
-
-    if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
-      (
-        Object.keys(data.errors) as Array<
-          keyof EditProfileChangePasswordFormData
-        >
-      ).forEach((key) => {
-        setError(key, {
-          type: "manual",
-          message: t(
-            `profile:inputs.${key}.validation.server.${data.errors[key]}`
-          ),
-        });
+    try {
+      await authControllerUpdateV1({
+        password: formData.password,
+        oldPassword: formData.oldPassword,
       });
 
-      return;
-    }
-
-    if (status === HTTP_CODES_ENUM.OK) {
       reset();
 
       enqueueSnackbar(t("profile:alerts.password.success"), {
         variant: "success",
       });
+    } catch (error) {
+      if (isValidationError(error)) {
+        (
+          Object.keys(error.body.errors) as Array<
+            keyof EditProfileChangePasswordFormData
+          >
+        ).forEach((key) => {
+          setError(key, {
+            type: "manual",
+            message: t(
+              `profile:inputs.${key}.validation.server.${error.body.errors[key]}`
+            ),
+          });
+        });
+      }
     }
   });
 
   return (
     <FormProvider {...methods}>
-      <Container maxWidth="xs">
+      <div className="mx-auto max-w-xs px-4">
         <form onSubmit={onSubmit}>
-          <Grid container spacing={2} mb={2}>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="h6">{t("profile:title3")}</Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
+          <div className="mb-4 grid gap-4">
+            <div>
+              <h6 className="text-lg font-semibold">{t("profile:title3")}</h6>
+            </div>
+            <div>
               <FormTextInput<EditProfileChangePasswordFormData>
                 name="oldPassword"
                 label={t("profile:inputs.oldPassword.label")}
                 type="password"
                 testId="old-password"
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<EditProfileChangePasswordFormData>
                 name="password"
                 label={t("profile:inputs.password.label")}
                 type="password"
                 testId="new-password"
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div>
               <FormTextInput<EditProfileChangePasswordFormData>
                 name="passwordConfirmation"
                 label={t("profile:inputs.passwordConfirmation.label")}
                 type="password"
                 testId="password-confirmation"
               />
-            </Grid>
+            </div>
 
-            <Grid size={{ xs: 12 }}>
+            <div className="flex items-center gap-2">
               <ChangePasswordFormActions />
-              <Box ml={1} component="span">
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  LinkComponent={Link}
-                  href="/profile"
-                  data-testid="cancel-edit-password"
-                >
+              <Button variant="secondary" asChild>
+                <Link href="/profile" data-testid="cancel-edit-password">
                   {t("profile:actions.cancel")}
-                </Button>
-              </Box>
-            </Grid>
-          </Grid>
+                </Link>
+              </Button>
+            </div>
+          </div>
         </form>
-      </Container>
+      </div>
     </FormProvider>
   );
 }

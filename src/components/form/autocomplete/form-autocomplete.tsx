@@ -1,16 +1,15 @@
 "use client";
 
-import { Ref } from "react";
+import { Ref, useState, useRef, useEffect, useCallback } from "react";
 import {
   Controller,
   ControllerProps,
   FieldPath,
   FieldValues,
 } from "react-hook-form";
-import FormControl from "@mui/material/FormControl";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
-import FormHelperText from "@mui/material/FormHelperText";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 export type AutocompleteInputProps<T> = {
   label: string;
@@ -35,34 +34,85 @@ function AutocompleteInput<T>(
     ref?: Ref<HTMLDivElement | null>;
   }
 ) {
-  return (
-    <FormControl error={!!props.error} disabled={props.disabled} fullWidth>
-      <Autocomplete
-        ref={props.ref}
-        id={`autocomplete-${props.name}`}
-        options={props.options}
-        value={props.value}
-        onChange={(_, newValue) => {
-          if (!newValue) return;
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-          props.onChange(newValue);
+  const filteredOptions = props.options.filter((option) =>
+    props.getOptionLabel(option).toLowerCase().includes(search.toLowerCase())
+  );
+
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (
+      containerRef.current &&
+      !containerRef.current.contains(e.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [handleClickOutside]);
+
+  return (
+    <div ref={containerRef} className="relative w-full space-y-2">
+      <Label
+        htmlFor={`autocomplete-${props.name}`}
+        className={cn(props.error && "text-error-base")}
+      >
+        {props.label}
+      </Label>
+      <Input
+        ref={props.ref as Ref<HTMLInputElement | null>}
+        id={`autocomplete-${props.name}`}
+        value={
+          isOpen ? search : props.value ? props.getOptionLabel(props.value) : ""
+        }
+        onChange={(e) => {
+          setSearch(e.target.value);
+          if (!isOpen) setIsOpen(true);
+        }}
+        onFocus={() => {
+          setIsOpen(true);
+          setSearch(props.value ? props.getOptionLabel(props.value) : "");
         }}
         onBlur={props.onBlur}
+        disabled={props.disabled}
+        readOnly={props.readOnly}
+        autoFocus={props.autoFocus}
         data-testid={props.testId}
-        getOptionLabel={props.getOptionLabel}
-        renderOption={(htmlProps, option) => (
-          <li {...htmlProps}>{props.renderOption(option)}</li>
-        )}
-        renderInput={(params) => (
-          <TextField {...params} label={props.label} size={props.size} />
-        )}
+        className={cn(props.error && "border-destructive")}
+        autoComplete="off"
       />
-      {!!props.error && (
-        <FormHelperText data-testid={`${props.testId}-error`}>
-          {props.error}
-        </FormHelperText>
+      {isOpen && filteredOptions.length > 0 && (
+        <ul className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-bg-white-0 p-1 shadow-md">
+          {filteredOptions.map((option, index) => (
+            <li
+              key={index}
+              className="cursor-pointer rounded-sm px-3 py-2 text-sm hover:bg-bg-weak-50 hover:text-text-strong-950"
+              onMouseDown={(e) => {
+                e.preventDefault();
+                props.onChange(option);
+                setSearch(props.getOptionLabel(option));
+                setIsOpen(false);
+              }}
+            >
+              {props.renderOption(option)}
+            </li>
+          ))}
+        </ul>
       )}
-    </FormControl>
+      {!!props.error && (
+        <p
+          className="text-sm text-error-base"
+          data-testid={`${props.testId}-error`}
+        >
+          {props.error}
+        </p>
+      )}
+    </div>
   );
 }
 

@@ -1,11 +1,14 @@
 "use client";
 
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import {
   ConfirmDialogActionsContext,
   ConfirmDialogOptions,
@@ -30,10 +33,6 @@ function ConfirmDialogProvider({ children }: { children: React.ReactNode }) {
   const [confirmDialogInfo, setConfirmDialogInfo] =
     useState<ConfirmDialogOptions>(defaultConfirmDialogInfo);
   const resolveRef = useRef<(value: boolean) => void>(undefined);
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
 
   const onCancel = () => {
     setIsOpen(false);
@@ -71,28 +70,21 @@ function ConfirmDialogProvider({ children }: { children: React.ReactNode }) {
       <ConfirmDialogActionsContext.Provider value={contextActions}>
         {children}
       </ConfirmDialogActionsContext.Provider>
-      <Dialog
-        open={isOpen}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {confirmDialogInfo.title}
-        </DialogTitle>
+      <Dialog open={isOpen} onOpenChange={(open) => !open && onCancel()}>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {confirmDialogInfo.message}
-          </DialogContentText>
+          <DialogHeader>
+            <DialogTitle>{confirmDialogInfo.title}</DialogTitle>
+            <DialogDescription>{confirmDialogInfo.message}</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={onCancel}>
+              {confirmDialogInfo.cancelButtonText}
+            </Button>
+            <Button onClick={onSuccess} autoFocus>
+              {confirmDialogInfo.successButtonText}
+            </Button>
+          </DialogFooter>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={onCancel}>
-            {confirmDialogInfo.cancelButtonText}
-          </Button>
-          <Button onClick={onSuccess} autoFocus>
-            {confirmDialogInfo.successButtonText}
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );

@@ -1,17 +1,14 @@
 "use client";
 
-import { ChangeEvent, Ref } from "react";
+import { Ref } from "react";
 import {
   Controller,
   ControllerProps,
   FieldPath,
   FieldValues,
 } from "react-hook-form";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import FormGroup from "@mui/material/FormGroup";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 export type CheckboxBooleanInputProps = {
   label: string;
@@ -33,38 +30,30 @@ function CheckboxBooleanInput(
   }
 ) {
   const value = props.value ?? false;
-  const onChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    checkboxValue: boolean
-  ) => {
-    props.onChange(checkboxValue);
-  };
+
   return (
-    <FormControl
-      data-testid={props.testId}
-      component="fieldset"
-      variant="standard"
-      error={!!props.error}
-    >
-      <FormGroup ref={props.ref}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={value}
-              onChange={onChange}
-              name={props.name}
-              data-testid={`${props.testId}-checkbox`}
-            />
-          }
-          label={props.label}
+    <div data-testid={props.testId} ref={props.ref} className="space-y-2">
+      <div className="flex items-center gap-2">
+        <Checkbox
+          id={props.name}
+          checked={value}
+          onCheckedChange={(checked) => props.onChange(checked === true)}
+          name={props.name}
+          data-testid={`${props.testId}-checkbox`}
         />
-      </FormGroup>
+        <Label htmlFor={props.name} className="font-normal">
+          {props.label}
+        </Label>
+      </div>
       {!!props.error && (
-        <FormHelperText data-testid={`${props.testId}-error`}>
+        <p
+          className="text-sm text-error-base"
+          data-testid={`${props.testId}-error`}
+        >
           {props.error}
-        </FormHelperText>
+        </p>
       )}
-    </FormControl>
+    </div>
   );
 }
 

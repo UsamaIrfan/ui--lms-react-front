@@ -1,11 +1,6 @@
 import ResponsiveAppBar from "@/components/app-bar";
 import AuthProvider from "@/services/auth/auth-provider";
 import "../globals.css";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import CssBaseline from "@mui/material/CssBaseline";
 import { dir } from "i18next";
 import "@/services/i18n/config";
 import { languages } from "@/services/i18n/config";
@@ -21,7 +16,7 @@ import ReactQueryDevtools from "@/services/react-query/react-query-devtools";
 import GoogleAuthProvider from "@/services/social-auth/google/google-auth-provider";
 import FacebookAuthProvider from "@/services/social-auth/facebook/facebook-auth-provider";
 import ConfirmDialogProvider from "@/components/confirm-dialog/confirm-dialog-provider";
-import InitColorSchemeScript from "@/components/theme/init-color-scheme-script";
+import TenantProvider from "@/services/tenant/tenant-provider";
 
 type Props = {
   params: Promise<{ language: string }>;
@@ -51,29 +46,28 @@ export default async function RootLayout(props: {
   const { children } = props;
 
   return (
-    <html lang={language} dir={dir(language)} suppressHydrationWarning>
-      <body suppressHydrationWarning>
-        <InitColorSchemeScript />
+    <html lang={language} dir={dir(language)}>
+      <body className="min-h-screen bg-bg-white-0 text-text-strong-950 antialiased">
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
           <ThemeProvider>
-            <CssBaseline />
-
             <StoreLanguageProvider>
               <ConfirmDialogProvider>
                 <AuthProvider>
-                  <GoogleAuthProvider>
-                    <FacebookAuthProvider>
-                      <LeavePageProvider>
-                        <ResponsiveAppBar />
-                        {children}
-                        <ToastContainer
-                          position="bottom-left"
-                          hideProgressBar
-                        />
-                      </LeavePageProvider>
-                    </FacebookAuthProvider>
-                  </GoogleAuthProvider>
+                  <TenantProvider>
+                    <GoogleAuthProvider>
+                      <FacebookAuthProvider>
+                        <LeavePageProvider>
+                          <ResponsiveAppBar />
+                          {children}
+                          <ToastContainer
+                            position="bottom-left"
+                            hideProgressBar
+                          />
+                        </LeavePageProvider>
+                      </FacebookAuthProvider>
+                    </GoogleAuthProvider>
+                  </TenantProvider>
                 </AuthProvider>
               </ConfirmDialogProvider>
             </StoreLanguageProvider>

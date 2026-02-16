@@ -1,19 +1,18 @@
 "use client";
 
-import { useAuthFacebookLoginService } from "@/services/api/services/auth";
-import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
+import { authFacebookControllerLoginV1 } from "@/services/api/generated/endpoints/auth/auth";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";
 import { useState } from "react";
 import { FullPageLoader } from "@/components/full-page-loader";
-import Button from "@mui/material/Button";
+import { Button } from "@/components/ui/button";
 import useFacebookAuth from "./use-facebook-auth";
 import { useTranslation } from "@/services/i18n/client";
+import { User } from "@/services/api/types/user";
 
 export default function FacebookAuth() {
   const { setUser } = useAuthActions();
   const { setTokensInfo } = useAuthTokens();
-  const authFacebookLoginService = useAuthFacebookLoginService();
   const facebook = useFacebookAuth();
   const { t } = useTranslation("common");
   const [isLoading, setIsLoading] = useState(false);
@@ -25,18 +24,16 @@ export default function FacebookAuth() {
 
       setIsLoading(true);
 
-      const { status, data } = await authFacebookLoginService({
+      const { data } = await authFacebookControllerLoginV1({
         accessToken: loginResponse.authResponse.accessToken,
       });
 
-      if (status === HTTP_CODES_ENUM.OK) {
-        setTokensInfo({
-          token: data.token,
-          refreshToken: data.refreshToken,
-          tokenExpires: data.tokenExpires,
-        });
-        setUser(data.user);
-      }
+      setTokensInfo({
+        token: data.token,
+        refreshToken: data.refreshToken,
+        tokenExpires: data.tokenExpires,
+      });
+      setUser(data.user as unknown as User);
     } finally {
       setIsLoading(false);
     }
@@ -44,9 +41,7 @@ export default function FacebookAuth() {
 
   return (
     <>
-      <Button variant="contained" color="primary" onClick={onLogin}>
-        {t("common:auth.facebook.action")}
-      </Button>
+      <Button onClick={onLogin}>{t("common:auth.facebook.action")}</Button>
       <FullPageLoader isLoading={isLoading} />
     </>
   );

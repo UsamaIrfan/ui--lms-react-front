@@ -14,9 +14,10 @@ import {
   AuthTokensContext,
   TokensInfo,
 } from "./auth-context";
-import useFetch from "@/services/api/use-fetch";
-import { AUTH_LOGOUT_URL, AUTH_ME_URL } from "@/services/api/config";
-import HTTP_CODES_ENUM from "../api/types/http-codes";
+import {
+  authControllerLogoutV1,
+  authControllerMeV1,
+} from "@/services/api/generated/endpoints/auth/auth";
 import {
   getTokensInfo,
   setTokensInfo as setTokensInfoToStorage,
@@ -25,7 +26,6 @@ import {
 function AuthProvider(props: PropsWithChildren) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const fetchBase = useFetch();
 
   const setTokensInfo = useCallback((tokensInfo: TokensInfo) => {
     setTokensInfoToStorage(tokensInfo);
@@ -39,34 +39,25 @@ function AuthProvider(props: PropsWithChildren) {
     const tokens = getTokensInfo();
 
     if (tokens?.token) {
-      await fetchBase(AUTH_LOGOUT_URL, {
-        method: "POST",
-      });
+      await authControllerLogoutV1();
     }
     setTokensInfo(null);
-  }, [setTokensInfo, fetchBase]);
+  }, [setTokensInfo]);
 
   const loadData = useCallback(async () => {
     const tokens = getTokensInfo();
 
     try {
       if (tokens?.token) {
-        const response = await fetchBase(AUTH_ME_URL, {
-          method: "GET",
-        });
-
-        if (response.status === HTTP_CODES_ENUM.UNAUTHORIZED) {
-          logOut();
-          return;
-        }
-
-        const data = await response.json();
-        setUser(data);
+        const { data } = await authControllerMeV1();
+        setUser(data as unknown as User);
       }
+    } catch {
+      logOut();
     } finally {
       setIsLoaded(true);
     }
-  }, [fetchBase, logOut]);
+  }, [logOut]);
 
   useEffect(() => {
     loadData();

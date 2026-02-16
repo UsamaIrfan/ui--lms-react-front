@@ -7,12 +7,9 @@ import {
   FieldPath,
   FieldValues,
 } from "react-hook-form";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormLabel from "@mui/material/FormLabel";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import FormGroup from "@mui/material/FormGroup";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 export type CheckboxInputProps<T> = {
   label: string;
@@ -34,11 +31,11 @@ function CheckboxInput<T>(
     value: T[] | undefined | null;
     onChange: (value: T[]) => void;
     onBlur: () => void;
-    ref?: Ref<HTMLDivElement | null>;
+    ref?: Ref<HTMLFieldSetElement | null>;
   }
 ) {
   const value = props.value ?? [];
-  const onChange = (checkboxValue: T) => () => {
+  const onChange = (checkboxValue: T) => {
     const isExist = value
       .map((option) => option[props.keyValue])
       .includes(checkboxValue[props.keyValue]);
@@ -52,39 +49,44 @@ function CheckboxInput<T>(
     props.onChange(newValue);
   };
   return (
-    <FormControl
-      data-testid={props.testId}
-      component="fieldset"
-      variant="standard"
-      error={!!props.error}
-    >
-      <FormLabel component="legend" data-testid={`${props.testId}-label`}>
+    <fieldset data-testid={props.testId} className="space-y-3" ref={props.ref}>
+      <legend
+        className={cn("text-sm font-medium", props.error && "text-error-base")}
+        data-testid={`${props.testId}-label`}
+      >
         {props.label}
-      </FormLabel>
-      <FormGroup ref={props.ref}>
-        {props.options.map((option) => (
-          <FormControlLabel
-            key={props.keyExtractor(option)}
-            control={
+      </legend>
+      <div className="space-y-2">
+        {props.options.map((option) => {
+          const key = props.keyExtractor(option);
+          const checked = value
+            .map((valueOption) => valueOption[props.keyValue])
+            .includes(option[props.keyValue]);
+          return (
+            <div key={key} className="flex items-center gap-2">
               <Checkbox
-                checked={value
-                  .map((valueOption) => valueOption[props.keyValue])
-                  .includes(option[props.keyValue])}
-                onChange={onChange(option)}
+                id={`${props.name}-${key}`}
+                checked={checked}
+                onCheckedChange={() => onChange(option)}
                 name={props.name}
-                data-testid={`${props.testId}-${props.keyExtractor(option)}`}
+                data-testid={`${props.testId}-${key}`}
               />
-            }
-            label={props.renderOption(option)}
-          />
-        ))}
-      </FormGroup>
+              <Label htmlFor={`${props.name}-${key}`} className="font-normal">
+                {props.renderOption(option)}
+              </Label>
+            </div>
+          );
+        })}
+      </div>
       {!!props.error && (
-        <FormHelperText data-testid={`${props.testId}-error`}>
+        <p
+          className="text-sm text-error-base"
+          data-testid={`${props.testId}-error`}
+        >
           {props.error}
-        </FormHelperText>
+        </p>
       )}
-    </FormControl>
+    </fieldset>
   );
 }
 

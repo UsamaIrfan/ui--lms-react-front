@@ -1,33 +1,45 @@
 import { Ref } from "react";
-import Table, { TableProps } from "@mui/material/Table";
-import TableBody, { TableBodyProps } from "@mui/material/TableBody";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableFooter from "@mui/material/TableFooter";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableFooter,
+  TableRow,
+} from "@/components/ui/table";
 import {
   ScrollerProps,
   TableComponents as TableComponentsType,
 } from "react-virtuoso";
 
-const TableComponents = {
+const VirtuosoTableComponents = {
   Scroller: function Scroller(
     props: ScrollerProps & { ref?: Ref<HTMLDivElement> }
   ) {
-    return <TableContainer component={Paper} {...props} ref={props.ref} />;
+    return (
+      <div
+        className="overflow-auto rounded-md border bg-bg-white-0"
+        {...props}
+        ref={props.ref}
+      />
+    );
   },
-  Table: (props: TableProps) => (
-    <Table stickyHeader {...props} style={{ borderCollapse: "separate" }} />
+  Table: (props: React.HTMLAttributes<HTMLTableElement>) => (
+    <Table
+      {...props}
+      className="border-separate"
+      style={{ ...props.style, borderCollapse: "separate" }}
+    />
   ),
   TableHead: TableHead as unknown as TableComponentsType["TableHead"],
   TableFoot: TableFooter as unknown as TableComponentsType["TableFoot"],
   TableRow: TableRow,
   TableBody: function BodyTable(
-    props: TableBodyProps & { ref?: Ref<HTMLTableSectionElement> }
+    props: React.HTMLAttributes<HTMLTableSectionElement> & {
+      ref?: Ref<HTMLTableSectionElement>;
+    }
   ) {
     return <TableBody {...props} ref={props.ref} />;
   },
 };
 
-export default TableComponents;
+export default VirtuosoTableComponents;

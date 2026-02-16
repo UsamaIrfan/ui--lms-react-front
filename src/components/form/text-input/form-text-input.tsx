@@ -1,9 +1,5 @@
 "use client";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import TextField from "@mui/material/TextField";
+import { RiEyeLine, RiEyeOffLine } from "@remixicon/react";
 import React, { ChangeEvent, Ref, useState } from "react";
 import {
   Controller,
@@ -11,7 +7,10 @@ import {
   FieldPath,
   FieldValues,
 } from "react-hook-form";
-import { InputBaseComponentProps } from "@mui/material/InputBase/InputBase";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 export type TextInputProps = {
   label: string;
@@ -22,7 +21,7 @@ export type TextInputProps = {
   error?: string;
   testId?: string;
   autoComplete?: string;
-  inputComponent?: React.ElementType<InputBaseComponentProps>;
+  inputComponent?: React.ElementType;
   multiline?: boolean;
   minRows?: number;
   maxRows?: number;
@@ -44,55 +43,77 @@ function TextInput(
 
   const handleClickShowPassword = () => setIsShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+  const inputType =
+    props.type === "password" && isShowPassword ? "text" : props.type;
+
   return (
-    <TextField
-      ref={props.ref}
-      name={props.name}
-      size={props.size}
-      value={props.value}
-      onChange={props.onChange}
-      onBlur={props.onBlur}
-      label={props.label}
-      autoFocus={props.autoFocus}
-      type={props.type === "password" && isShowPassword ? "text" : props.type}
-      variant="outlined"
-      fullWidth
-      error={!!props.error}
-      data-testid={props.testId}
-      helperText={props.error}
-      disabled={props.disabled}
-      autoComplete={props.autoComplete}
-      multiline={props.multiline}
-      minRows={props.minRows}
-      maxRows={props.maxRows}
-      slotProps={{
-        formHelperText: {
-          ["data-testid" as string]: `${props.testId}-error`,
-        },
-        input: {
-          readOnly: props.readOnly,
-          inputComponent: props.inputComponent,
-          endAdornment:
-            props.type === "password" ? (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {isShowPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            ) : undefined,
-        },
-      }}
-    />
+    <div ref={props.ref} className="space-y-2">
+      <Label
+        htmlFor={props.name}
+        className={cn(props.error && "text-error-base")}
+      >
+        {props.label}
+      </Label>
+      {props.multiline ? (
+        <Textarea
+          id={props.name}
+          name={props.name}
+          value={props.value}
+          onChange={props.onChange}
+          onBlur={props.onBlur}
+          autoFocus={props.autoFocus}
+          disabled={props.disabled}
+          readOnly={props.readOnly}
+          rows={props.minRows ?? 3}
+          data-testid={props.testId}
+          className={cn(props.error && "border-destructive")}
+          autoComplete={props.autoComplete}
+        />
+      ) : (
+        <div className="relative">
+          <Input
+            id={props.name}
+            name={props.name}
+            value={props.value}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
+            autoFocus={props.autoFocus}
+            type={inputType}
+            disabled={props.disabled}
+            readOnly={props.readOnly}
+            data-testid={props.testId}
+            autoComplete={props.autoComplete}
+            className={cn(
+              props.error && "border-destructive",
+              props.type === "password" && "pr-10"
+            )}
+          />
+          {props.type === "password" && (
+            <button
+              type="button"
+              onClick={handleClickShowPassword}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-text-soft-400 hover:text-text-strong-950"
+              aria-label="toggle password visibility"
+              tabIndex={-1}
+            >
+              {isShowPassword ? (
+                <RiEyeOffLine className="h-4 w-4" />
+              ) : (
+                <RiEyeLine className="h-4 w-4" />
+              )}
+            </button>
+          )}
+        </div>
+      )}
+      {props.error && (
+        <p
+          className="text-sm text-error-base"
+          data-testid={`${props.testId}-error`}
+        >
+          {props.error}
+        </p>
+      )}
+    </div>
   );
 }
 

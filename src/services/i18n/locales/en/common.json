@@ -36,5 +36,19 @@
     "facebook": {
       "action": "Login with Facebook"
     }
+  },
+  "tenant": {
+    "selectTenantTitle": "Select Organization",
+    "selectTenantDescription": "Choose the organization you want to work with",
+    "selectBranchTitle": "Select Branch",
+    "selectBranchDescription": "Choose a branch or continue with all branches",
+    "noTenantsAvailable": "No organizations available for your account",
+    "noBranchesAvailable": "No branches configured for this organization",
+    "continue": "Continue",
+    "skipBranchSelection": "Continue without selecting a branch",
+    "backToTenantSelection": "Back to organization selection",
+    "switchTenant": "Switch Organization",
+    "switchBranch": "Switch Branch",
+    "allBranches": "All Branches"
   }
 }

@@ -1,18 +1,15 @@
 "use client";
 
-import { Ref } from "react";
+import { Ref, useState, useRef, useEffect, useCallback } from "react";
 import {
   Controller,
   ControllerProps,
   FieldPath,
   FieldValues,
 } from "react-hook-form";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
-import OutlinedInput from "@mui/material/OutlinedInput";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+import { RiArrowDownSLine } from "@remixicon/react";
 
 export type MultipleSelectInputProps<T extends object> = {
   label: string;
@@ -37,62 +34,99 @@ function MultipleSelectInput<T extends object>(
     ref?: Ref<HTMLDivElement | null>;
   }
 ) {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const value = props.value ?? [];
+  const valueKeys = value.map((v) => v[props.keyValue]?.toString() ?? "");
+
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (
+      containerRef.current &&
+      !containerRef.current.contains(e.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [handleClickOutside]);
+
   return (
-    <FormControl fullWidth error={!!props.error} disabled={props.disabled}>
-      <InputLabel id={`select-label-${props.name}`}>{props.label}</InputLabel>
-      <Select
-        ref={props.ref}
-        labelId={`select-label-${props.name}`}
+    <div ref={containerRef} className="relative w-full space-y-2">
+      <Label
+        htmlFor={`select-${props.name}`}
+        className={cn(props.error && "text-error-base")}
+      >
+        {props.label}
+      </Label>
+      <button
+        ref={props.ref as Ref<HTMLButtonElement>}
+        type="button"
         id={`select-${props.name}`}
-        value={props.value?.map(
-          (value) => value?.[props.keyValue]?.toString() ?? ""
-        )}
-        input={<OutlinedInput label={props.label} />}
-        multiple
-        inputProps={{
-          readOnly: props.readOnly,
-        }}
-        onChange={(event) => {
-          const value = event.target.value;
-          const selectedStrings =
-            typeof value === "string" ? value.split(",") : value;
-
-          const newValue = selectedStrings
-            .map((selectedString) => {
-              const option = props.options.find(
-                (option) =>
-                  option[props.keyValue]?.toString() === selectedString
-              );
-
-              if (!option) return undefined;
-
-              return option;
-            })
-            .filter((option) => option !== undefined) as T[];
-
-          props.onChange(newValue);
+        onClick={() => {
+          if (props.disabled || props.readOnly) return;
+          setIsOpen((prev) => !prev);
         }}
         onBlur={props.onBlur}
+        disabled={props.disabled}
         data-testid={props.testId}
-        renderValue={() => {
-          return props.value ? props.renderValue(props.value) : undefined;
-        }}
+        className={cn(
+          "flex h-10 w-full items-center justify-between rounded-md border border-stroke-soft-200 bg-bg-white-0 px-3 py-2 text-sm ring-offset-bg-white-0",
+          "focus:outline-none focus:ring-2 focus:ring-primary-base focus:ring-offset-2",
+          props.disabled && "cursor-not-allowed opacity-50",
+          props.error && "border-destructive"
+        )}
       >
-        {props.options.map((option) => (
-          <MenuItem
-            key={option[props.keyValue]?.toString()}
-            value={option[props.keyValue]?.toString()}
-          >
-            {props.renderOption(option)}
-          </MenuItem>
-        ))}
-      </Select>
-      {!!props.error && (
-        <FormHelperText data-testid={`${props.testId}-error`}>
-          {props.error}
-        </FormHelperText>
+        <span className="truncate">
+          {value.length > 0 ? props.renderValue(value) : ""}
+        </span>
+        <RiArrowDownSLine className="h-4 w-4 shrink-0 opacity-50" />
+      </button>
+
+      {isOpen && (
+        <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-bg-white-0 p-1 shadow-md">
+          {props.options.map((option) => {
+            const key = option[props.keyValue]?.toString() ?? "";
+            const isSelected = valueKeys.includes(key);
+            return (
+              <button
+                key={key}
+                type="button"
+                className={cn(
+                  "w-full cursor-pointer rounded-sm px-3 py-2 text-left text-sm hover:bg-bg-weak-50 hover:text-text-strong-950",
+                  isSelected && "bg-bg-weak-50 text-text-strong-950"
+                )}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  const newValue = isSelected
+                    ? value.filter((v) => v[props.keyValue]?.toString() !== key)
+                    : [
+                        ...value,
+                        props.options.find(
+                          (o) => o[props.keyValue]?.toString() === key
+                        )!,
+                      ];
+                  props.onChange(newValue);
+                }}
+              >
+                {props.renderOption(option)}
+              </button>
+            );
+          })}
+        </div>
       )}
-    </FormControl>
+
+      {!!props.error && (
+        <p
+          className="text-sm text-error-base"
+          data-testid={`${props.testId}-error`}
+        >
+          {props.error}
+        </p>
+      )}
+    </div>
   );
 }
 

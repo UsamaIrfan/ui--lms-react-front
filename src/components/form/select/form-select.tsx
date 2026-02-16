@@ -7,11 +7,15 @@ import {
   FieldPath,
   FieldValues,
 } from "react-hook-form";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 export type SelectInputProps<T extends object> = {
   label: string;
@@ -37,46 +41,54 @@ function SelectInput<T extends object>(
   }
 ) {
   return (
-    <FormControl fullWidth error={!!props.error} disabled={props.disabled}>
-      <InputLabel id={`select-label-${props.name}`}>{props.label}</InputLabel>
+    <div ref={props.ref} className="space-y-2">
+      <Label
+        htmlFor={props.name}
+        className={cn(props.error && "text-error-base")}
+      >
+        {props.label}
+      </Label>
       <Select
-        ref={props.ref}
-        labelId={`select-label-${props.name}`}
-        id={`select-${props.name}`}
-        size={props.size}
         value={props.value?.[props.keyValue]?.toString() ?? ""}
-        label={props.label}
-        inputProps={{ readOnly: props.readOnly }}
-        onChange={(event) => {
+        onValueChange={(val) => {
           const newValue = props.options.find(
-            (option) =>
-              option[props.keyValue]?.toString() === event.target.value
+            (option) => option[props.keyValue]?.toString() === val
           );
           if (!newValue) return;
-
           props.onChange(newValue);
         }}
-        onBlur={props.onBlur}
-        data-testid={props.testId}
-        renderValue={() => {
-          return props.value ? props.renderOption(props.value) : undefined;
-        }}
+        disabled={props.disabled}
       >
-        {props.options.map((option) => (
-          <MenuItem
-            key={option[props.keyValue]?.toString()}
-            value={option[props.keyValue]?.toString()}
-          >
-            {props.renderOption(option)}
-          </MenuItem>
-        ))}
+        <SelectTrigger
+          id={props.name}
+          data-testid={props.testId}
+          onBlur={props.onBlur}
+          className={cn(props.error && "border-destructive")}
+        >
+          <SelectValue>
+            {props.value ? props.renderOption(props.value) : undefined}
+          </SelectValue>
+        </SelectTrigger>
+        <SelectContent>
+          {props.options.map((option) => (
+            <SelectItem
+              key={option[props.keyValue]?.toString()}
+              value={option[props.keyValue]?.toString() ?? ""}
+            >
+              {props.renderOption(option)}
+            </SelectItem>
+          ))}
+        </SelectContent>
       </Select>
       {!!props.error && (
-        <FormHelperText data-testid={`${props.testId}-error`}>
+        <p
+          className="text-sm text-error-base"
+          data-testid={`${props.testId}-error`}
+        >
           {props.error}
-        </FormHelperText>
+        </p>
       )}
-    </FormControl>
+    </div>
   );
 }
 

@@ -73,17 +73,19 @@ const eslintConfig = [
       "no-restricted-imports": [
         "error",
         {
+          patterns: [
+            {
+              group: ["@mui/*"],
+              message:
+                "MUI has been removed. Use components from '@/components/ui/' instead.",
+            },
+            {
+              group: ["@emotion/*"],
+              message:
+                "Emotion has been removed. Use Tailwind CSS for styling instead.",
+            },
+          ],
           paths: [
-            {
-              name: "@mui/material",
-              message:
-                "Please use \"import ComponentName from '@mui/material/ComponentName'\" instead.",
-            },
-            {
-              name: "@mui/icons-material",
-              message:
-                "Please use \"import IconName from '@mui/icons-material/IconName'\" instead.",
-            },
             {
               name: "next/link",
               message:
@@ -106,6 +108,8 @@ const eslintConfig = [
       "*.config.js",
       "*.config.mjs",
       "next-env.d.ts",
+      "src/services/api/generated/**",
+      "!src/services/api/generated/custom-fetch.ts",
     ],
   },
 ];

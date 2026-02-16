@@ -6,15 +6,15 @@ Next.js 15 (App Router, Turbopack), React 19, AlignUI + Radix UI + Tailwind CSS 
 
 **UI library migration**: MUI has been fully removed. The UI layer is now:
 
-| Layer | Library | Purpose |
-|-------|---------|---------|
-| Design system | **AlignUI** (custom tokens in `globals.css`) | ~795 lines of CSS custom properties for typography, colors, spacing, shadows |
-| Primitives | **Radix UI** (`@radix-ui/react-*`) | Headless accessible components (dialog, select, dropdown, checkbox, etc.) |
-| Styling | **Tailwind CSS v4** + `tailwind-variants` + `tailwind-merge` + `clsx` | Utility-first CSS |
-| Icons | **Remix Icon** (`@remixicon/react`) | Icon library |
-| Charts | **Recharts** | Dashboard charts (area, pie, bar) |
-| Animations | `tw-animate-css` | Tailwind animation utilities |
-| Theme | `next-themes` | Theme provider (light mode only currently) |
+| Layer         | Library                                                               | Purpose                                                                      |
+| ------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Design system | **AlignUI** (custom tokens in `globals.css`)                          | ~795 lines of CSS custom properties for typography, colors, spacing, shadows |
+| Primitives    | **Radix UI** (`@radix-ui/react-*`)                                    | Headless accessible components (dialog, select, dropdown, checkbox, etc.)    |
+| Styling       | **Tailwind CSS v4** + `tailwind-variants` + `tailwind-merge` + `clsx` | Utility-first CSS                                                            |
+| Icons         | **Remix Icon** (`@remixicon/react`)                                   | Icon library                                                                 |
+| Charts        | **Recharts**                                                          | Dashboard charts (area, pie, bar)                                            |
+| Animations    | `tw-animate-css`                                                      | Tailwind animation utilities                                                 |
+| Theme         | `next-themes`                                                         | Theme provider (light mode only currently)                                   |
 
 ## Project Structure
 
@@ -170,6 +170,7 @@ Use these tokens via Tailwind classes: `bg-primary-base`, `text-static-white`, `
 ### Component Primitives
 
 UI components in `src/components/ui/` wrap Radix UI + AlignUI tokens:
+
 - `button.tsx`, `input.tsx`, `dialog.tsx`, `select.tsx`, `checkbox.tsx`, `switch.tsx`, `badge.tsx`, `card.tsx`, `skeleton.tsx`, `spinner.tsx`, `table.tsx`, `textarea.tsx`, `tooltip.tsx`, `avatar.tsx`, `popover.tsx`, `dropdown-menu.tsx`, `separator.tsx`, `radio-group.tsx`, `label.tsx`, `form-field-wrapper.tsx`
 
 ## i18n

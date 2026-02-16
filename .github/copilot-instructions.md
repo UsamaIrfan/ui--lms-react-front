@@ -2,30 +2,66 @@
 
 ## Stack
 
-Next.js 15 (App Router, Turbopack), React 19, MUI 7, React Hook Form + Yup, TanStack React Query 5, i18next, Playwright for E2E.
+Next.js 15 (App Router, Turbopack), React 19, AlignUI + Radix UI + Tailwind CSS v4, React Hook Form + Yup, TanStack React Query 5, Recharts, i18next, Playwright for E2E.
+
+**UI library migration**: MUI has been fully removed. The UI layer is now:
+
+| Layer | Library | Purpose |
+|-------|---------|---------|
+| Design system | **AlignUI** (custom tokens in `globals.css`) | ~795 lines of CSS custom properties for typography, colors, spacing, shadows |
+| Primitives | **Radix UI** (`@radix-ui/react-*`) | Headless accessible components (dialog, select, dropdown, checkbox, etc.) |
+| Styling | **Tailwind CSS v4** + `tailwind-variants` + `tailwind-merge` + `clsx` | Utility-first CSS |
+| Icons | **Remix Icon** (`@remixicon/react`) | Icon library |
+| Charts | **Recharts** | Dashboard charts (area, pie, bar) |
+| Animations | `tw-animate-css` | Tailwind animation utilities |
+| Theme | `next-themes` | Theme provider (light mode only currently) |
 
 ## Project Structure
 
 ```
 src/
-├── app/[language]/          # Pages — file-based routing with i18n segment
-│   ├── admin-panel/         # Protected admin CRUD pages
-│   ├── sign-in/             # Auth pages
-│   └── ...
-├── components/              # Shared UI (form/, table/, confirm-dialog/, theme/)
-├── hooks/                   # App-level hooks (use-snackbar.ts)
+├── app/
+│   ├── globals.css              # AlignUI design tokens + Tailwind v4 @theme config
+│   └── [language]/              # Pages — file-based routing with i18n segment
+│       ├── admin-panel/         # Protected admin pages (dashboard, users CRUD)
+│       │   ├── dashboard/       # Admin dashboard with charts + metrics
+│       │   │   ├── components/  # metric-card, charts, quick-actions, etc.
+│       │   │   └── queries/     # useAdminDashboard hook + demo-data fallback
+│       │   └── users/           # User management CRUD
+│       ├── sign-in/             # Auth pages
+│       ├── sign-up/
+│       ├── forgot-password/
+│       ├── confirm-email/
+│       ├── select-tenant/       # Multi-tenant selection
+│       ├── profile/
+│       ├── showcase/            # Component demo page
+│       └── ...
+├── components/
+│   ├── ui/                      # AlignUI + Radix primitives (button, input, dialog, select, etc.)
+│   ├── form/                    # Form field wrappers (text-input, select, checkbox, etc.)
+│   ├── layout/                  # App shell, sidebar, header, breadcrumbs, navigation
+│   ├── table/                   # Virtualized table components
+│   ├── confirm-dialog/          # Confirmation dialog
+│   ├── tenant/                  # Tenant selection UI
+│   └── theme/                   # Theme provider (TooltipProvider wrapper)
+├── hooks/                       # App-level hooks (use-snackbar.ts)
+├── utils/
+│   ├── cn.ts                    # AlignUI class merger (clsx + tailwind-merge)
+│   └── tv.ts                    # AlignUI variant helper (tailwind-variants wrapper)
+├── lib/
+│   └── utils.ts                 # Re-exports cn() for backward compat
 └── services/
-    ├── api/                 # Fetch wrappers, service hooks, types
-    │   ├── generated/       # Orval-generated hooks + custom-fetch.ts mutator
-    │   ├── services/        # Hand-written service hooks (legacy)
-    │   └── types/           # Request/response types, HTTP codes, role enum
-    ├── auth/                # AuthProvider, tokens, guards (HOCs)
-    ├── i18n/                # i18next config, locales, server/client translation
-    ├── react-query/         # QueryClient, key factory
-    ├── tenant/              # TenantProvider, cookie storage, useTenant hook
-    ├── leave-page/          # Unsaved changes prompt
-    ├── social-auth/         # Google/Facebook OAuth providers
-    └── helpers/             # Utility functions
+    ├── api/                     # Fetch wrappers, service hooks, types
+    │   ├── generated/           # Orval-generated hooks + custom-fetch.ts mutator
+    │   ├── services/            # Hand-written service hooks (legacy)
+    │   └── types/               # Request/response types, HTTP codes, role enum
+    ├── auth/                    # AuthProvider, tokens, guards (HOCs)
+    ├── i18n/                    # i18next config, locales, server/client translation
+    ├── react-query/             # QueryClient, key factory
+    ├── tenant/                  # TenantProvider, cookie storage, useTenant hook
+    ├── leave-page/              # Unsaved changes prompt
+    ├── social-auth/             # Google/Facebook OAuth providers
+    └── helpers/                 # Utility functions
 ```
 
 ## Page Pattern
@@ -39,6 +75,12 @@ Protected pages wrap the default export: `export default withPageRequiredAuth(Pa
 Guest-only pages (sign-in, sign-up): `export default withPageRequiredGuest(PageContent)`.
 
 ## API Services
+
+### Orval-Generated Hooks (preferred)
+
+Located in `src/services/api/generated/`. Auto-generated from backend OpenAPI spec via `npm run api:generate`. Use these for all new code.
+
+### Hand-Written Service Hooks (legacy)
 
 Located in `src/services/api/services/`. Each service is a **hook returning a callback**:
 
@@ -66,6 +108,7 @@ export function useGetUsersService() {
 - Define query keys using `createQueryKeys()` from `src/services/react-query/query-key-factory.ts`
 - Put queries in a co-located `queries/queries.ts` file next to the page that uses them
 - Lists use `useInfiniteQuery` with manual `getNextPageParam`
+- Dashboard-style aggregation: use `useQuery` with `Promise.all` + `safeFetch()` wrapper that falls back to demo data per-section on failure
 
 ```typescript
 export const usersQueryKeys = createQueryKeys(["users"], {
@@ -78,7 +121,7 @@ export const usersQueryKeys = createQueryKeys(["users"], {
 
 ## Forms
 
-Pattern: React Hook Form + Yup + MUI form components:
+Pattern: React Hook Form + Yup + AlignUI form components:
 
 1. Define `type FormData` for the form shape
 2. Create `useValidationSchema()` hook — uses `useTranslation()` for localized error messages
@@ -87,19 +130,47 @@ Pattern: React Hook Form + Yup + MUI form components:
    - `FormTextInput`, `FormSelect`, `FormSelectExtended`, `FormAutocomplete`
    - `FormCheckbox`, `FormCheckboxBoolean`, `FormSwitch`, `FormRadioGroup`
    - `FormDatePicker`, `FormImagePicker`, `FormMultipleImagePicker`, `FormAvatarInput`
+   - `FormMultipleSelect`, `FormMultipleSelectExtended`
 5. Handle server validation errors: check `status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY`, then `setError()` per field
+
+Form components use `@/components/ui/*` primitives (Input, Label, Select, etc.) internally — **no MUI imports**.
 
 ## ESLint Rules (MUST follow)
 
 These are **enforced** — code will fail lint if violated:
 
-- **No barrel MUI imports**: Use `import Button from '@mui/material/Button'`, NOT `import { Button } from '@mui/material'`
+- **No MUI imports at all**: `@mui/*` is completely banned — use `@/components/ui/*` instead
+- **No Emotion imports**: `@emotion/*` is banned — use Tailwind CSS for styling
 - **No `next/link`**: Use `import Link from '@/components/link'` (handles i18n prefix + leave-page logic)
 - **No `watch()` from React Hook Form**: Use `useWatch()` hook instead (avoids full form re-render)
 - **No `formState` destructuring**: Use `useFormState()` hook instead
 - **No `React.useEffect`**: Import hooks directly: `import { useEffect } from 'react'`
 - **No `condition ? true : false`**: Simplify to just `condition`
 - **Yup `.nullable()` after `.required()`**: `.required().nullable()` not `.nullable().required()`
+
+## UI Styling Patterns
+
+### Class Utilities
+
+- **`cn(...classes)`** from `@/utils/cn` — merges Tailwind classes via `clsx` + extended `tailwind-merge` (handles AlignUI typography classes like `text-label-sm`, `text-paragraph-md`)
+- **`tv(variants)`** from `@/utils/tv` — component variants via `tailwind-variants` with custom twMerge config
+- **`@/lib/utils`** re-exports `cn()` for backward compatibility
+
+### AlignUI Design Tokens
+
+Defined as CSS custom properties in `globals.css` inside `@theme { }` (Tailwind v4 syntax). Tokens include:
+
+- **Typography**: `--text-label-*`, `--text-paragraph-*`, `--text-title-*`, etc.
+- **Colors**: `--color-primary-*`, `--color-gray-*`, `--color-error-*`, `--color-warning-*`, `--color-success-*`
+- **Semantic aliases**: `--color-bg-*`, `--color-text-*`, `--color-stroke-*`
+- **Shadows**: `--shadow-regular-*`, `--shadow-fancy-buttons-*`
+
+Use these tokens via Tailwind classes: `bg-primary-base`, `text-static-white`, `shadow-fancy-buttons-primary`, etc.
+
+### Component Primitives
+
+UI components in `src/components/ui/` wrap Radix UI + AlignUI tokens:
+- `button.tsx`, `input.tsx`, `dialog.tsx`, `select.tsx`, `checkbox.tsx`, `switch.tsx`, `badge.tsx`, `card.tsx`, `skeleton.tsx`, `spinner.tsx`, `table.tsx`, `textarea.tsx`, `tooltip.tsx`, `avatar.tsx`, `popover.tsx`, `dropdown-menu.tsx`, `separator.tsx`, `radio-group.tsx`, `label.tsx`, `form-field-wrapper.tsx`
 
 ## i18n
 

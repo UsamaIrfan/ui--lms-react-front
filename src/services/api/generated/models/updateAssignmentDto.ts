@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateAssignmentDtoDescription } from "./updateAssignmentDtoDescription";
+import type { UpdateAssignmentDtoDescription } from './updateAssignmentDtoDescription';
 
 export interface UpdateAssignmentDto {
   tenantId?: string;

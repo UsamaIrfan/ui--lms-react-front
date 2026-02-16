@@ -5,8 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { RoleDtoId } from "./roleDtoId";
 
 export interface RoleDto {
-  id: RoleDtoId;
+  id: number;
 }

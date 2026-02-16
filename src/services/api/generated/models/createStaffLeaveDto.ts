@@ -5,10 +5,10 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateStaffLeaveDtoAdminRemarks } from "./createStaffLeaveDtoAdminRemarks";
-import type { CreateStaffLeaveDtoApprovedById } from "./createStaffLeaveDtoApprovedById";
-import type { CreateStaffLeaveDtoLeaveType } from "./createStaffLeaveDtoLeaveType";
-import type { CreateStaffLeaveDtoStatus } from "./createStaffLeaveDtoStatus";
+import type { CreateStaffLeaveDtoAdminRemarks } from './createStaffLeaveDtoAdminRemarks';
+import type { CreateStaffLeaveDtoApprovedById } from './createStaffLeaveDtoApprovedById';
+import type { CreateStaffLeaveDtoLeaveType } from './createStaffLeaveDtoLeaveType';
+import type { CreateStaffLeaveDtoStatus } from './createStaffLeaveDtoStatus';
 
 export interface CreateStaffLeaveDto {
   tenantId: string;

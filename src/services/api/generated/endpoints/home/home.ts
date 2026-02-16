@@ -5,150 +5,147 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   QueryFunction,
   QueryKey,
   UseInfiniteQueryOptions,
   UseInfiniteQueryResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type homeControllerAppInfoResponse200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type homeControllerAppInfoResponseSuccess = (homeControllerAppInfoResponse200) & {
+  headers: Headers;
 };
+;
 
-export type homeControllerAppInfoResponseSuccess =
-  homeControllerAppInfoResponse200 & {
-    headers: Headers;
-  };
-export type homeControllerAppInfoResponse =
-  homeControllerAppInfoResponseSuccess;
+export type homeControllerAppInfoResponse = (homeControllerAppInfoResponseSuccess)
 
 export const getHomeControllerAppInfoUrl = () => {
-  return `http://localhost:3000/`;
-};
 
-export const homeControllerAppInfo = async (
-  options?: RequestInit
-): Promise<homeControllerAppInfoResponse> => {
-  return customFetch<homeControllerAppInfoResponse>(
-    getHomeControllerAppInfoUrl(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/`
+}
+
+export const homeControllerAppInfo = async ( options?: RequestInit): Promise<homeControllerAppInfoResponse> => {
+  
+  return customFetch<homeControllerAppInfoResponse>(getHomeControllerAppInfoUrl(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getHomeControllerAppInfoInfiniteQueryKey = () => {
-  return ["infinite", `http://localhost:3000/`] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/`
+    ] as const;
+    }
 
 export const getHomeControllerAppInfoQueryKey = () => {
-  return [`http://localhost:3000/`] as const;
-};
+    return [
+    `http://localhost:3000/`
+    ] as const;
+    }
 
-export const getHomeControllerAppInfoInfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof homeControllerAppInfo>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof homeControllerAppInfo>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getHomeControllerAppInfoInfiniteQueryOptions = <TData = Awaited<ReturnType<typeof homeControllerAppInfo>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof homeControllerAppInfo>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getHomeControllerAppInfoInfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof homeControllerAppInfo>>
-  > = ({ signal }) => homeControllerAppInfo({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getHomeControllerAppInfoInfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof homeControllerAppInfo>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type HomeControllerAppInfoInfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof homeControllerAppInfo>>
->;
-export type HomeControllerAppInfoInfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof homeControllerAppInfo>>> = ({ signal }) => homeControllerAppInfo({ signal, ...requestOptions });
 
-export function useHomeControllerAppInfoInfinite<
-  TData = Awaited<ReturnType<typeof homeControllerAppInfo>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof homeControllerAppInfo>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getHomeControllerAppInfoInfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof homeControllerAppInfo>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type HomeControllerAppInfoInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof homeControllerAppInfo>>>
+export type HomeControllerAppInfoInfiniteQueryError = unknown
+
+
+
+export function useHomeControllerAppInfoInfinite<TData = Awaited<ReturnType<typeof homeControllerAppInfo>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof homeControllerAppInfo>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getHomeControllerAppInfoInfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getHomeControllerAppInfoQueryOptions = <
-  TData = Awaited<ReturnType<typeof homeControllerAppInfo>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof homeControllerAppInfo>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getHomeControllerAppInfoQueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof homeControllerAppInfo>>
-  > = ({ signal }) => homeControllerAppInfo({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof homeControllerAppInfo>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getHomeControllerAppInfoQueryOptions = <TData = Awaited<ReturnType<typeof homeControllerAppInfo>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof homeControllerAppInfo>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type HomeControllerAppInfoQueryResult = NonNullable<
-  Awaited<ReturnType<typeof homeControllerAppInfo>>
->;
-export type HomeControllerAppInfoQueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function useHomeControllerAppInfo<
-  TData = Awaited<ReturnType<typeof homeControllerAppInfo>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof homeControllerAppInfo>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getHomeControllerAppInfoQueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getHomeControllerAppInfoQueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof homeControllerAppInfo>>> = ({ signal }) => homeControllerAppInfo({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof homeControllerAppInfo>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type HomeControllerAppInfoQueryResult = NonNullable<Awaited<ReturnType<typeof homeControllerAppInfo>>>
+export type HomeControllerAppInfoQueryError = unknown
+
+
+
+export function useHomeControllerAppInfo<TData = Awaited<ReturnType<typeof homeControllerAppInfo>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof homeControllerAppInfo>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getHomeControllerAppInfoQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
+

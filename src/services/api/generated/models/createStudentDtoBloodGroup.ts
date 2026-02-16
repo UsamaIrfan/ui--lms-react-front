@@ -6,16 +6,16 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateStudentDtoBloodGroup =
-  (typeof CreateStudentDtoBloodGroup)[keyof typeof CreateStudentDtoBloodGroup];
+export type CreateStudentDtoBloodGroup = typeof CreateStudentDtoBloodGroup[keyof typeof CreateStudentDtoBloodGroup];
+
 
 export const CreateStudentDtoBloodGroup = {
-  "A+": "A+",
-  "A-": "A-",
-  "B+": "B+",
-  "B-": "B-",
-  "AB+": "AB+",
-  "AB-": "AB-",
-  "O+": "O+",
-  "O-": "O-",
+  'A+': 'A+',
+  'A-': 'A-',
+  'B+': 'B+',
+  'B-': 'B-',
+  'AB+': 'AB+',
+  'AB-': 'AB-',
+  'O+': 'O+',
+  'O-': 'O-',
 } as const;

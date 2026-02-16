@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { MarkEntryDtoMarksObtained } from "./markEntryDtoMarksObtained";
+import type { MarkEntryDtoMarksObtained } from './markEntryDtoMarksObtained';
 
 export interface MarkEntryDto {
   studentId: number;

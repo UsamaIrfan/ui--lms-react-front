@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,611 +19,495 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
 import type {
   CreateCourseMaterialDto,
-  UpdateCourseMaterialDto,
-} from "../../models";
+  UpdateCourseMaterialDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type courseMaterialControllerCreateV1Response201 = {
-  data: void;
-  status: 201;
+  data: void
+  status: 201
+}
+    
+export type courseMaterialControllerCreateV1ResponseSuccess = (courseMaterialControllerCreateV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type courseMaterialControllerCreateV1ResponseSuccess =
-  courseMaterialControllerCreateV1Response201 & {
-    headers: Headers;
-  };
-export type courseMaterialControllerCreateV1Response =
-  courseMaterialControllerCreateV1ResponseSuccess;
+export type courseMaterialControllerCreateV1Response = (courseMaterialControllerCreateV1ResponseSuccess)
 
 export const getCourseMaterialControllerCreateV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/course-materials`;
-};
 
-export const courseMaterialControllerCreateV1 = async (
-  createCourseMaterialDto: CreateCourseMaterialDto,
-  options?: RequestInit
-): Promise<courseMaterialControllerCreateV1Response> => {
-  return customFetch<courseMaterialControllerCreateV1Response>(
-    getCourseMaterialControllerCreateV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(createCourseMaterialDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/course-materials`
+}
+
+export const courseMaterialControllerCreateV1 = async (createCourseMaterialDto: CreateCourseMaterialDto, options?: RequestInit): Promise<courseMaterialControllerCreateV1Response> => {
+  
+  return customFetch<courseMaterialControllerCreateV1Response>(getCourseMaterialControllerCreateV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createCourseMaterialDto,)
+  }
+);}
+
+
+
+
+export const getCourseMaterialControllerCreateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>, TError,{data: CreateCourseMaterialDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>, TError,{data: CreateCourseMaterialDto}, TContext> => {
+
+const mutationKey = ['courseMaterialControllerCreateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>, {data: CreateCourseMaterialDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  courseMaterialControllerCreateV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CourseMaterialControllerCreateV1MutationResult = NonNullable<Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>>
+    export type CourseMaterialControllerCreateV1MutationBody = CreateCourseMaterialDto
+    export type CourseMaterialControllerCreateV1MutationError = unknown
+
+    export const useCourseMaterialControllerCreateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>, TError,{data: CreateCourseMaterialDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>,
+        TError,
+        {data: CreateCourseMaterialDto},
+        TContext
+      > => {
+      return useMutation(getCourseMaterialControllerCreateV1MutationOptions(options));
     }
-  );
+    export type courseMaterialControllerFindAllV1Response200 = {
+  data: void
+  status: 200
+}
+    
+export type courseMaterialControllerFindAllV1ResponseSuccess = (courseMaterialControllerFindAllV1Response200) & {
+  headers: Headers;
 };
+;
 
-export const getCourseMaterialControllerCreateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>,
-    TError,
-    { data: CreateCourseMaterialDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>,
-  TError,
-  { data: CreateCourseMaterialDto },
-  TContext
-> => {
-  const mutationKey = ["courseMaterialControllerCreateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>,
-    { data: CreateCourseMaterialDto }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return courseMaterialControllerCreateV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type CourseMaterialControllerCreateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>
->;
-export type CourseMaterialControllerCreateV1MutationBody =
-  CreateCourseMaterialDto;
-export type CourseMaterialControllerCreateV1MutationError = unknown;
-
-export const useCourseMaterialControllerCreateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>,
-    TError,
-    { data: CreateCourseMaterialDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof courseMaterialControllerCreateV1>>,
-  TError,
-  { data: CreateCourseMaterialDto },
-  TContext
-> => {
-  return useMutation(
-    getCourseMaterialControllerCreateV1MutationOptions(options)
-  );
-};
-export type courseMaterialControllerFindAllV1Response200 = {
-  data: void;
-  status: 200;
-};
-
-export type courseMaterialControllerFindAllV1ResponseSuccess =
-  courseMaterialControllerFindAllV1Response200 & {
-    headers: Headers;
-  };
-export type courseMaterialControllerFindAllV1Response =
-  courseMaterialControllerFindAllV1ResponseSuccess;
+export type courseMaterialControllerFindAllV1Response = (courseMaterialControllerFindAllV1ResponseSuccess)
 
 export const getCourseMaterialControllerFindAllV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/course-materials`;
-};
 
-export const courseMaterialControllerFindAllV1 = async (
-  options?: RequestInit
-): Promise<courseMaterialControllerFindAllV1Response> => {
-  return customFetch<courseMaterialControllerFindAllV1Response>(
-    getCourseMaterialControllerFindAllV1Url(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/api/v1/lms/course-materials`
+}
+
+export const courseMaterialControllerFindAllV1 = async ( options?: RequestInit): Promise<courseMaterialControllerFindAllV1Response> => {
+  
+  return customFetch<courseMaterialControllerFindAllV1Response>(getCourseMaterialControllerFindAllV1Url(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getCourseMaterialControllerFindAllV1InfiniteQueryKey = () => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/lms/course-materials`,
-  ] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/course-materials`
+    ] as const;
+    }
 
 export const getCourseMaterialControllerFindAllV1QueryKey = () => {
-  return [`http://localhost:3000/api/v1/lms/course-materials`] as const;
-};
+    return [
+    `http://localhost:3000/api/v1/lms/course-materials`
+    ] as const;
+    }
 
-export const getCourseMaterialControllerFindAllV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getCourseMaterialControllerFindAllV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getCourseMaterialControllerFindAllV1InfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>
-  > = ({ signal }) => courseMaterialControllerFindAllV1({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getCourseMaterialControllerFindAllV1InfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type CourseMaterialControllerFindAllV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>
->;
-export type CourseMaterialControllerFindAllV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>> = ({ signal }) => courseMaterialControllerFindAllV1({ signal, ...requestOptions });
 
-export function useCourseMaterialControllerFindAllV1Infinite<
-  TData = Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getCourseMaterialControllerFindAllV1InfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type CourseMaterialControllerFindAllV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>>
+export type CourseMaterialControllerFindAllV1InfiniteQueryError = unknown
+
+
+
+export function useCourseMaterialControllerFindAllV1Infinite<TData = Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getCourseMaterialControllerFindAllV1InfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getCourseMaterialControllerFindAllV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getCourseMaterialControllerFindAllV1QueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>
-  > = ({ signal }) => courseMaterialControllerFindAllV1({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getCourseMaterialControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type CourseMaterialControllerFindAllV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>
->;
-export type CourseMaterialControllerFindAllV1QueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function useCourseMaterialControllerFindAllV1<
-  TData = Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getCourseMaterialControllerFindAllV1QueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getCourseMaterialControllerFindAllV1QueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>> = ({ signal }) => courseMaterialControllerFindAllV1({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type CourseMaterialControllerFindAllV1QueryResult = NonNullable<Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>>
+export type CourseMaterialControllerFindAllV1QueryError = unknown
+
+
+
+export function useCourseMaterialControllerFindAllV1<TData = Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getCourseMaterialControllerFindAllV1QueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type courseMaterialControllerFindOneV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type courseMaterialControllerFindOneV1ResponseSuccess = (courseMaterialControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type courseMaterialControllerFindOneV1ResponseSuccess =
-  courseMaterialControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type courseMaterialControllerFindOneV1Response =
-  courseMaterialControllerFindOneV1ResponseSuccess;
+export type courseMaterialControllerFindOneV1Response = (courseMaterialControllerFindOneV1ResponseSuccess)
 
-export const getCourseMaterialControllerFindOneV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/course-materials/${id}`;
-};
+export const getCourseMaterialControllerFindOneV1Url = (id: number,) => {
 
-export const courseMaterialControllerFindOneV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<courseMaterialControllerFindOneV1Response> => {
-  return customFetch<courseMaterialControllerFindOneV1Response>(
-    getCourseMaterialControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/lms/course-materials/${id}`
+}
+
+export const courseMaterialControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<courseMaterialControllerFindOneV1Response> => {
+  
+  return customFetch<courseMaterialControllerFindOneV1Response>(getCourseMaterialControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getCourseMaterialControllerFindOneV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/course-materials/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getCourseMaterialControllerFindOneV1InfiniteQueryKey = (
-  id: number
+export const getCourseMaterialControllerFindOneV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/lms/course-materials/${id}`
+    ] as const;
+    }
+
+    
+export const getCourseMaterialControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/lms/course-materials/${id}`,
-  ] as const;
-};
 
-export const getCourseMaterialControllerFindOneV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/lms/course-materials/${id}`] as const;
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export const getCourseMaterialControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-) => {
-  const { query: queryOptions } = options ?? {};
+  const queryKey =  queryOptions?.queryKey ?? getCourseMaterialControllerFindOneV1InfiniteQueryKey(id);
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getCourseMaterialControllerFindOneV1InfiniteQueryKey(id);
+  
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>
-  > = ({ signal }) => courseMaterialControllerFindOneV1(id, { signal });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>> = ({ signal }) => courseMaterialControllerFindOneV1(id, { signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+      
 
-export type CourseMaterialControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>
->;
-export type CourseMaterialControllerFindOneV1InfiniteQueryError = unknown;
+      
 
-export function useCourseMaterialControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getCourseMaterialControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+export type CourseMaterialControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>>
+export type CourseMaterialControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useCourseMaterialControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getCourseMaterialControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getCourseMaterialControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getCourseMaterialControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getCourseMaterialControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>
-  > = ({ signal }) => courseMaterialControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getCourseMaterialControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type CourseMaterialControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>
->;
-export type CourseMaterialControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>> = ({ signal }) => courseMaterialControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useCourseMaterialControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getCourseMaterialControllerFindOneV1QueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type CourseMaterialControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>>
+export type CourseMaterialControllerFindOneV1QueryError = unknown
+
+
+
+export function useCourseMaterialControllerFindOneV1<TData = Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof courseMaterialControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getCourseMaterialControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type courseMaterialControllerUpdateV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type courseMaterialControllerUpdateV1ResponseSuccess = (courseMaterialControllerUpdateV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type courseMaterialControllerUpdateV1ResponseSuccess =
-  courseMaterialControllerUpdateV1Response200 & {
-    headers: Headers;
-  };
-export type courseMaterialControllerUpdateV1Response =
-  courseMaterialControllerUpdateV1ResponseSuccess;
+export type courseMaterialControllerUpdateV1Response = (courseMaterialControllerUpdateV1ResponseSuccess)
 
-export const getCourseMaterialControllerUpdateV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/course-materials/${id}`;
-};
+export const getCourseMaterialControllerUpdateV1Url = (id: number,) => {
 
-export const courseMaterialControllerUpdateV1 = async (
-  id: number,
-  updateCourseMaterialDto: UpdateCourseMaterialDto,
-  options?: RequestInit
-): Promise<courseMaterialControllerUpdateV1Response> => {
-  return customFetch<courseMaterialControllerUpdateV1Response>(
-    getCourseMaterialControllerUpdateV1Url(id),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(updateCourseMaterialDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/course-materials/${id}`
+}
+
+export const courseMaterialControllerUpdateV1 = async (id: number,
+    updateCourseMaterialDto: UpdateCourseMaterialDto, options?: RequestInit): Promise<courseMaterialControllerUpdateV1Response> => {
+  
+  return customFetch<courseMaterialControllerUpdateV1Response>(getCourseMaterialControllerUpdateV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateCourseMaterialDto,)
+  }
+);}
+
+
+
+
+export const getCourseMaterialControllerUpdateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>, TError,{id: number;data: UpdateCourseMaterialDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>, TError,{id: number;data: UpdateCourseMaterialDto}, TContext> => {
+
+const mutationKey = ['courseMaterialControllerUpdateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>, {id: number;data: UpdateCourseMaterialDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  courseMaterialControllerUpdateV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CourseMaterialControllerUpdateV1MutationResult = NonNullable<Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>>
+    export type CourseMaterialControllerUpdateV1MutationBody = UpdateCourseMaterialDto
+    export type CourseMaterialControllerUpdateV1MutationError = unknown
+
+    export const useCourseMaterialControllerUpdateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>, TError,{id: number;data: UpdateCourseMaterialDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>,
+        TError,
+        {id: number;data: UpdateCourseMaterialDto},
+        TContext
+      > => {
+      return useMutation(getCourseMaterialControllerUpdateV1MutationOptions(options));
     }
-  );
+    export type courseMaterialControllerRemoveV1Response204 = {
+  data: void
+  status: 204
+}
+    
+export type courseMaterialControllerRemoveV1ResponseSuccess = (courseMaterialControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export const getCourseMaterialControllerUpdateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateCourseMaterialDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateCourseMaterialDto },
-  TContext
-> => {
-  const mutationKey = ["courseMaterialControllerUpdateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+export type courseMaterialControllerRemoveV1Response = (courseMaterialControllerRemoveV1ResponseSuccess)
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>,
-    { id: number; data: UpdateCourseMaterialDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getCourseMaterialControllerRemoveV1Url = (id: number,) => {
 
-    return courseMaterialControllerUpdateV1(id, data);
-  };
 
-  return { mutationFn, ...mutationOptions };
-};
+  
 
-export type CourseMaterialControllerUpdateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>
->;
-export type CourseMaterialControllerUpdateV1MutationBody =
-  UpdateCourseMaterialDto;
-export type CourseMaterialControllerUpdateV1MutationError = unknown;
+  return `http://localhost:3000/api/v1/lms/course-materials/${id}`
+}
 
-export const useCourseMaterialControllerUpdateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateCourseMaterialDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof courseMaterialControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateCourseMaterialDto },
-  TContext
-> => {
-  return useMutation(
-    getCourseMaterialControllerUpdateV1MutationOptions(options)
-  );
-};
-export type courseMaterialControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
-};
+export const courseMaterialControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<courseMaterialControllerRemoveV1Response> => {
+  
+  return customFetch<courseMaterialControllerRemoveV1Response>(getCourseMaterialControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
 
-export type courseMaterialControllerRemoveV1ResponseSuccess =
-  courseMaterialControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type courseMaterialControllerRemoveV1Response =
-  courseMaterialControllerRemoveV1ResponseSuccess;
 
-export const getCourseMaterialControllerRemoveV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/course-materials/${id}`;
-};
 
-export const courseMaterialControllerRemoveV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<courseMaterialControllerRemoveV1Response> => {
-  return customFetch<courseMaterialControllerRemoveV1Response>(
-    getCourseMaterialControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
+
+export const getCourseMaterialControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['courseMaterialControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  courseMaterialControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CourseMaterialControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>>
+    
+    export type CourseMaterialControllerRemoveV1MutationError = unknown
+
+    export const useCourseMaterialControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getCourseMaterialControllerRemoveV1MutationOptions(options));
     }
-  );
-};
-
-export const getCourseMaterialControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationKey = ["courseMaterialControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return courseMaterialControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type CourseMaterialControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>
->;
-
-export type CourseMaterialControllerRemoveV1MutationError = unknown;
-
-export const useCourseMaterialControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof courseMaterialControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  return useMutation(
-    getCourseMaterialControllerRemoveV1MutationOptions(options)
-  );
-};
+    

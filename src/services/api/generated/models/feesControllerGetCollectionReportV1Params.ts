@@ -7,7 +7,7 @@
  */
 
 export type FeesControllerGetCollectionReportV1Params = {
-  dateFrom?: string;
-  dateTo?: string;
-  gradeClassId?: number;
+dateFrom?: string;
+dateTo?: string;
+gradeClassId?: number;
 };

@@ -6,10 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type SalaryComponentType =
-  (typeof SalaryComponentType)[keyof typeof SalaryComponentType];
+export type SalaryComponentType = typeof SalaryComponentType[keyof typeof SalaryComponentType];
+
 
 export const SalaryComponentType = {
-  earning: "earning",
-  deduction: "deduction",
+  earning: 'earning',
+  deduction: 'deduction',
 } as const;

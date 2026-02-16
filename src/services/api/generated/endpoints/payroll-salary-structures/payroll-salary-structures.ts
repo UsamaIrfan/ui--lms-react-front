@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,610 +19,496 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
 import type {
   CreateSalaryStructureDto,
   SalaryStructure,
-  UpdateSalaryStructureDto,
-} from "../../models";
+  UpdateSalaryStructureDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type salaryStructureControllerCreateV1Response201 = {
-  data: SalaryStructure;
-  status: 201;
+  data: SalaryStructure
+  status: 201
+}
+    
+export type salaryStructureControllerCreateV1ResponseSuccess = (salaryStructureControllerCreateV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type salaryStructureControllerCreateV1ResponseSuccess =
-  salaryStructureControllerCreateV1Response201 & {
-    headers: Headers;
-  };
-export type salaryStructureControllerCreateV1Response =
-  salaryStructureControllerCreateV1ResponseSuccess;
+export type salaryStructureControllerCreateV1Response = (salaryStructureControllerCreateV1ResponseSuccess)
 
 export const getSalaryStructureControllerCreateV1Url = () => {
-  return `http://localhost:3000/api/v1/payroll/structures`;
-};
 
-export const salaryStructureControllerCreateV1 = async (
-  createSalaryStructureDto: CreateSalaryStructureDto,
-  options?: RequestInit
-): Promise<salaryStructureControllerCreateV1Response> => {
-  return customFetch<salaryStructureControllerCreateV1Response>(
-    getSalaryStructureControllerCreateV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(createSalaryStructureDto),
+
+  
+
+  return `http://localhost:3000/api/v1/payroll/structures`
+}
+
+export const salaryStructureControllerCreateV1 = async (createSalaryStructureDto: CreateSalaryStructureDto, options?: RequestInit): Promise<salaryStructureControllerCreateV1Response> => {
+  
+  return customFetch<salaryStructureControllerCreateV1Response>(getSalaryStructureControllerCreateV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createSalaryStructureDto,)
+  }
+);}
+
+
+
+
+export const getSalaryStructureControllerCreateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>, TError,{data: CreateSalaryStructureDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>, TError,{data: CreateSalaryStructureDto}, TContext> => {
+
+const mutationKey = ['salaryStructureControllerCreateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>, {data: CreateSalaryStructureDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  salaryStructureControllerCreateV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SalaryStructureControllerCreateV1MutationResult = NonNullable<Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>>
+    export type SalaryStructureControllerCreateV1MutationBody = CreateSalaryStructureDto
+    export type SalaryStructureControllerCreateV1MutationError = unknown
+
+    export const useSalaryStructureControllerCreateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>, TError,{data: CreateSalaryStructureDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>,
+        TError,
+        {data: CreateSalaryStructureDto},
+        TContext
+      > => {
+      return useMutation(getSalaryStructureControllerCreateV1MutationOptions(options));
     }
-  );
+    export type salaryStructureControllerFindAllV1Response200 = {
+  data: SalaryStructure[]
+  status: 200
+}
+    
+export type salaryStructureControllerFindAllV1ResponseSuccess = (salaryStructureControllerFindAllV1Response200) & {
+  headers: Headers;
 };
+;
 
-export const getSalaryStructureControllerCreateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>,
-    TError,
-    { data: CreateSalaryStructureDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>,
-  TError,
-  { data: CreateSalaryStructureDto },
-  TContext
-> => {
-  const mutationKey = ["salaryStructureControllerCreateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>,
-    { data: CreateSalaryStructureDto }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return salaryStructureControllerCreateV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type SalaryStructureControllerCreateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>
->;
-export type SalaryStructureControllerCreateV1MutationBody =
-  CreateSalaryStructureDto;
-export type SalaryStructureControllerCreateV1MutationError = unknown;
-
-export const useSalaryStructureControllerCreateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>,
-    TError,
-    { data: CreateSalaryStructureDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof salaryStructureControllerCreateV1>>,
-  TError,
-  { data: CreateSalaryStructureDto },
-  TContext
-> => {
-  return useMutation(
-    getSalaryStructureControllerCreateV1MutationOptions(options)
-  );
-};
-export type salaryStructureControllerFindAllV1Response200 = {
-  data: SalaryStructure[];
-  status: 200;
-};
-
-export type salaryStructureControllerFindAllV1ResponseSuccess =
-  salaryStructureControllerFindAllV1Response200 & {
-    headers: Headers;
-  };
-export type salaryStructureControllerFindAllV1Response =
-  salaryStructureControllerFindAllV1ResponseSuccess;
+export type salaryStructureControllerFindAllV1Response = (salaryStructureControllerFindAllV1ResponseSuccess)
 
 export const getSalaryStructureControllerFindAllV1Url = () => {
-  return `http://localhost:3000/api/v1/payroll/structures`;
-};
 
-export const salaryStructureControllerFindAllV1 = async (
-  options?: RequestInit
-): Promise<salaryStructureControllerFindAllV1Response> => {
-  return customFetch<salaryStructureControllerFindAllV1Response>(
-    getSalaryStructureControllerFindAllV1Url(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/api/v1/payroll/structures`
+}
+
+export const salaryStructureControllerFindAllV1 = async ( options?: RequestInit): Promise<salaryStructureControllerFindAllV1Response> => {
+  
+  return customFetch<salaryStructureControllerFindAllV1Response>(getSalaryStructureControllerFindAllV1Url(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getSalaryStructureControllerFindAllV1InfiniteQueryKey = () => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/payroll/structures`,
-  ] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/api/v1/payroll/structures`
+    ] as const;
+    }
 
 export const getSalaryStructureControllerFindAllV1QueryKey = () => {
-  return [`http://localhost:3000/api/v1/payroll/structures`] as const;
-};
+    return [
+    `http://localhost:3000/api/v1/payroll/structures`
+    ] as const;
+    }
 
-export const getSalaryStructureControllerFindAllV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getSalaryStructureControllerFindAllV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getSalaryStructureControllerFindAllV1InfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>
-  > = ({ signal }) => salaryStructureControllerFindAllV1({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getSalaryStructureControllerFindAllV1InfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type SalaryStructureControllerFindAllV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>
->;
-export type SalaryStructureControllerFindAllV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>> = ({ signal }) => salaryStructureControllerFindAllV1({ signal, ...requestOptions });
 
-export function useSalaryStructureControllerFindAllV1Infinite<
-  TData = Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getSalaryStructureControllerFindAllV1InfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type SalaryStructureControllerFindAllV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>>
+export type SalaryStructureControllerFindAllV1InfiniteQueryError = unknown
+
+
+
+export function useSalaryStructureControllerFindAllV1Infinite<TData = Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getSalaryStructureControllerFindAllV1InfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getSalaryStructureControllerFindAllV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getSalaryStructureControllerFindAllV1QueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>
-  > = ({ signal }) => salaryStructureControllerFindAllV1({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getSalaryStructureControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type SalaryStructureControllerFindAllV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>
->;
-export type SalaryStructureControllerFindAllV1QueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function useSalaryStructureControllerFindAllV1<
-  TData = Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getSalaryStructureControllerFindAllV1QueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getSalaryStructureControllerFindAllV1QueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>> = ({ signal }) => salaryStructureControllerFindAllV1({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type SalaryStructureControllerFindAllV1QueryResult = NonNullable<Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>>
+export type SalaryStructureControllerFindAllV1QueryError = unknown
+
+
+
+export function useSalaryStructureControllerFindAllV1<TData = Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getSalaryStructureControllerFindAllV1QueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type salaryStructureControllerFindOneV1Response200 = {
-  data: SalaryStructure;
-  status: 200;
+  data: SalaryStructure
+  status: 200
+}
+    
+export type salaryStructureControllerFindOneV1ResponseSuccess = (salaryStructureControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type salaryStructureControllerFindOneV1ResponseSuccess =
-  salaryStructureControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type salaryStructureControllerFindOneV1Response =
-  salaryStructureControllerFindOneV1ResponseSuccess;
+export type salaryStructureControllerFindOneV1Response = (salaryStructureControllerFindOneV1ResponseSuccess)
 
-export const getSalaryStructureControllerFindOneV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/payroll/structures/${id}`;
-};
+export const getSalaryStructureControllerFindOneV1Url = (id: number,) => {
 
-export const salaryStructureControllerFindOneV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<salaryStructureControllerFindOneV1Response> => {
-  return customFetch<salaryStructureControllerFindOneV1Response>(
-    getSalaryStructureControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/payroll/structures/${id}`
+}
+
+export const salaryStructureControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<salaryStructureControllerFindOneV1Response> => {
+  
+  return customFetch<salaryStructureControllerFindOneV1Response>(getSalaryStructureControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getSalaryStructureControllerFindOneV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/payroll/structures/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getSalaryStructureControllerFindOneV1InfiniteQueryKey = (
-  id: number
+export const getSalaryStructureControllerFindOneV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/payroll/structures/${id}`
+    ] as const;
+    }
+
+    
+export const getSalaryStructureControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/payroll/structures/${id}`,
-  ] as const;
-};
 
-export const getSalaryStructureControllerFindOneV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/payroll/structures/${id}`] as const;
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export const getSalaryStructureControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-) => {
-  const { query: queryOptions } = options ?? {};
+  const queryKey =  queryOptions?.queryKey ?? getSalaryStructureControllerFindOneV1InfiniteQueryKey(id);
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getSalaryStructureControllerFindOneV1InfiniteQueryKey(id);
+  
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>
-  > = ({ signal }) => salaryStructureControllerFindOneV1(id, { signal });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>> = ({ signal }) => salaryStructureControllerFindOneV1(id, { signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+      
 
-export type SalaryStructureControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>
->;
-export type SalaryStructureControllerFindOneV1InfiniteQueryError = unknown;
+      
 
-export function useSalaryStructureControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getSalaryStructureControllerFindOneV1InfiniteQueryOptions(id, options);
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+export type SalaryStructureControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>>
+export type SalaryStructureControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useSalaryStructureControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getSalaryStructureControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getSalaryStructureControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getSalaryStructureControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getSalaryStructureControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>
-  > = ({ signal }) => salaryStructureControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getSalaryStructureControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type SalaryStructureControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>
->;
-export type SalaryStructureControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>> = ({ signal }) => salaryStructureControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useSalaryStructureControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getSalaryStructureControllerFindOneV1QueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type SalaryStructureControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>>
+export type SalaryStructureControllerFindOneV1QueryError = unknown
+
+
+
+export function useSalaryStructureControllerFindOneV1<TData = Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof salaryStructureControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getSalaryStructureControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type salaryStructureControllerUpdateV1Response200 = {
-  data: SalaryStructure;
-  status: 200;
+  data: SalaryStructure
+  status: 200
+}
+    
+export type salaryStructureControllerUpdateV1ResponseSuccess = (salaryStructureControllerUpdateV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type salaryStructureControllerUpdateV1ResponseSuccess =
-  salaryStructureControllerUpdateV1Response200 & {
-    headers: Headers;
-  };
-export type salaryStructureControllerUpdateV1Response =
-  salaryStructureControllerUpdateV1ResponseSuccess;
+export type salaryStructureControllerUpdateV1Response = (salaryStructureControllerUpdateV1ResponseSuccess)
 
-export const getSalaryStructureControllerUpdateV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/payroll/structures/${id}`;
-};
+export const getSalaryStructureControllerUpdateV1Url = (id: number,) => {
 
-export const salaryStructureControllerUpdateV1 = async (
-  id: number,
-  updateSalaryStructureDto: UpdateSalaryStructureDto,
-  options?: RequestInit
-): Promise<salaryStructureControllerUpdateV1Response> => {
-  return customFetch<salaryStructureControllerUpdateV1Response>(
-    getSalaryStructureControllerUpdateV1Url(id),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(updateSalaryStructureDto),
+
+  
+
+  return `http://localhost:3000/api/v1/payroll/structures/${id}`
+}
+
+export const salaryStructureControllerUpdateV1 = async (id: number,
+    updateSalaryStructureDto: UpdateSalaryStructureDto, options?: RequestInit): Promise<salaryStructureControllerUpdateV1Response> => {
+  
+  return customFetch<salaryStructureControllerUpdateV1Response>(getSalaryStructureControllerUpdateV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateSalaryStructureDto,)
+  }
+);}
+
+
+
+
+export const getSalaryStructureControllerUpdateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>, TError,{id: number;data: UpdateSalaryStructureDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>, TError,{id: number;data: UpdateSalaryStructureDto}, TContext> => {
+
+const mutationKey = ['salaryStructureControllerUpdateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>, {id: number;data: UpdateSalaryStructureDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  salaryStructureControllerUpdateV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SalaryStructureControllerUpdateV1MutationResult = NonNullable<Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>>
+    export type SalaryStructureControllerUpdateV1MutationBody = UpdateSalaryStructureDto
+    export type SalaryStructureControllerUpdateV1MutationError = unknown
+
+    export const useSalaryStructureControllerUpdateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>, TError,{id: number;data: UpdateSalaryStructureDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>,
+        TError,
+        {id: number;data: UpdateSalaryStructureDto},
+        TContext
+      > => {
+      return useMutation(getSalaryStructureControllerUpdateV1MutationOptions(options));
     }
-  );
+    export type salaryStructureControllerRemoveV1Response204 = {
+  data: void
+  status: 204
+}
+    
+export type salaryStructureControllerRemoveV1ResponseSuccess = (salaryStructureControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export const getSalaryStructureControllerUpdateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateSalaryStructureDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateSalaryStructureDto },
-  TContext
-> => {
-  const mutationKey = ["salaryStructureControllerUpdateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+export type salaryStructureControllerRemoveV1Response = (salaryStructureControllerRemoveV1ResponseSuccess)
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>,
-    { id: number; data: UpdateSalaryStructureDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getSalaryStructureControllerRemoveV1Url = (id: number,) => {
 
-    return salaryStructureControllerUpdateV1(id, data);
-  };
 
-  return { mutationFn, ...mutationOptions };
-};
+  
 
-export type SalaryStructureControllerUpdateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>
->;
-export type SalaryStructureControllerUpdateV1MutationBody =
-  UpdateSalaryStructureDto;
-export type SalaryStructureControllerUpdateV1MutationError = unknown;
+  return `http://localhost:3000/api/v1/payroll/structures/${id}`
+}
 
-export const useSalaryStructureControllerUpdateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateSalaryStructureDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof salaryStructureControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateSalaryStructureDto },
-  TContext
-> => {
-  return useMutation(
-    getSalaryStructureControllerUpdateV1MutationOptions(options)
-  );
-};
-export type salaryStructureControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
-};
+export const salaryStructureControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<salaryStructureControllerRemoveV1Response> => {
+  
+  return customFetch<salaryStructureControllerRemoveV1Response>(getSalaryStructureControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
 
-export type salaryStructureControllerRemoveV1ResponseSuccess =
-  salaryStructureControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type salaryStructureControllerRemoveV1Response =
-  salaryStructureControllerRemoveV1ResponseSuccess;
 
-export const getSalaryStructureControllerRemoveV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/payroll/structures/${id}`;
-};
 
-export const salaryStructureControllerRemoveV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<salaryStructureControllerRemoveV1Response> => {
-  return customFetch<salaryStructureControllerRemoveV1Response>(
-    getSalaryStructureControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
+
+export const getSalaryStructureControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['salaryStructureControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  salaryStructureControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SalaryStructureControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>>
+    
+    export type SalaryStructureControllerRemoveV1MutationError = unknown
+
+    export const useSalaryStructureControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getSalaryStructureControllerRemoveV1MutationOptions(options));
     }
-  );
-};
-
-export const getSalaryStructureControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationKey = ["salaryStructureControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return salaryStructureControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type SalaryStructureControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>
->;
-
-export type SalaryStructureControllerRemoveV1MutationError = unknown;
-
-export const useSalaryStructureControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof salaryStructureControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  return useMutation(
-    getSalaryStructureControllerRemoveV1MutationOptions(options)
-  );
-};
+    

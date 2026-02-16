@@ -7,5 +7,5 @@
  */
 
 export type StudentRegistrationControllerFindDocumentsV1Params = {
-  documentType: string;
+documentType: string;
 };

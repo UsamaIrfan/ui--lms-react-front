@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateExamSubjectDtoExamDate } from "./createExamSubjectDtoExamDate";
+import type { CreateExamSubjectDtoExamDate } from './createExamSubjectDtoExamDate';
 
 export interface CreateExamSubjectDto {
   tenantId: string;

@@ -7,8 +7,8 @@
  */
 
 export type PortalsControllerGetStaffDashboardV1Params = {
-  /**
-   * Filter data by specific branch
-   */
-  branchId?: string;
+/**
+ * Filter data by specific branch
+ */
+branchId?: string;
 };

@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { StatusDtoId } from "./statusDtoId";
+import type { StatusDtoId } from './statusDtoId';
 
 export interface StatusDto {
   id: StatusDtoId;

@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateExamStatusDtoStatus =
-  (typeof UpdateExamStatusDtoStatus)[keyof typeof UpdateExamStatusDtoStatus];
+export type UpdateExamStatusDtoStatus = typeof UpdateExamStatusDtoStatus[keyof typeof UpdateExamStatusDtoStatus];
+
 
 export const UpdateExamStatusDtoStatus = {
-  draft: "draft",
-  scheduled: "scheduled",
-  in_progress: "in_progress",
-  completed: "completed",
-  results_published: "results_published",
+  draft: 'draft',
+  scheduled: 'scheduled',
+  in_progress: 'in_progress',
+  completed: 'completed',
+  results_published: 'results_published',
 } as const;

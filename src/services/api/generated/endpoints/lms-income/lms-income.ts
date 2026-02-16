@@ -5,177 +5,147 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   QueryFunction,
   QueryKey,
   UseInfiniteQueryOptions,
   UseInfiniteQueryResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type incomeControllerFindOneV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type incomeControllerFindOneV1ResponseSuccess = (incomeControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type incomeControllerFindOneV1ResponseSuccess =
-  incomeControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type incomeControllerFindOneV1Response =
-  incomeControllerFindOneV1ResponseSuccess;
+export type incomeControllerFindOneV1Response = (incomeControllerFindOneV1ResponseSuccess)
 
-export const getIncomeControllerFindOneV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/income/${id}`;
-};
+export const getIncomeControllerFindOneV1Url = (id: number,) => {
 
-export const incomeControllerFindOneV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<incomeControllerFindOneV1Response> => {
-  return customFetch<incomeControllerFindOneV1Response>(
-    getIncomeControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/lms/income/${id}`
+}
+
+export const incomeControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<incomeControllerFindOneV1Response> => {
+  
+  return customFetch<incomeControllerFindOneV1Response>(getIncomeControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getIncomeControllerFindOneV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/income/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getIncomeControllerFindOneV1InfiniteQueryKey = (id: number) => {
-  return ["infinite", `http://localhost:3000/api/v1/lms/income/${id}`] as const;
-};
+export const getIncomeControllerFindOneV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/lms/income/${id}`
+    ] as const;
+    }
 
-export const getIncomeControllerFindOneV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/lms/income/${id}`] as const;
-};
-
-export const getIncomeControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof incomeControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof incomeControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+    
+export const getIncomeControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof incomeControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof incomeControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getIncomeControllerFindOneV1InfiniteQueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof incomeControllerFindOneV1>>
-  > = ({ signal }) => incomeControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getIncomeControllerFindOneV1InfiniteQueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof incomeControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type IncomeControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof incomeControllerFindOneV1>>
->;
-export type IncomeControllerFindOneV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof incomeControllerFindOneV1>>> = ({ signal }) => incomeControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useIncomeControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof incomeControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof incomeControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getIncomeControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof incomeControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type IncomeControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof incomeControllerFindOneV1>>>
+export type IncomeControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useIncomeControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof incomeControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof incomeControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getIncomeControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getIncomeControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof incomeControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof incomeControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getIncomeControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof incomeControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getIncomeControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof incomeControllerFindOneV1>>
-  > = ({ signal }) => incomeControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getIncomeControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof incomeControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type IncomeControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof incomeControllerFindOneV1>>
->;
-export type IncomeControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof incomeControllerFindOneV1>>> = ({ signal }) => incomeControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useIncomeControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof incomeControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof incomeControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getIncomeControllerFindOneV1QueryOptions(id, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type IncomeControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof incomeControllerFindOneV1>>>
+export type IncomeControllerFindOneV1QueryError = unknown
+
+
+
+export function useIncomeControllerFindOneV1<TData = Awaited<ReturnType<typeof incomeControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getIncomeControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
+

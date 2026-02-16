@@ -5,9 +5,9 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateLeaveRequestDtoAdminRemarks } from "./createLeaveRequestDtoAdminRemarks";
-import type { CreateLeaveRequestDtoApprovedById } from "./createLeaveRequestDtoApprovedById";
-import type { CreateLeaveRequestDtoStatus } from "./createLeaveRequestDtoStatus";
+import type { CreateLeaveRequestDtoAdminRemarks } from './createLeaveRequestDtoAdminRemarks';
+import type { CreateLeaveRequestDtoApprovedById } from './createLeaveRequestDtoApprovedById';
+import type { CreateLeaveRequestDtoStatus } from './createLeaveRequestDtoStatus';
 
 export interface CreateLeaveRequestDto {
   tenantId: string;

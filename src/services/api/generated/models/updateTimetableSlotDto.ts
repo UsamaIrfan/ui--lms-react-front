@@ -5,9 +5,9 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateTimetableSlotDtoDayOfWeek } from "./updateTimetableSlotDtoDayOfWeek";
-import type { UpdateTimetableSlotDtoRoom } from "./updateTimetableSlotDtoRoom";
-import type { UpdateTimetableSlotDtoStaffId } from "./updateTimetableSlotDtoStaffId";
+import type { UpdateTimetableSlotDtoDayOfWeek } from './updateTimetableSlotDtoDayOfWeek';
+import type { UpdateTimetableSlotDtoRoom } from './updateTimetableSlotDtoRoom';
+import type { UpdateTimetableSlotDtoStaffId } from './updateTimetableSlotDtoStaffId';
 
 export interface UpdateTimetableSlotDto {
   tenantId?: string;

@@ -6,15 +6,15 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateAdmissionEnquiryDtoSource =
-  (typeof CreateAdmissionEnquiryDtoSource)[keyof typeof CreateAdmissionEnquiryDtoSource];
+export type CreateAdmissionEnquiryDtoSource = typeof CreateAdmissionEnquiryDtoSource[keyof typeof CreateAdmissionEnquiryDtoSource];
+
 
 export const CreateAdmissionEnquiryDtoSource = {
-  walk_in: "walk_in",
-  phone: "phone",
-  website: "website",
-  referral: "referral",
-  social_media: "social_media",
-  advertisement: "advertisement",
-  other: "other",
+  walk_in: 'walk_in',
+  phone: 'phone',
+  website: 'website',
+  referral: 'referral',
+  social_media: 'social_media',
+  advertisement: 'advertisement',
+  other: 'other',
 } as const;

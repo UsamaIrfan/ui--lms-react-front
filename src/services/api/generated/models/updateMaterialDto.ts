@@ -5,11 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateMaterialDtoDescription } from "./updateMaterialDtoDescription";
-import type { UpdateMaterialDtoExternalUrl } from "./updateMaterialDtoExternalUrl";
-import type { UpdateMaterialDtoFilePath } from "./updateMaterialDtoFilePath";
-import type { UpdateMaterialDtoType } from "./updateMaterialDtoType";
-import type { UpdateMaterialDtoUploadedById } from "./updateMaterialDtoUploadedById";
+import type { UpdateMaterialDtoDescription } from './updateMaterialDtoDescription';
+import type { UpdateMaterialDtoExternalUrl } from './updateMaterialDtoExternalUrl';
+import type { UpdateMaterialDtoFilePath } from './updateMaterialDtoFilePath';
+import type { UpdateMaterialDtoType } from './updateMaterialDtoType';
+import type { UpdateMaterialDtoUploadedById } from './updateMaterialDtoUploadedById';
 
 export interface UpdateMaterialDto {
   tenantId?: string;

@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,589 +19,495 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
-import type { CreateNoticeDto, UpdateNoticeDto } from "../../models";
+import type {
+  CreateNoticeDto,
+  UpdateNoticeDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type noticeControllerCreateV1Response201 = {
-  data: void;
-  status: 201;
+  data: void
+  status: 201
+}
+    
+export type noticeControllerCreateV1ResponseSuccess = (noticeControllerCreateV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type noticeControllerCreateV1ResponseSuccess =
-  noticeControllerCreateV1Response201 & {
-    headers: Headers;
-  };
-export type noticeControllerCreateV1Response =
-  noticeControllerCreateV1ResponseSuccess;
+export type noticeControllerCreateV1Response = (noticeControllerCreateV1ResponseSuccess)
 
 export const getNoticeControllerCreateV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/notices`;
-};
 
-export const noticeControllerCreateV1 = async (
-  createNoticeDto: CreateNoticeDto,
-  options?: RequestInit
-): Promise<noticeControllerCreateV1Response> => {
-  return customFetch<noticeControllerCreateV1Response>(
-    getNoticeControllerCreateV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(createNoticeDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/notices`
+}
+
+export const noticeControllerCreateV1 = async (createNoticeDto: CreateNoticeDto, options?: RequestInit): Promise<noticeControllerCreateV1Response> => {
+  
+  return customFetch<noticeControllerCreateV1Response>(getNoticeControllerCreateV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createNoticeDto,)
+  }
+);}
+
+
+
+
+export const getNoticeControllerCreateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof noticeControllerCreateV1>>, TError,{data: CreateNoticeDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof noticeControllerCreateV1>>, TError,{data: CreateNoticeDto}, TContext> => {
+
+const mutationKey = ['noticeControllerCreateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof noticeControllerCreateV1>>, {data: CreateNoticeDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  noticeControllerCreateV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type NoticeControllerCreateV1MutationResult = NonNullable<Awaited<ReturnType<typeof noticeControllerCreateV1>>>
+    export type NoticeControllerCreateV1MutationBody = CreateNoticeDto
+    export type NoticeControllerCreateV1MutationError = unknown
+
+    export const useNoticeControllerCreateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof noticeControllerCreateV1>>, TError,{data: CreateNoticeDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof noticeControllerCreateV1>>,
+        TError,
+        {data: CreateNoticeDto},
+        TContext
+      > => {
+      return useMutation(getNoticeControllerCreateV1MutationOptions(options));
     }
-  );
+    export type noticeControllerFindAllV1Response200 = {
+  data: void
+  status: 200
+}
+    
+export type noticeControllerFindAllV1ResponseSuccess = (noticeControllerFindAllV1Response200) & {
+  headers: Headers;
 };
+;
 
-export const getNoticeControllerCreateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof noticeControllerCreateV1>>,
-    TError,
-    { data: CreateNoticeDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof noticeControllerCreateV1>>,
-  TError,
-  { data: CreateNoticeDto },
-  TContext
-> => {
-  const mutationKey = ["noticeControllerCreateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof noticeControllerCreateV1>>,
-    { data: CreateNoticeDto }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return noticeControllerCreateV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type NoticeControllerCreateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof noticeControllerCreateV1>>
->;
-export type NoticeControllerCreateV1MutationBody = CreateNoticeDto;
-export type NoticeControllerCreateV1MutationError = unknown;
-
-export const useNoticeControllerCreateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof noticeControllerCreateV1>>,
-    TError,
-    { data: CreateNoticeDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof noticeControllerCreateV1>>,
-  TError,
-  { data: CreateNoticeDto },
-  TContext
-> => {
-  return useMutation(getNoticeControllerCreateV1MutationOptions(options));
-};
-export type noticeControllerFindAllV1Response200 = {
-  data: void;
-  status: 200;
-};
-
-export type noticeControllerFindAllV1ResponseSuccess =
-  noticeControllerFindAllV1Response200 & {
-    headers: Headers;
-  };
-export type noticeControllerFindAllV1Response =
-  noticeControllerFindAllV1ResponseSuccess;
+export type noticeControllerFindAllV1Response = (noticeControllerFindAllV1ResponseSuccess)
 
 export const getNoticeControllerFindAllV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/notices`;
-};
 
-export const noticeControllerFindAllV1 = async (
-  options?: RequestInit
-): Promise<noticeControllerFindAllV1Response> => {
-  return customFetch<noticeControllerFindAllV1Response>(
-    getNoticeControllerFindAllV1Url(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/api/v1/lms/notices`
+}
+
+export const noticeControllerFindAllV1 = async ( options?: RequestInit): Promise<noticeControllerFindAllV1Response> => {
+  
+  return customFetch<noticeControllerFindAllV1Response>(getNoticeControllerFindAllV1Url(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getNoticeControllerFindAllV1InfiniteQueryKey = () => {
-  return ["infinite", `http://localhost:3000/api/v1/lms/notices`] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/notices`
+    ] as const;
+    }
 
 export const getNoticeControllerFindAllV1QueryKey = () => {
-  return [`http://localhost:3000/api/v1/lms/notices`] as const;
-};
+    return [
+    `http://localhost:3000/api/v1/lms/notices`
+    ] as const;
+    }
 
-export const getNoticeControllerFindAllV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof noticeControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof noticeControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getNoticeControllerFindAllV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof noticeControllerFindAllV1>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof noticeControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getNoticeControllerFindAllV1InfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof noticeControllerFindAllV1>>
-  > = ({ signal }) => noticeControllerFindAllV1({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getNoticeControllerFindAllV1InfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof noticeControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type NoticeControllerFindAllV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof noticeControllerFindAllV1>>
->;
-export type NoticeControllerFindAllV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof noticeControllerFindAllV1>>> = ({ signal }) => noticeControllerFindAllV1({ signal, ...requestOptions });
 
-export function useNoticeControllerFindAllV1Infinite<
-  TData = Awaited<ReturnType<typeof noticeControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof noticeControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getNoticeControllerFindAllV1InfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof noticeControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type NoticeControllerFindAllV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof noticeControllerFindAllV1>>>
+export type NoticeControllerFindAllV1InfiniteQueryError = unknown
+
+
+
+export function useNoticeControllerFindAllV1Infinite<TData = Awaited<ReturnType<typeof noticeControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof noticeControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getNoticeControllerFindAllV1InfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getNoticeControllerFindAllV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof noticeControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof noticeControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getNoticeControllerFindAllV1QueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof noticeControllerFindAllV1>>
-  > = ({ signal }) => noticeControllerFindAllV1({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof noticeControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getNoticeControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof noticeControllerFindAllV1>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof noticeControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type NoticeControllerFindAllV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof noticeControllerFindAllV1>>
->;
-export type NoticeControllerFindAllV1QueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function useNoticeControllerFindAllV1<
-  TData = Awaited<ReturnType<typeof noticeControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof noticeControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getNoticeControllerFindAllV1QueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getNoticeControllerFindAllV1QueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof noticeControllerFindAllV1>>> = ({ signal }) => noticeControllerFindAllV1({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof noticeControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type NoticeControllerFindAllV1QueryResult = NonNullable<Awaited<ReturnType<typeof noticeControllerFindAllV1>>>
+export type NoticeControllerFindAllV1QueryError = unknown
+
+
+
+export function useNoticeControllerFindAllV1<TData = Awaited<ReturnType<typeof noticeControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof noticeControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getNoticeControllerFindAllV1QueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type noticeControllerFindOneV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type noticeControllerFindOneV1ResponseSuccess = (noticeControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type noticeControllerFindOneV1ResponseSuccess =
-  noticeControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type noticeControllerFindOneV1Response =
-  noticeControllerFindOneV1ResponseSuccess;
+export type noticeControllerFindOneV1Response = (noticeControllerFindOneV1ResponseSuccess)
 
-export const getNoticeControllerFindOneV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/notices/${id}`;
-};
+export const getNoticeControllerFindOneV1Url = (id: number,) => {
 
-export const noticeControllerFindOneV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<noticeControllerFindOneV1Response> => {
-  return customFetch<noticeControllerFindOneV1Response>(
-    getNoticeControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/lms/notices/${id}`
+}
+
+export const noticeControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<noticeControllerFindOneV1Response> => {
+  
+  return customFetch<noticeControllerFindOneV1Response>(getNoticeControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getNoticeControllerFindOneV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/notices/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getNoticeControllerFindOneV1InfiniteQueryKey = (id: number) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/lms/notices/${id}`,
-  ] as const;
-};
+export const getNoticeControllerFindOneV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/lms/notices/${id}`
+    ] as const;
+    }
 
-export const getNoticeControllerFindOneV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/lms/notices/${id}`] as const;
-};
-
-export const getNoticeControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof noticeControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof noticeControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+    
+export const getNoticeControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof noticeControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof noticeControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getNoticeControllerFindOneV1InfiniteQueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof noticeControllerFindOneV1>>
-  > = ({ signal }) => noticeControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getNoticeControllerFindOneV1InfiniteQueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof noticeControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type NoticeControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof noticeControllerFindOneV1>>
->;
-export type NoticeControllerFindOneV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof noticeControllerFindOneV1>>> = ({ signal }) => noticeControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useNoticeControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof noticeControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof noticeControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getNoticeControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof noticeControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type NoticeControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof noticeControllerFindOneV1>>>
+export type NoticeControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useNoticeControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof noticeControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof noticeControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getNoticeControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getNoticeControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof noticeControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof noticeControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getNoticeControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof noticeControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof noticeControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getNoticeControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof noticeControllerFindOneV1>>
-  > = ({ signal }) => noticeControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getNoticeControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof noticeControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type NoticeControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof noticeControllerFindOneV1>>
->;
-export type NoticeControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof noticeControllerFindOneV1>>> = ({ signal }) => noticeControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useNoticeControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof noticeControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof noticeControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getNoticeControllerFindOneV1QueryOptions(id, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof noticeControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type NoticeControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof noticeControllerFindOneV1>>>
+export type NoticeControllerFindOneV1QueryError = unknown
+
+
+
+export function useNoticeControllerFindOneV1<TData = Awaited<ReturnType<typeof noticeControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof noticeControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getNoticeControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type noticeControllerUpdateV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type noticeControllerUpdateV1ResponseSuccess = (noticeControllerUpdateV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type noticeControllerUpdateV1ResponseSuccess =
-  noticeControllerUpdateV1Response200 & {
-    headers: Headers;
-  };
-export type noticeControllerUpdateV1Response =
-  noticeControllerUpdateV1ResponseSuccess;
+export type noticeControllerUpdateV1Response = (noticeControllerUpdateV1ResponseSuccess)
 
-export const getNoticeControllerUpdateV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/notices/${id}`;
-};
+export const getNoticeControllerUpdateV1Url = (id: number,) => {
 
-export const noticeControllerUpdateV1 = async (
-  id: number,
-  updateNoticeDto: UpdateNoticeDto,
-  options?: RequestInit
-): Promise<noticeControllerUpdateV1Response> => {
-  return customFetch<noticeControllerUpdateV1Response>(
-    getNoticeControllerUpdateV1Url(id),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(updateNoticeDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/notices/${id}`
+}
+
+export const noticeControllerUpdateV1 = async (id: number,
+    updateNoticeDto: UpdateNoticeDto, options?: RequestInit): Promise<noticeControllerUpdateV1Response> => {
+  
+  return customFetch<noticeControllerUpdateV1Response>(getNoticeControllerUpdateV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateNoticeDto,)
+  }
+);}
+
+
+
+
+export const getNoticeControllerUpdateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof noticeControllerUpdateV1>>, TError,{id: number;data: UpdateNoticeDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof noticeControllerUpdateV1>>, TError,{id: number;data: UpdateNoticeDto}, TContext> => {
+
+const mutationKey = ['noticeControllerUpdateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof noticeControllerUpdateV1>>, {id: number;data: UpdateNoticeDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  noticeControllerUpdateV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type NoticeControllerUpdateV1MutationResult = NonNullable<Awaited<ReturnType<typeof noticeControllerUpdateV1>>>
+    export type NoticeControllerUpdateV1MutationBody = UpdateNoticeDto
+    export type NoticeControllerUpdateV1MutationError = unknown
+
+    export const useNoticeControllerUpdateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof noticeControllerUpdateV1>>, TError,{id: number;data: UpdateNoticeDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof noticeControllerUpdateV1>>,
+        TError,
+        {id: number;data: UpdateNoticeDto},
+        TContext
+      > => {
+      return useMutation(getNoticeControllerUpdateV1MutationOptions(options));
     }
-  );
+    export type noticeControllerRemoveV1Response204 = {
+  data: void
+  status: 204
+}
+    
+export type noticeControllerRemoveV1ResponseSuccess = (noticeControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export const getNoticeControllerUpdateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof noticeControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateNoticeDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof noticeControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateNoticeDto },
-  TContext
-> => {
-  const mutationKey = ["noticeControllerUpdateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+export type noticeControllerRemoveV1Response = (noticeControllerRemoveV1ResponseSuccess)
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof noticeControllerUpdateV1>>,
-    { id: number; data: UpdateNoticeDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getNoticeControllerRemoveV1Url = (id: number,) => {
 
-    return noticeControllerUpdateV1(id, data);
-  };
 
-  return { mutationFn, ...mutationOptions };
-};
+  
 
-export type NoticeControllerUpdateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof noticeControllerUpdateV1>>
->;
-export type NoticeControllerUpdateV1MutationBody = UpdateNoticeDto;
-export type NoticeControllerUpdateV1MutationError = unknown;
+  return `http://localhost:3000/api/v1/lms/notices/${id}`
+}
 
-export const useNoticeControllerUpdateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof noticeControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateNoticeDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof noticeControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateNoticeDto },
-  TContext
-> => {
-  return useMutation(getNoticeControllerUpdateV1MutationOptions(options));
-};
-export type noticeControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
-};
+export const noticeControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<noticeControllerRemoveV1Response> => {
+  
+  return customFetch<noticeControllerRemoveV1Response>(getNoticeControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
 
-export type noticeControllerRemoveV1ResponseSuccess =
-  noticeControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type noticeControllerRemoveV1Response =
-  noticeControllerRemoveV1ResponseSuccess;
 
-export const getNoticeControllerRemoveV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/notices/${id}`;
-};
 
-export const noticeControllerRemoveV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<noticeControllerRemoveV1Response> => {
-  return customFetch<noticeControllerRemoveV1Response>(
-    getNoticeControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
+
+export const getNoticeControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof noticeControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof noticeControllerRemoveV1>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['noticeControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof noticeControllerRemoveV1>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  noticeControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type NoticeControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof noticeControllerRemoveV1>>>
+    
+    export type NoticeControllerRemoveV1MutationError = unknown
+
+    export const useNoticeControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof noticeControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof noticeControllerRemoveV1>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getNoticeControllerRemoveV1MutationOptions(options));
     }
-  );
-};
-
-export const getNoticeControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof noticeControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof noticeControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationKey = ["noticeControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof noticeControllerRemoveV1>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return noticeControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type NoticeControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof noticeControllerRemoveV1>>
->;
-
-export type NoticeControllerRemoveV1MutationError = unknown;
-
-export const useNoticeControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof noticeControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof noticeControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  return useMutation(getNoticeControllerRemoveV1MutationOptions(options));
-};
+    

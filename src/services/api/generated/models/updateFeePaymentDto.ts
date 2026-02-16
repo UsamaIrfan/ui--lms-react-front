@@ -5,11 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateFeePaymentDtoMethod } from "./updateFeePaymentDtoMethod";
-import type { UpdateFeePaymentDtoPaidAt } from "./updateFeePaymentDtoPaidAt";
-import type { UpdateFeePaymentDtoReceiptNumber } from "./updateFeePaymentDtoReceiptNumber";
-import type { UpdateFeePaymentDtoRemarks } from "./updateFeePaymentDtoRemarks";
-import type { UpdateFeePaymentDtoTransactionRef } from "./updateFeePaymentDtoTransactionRef";
+import type { UpdateFeePaymentDtoMethod } from './updateFeePaymentDtoMethod';
+import type { UpdateFeePaymentDtoPaidAt } from './updateFeePaymentDtoPaidAt';
+import type { UpdateFeePaymentDtoReceiptNumber } from './updateFeePaymentDtoReceiptNumber';
+import type { UpdateFeePaymentDtoRemarks } from './updateFeePaymentDtoRemarks';
+import type { UpdateFeePaymentDtoTransactionRef } from './updateFeePaymentDtoTransactionRef';
 
 export interface UpdateFeePaymentDto {
   tenantId?: string;

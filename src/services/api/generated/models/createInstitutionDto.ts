@@ -5,14 +5,14 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateInstitutionDtoAddress } from "./createInstitutionDtoAddress";
-import type { CreateInstitutionDtoCity } from "./createInstitutionDtoCity";
-import type { CreateInstitutionDtoCountry } from "./createInstitutionDtoCountry";
-import type { CreateInstitutionDtoEmail } from "./createInstitutionDtoEmail";
-import type { CreateInstitutionDtoLogo } from "./createInstitutionDtoLogo";
-import type { CreateInstitutionDtoPhone } from "./createInstitutionDtoPhone";
-import type { CreateInstitutionDtoState } from "./createInstitutionDtoState";
-import type { CreateInstitutionDtoWebsite } from "./createInstitutionDtoWebsite";
+import type { CreateInstitutionDtoAddress } from './createInstitutionDtoAddress';
+import type { CreateInstitutionDtoCity } from './createInstitutionDtoCity';
+import type { CreateInstitutionDtoCountry } from './createInstitutionDtoCountry';
+import type { CreateInstitutionDtoEmail } from './createInstitutionDtoEmail';
+import type { CreateInstitutionDtoLogo } from './createInstitutionDtoLogo';
+import type { CreateInstitutionDtoPhone } from './createInstitutionDtoPhone';
+import type { CreateInstitutionDtoState } from './createInstitutionDtoState';
+import type { CreateInstitutionDtoWebsite } from './createInstitutionDtoWebsite';
 
 export interface CreateInstitutionDto {
   tenantId: string;

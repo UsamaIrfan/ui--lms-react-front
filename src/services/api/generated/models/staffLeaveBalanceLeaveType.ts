@@ -6,15 +6,15 @@
  * OpenAPI spec version: 1.0
  */
 
-export type StaffLeaveBalanceLeaveType =
-  (typeof StaffLeaveBalanceLeaveType)[keyof typeof StaffLeaveBalanceLeaveType];
+export type StaffLeaveBalanceLeaveType = typeof StaffLeaveBalanceLeaveType[keyof typeof StaffLeaveBalanceLeaveType];
+
 
 export const StaffLeaveBalanceLeaveType = {
-  sick: "sick",
-  casual: "casual",
-  earned: "earned",
-  maternity: "maternity",
-  paternity: "paternity",
-  unpaid: "unpaid",
-  other: "other",
+  sick: 'sick',
+  casual: 'casual',
+  earned: 'earned',
+  maternity: 'maternity',
+  paternity: 'paternity',
+  unpaid: 'unpaid',
+  other: 'other',
 } as const;

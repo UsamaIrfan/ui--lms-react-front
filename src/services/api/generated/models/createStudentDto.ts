@@ -5,18 +5,18 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateStudentDtoAddress } from "./createStudentDtoAddress";
-import type { CreateStudentDtoAdmissionDate } from "./createStudentDtoAdmissionDate";
-import type { CreateStudentDtoBloodGroup } from "./createStudentDtoBloodGroup";
-import type { CreateStudentDtoCity } from "./createStudentDtoCity";
-import type { CreateStudentDtoDateOfBirth } from "./createStudentDtoDateOfBirth";
-import type { CreateStudentDtoGender } from "./createStudentDtoGender";
-import type { CreateStudentDtoGuardianEmail } from "./createStudentDtoGuardianEmail";
-import type { CreateStudentDtoGuardianName } from "./createStudentDtoGuardianName";
-import type { CreateStudentDtoGuardianPhone } from "./createStudentDtoGuardianPhone";
-import type { CreateStudentDtoGuardianRelation } from "./createStudentDtoGuardianRelation";
-import type { CreateStudentDtoNationality } from "./createStudentDtoNationality";
-import type { CreateStudentDtoReligion } from "./createStudentDtoReligion";
+import type { CreateStudentDtoAddress } from './createStudentDtoAddress';
+import type { CreateStudentDtoAdmissionDate } from './createStudentDtoAdmissionDate';
+import type { CreateStudentDtoBloodGroup } from './createStudentDtoBloodGroup';
+import type { CreateStudentDtoCity } from './createStudentDtoCity';
+import type { CreateStudentDtoDateOfBirth } from './createStudentDtoDateOfBirth';
+import type { CreateStudentDtoGender } from './createStudentDtoGender';
+import type { CreateStudentDtoGuardianEmail } from './createStudentDtoGuardianEmail';
+import type { CreateStudentDtoGuardianName } from './createStudentDtoGuardianName';
+import type { CreateStudentDtoGuardianPhone } from './createStudentDtoGuardianPhone';
+import type { CreateStudentDtoGuardianRelation } from './createStudentDtoGuardianRelation';
+import type { CreateStudentDtoNationality } from './createStudentDtoNationality';
+import type { CreateStudentDtoReligion } from './createStudentDtoReligion';
 
 export interface CreateStudentDto {
   tenantId: string;

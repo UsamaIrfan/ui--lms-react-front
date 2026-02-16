@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ApplyConcessionDtoType =
-  (typeof ApplyConcessionDtoType)[keyof typeof ApplyConcessionDtoType];
+export type ApplyConcessionDtoType = typeof ApplyConcessionDtoType[keyof typeof ApplyConcessionDtoType];
+
 
 export const ApplyConcessionDtoType = {
-  scholarship: "scholarship",
-  sibling: "sibling",
-  staff_child: "staff_child",
-  merit: "merit",
-  financial_aid: "financial_aid",
+  scholarship: 'scholarship',
+  sibling: 'sibling',
+  staff_child: 'staff_child',
+  merit: 'merit',
+  financial_aid: 'financial_aid',
 } as const;

@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateStudentDocumentDtoFileId } from "./createStudentDocumentDtoFileId";
-import type { CreateStudentDocumentDtoRemarks } from "./createStudentDocumentDtoRemarks";
+import type { CreateStudentDocumentDtoFileId } from './createStudentDocumentDtoFileId';
+import type { CreateStudentDocumentDtoRemarks } from './createStudentDocumentDtoRemarks';
 
 export interface CreateStudentDocumentDto {
   tenantId: string;

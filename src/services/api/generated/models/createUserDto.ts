@@ -5,9 +5,9 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { FileDto } from "./fileDto";
-import type { RoleDto } from "./roleDto";
-import type { StatusDto } from "./statusDto";
+import type { FileDto } from './fileDto';
+import type { RoleDto } from './roleDto';
+import type { StatusDto } from './statusDto';
 
 export interface CreateUserDto {
   email: string;

@@ -1,22 +1,31 @@
 "use client";
-import { Button } from "@/components/ui/button";
+
+import { useEffect } from "react";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import FormTextInput from "@/components/form/text-input/form-text-input";
+import FormAvatarInput from "@/components/form/avatar-input/form-avatar-input";
+import Link from "@/components/link";
+
 import { authControllerUpdateV1 } from "@/services/api/generated/endpoints/auth/auth";
 import { isValidationError } from "@/services/api/generated/custom-fetch";
 import useAuthActions from "@/services/auth/use-auth-actions";
-import FormTextInput from "@/components/form/text-input/form-text-input";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
-import { useEffect } from "react";
 import useAuth from "@/services/auth/use-auth";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import Link from "@/components/link";
-import FormAvatarInput from "@/components/form/avatar-input/form-avatar-input";
-import { FileEntity } from "@/services/api/types/file-entity";
 import useLeavePage from "@/services/leave-page/use-leave-page";
 import { useTranslation } from "@/services/i18n/client";
+import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
+import { FileEntity } from "@/services/api/types/file-entity";
 import { User, UserProviderEnum } from "@/services/api/types/user";
+
+// ─────────────────────────────────────────────
+// Types
+// ─────────────────────────────────────────────
 
 type EditProfileBasicInfoFormData = {
   firstName: string;
@@ -34,6 +43,10 @@ type EditProfileChangeEmailFormData = {
   email: string;
   emailConfirmation: string;
 };
+
+// ─────────────────────────────────────────────
+// Validation Schemas
+// ─────────────────────────────────────────────
 
 const useValidationBasicInfoSchema = () => {
   const { t } = useTranslation("profile");
@@ -93,41 +106,37 @@ const useValidationChangePasswordSchema = () => {
   });
 };
 
-function BasicInfoFormActions() {
-  const { t } = useTranslation("profile");
+// ─────────────────────────────────────────────
+// Form Action Components
+// ─────────────────────────────────────────────
+
+function FormSubmitButton({
+  testId,
+  label,
+}: {
+  testId: string;
+  label: string;
+}) {
   const { isSubmitting, isDirty } = useFormState();
   useLeavePage(isDirty);
 
   return (
-    <Button type="submit" disabled={isSubmitting} data-testid="save-profile">
-      {t("profile:actions.submit")}
+    <Button type="submit" disabled={isSubmitting} data-testid={testId}>
+      {isSubmitting ? (
+        <span className="flex items-center gap-2">
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+          {label}
+        </span>
+      ) : (
+        label
+      )}
     </Button>
   );
 }
 
-function ChangeEmailFormActions() {
-  const { t } = useTranslation("profile");
-  const { isSubmitting, isDirty } = useFormState();
-  useLeavePage(isDirty);
-
-  return (
-    <Button type="submit" disabled={isSubmitting} data-testid="save-email">
-      {t("profile:actions.submit")}
-    </Button>
-  );
-}
-
-function ChangePasswordFormActions() {
-  const { t } = useTranslation("profile");
-  const { isSubmitting, isDirty } = useFormState();
-  useLeavePage(isDirty);
-
-  return (
-    <Button type="submit" disabled={isSubmitting} data-testid="save-password">
-      {t("profile:actions.submit")}
-    </Button>
-  );
-}
+// ─────────────────────────────────────────────
+// Basic Info Form
+// ─────────────────────────────────────────────
 
 function FormBasicInfo() {
   const { setUser } = useAuthActions();
@@ -188,49 +197,63 @@ function FormBasicInfo() {
 
   return (
     <FormProvider {...methods}>
-      <div className="mx-auto max-w-xs px-4">
-        <form onSubmit={onSubmit}>
-          <div className="mb-6 mt-6 grid gap-4">
-            <div>
-              <h6 className="text-lg font-semibold">{t("profile:title1")}</h6>
-            </div>
-            <div>
-              <FormAvatarInput<EditProfileBasicInfoFormData>
-                name="photo"
-                testId="photo"
-              />
-            </div>
+      <Card>
+        <CardHeader>
+          <h2 className="text-label-md text-text-strong-950">
+            {t("profile:title1")}
+          </h2>
+          <p className="text-paragraph-xs text-text-sub-600">
+            {t("profile:editProfileDescription")}
+          </p>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={onSubmit}>
+            <div className="grid gap-5">
+              <div className="flex justify-center">
+                <FormAvatarInput<EditProfileBasicInfoFormData>
+                  name="photo"
+                  testId="photo"
+                />
+              </div>
 
-            <div>
-              <FormTextInput<EditProfileBasicInfoFormData>
-                name="firstName"
-                label={t("profile:inputs.firstName.label")}
-                testId="first-name"
-              />
-            </div>
+              <div className="grid grid-cols-2 gap-4">
+                <FormTextInput<EditProfileBasicInfoFormData>
+                  name="firstName"
+                  label={t("profile:inputs.firstName.label")}
+                  testId="first-name"
+                  autoComplete="given-name"
+                />
 
-            <div>
-              <FormTextInput<EditProfileBasicInfoFormData>
-                name="lastName"
-                label={t("profile:inputs.lastName.label")}
-                testId="last-name"
-              />
-            </div>
+                <FormTextInput<EditProfileBasicInfoFormData>
+                  name="lastName"
+                  label={t("profile:inputs.lastName.label")}
+                  testId="last-name"
+                  autoComplete="family-name"
+                />
+              </div>
 
-            <div className="flex items-center gap-2">
-              <BasicInfoFormActions />
-              <Button variant="secondary" asChild>
-                <Link href="/profile" data-testid="cancel-edit-profile">
-                  {t("profile:actions.cancel")}
-                </Link>
-              </Button>
+              <div className="flex items-center gap-3">
+                <FormSubmitButton
+                  testId="save-profile"
+                  label={t("profile:actions.submit")}
+                />
+                <Button variant="outline" asChild>
+                  <Link href="/profile" data-testid="cancel-edit-profile">
+                    {t("profile:actions.cancel")}
+                  </Link>
+                </Button>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </CardContent>
+      </Card>
     </FormProvider>
   );
 }
+
+// ─────────────────────────────────────────────
+// Change Email Form
+// ─────────────────────────────────────────────
 
 function FormChangeEmail() {
   const { enqueueSnackbar } = useSnackbar();
@@ -280,47 +303,54 @@ function FormChangeEmail() {
 
   return (
     <FormProvider {...methods}>
-      <div className="mx-auto max-w-xs px-4">
-        <form onSubmit={onSubmit}>
-          <div className="mb-6 grid gap-4">
-            <div>
-              <h6 className="text-lg font-semibold">{t("profile:title2")}</h6>
-            </div>
-            <div>
-              <p className="text-base">{user?.email}</p>
-            </div>
-            <div>
+      <Card>
+        <CardHeader>
+          <h2 className="text-label-md text-text-strong-950">
+            {t("profile:title2")}
+          </h2>
+          <p className="text-paragraph-sm text-text-sub-600">{user?.email}</p>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={onSubmit}>
+            <div className="grid gap-5">
               <FormTextInput<EditProfileChangeEmailFormData>
                 name="email"
                 label={t("profile:inputs.email.label")}
                 type="email"
                 testId="email"
+                autoComplete="email"
               />
-            </div>
 
-            <div>
               <FormTextInput<EditProfileChangeEmailFormData>
                 name="emailConfirmation"
                 label={t("profile:inputs.emailConfirmation.label")}
                 type="email"
                 testId="email-confirmation"
+                autoComplete="email"
               />
-            </div>
 
-            <div className="flex items-center gap-2">
-              <ChangeEmailFormActions />
-              <Button variant="secondary" asChild>
-                <Link href="/profile" data-testid="cancel-edit-email">
-                  {t("profile:actions.cancel")}
-                </Link>
-              </Button>
+              <div className="flex items-center gap-3">
+                <FormSubmitButton
+                  testId="save-email"
+                  label={t("profile:actions.submit")}
+                />
+                <Button variant="outline" asChild>
+                  <Link href="/profile" data-testid="cancel-edit-email">
+                    {t("profile:actions.cancel")}
+                  </Link>
+                </Button>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </CardContent>
+      </Card>
     </FormProvider>
   );
 }
+
+// ─────────────────────────────────────────────
+// Change Password Form
+// ─────────────────────────────────────────────
 
 function FormChangePassword() {
   const { t } = useTranslation("profile");
@@ -370,53 +400,66 @@ function FormChangePassword() {
 
   return (
     <FormProvider {...methods}>
-      <div className="mx-auto max-w-xs px-4">
-        <form onSubmit={onSubmit}>
-          <div className="mb-4 grid gap-4">
-            <div>
-              <h6 className="text-lg font-semibold">{t("profile:title3")}</h6>
-            </div>
-            <div>
+      <Card>
+        <CardHeader>
+          <h2 className="text-label-md text-text-strong-950">
+            {t("profile:title3")}
+          </h2>
+          <p className="text-paragraph-xs text-text-sub-600">
+            {t("profile:changePasswordDescription")}
+          </p>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={onSubmit}>
+            <div className="grid gap-5">
               <FormTextInput<EditProfileChangePasswordFormData>
                 name="oldPassword"
                 label={t("profile:inputs.oldPassword.label")}
                 type="password"
                 testId="old-password"
+                autoComplete="current-password"
               />
-            </div>
 
-            <div>
+              <Separator />
+
               <FormTextInput<EditProfileChangePasswordFormData>
                 name="password"
                 label={t("profile:inputs.password.label")}
                 type="password"
                 testId="new-password"
+                autoComplete="new-password"
               />
-            </div>
 
-            <div>
               <FormTextInput<EditProfileChangePasswordFormData>
                 name="passwordConfirmation"
                 label={t("profile:inputs.passwordConfirmation.label")}
                 type="password"
                 testId="password-confirmation"
+                autoComplete="new-password"
               />
-            </div>
 
-            <div className="flex items-center gap-2">
-              <ChangePasswordFormActions />
-              <Button variant="secondary" asChild>
-                <Link href="/profile" data-testid="cancel-edit-password">
-                  {t("profile:actions.cancel")}
-                </Link>
-              </Button>
+              <div className="flex items-center gap-3">
+                <FormSubmitButton
+                  testId="save-password"
+                  label={t("profile:actions.submit")}
+                />
+                <Button variant="outline" asChild>
+                  <Link href="/profile" data-testid="cancel-edit-password">
+                    {t("profile:actions.cancel")}
+                  </Link>
+                </Button>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </CardContent>
+      </Card>
     </FormProvider>
   );
 }
+
+// ─────────────────────────────────────────────
+// Conditional Wrappers
+// ─────────────────────────────────────────────
 
 function FormChangeEmailWrapper() {
   const { user } = useAuth();
@@ -432,13 +475,17 @@ function FormChangePasswordWrapper() {
   ) : null;
 }
 
+// ─────────────────────────────────────────────
+// Main Component
+// ─────────────────────────────────────────────
+
 function EditProfile() {
   return (
-    <>
+    <div className="mx-auto max-w-2xl space-y-6 px-4 py-8">
       <FormBasicInfo />
       <FormChangeEmailWrapper />
       <FormChangePasswordWrapper />
-    </>
+    </div>
   );
 }
 

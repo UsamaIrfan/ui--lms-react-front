@@ -5,11 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateIncomeDtoDescription } from "./updateIncomeDtoDescription";
-import type { UpdateIncomeDtoFeePaymentId } from "./updateIncomeDtoFeePaymentId";
-import type { UpdateIncomeDtoReceivedFrom } from "./updateIncomeDtoReceivedFrom";
-import type { UpdateIncomeDtoReferenceNumber } from "./updateIncomeDtoReferenceNumber";
-import type { UpdateIncomeDtoRemarks } from "./updateIncomeDtoRemarks";
+import type { UpdateIncomeDtoDescription } from './updateIncomeDtoDescription';
+import type { UpdateIncomeDtoFeePaymentId } from './updateIncomeDtoFeePaymentId';
+import type { UpdateIncomeDtoReceivedFrom } from './updateIncomeDtoReceivedFrom';
+import type { UpdateIncomeDtoReferenceNumber } from './updateIncomeDtoReferenceNumber';
+import type { UpdateIncomeDtoRemarks } from './updateIncomeDtoRemarks';
 
 export interface UpdateIncomeDto {
   tenantId?: string;

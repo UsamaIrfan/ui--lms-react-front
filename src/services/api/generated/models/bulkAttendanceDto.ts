@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { BulkAttendanceRecordDto } from "./bulkAttendanceRecordDto";
+import type { BulkAttendanceRecordDto } from './bulkAttendanceRecordDto';
 
 export interface BulkAttendanceDto {
   date: string;

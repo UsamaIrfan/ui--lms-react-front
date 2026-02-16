@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateExamStatusDtoStatus } from "./updateExamStatusDtoStatus";
+import type { UpdateExamStatusDtoStatus } from './updateExamStatusDtoStatus';
 
 export interface UpdateExamStatusDto {
   status: UpdateExamStatusDtoStatus;

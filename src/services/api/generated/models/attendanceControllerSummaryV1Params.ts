@@ -5,15 +5,15 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { AttendanceControllerSummaryV1AttendableType } from "./attendanceControllerSummaryV1AttendableType";
+import type { AttendanceControllerSummaryV1AttendableType } from './attendanceControllerSummaryV1AttendableType';
 
 export type AttendanceControllerSummaryV1Params = {
-  attendableType: AttendanceControllerSummaryV1AttendableType;
-  attendableId: number;
-  startDate: string;
-  endDate: string;
-  /**
-   * Group by month
-   */
-  groupBy?: string;
+attendableType: AttendanceControllerSummaryV1AttendableType;
+attendableId: number;
+startDate: string;
+endDate: string;
+/**
+ * Group by month
+ */
+groupBy?: string;
 };

@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { GradeClassDescription } from "./gradeClassDescription";
-import type { GradeClassNumericGrade } from "./gradeClassNumericGrade";
+import type { GradeClassDescription } from './gradeClassDescription';
+import type { GradeClassNumericGrade } from './gradeClassNumericGrade';
 
 export interface GradeClass {
   id: number;

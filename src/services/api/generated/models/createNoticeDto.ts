@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateNoticeDtoExpiresAt } from "./createNoticeDtoExpiresAt";
-import type { CreateNoticeDtoPublishDate } from "./createNoticeDtoPublishDate";
+import type { CreateNoticeDtoExpiresAt } from './createNoticeDtoExpiresAt';
+import type { CreateNoticeDtoPublishDate } from './createNoticeDtoPublishDate';
 
 export interface CreateNoticeDto {
   tenantId: string;

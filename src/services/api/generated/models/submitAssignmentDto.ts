@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { SubmitAssignmentDtoFilePath } from "./submitAssignmentDtoFilePath";
-import type { SubmitAssignmentDtoRemarks } from "./submitAssignmentDtoRemarks";
+import type { SubmitAssignmentDtoFilePath } from './submitAssignmentDtoFilePath';
+import type { SubmitAssignmentDtoRemarks } from './submitAssignmentDtoRemarks';
 
 export interface SubmitAssignmentDto {
   tenantId: string;

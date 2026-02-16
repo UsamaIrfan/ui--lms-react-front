@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateStudentEnrollmentDtoEnrollmentDate } from "./createStudentEnrollmentDtoEnrollmentDate";
-import type { CreateStudentEnrollmentDtoStatus } from "./createStudentEnrollmentDtoStatus";
+import type { CreateStudentEnrollmentDtoEnrollmentDate } from './createStudentEnrollmentDtoEnrollmentDate';
+import type { CreateStudentEnrollmentDtoStatus } from './createStudentEnrollmentDtoStatus';
 
 export interface CreateStudentEnrollmentDto {
   tenantId: string;

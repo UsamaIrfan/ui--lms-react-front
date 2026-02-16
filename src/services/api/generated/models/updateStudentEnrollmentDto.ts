@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateStudentEnrollmentDtoEnrollmentDate } from "./updateStudentEnrollmentDtoEnrollmentDate";
-import type { UpdateStudentEnrollmentDtoStatus } from "./updateStudentEnrollmentDtoStatus";
+import type { UpdateStudentEnrollmentDtoEnrollmentDate } from './updateStudentEnrollmentDtoEnrollmentDate';
+import type { UpdateStudentEnrollmentDtoStatus } from './updateStudentEnrollmentDtoStatus';
 
 export interface UpdateStudentEnrollmentDto {
   tenantId?: string;

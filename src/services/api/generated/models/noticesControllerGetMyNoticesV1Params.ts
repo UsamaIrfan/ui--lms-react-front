@@ -7,8 +7,8 @@
  */
 
 export type NoticesControllerGetMyNoticesV1Params = {
-  /**
-   * Comma-separated branch UUIDs the user belongs to
-   */
-  branches?: string;
+/**
+ * Comma-separated branch UUIDs the user belongs to
+ */
+branches?: string;
 };

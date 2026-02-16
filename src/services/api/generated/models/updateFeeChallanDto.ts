@@ -5,9 +5,9 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateFeeChallanDtoIssueDate } from "./updateFeeChallanDtoIssueDate";
-import type { UpdateFeeChallanDtoRemarks } from "./updateFeeChallanDtoRemarks";
-import type { UpdateFeeChallanDtoStatus } from "./updateFeeChallanDtoStatus";
+import type { UpdateFeeChallanDtoIssueDate } from './updateFeeChallanDtoIssueDate';
+import type { UpdateFeeChallanDtoRemarks } from './updateFeeChallanDtoRemarks';
+import type { UpdateFeeChallanDtoStatus } from './updateFeeChallanDtoStatus';
 
 export interface UpdateFeeChallanDto {
   tenantId?: string;

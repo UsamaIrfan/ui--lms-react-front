@@ -7,7 +7,85 @@
     "signUp": "Sign Up",
     "profile": "Profile",
     "users": "Users",
-    "logout": "Logout"
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "search": "Search...",
+    "settings": "Settings",
+    "notices": "Notices",
+    "openSidebar": "Open sidebar",
+    "closeSidebar": "Close sidebar",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "students": {
+      "title": "Students",
+      "enquiries": "Enquiries",
+      "registrations": "Registrations",
+      "attendance": "Attendance",
+      "fees": "Fees",
+      "exams": "Exams",
+      "materials": "Materials"
+    },
+    "staff": {
+      "title": "Staff",
+      "list": "Staff List",
+      "attendance": "Attendance",
+      "leaves": "Leaves",
+      "payroll": "Payroll",
+      "timetable": "Timetable"
+    },
+    "academics": {
+      "title": "Academics",
+      "courses": "Courses",
+      "classes": "Classes",
+      "subjects": "Subjects",
+      "year": "Academic Year"
+    },
+    "accounts": {
+      "title": "Accounts",
+      "income": "Income",
+      "expenses": "Expenses",
+      "reports": "Reports"
+    }
+  },
+  "breadcrumb": {
+    "adminPanel": "Admin Panel",
+    "students": "Students",
+    "staff": "Staff",
+    "academics": "Academics",
+    "accounts": "Accounts",
+    "notices": "Notices",
+    "settings": "Settings",
+    "enquiries": "Enquiries",
+    "registrations": "Registrations",
+    "attendance": "Attendance",
+    "fees": "Fees",
+    "exams": "Exams",
+    "materials": "Materials",
+    "list": "List",
+    "leaves": "Leaves",
+    "payroll": "Payroll",
+    "timetable": "Timetable",
+    "courses": "Courses",
+    "classes": "Classes",
+    "subjects": "Subjects",
+    "year": "Academic Year",
+    "income": "Income",
+    "expenses": "Expenses",
+    "reports": "Reports",
+    "create": "Create",
+    "edit": "Edit",
+    "users": "Users",
+    "profile": "Profile"
+  },
+  "errors": {
+    "somethingWentWrong": "Something went wrong",
+    "unexpectedError": "An unexpected error occurred. Please try again.",
+    "tryAgain": "Try Again",
+    "reportIssue": "Report Issue"
+  },
+  "emptyState": {
+    "noData": "No data found",
+    "noResults": "No results match your search"
   },
   "formInputs": {
     "avatarInput": {

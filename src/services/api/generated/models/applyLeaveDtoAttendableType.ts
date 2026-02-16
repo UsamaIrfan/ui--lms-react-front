@@ -6,10 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ApplyLeaveDtoAttendableType =
-  (typeof ApplyLeaveDtoAttendableType)[keyof typeof ApplyLeaveDtoAttendableType];
+export type ApplyLeaveDtoAttendableType = typeof ApplyLeaveDtoAttendableType[keyof typeof ApplyLeaveDtoAttendableType];
+
 
 export const ApplyLeaveDtoAttendableType = {
-  student: "student",
-  staff: "staff",
+  student: 'student',
+  staff: 'staff',
 } as const;

@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateGradeClassDtoDescription } from "./createGradeClassDtoDescription";
-import type { CreateGradeClassDtoNumericGrade } from "./createGradeClassDtoNumericGrade";
+import type { CreateGradeClassDtoDescription } from './createGradeClassDtoDescription';
+import type { CreateGradeClassDtoNumericGrade } from './createGradeClassDtoNumericGrade';
 
 export interface CreateGradeClassDto {
   tenantId: string;

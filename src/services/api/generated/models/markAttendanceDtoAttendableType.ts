@@ -6,10 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type MarkAttendanceDtoAttendableType =
-  (typeof MarkAttendanceDtoAttendableType)[keyof typeof MarkAttendanceDtoAttendableType];
+export type MarkAttendanceDtoAttendableType = typeof MarkAttendanceDtoAttendableType[keyof typeof MarkAttendanceDtoAttendableType];
+
 
 export const MarkAttendanceDtoAttendableType = {
-  student: "student",
-  staff: "staff",
+  student: 'student',
+  staff: 'staff',
 } as const;

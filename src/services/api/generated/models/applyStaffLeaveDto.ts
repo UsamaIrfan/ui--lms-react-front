@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { ApplyStaffLeaveDtoLeaveType } from "./applyStaffLeaveDtoLeaveType";
+import type { ApplyStaffLeaveDtoLeaveType } from './applyStaffLeaveDtoLeaveType';
 
 export interface ApplyStaffLeaveDto {
   tenantId: string;

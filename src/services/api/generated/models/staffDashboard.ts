@@ -5,10 +5,10 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { DashboardAttendanceSummary } from "./dashboardAttendanceSummary";
-import type { StaffBranchData } from "./staffBranchData";
-import type { StaffDashboardPrimaryBranch } from "./staffDashboardPrimaryBranch";
-import type { StaffDashboardTenant } from "./staffDashboardTenant";
+import type { DashboardAttendanceSummary } from './dashboardAttendanceSummary';
+import type { StaffBranchData } from './staffBranchData';
+import type { StaffDashboardPrimaryBranch } from './staffDashboardPrimaryBranch';
+import type { StaffDashboardTenant } from './staffDashboardTenant';
 
 export interface StaffDashboard {
   tenant: StaffDashboardTenant;

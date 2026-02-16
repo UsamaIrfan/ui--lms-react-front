@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { MarkAttendanceDtoAttendableType } from "./markAttendanceDtoAttendableType";
-import type { MarkAttendanceDtoStatus } from "./markAttendanceDtoStatus";
+import type { MarkAttendanceDtoAttendableType } from './markAttendanceDtoAttendableType';
+import type { MarkAttendanceDtoStatus } from './markAttendanceDtoStatus';
 
 export interface MarkAttendanceDto {
   attendableType: MarkAttendanceDtoAttendableType;

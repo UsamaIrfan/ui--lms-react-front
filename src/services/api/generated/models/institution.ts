@@ -5,14 +5,14 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { InstitutionAddress } from "./institutionAddress";
-import type { InstitutionCity } from "./institutionCity";
-import type { InstitutionCountry } from "./institutionCountry";
-import type { InstitutionEmail } from "./institutionEmail";
-import type { InstitutionLogo } from "./institutionLogo";
-import type { InstitutionPhone } from "./institutionPhone";
-import type { InstitutionState } from "./institutionState";
-import type { InstitutionWebsite } from "./institutionWebsite";
+import type { InstitutionAddress } from './institutionAddress';
+import type { InstitutionCity } from './institutionCity';
+import type { InstitutionCountry } from './institutionCountry';
+import type { InstitutionEmail } from './institutionEmail';
+import type { InstitutionLogo } from './institutionLogo';
+import type { InstitutionPhone } from './institutionPhone';
+import type { InstitutionState } from './institutionState';
+import type { InstitutionWebsite } from './institutionWebsite';
 
 export interface Institution {
   id: number;

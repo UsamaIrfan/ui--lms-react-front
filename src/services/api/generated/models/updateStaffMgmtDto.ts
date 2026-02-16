@@ -5,15 +5,15 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateStaffMgmtDtoAddress } from "./updateStaffMgmtDtoAddress";
-import type { UpdateStaffMgmtDtoDepartmentId } from "./updateStaffMgmtDtoDepartmentId";
-import type { UpdateStaffMgmtDtoDesignation } from "./updateStaffMgmtDtoDesignation";
-import type { UpdateStaffMgmtDtoEmergencyContact } from "./updateStaffMgmtDtoEmergencyContact";
-import type { UpdateStaffMgmtDtoEmploymentType } from "./updateStaffMgmtDtoEmploymentType";
-import type { UpdateStaffMgmtDtoExperienceYears } from "./updateStaffMgmtDtoExperienceYears";
-import type { UpdateStaffMgmtDtoJoiningDate } from "./updateStaffMgmtDtoJoiningDate";
-import type { UpdateStaffMgmtDtoQualification } from "./updateStaffMgmtDtoQualification";
-import type { UpdateStaffMgmtDtoSpecialization } from "./updateStaffMgmtDtoSpecialization";
+import type { UpdateStaffMgmtDtoAddress } from './updateStaffMgmtDtoAddress';
+import type { UpdateStaffMgmtDtoDepartmentId } from './updateStaffMgmtDtoDepartmentId';
+import type { UpdateStaffMgmtDtoDesignation } from './updateStaffMgmtDtoDesignation';
+import type { UpdateStaffMgmtDtoEmergencyContact } from './updateStaffMgmtDtoEmergencyContact';
+import type { UpdateStaffMgmtDtoEmploymentType } from './updateStaffMgmtDtoEmploymentType';
+import type { UpdateStaffMgmtDtoExperienceYears } from './updateStaffMgmtDtoExperienceYears';
+import type { UpdateStaffMgmtDtoJoiningDate } from './updateStaffMgmtDtoJoiningDate';
+import type { UpdateStaffMgmtDtoQualification } from './updateStaffMgmtDtoQualification';
+import type { UpdateStaffMgmtDtoSpecialization } from './updateStaffMgmtDtoSpecialization';
 
 export interface UpdateStaffMgmtDto {
   tenantId?: string;

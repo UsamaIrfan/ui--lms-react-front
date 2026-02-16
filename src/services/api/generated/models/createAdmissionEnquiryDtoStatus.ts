@@ -6,17 +6,17 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateAdmissionEnquiryDtoStatus =
-  (typeof CreateAdmissionEnquiryDtoStatus)[keyof typeof CreateAdmissionEnquiryDtoStatus];
+export type CreateAdmissionEnquiryDtoStatus = typeof CreateAdmissionEnquiryDtoStatus[keyof typeof CreateAdmissionEnquiryDtoStatus];
+
 
 export const CreateAdmissionEnquiryDtoStatus = {
-  new: "new",
-  contacted: "contacted",
-  scheduled_visit: "scheduled_visit",
-  visit_done: "visit_done",
-  applied: "applied",
-  accepted: "accepted",
-  enrolled: "enrolled",
-  rejected: "rejected",
-  withdrawn: "withdrawn",
+  new: 'new',
+  contacted: 'contacted',
+  scheduled_visit: 'scheduled_visit',
+  visit_done: 'visit_done',
+  applied: 'applied',
+  accepted: 'accepted',
+  enrolled: 'enrolled',
+  rejected: 'rejected',
+  withdrawn: 'withdrawn',
 } as const;

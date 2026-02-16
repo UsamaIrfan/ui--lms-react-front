@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateCourseMaterialDtoType =
-  (typeof CreateCourseMaterialDtoType)[keyof typeof CreateCourseMaterialDtoType];
+export type CreateCourseMaterialDtoType = typeof CreateCourseMaterialDtoType[keyof typeof CreateCourseMaterialDtoType];
+
 
 export const CreateCourseMaterialDtoType = {
-  document: "document",
-  video: "video",
-  assignment: "assignment",
-  link: "link",
-  presentation: "presentation",
+  document: 'document',
+  video: 'video',
+  assignment: 'assignment',
+  link: 'link',
+  presentation: 'presentation',
 } as const;

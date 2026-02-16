@@ -6,12 +6,12 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateSalarySlipDtoStatus =
-  (typeof CreateSalarySlipDtoStatus)[keyof typeof CreateSalarySlipDtoStatus];
+export type CreateSalarySlipDtoStatus = typeof CreateSalarySlipDtoStatus[keyof typeof CreateSalarySlipDtoStatus];
+
 
 export const CreateSalarySlipDtoStatus = {
-  draft: "draft",
-  processed: "processed",
-  paid: "paid",
-  held: "held",
+  draft: 'draft',
+  processed: 'processed',
+  paid: 'paid',
+  held: 'held',
 } as const;

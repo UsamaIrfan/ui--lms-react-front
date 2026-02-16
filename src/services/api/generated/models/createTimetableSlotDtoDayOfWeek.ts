@@ -6,15 +6,15 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateTimetableSlotDtoDayOfWeek =
-  (typeof CreateTimetableSlotDtoDayOfWeek)[keyof typeof CreateTimetableSlotDtoDayOfWeek];
+export type CreateTimetableSlotDtoDayOfWeek = typeof CreateTimetableSlotDtoDayOfWeek[keyof typeof CreateTimetableSlotDtoDayOfWeek];
+
 
 export const CreateTimetableSlotDtoDayOfWeek = {
-  monday: "monday",
-  tuesday: "tuesday",
-  wednesday: "wednesday",
-  thursday: "thursday",
-  friday: "friday",
-  saturday: "saturday",
-  sunday: "sunday",
+  monday: 'monday',
+  tuesday: 'tuesday',
+  wednesday: 'wednesday',
+  thursday: 'thursday',
+  friday: 'friday',
+  saturday: 'saturday',
+  sunday: 'sunday',
 } as const;

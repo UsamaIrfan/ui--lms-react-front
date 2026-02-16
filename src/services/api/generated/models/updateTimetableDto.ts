@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateTimetableDtoName } from "./updateTimetableDtoName";
+import type { UpdateTimetableDtoName } from './updateTimetableDtoName';
 
 export interface UpdateTimetableDto {
   tenantId?: string;

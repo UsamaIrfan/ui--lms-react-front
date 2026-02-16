@@ -5,11 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateCourseMaterialDtoDescription } from "./createCourseMaterialDtoDescription";
-import type { CreateCourseMaterialDtoExternalUrl } from "./createCourseMaterialDtoExternalUrl";
-import type { CreateCourseMaterialDtoFileId } from "./createCourseMaterialDtoFileId";
-import type { CreateCourseMaterialDtoType } from "./createCourseMaterialDtoType";
-import type { CreateCourseMaterialDtoUploadedById } from "./createCourseMaterialDtoUploadedById";
+import type { CreateCourseMaterialDtoDescription } from './createCourseMaterialDtoDescription';
+import type { CreateCourseMaterialDtoExternalUrl } from './createCourseMaterialDtoExternalUrl';
+import type { CreateCourseMaterialDtoFileId } from './createCourseMaterialDtoFileId';
+import type { CreateCourseMaterialDtoType } from './createCourseMaterialDtoType';
+import type { CreateCourseMaterialDtoUploadedById } from './createCourseMaterialDtoUploadedById';
 
 export interface CreateCourseMaterialDto {
   tenantId: string;

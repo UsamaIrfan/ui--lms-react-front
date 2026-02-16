@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,584 +19,466 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
-import type { PayrollSlip, ProcessPayrollDto } from "../../models";
+import type {
+  PayrollSlip,
+  ProcessPayrollDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type payrollControllerProcessV1Response201 = {
-  data: void;
-  status: 201;
+  data: void
+  status: 201
+}
+    
+export type payrollControllerProcessV1ResponseSuccess = (payrollControllerProcessV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type payrollControllerProcessV1ResponseSuccess =
-  payrollControllerProcessV1Response201 & {
-    headers: Headers;
-  };
-export type payrollControllerProcessV1Response =
-  payrollControllerProcessV1ResponseSuccess;
+export type payrollControllerProcessV1Response = (payrollControllerProcessV1ResponseSuccess)
 
 export const getPayrollControllerProcessV1Url = () => {
-  return `http://localhost:3000/api/v1/payroll/process`;
-};
 
-export const payrollControllerProcessV1 = async (
-  processPayrollDto: ProcessPayrollDto,
-  options?: RequestInit
-): Promise<payrollControllerProcessV1Response> => {
-  return customFetch<payrollControllerProcessV1Response>(
-    getPayrollControllerProcessV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(processPayrollDto),
+
+  
+
+  return `http://localhost:3000/api/v1/payroll/process`
+}
+
+export const payrollControllerProcessV1 = async (processPayrollDto: ProcessPayrollDto, options?: RequestInit): Promise<payrollControllerProcessV1Response> => {
+  
+  return customFetch<payrollControllerProcessV1Response>(getPayrollControllerProcessV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      processPayrollDto,)
+  }
+);}
+
+
+
+
+export const getPayrollControllerProcessV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof payrollControllerProcessV1>>, TError,{data: ProcessPayrollDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof payrollControllerProcessV1>>, TError,{data: ProcessPayrollDto}, TContext> => {
+
+const mutationKey = ['payrollControllerProcessV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof payrollControllerProcessV1>>, {data: ProcessPayrollDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  payrollControllerProcessV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PayrollControllerProcessV1MutationResult = NonNullable<Awaited<ReturnType<typeof payrollControllerProcessV1>>>
+    export type PayrollControllerProcessV1MutationBody = ProcessPayrollDto
+    export type PayrollControllerProcessV1MutationError = unknown
+
+    export const usePayrollControllerProcessV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof payrollControllerProcessV1>>, TError,{data: ProcessPayrollDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof payrollControllerProcessV1>>,
+        TError,
+        {data: ProcessPayrollDto},
+        TContext
+      > => {
+      return useMutation(getPayrollControllerProcessV1MutationOptions(options));
     }
-  );
+    export type payrollControllerFindAllSlipsV1Response200 = {
+  data: PayrollSlip[]
+  status: 200
+}
+    
+export type payrollControllerFindAllSlipsV1ResponseSuccess = (payrollControllerFindAllSlipsV1Response200) & {
+  headers: Headers;
 };
+;
 
-export const getPayrollControllerProcessV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof payrollControllerProcessV1>>,
-    TError,
-    { data: ProcessPayrollDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof payrollControllerProcessV1>>,
-  TError,
-  { data: ProcessPayrollDto },
-  TContext
-> => {
-  const mutationKey = ["payrollControllerProcessV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof payrollControllerProcessV1>>,
-    { data: ProcessPayrollDto }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return payrollControllerProcessV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type PayrollControllerProcessV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof payrollControllerProcessV1>>
->;
-export type PayrollControllerProcessV1MutationBody = ProcessPayrollDto;
-export type PayrollControllerProcessV1MutationError = unknown;
-
-export const usePayrollControllerProcessV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof payrollControllerProcessV1>>,
-    TError,
-    { data: ProcessPayrollDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof payrollControllerProcessV1>>,
-  TError,
-  { data: ProcessPayrollDto },
-  TContext
-> => {
-  return useMutation(getPayrollControllerProcessV1MutationOptions(options));
-};
-export type payrollControllerFindAllSlipsV1Response200 = {
-  data: PayrollSlip[];
-  status: 200;
-};
-
-export type payrollControllerFindAllSlipsV1ResponseSuccess =
-  payrollControllerFindAllSlipsV1Response200 & {
-    headers: Headers;
-  };
-export type payrollControllerFindAllSlipsV1Response =
-  payrollControllerFindAllSlipsV1ResponseSuccess;
+export type payrollControllerFindAllSlipsV1Response = (payrollControllerFindAllSlipsV1ResponseSuccess)
 
 export const getPayrollControllerFindAllSlipsV1Url = () => {
-  return `http://localhost:3000/api/v1/payroll/slips`;
-};
 
-export const payrollControllerFindAllSlipsV1 = async (
-  options?: RequestInit
-): Promise<payrollControllerFindAllSlipsV1Response> => {
-  return customFetch<payrollControllerFindAllSlipsV1Response>(
-    getPayrollControllerFindAllSlipsV1Url(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/api/v1/payroll/slips`
+}
+
+export const payrollControllerFindAllSlipsV1 = async ( options?: RequestInit): Promise<payrollControllerFindAllSlipsV1Response> => {
+  
+  return customFetch<payrollControllerFindAllSlipsV1Response>(getPayrollControllerFindAllSlipsV1Url(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getPayrollControllerFindAllSlipsV1InfiniteQueryKey = () => {
-  return ["infinite", `http://localhost:3000/api/v1/payroll/slips`] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/api/v1/payroll/slips`
+    ] as const;
+    }
 
 export const getPayrollControllerFindAllSlipsV1QueryKey = () => {
-  return [`http://localhost:3000/api/v1/payroll/slips`] as const;
-};
+    return [
+    `http://localhost:3000/api/v1/payroll/slips`
+    ] as const;
+    }
 
-export const getPayrollControllerFindAllSlipsV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getPayrollControllerFindAllSlipsV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getPayrollControllerFindAllSlipsV1InfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>
-  > = ({ signal }) => payrollControllerFindAllSlipsV1({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getPayrollControllerFindAllSlipsV1InfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type PayrollControllerFindAllSlipsV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>
->;
-export type PayrollControllerFindAllSlipsV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>> = ({ signal }) => payrollControllerFindAllSlipsV1({ signal, ...requestOptions });
 
-export function usePayrollControllerFindAllSlipsV1Infinite<
-  TData = Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getPayrollControllerFindAllSlipsV1InfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type PayrollControllerFindAllSlipsV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>>
+export type PayrollControllerFindAllSlipsV1InfiniteQueryError = unknown
+
+
+
+export function usePayrollControllerFindAllSlipsV1Infinite<TData = Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getPayrollControllerFindAllSlipsV1InfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getPayrollControllerFindAllSlipsV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getPayrollControllerFindAllSlipsV1QueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>
-  > = ({ signal }) => payrollControllerFindAllSlipsV1({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getPayrollControllerFindAllSlipsV1QueryOptions = <TData = Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type PayrollControllerFindAllSlipsV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>
->;
-export type PayrollControllerFindAllSlipsV1QueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function usePayrollControllerFindAllSlipsV1<
-  TData = Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getPayrollControllerFindAllSlipsV1QueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getPayrollControllerFindAllSlipsV1QueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>> = ({ signal }) => payrollControllerFindAllSlipsV1({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type PayrollControllerFindAllSlipsV1QueryResult = NonNullable<Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>>
+export type PayrollControllerFindAllSlipsV1QueryError = unknown
+
+
+
+export function usePayrollControllerFindAllSlipsV1<TData = Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof payrollControllerFindAllSlipsV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getPayrollControllerFindAllSlipsV1QueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type payrollControllerFindOneSlipV1Response200 = {
-  data: PayrollSlip;
-  status: 200;
+  data: PayrollSlip
+  status: 200
+}
+    
+export type payrollControllerFindOneSlipV1ResponseSuccess = (payrollControllerFindOneSlipV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type payrollControllerFindOneSlipV1ResponseSuccess =
-  payrollControllerFindOneSlipV1Response200 & {
-    headers: Headers;
-  };
-export type payrollControllerFindOneSlipV1Response =
-  payrollControllerFindOneSlipV1ResponseSuccess;
+export type payrollControllerFindOneSlipV1Response = (payrollControllerFindOneSlipV1ResponseSuccess)
 
-export const getPayrollControllerFindOneSlipV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/payroll/slips/${id}`;
-};
+export const getPayrollControllerFindOneSlipV1Url = (id: number,) => {
 
-export const payrollControllerFindOneSlipV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<payrollControllerFindOneSlipV1Response> => {
-  return customFetch<payrollControllerFindOneSlipV1Response>(
-    getPayrollControllerFindOneSlipV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/payroll/slips/${id}`
+}
+
+export const payrollControllerFindOneSlipV1 = async (id: number, options?: RequestInit): Promise<payrollControllerFindOneSlipV1Response> => {
+  
+  return customFetch<payrollControllerFindOneSlipV1Response>(getPayrollControllerFindOneSlipV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getPayrollControllerFindOneSlipV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/payroll/slips/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getPayrollControllerFindOneSlipV1InfiniteQueryKey = (
-  id: number
+export const getPayrollControllerFindOneSlipV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/payroll/slips/${id}`
+    ] as const;
+    }
+
+    
+export const getPayrollControllerFindOneSlipV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/payroll/slips/${id}`,
-  ] as const;
-};
 
-export const getPayrollControllerFindOneSlipV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/payroll/slips/${id}`] as const;
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export const getPayrollControllerFindOneSlipV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>,
-      TError,
-      TData
-    >;
-  }
-) => {
-  const { query: queryOptions } = options ?? {};
+  const queryKey =  queryOptions?.queryKey ?? getPayrollControllerFindOneSlipV1InfiniteQueryKey(id);
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getPayrollControllerFindOneSlipV1InfiniteQueryKey(id);
+  
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>
-  > = ({ signal }) => payrollControllerFindOneSlipV1(id, { signal });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>> = ({ signal }) => payrollControllerFindOneSlipV1(id, { signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+      
 
-export type PayrollControllerFindOneSlipV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>
->;
-export type PayrollControllerFindOneSlipV1InfiniteQueryError = unknown;
+      
 
-export function usePayrollControllerFindOneSlipV1Infinite<
-  TData = Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getPayrollControllerFindOneSlipV1InfiniteQueryOptions(
-    id,
-    options
-  );
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>, TError, TData> & { queryKey: QueryKey }
+}
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+export type PayrollControllerFindOneSlipV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>>
+export type PayrollControllerFindOneSlipV1InfiniteQueryError = unknown
+
+
+
+export function usePayrollControllerFindOneSlipV1Infinite<TData = Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getPayrollControllerFindOneSlipV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getPayrollControllerFindOneSlipV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getPayrollControllerFindOneSlipV1QueryOptions = <TData = Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getPayrollControllerFindOneSlipV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>
-  > = ({ signal }) => payrollControllerFindOneSlipV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getPayrollControllerFindOneSlipV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type PayrollControllerFindOneSlipV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>
->;
-export type PayrollControllerFindOneSlipV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>> = ({ signal }) => payrollControllerFindOneSlipV1(id, { signal, ...requestOptions });
 
-export function usePayrollControllerFindOneSlipV1<
-  TData = Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getPayrollControllerFindOneSlipV1QueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type PayrollControllerFindOneSlipV1QueryResult = NonNullable<Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>>
+export type PayrollControllerFindOneSlipV1QueryError = unknown
+
+
+
+export function usePayrollControllerFindOneSlipV1<TData = Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof payrollControllerFindOneSlipV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getPayrollControllerFindOneSlipV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type payrollControllerGeneratePdfV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type payrollControllerGeneratePdfV1ResponseSuccess = (payrollControllerGeneratePdfV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type payrollControllerGeneratePdfV1ResponseSuccess =
-  payrollControllerGeneratePdfV1Response200 & {
-    headers: Headers;
-  };
-export type payrollControllerGeneratePdfV1Response =
-  payrollControllerGeneratePdfV1ResponseSuccess;
+export type payrollControllerGeneratePdfV1Response = (payrollControllerGeneratePdfV1ResponseSuccess)
 
-export const getPayrollControllerGeneratePdfV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/payroll/slips/${id}/pdf`;
-};
+export const getPayrollControllerGeneratePdfV1Url = (id: number,) => {
 
-export const payrollControllerGeneratePdfV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<payrollControllerGeneratePdfV1Response> => {
-  return customFetch<payrollControllerGeneratePdfV1Response>(
-    getPayrollControllerGeneratePdfV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/payroll/slips/${id}/pdf`
+}
+
+export const payrollControllerGeneratePdfV1 = async (id: number, options?: RequestInit): Promise<payrollControllerGeneratePdfV1Response> => {
+  
+  return customFetch<payrollControllerGeneratePdfV1Response>(getPayrollControllerGeneratePdfV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getPayrollControllerGeneratePdfV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/payroll/slips/${id}/pdf`
+    ] as const;
     }
-  );
-};
 
-export const getPayrollControllerGeneratePdfV1InfiniteQueryKey = (
-  id: number
+export const getPayrollControllerGeneratePdfV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/payroll/slips/${id}/pdf`
+    ] as const;
+    }
+
+    
+export const getPayrollControllerGeneratePdfV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/payroll/slips/${id}/pdf`,
-  ] as const;
-};
 
-export const getPayrollControllerGeneratePdfV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/payroll/slips/${id}/pdf`] as const;
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export const getPayrollControllerGeneratePdfV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>,
-      TError,
-      TData
-    >;
-  }
-) => {
-  const { query: queryOptions } = options ?? {};
+  const queryKey =  queryOptions?.queryKey ?? getPayrollControllerGeneratePdfV1InfiniteQueryKey(id);
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getPayrollControllerGeneratePdfV1InfiniteQueryKey(id);
+  
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>
-  > = ({ signal }) => payrollControllerGeneratePdfV1(id, { signal });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>> = ({ signal }) => payrollControllerGeneratePdfV1(id, { signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+      
 
-export type PayrollControllerGeneratePdfV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>
->;
-export type PayrollControllerGeneratePdfV1InfiniteQueryError = unknown;
+      
 
-export function usePayrollControllerGeneratePdfV1Infinite<
-  TData = Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getPayrollControllerGeneratePdfV1InfiniteQueryOptions(
-    id,
-    options
-  );
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>, TError, TData> & { queryKey: QueryKey }
+}
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+export type PayrollControllerGeneratePdfV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>>
+export type PayrollControllerGeneratePdfV1InfiniteQueryError = unknown
+
+
+
+export function usePayrollControllerGeneratePdfV1Infinite<TData = Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getPayrollControllerGeneratePdfV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getPayrollControllerGeneratePdfV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getPayrollControllerGeneratePdfV1QueryOptions = <TData = Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getPayrollControllerGeneratePdfV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>
-  > = ({ signal }) => payrollControllerGeneratePdfV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getPayrollControllerGeneratePdfV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type PayrollControllerGeneratePdfV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>
->;
-export type PayrollControllerGeneratePdfV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>> = ({ signal }) => payrollControllerGeneratePdfV1(id, { signal, ...requestOptions });
 
-export function usePayrollControllerGeneratePdfV1<
-  TData = Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getPayrollControllerGeneratePdfV1QueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type PayrollControllerGeneratePdfV1QueryResult = NonNullable<Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>>
+export type PayrollControllerGeneratePdfV1QueryError = unknown
+
+
+
+export function usePayrollControllerGeneratePdfV1<TData = Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof payrollControllerGeneratePdfV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getPayrollControllerGeneratePdfV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
+

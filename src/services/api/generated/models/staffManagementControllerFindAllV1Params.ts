@@ -7,5 +7,5 @@
  */
 
 export type StaffManagementControllerFindAllV1Params = {
-  branchId?: string;
+branchId?: string;
 };

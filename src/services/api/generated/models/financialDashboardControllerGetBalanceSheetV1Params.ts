@@ -7,16 +7,16 @@
  */
 
 export type FinancialDashboardControllerGetBalanceSheetV1Params = {
-  /**
-   * Report start date
-   */
-  startDate?: string;
-  /**
-   * Report end date
-   */
-  endDate?: string;
-  /**
-   * Filter P&L by specific branch
-   */
-  branchId?: string;
+/**
+ * Report start date
+ */
+startDate?: string;
+/**
+ * Report end date
+ */
+endDate?: string;
+/**
+ * Filter P&L by specific branch
+ */
+branchId?: string;
 };

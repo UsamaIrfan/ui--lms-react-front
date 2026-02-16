@@ -6,10 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type AttendanceControllerQueryV1AttendableType =
-  (typeof AttendanceControllerQueryV1AttendableType)[keyof typeof AttendanceControllerQueryV1AttendableType];
+export type AttendanceControllerQueryV1AttendableType = typeof AttendanceControllerQueryV1AttendableType[keyof typeof AttendanceControllerQueryV1AttendableType];
+
 
 export const AttendanceControllerQueryV1AttendableType = {
-  student: "student",
-  staff: "staff",
+  student: 'student',
+  staff: 'staff',
 } as const;

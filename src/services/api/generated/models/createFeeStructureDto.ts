@@ -5,11 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateFeeStructureDtoAcademicYearId } from "./createFeeStructureDtoAcademicYearId";
-import type { CreateFeeStructureDtoDescription } from "./createFeeStructureDtoDescription";
-import type { CreateFeeStructureDtoFrequency } from "./createFeeStructureDtoFrequency";
-import type { CreateFeeStructureDtoGradeClassId } from "./createFeeStructureDtoGradeClassId";
-import type { InstallmentDto } from "./installmentDto";
+import type { CreateFeeStructureDtoAcademicYearId } from './createFeeStructureDtoAcademicYearId';
+import type { CreateFeeStructureDtoDescription } from './createFeeStructureDtoDescription';
+import type { CreateFeeStructureDtoFrequency } from './createFeeStructureDtoFrequency';
+import type { CreateFeeStructureDtoGradeClassId } from './createFeeStructureDtoGradeClassId';
+import type { InstallmentDto } from './installmentDto';
 
 export interface CreateFeeStructureDto {
   institutionId: number;

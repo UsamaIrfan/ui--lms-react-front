@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { GradeDefinitionDto } from "./gradeDefinitionDto";
+import type { GradeDefinitionDto } from './gradeDefinitionDto';
 
 export interface CreateGradingScaleDto {
   name: string;

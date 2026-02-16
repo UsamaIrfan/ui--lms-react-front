@@ -5,15 +5,15 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { RegisterStudentDtoAddress } from "./registerStudentDtoAddress";
-import type { RegisterStudentDtoAdmissionDate } from "./registerStudentDtoAdmissionDate";
-import type { RegisterStudentDtoBloodGroup } from "./registerStudentDtoBloodGroup";
-import type { RegisterStudentDtoCity } from "./registerStudentDtoCity";
-import type { RegisterStudentDtoGender } from "./registerStudentDtoGender";
-import type { RegisterStudentDtoGuardianEmail } from "./registerStudentDtoGuardianEmail";
-import type { RegisterStudentDtoGuardianRelation } from "./registerStudentDtoGuardianRelation";
-import type { RegisterStudentDtoNationality } from "./registerStudentDtoNationality";
-import type { RegisterStudentDtoReligion } from "./registerStudentDtoReligion";
+import type { RegisterStudentDtoAddress } from './registerStudentDtoAddress';
+import type { RegisterStudentDtoAdmissionDate } from './registerStudentDtoAdmissionDate';
+import type { RegisterStudentDtoBloodGroup } from './registerStudentDtoBloodGroup';
+import type { RegisterStudentDtoCity } from './registerStudentDtoCity';
+import type { RegisterStudentDtoGender } from './registerStudentDtoGender';
+import type { RegisterStudentDtoGuardianEmail } from './registerStudentDtoGuardianEmail';
+import type { RegisterStudentDtoGuardianRelation } from './registerStudentDtoGuardianRelation';
+import type { RegisterStudentDtoNationality } from './registerStudentDtoNationality';
+import type { RegisterStudentDtoReligion } from './registerStudentDtoReligion';
 
 export interface RegisterStudentDto {
   firstName: string;

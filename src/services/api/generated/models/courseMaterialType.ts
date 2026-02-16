@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CourseMaterialType =
-  (typeof CourseMaterialType)[keyof typeof CourseMaterialType];
+export type CourseMaterialType = typeof CourseMaterialType[keyof typeof CourseMaterialType];
+
 
 export const CourseMaterialType = {
-  document: "document",
-  video: "video",
-  assignment: "assignment",
-  link: "link",
-  presentation: "presentation",
+  document: 'document',
+  video: 'video',
+  assignment: 'assignment',
+  link: 'link',
+  presentation: 'presentation',
 } as const;

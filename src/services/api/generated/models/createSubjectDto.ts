@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateSubjectDtoDescription } from "./createSubjectDtoDescription";
+import type { CreateSubjectDtoDescription } from './createSubjectDtoDescription';
 
 export interface CreateSubjectDto {
   tenantId: string;

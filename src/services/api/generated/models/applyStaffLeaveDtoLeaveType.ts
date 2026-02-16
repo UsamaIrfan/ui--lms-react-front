@@ -6,15 +6,15 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ApplyStaffLeaveDtoLeaveType =
-  (typeof ApplyStaffLeaveDtoLeaveType)[keyof typeof ApplyStaffLeaveDtoLeaveType];
+export type ApplyStaffLeaveDtoLeaveType = typeof ApplyStaffLeaveDtoLeaveType[keyof typeof ApplyStaffLeaveDtoLeaveType];
+
 
 export const ApplyStaffLeaveDtoLeaveType = {
-  sick: "sick",
-  casual: "casual",
-  earned: "earned",
-  maternity: "maternity",
-  paternity: "paternity",
-  unpaid: "unpaid",
-  other: "other",
+  sick: 'sick',
+  casual: 'casual',
+  earned: 'earned',
+  maternity: 'maternity',
+  paternity: 'paternity',
+  unpaid: 'unpaid',
+  other: 'other',
 } as const;

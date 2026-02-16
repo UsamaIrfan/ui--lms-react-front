@@ -6,12 +6,12 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateStaffMgmtDtoEmploymentType =
-  (typeof UpdateStaffMgmtDtoEmploymentType)[keyof typeof UpdateStaffMgmtDtoEmploymentType];
+export type UpdateStaffMgmtDtoEmploymentType = typeof UpdateStaffMgmtDtoEmploymentType[keyof typeof UpdateStaffMgmtDtoEmploymentType];
+
 
 export const UpdateStaffMgmtDtoEmploymentType = {
-  full_time: "full_time",
-  part_time: "part_time",
-  contract: "contract",
-  visiting: "visiting",
+  full_time: 'full_time',
+  part_time: 'part_time',
+  contract: 'contract',
+  visiting: 'visiting',
 } as const;

@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type MaterialsControllerFindAllV1Type =
-  (typeof MaterialsControllerFindAllV1Type)[keyof typeof MaterialsControllerFindAllV1Type];
+export type MaterialsControllerFindAllV1Type = typeof MaterialsControllerFindAllV1Type[keyof typeof MaterialsControllerFindAllV1Type];
+
 
 export const MaterialsControllerFindAllV1Type = {
-  document: "document",
-  video: "video",
-  assignment: "assignment",
-  link: "link",
-  presentation: "presentation",
+  document: 'document',
+  video: 'video',
+  assignment: 'assignment',
+  link: 'link',
+  presentation: 'presentation',
 } as const;

@@ -5,11 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { AttendanceControllerAlertsV1AttendableType } from "./attendanceControllerAlertsV1AttendableType";
+import type { AttendanceControllerAlertsV1AttendableType } from './attendanceControllerAlertsV1AttendableType';
 
 export type AttendanceControllerAlertsV1Params = {
-  threshold?: number;
-  attendableType?: AttendanceControllerAlertsV1AttendableType;
-  startDate?: string;
-  endDate?: string;
+threshold?: number;
+attendableType?: AttendanceControllerAlertsV1AttendableType;
+startDate?: string;
+endDate?: string;
 };

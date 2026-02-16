@@ -5,10 +5,10 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateStaffAttendanceDtoCheckIn } from "./createStaffAttendanceDtoCheckIn";
-import type { CreateStaffAttendanceDtoCheckOut } from "./createStaffAttendanceDtoCheckOut";
-import type { CreateStaffAttendanceDtoRemarks } from "./createStaffAttendanceDtoRemarks";
-import type { CreateStaffAttendanceDtoStatus } from "./createStaffAttendanceDtoStatus";
+import type { CreateStaffAttendanceDtoCheckIn } from './createStaffAttendanceDtoCheckIn';
+import type { CreateStaffAttendanceDtoCheckOut } from './createStaffAttendanceDtoCheckOut';
+import type { CreateStaffAttendanceDtoRemarks } from './createStaffAttendanceDtoRemarks';
+import type { CreateStaffAttendanceDtoStatus } from './createStaffAttendanceDtoStatus';
 
 export interface CreateStaffAttendanceDto {
   tenantId: string;

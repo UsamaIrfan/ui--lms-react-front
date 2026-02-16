@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateGradeClassDtoDescription } from "./updateGradeClassDtoDescription";
-import type { UpdateGradeClassDtoNumericGrade } from "./updateGradeClassDtoNumericGrade";
+import type { UpdateGradeClassDtoDescription } from './updateGradeClassDtoDescription';
+import type { UpdateGradeClassDtoNumericGrade } from './updateGradeClassDtoNumericGrade';
 
 export interface UpdateGradeClassDto {
   tenantId?: string;

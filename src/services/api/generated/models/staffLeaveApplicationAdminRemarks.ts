@@ -9,6 +9,4 @@
 /**
  * @nullable
  */
-export type StaffLeaveApplicationAdminRemarks = {
-  [key: string]: unknown;
-} | null;
+export type StaffLeaveApplicationAdminRemarks = { [key: string]: unknown } | null;

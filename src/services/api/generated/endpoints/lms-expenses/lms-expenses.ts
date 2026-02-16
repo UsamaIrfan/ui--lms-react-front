@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,589 +19,495 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
-import type { CreateExpenseDto, UpdateExpenseDto } from "../../models";
+import type {
+  CreateExpenseDto,
+  UpdateExpenseDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type expenseControllerCreateV1Response201 = {
-  data: void;
-  status: 201;
+  data: void
+  status: 201
+}
+    
+export type expenseControllerCreateV1ResponseSuccess = (expenseControllerCreateV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type expenseControllerCreateV1ResponseSuccess =
-  expenseControllerCreateV1Response201 & {
-    headers: Headers;
-  };
-export type expenseControllerCreateV1Response =
-  expenseControllerCreateV1ResponseSuccess;
+export type expenseControllerCreateV1Response = (expenseControllerCreateV1ResponseSuccess)
 
 export const getExpenseControllerCreateV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/expenses`;
-};
 
-export const expenseControllerCreateV1 = async (
-  createExpenseDto: CreateExpenseDto,
-  options?: RequestInit
-): Promise<expenseControllerCreateV1Response> => {
-  return customFetch<expenseControllerCreateV1Response>(
-    getExpenseControllerCreateV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(createExpenseDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/expenses`
+}
+
+export const expenseControllerCreateV1 = async (createExpenseDto: CreateExpenseDto, options?: RequestInit): Promise<expenseControllerCreateV1Response> => {
+  
+  return customFetch<expenseControllerCreateV1Response>(getExpenseControllerCreateV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createExpenseDto,)
+  }
+);}
+
+
+
+
+export const getExpenseControllerCreateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof expenseControllerCreateV1>>, TError,{data: CreateExpenseDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof expenseControllerCreateV1>>, TError,{data: CreateExpenseDto}, TContext> => {
+
+const mutationKey = ['expenseControllerCreateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof expenseControllerCreateV1>>, {data: CreateExpenseDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  expenseControllerCreateV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ExpenseControllerCreateV1MutationResult = NonNullable<Awaited<ReturnType<typeof expenseControllerCreateV1>>>
+    export type ExpenseControllerCreateV1MutationBody = CreateExpenseDto
+    export type ExpenseControllerCreateV1MutationError = unknown
+
+    export const useExpenseControllerCreateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof expenseControllerCreateV1>>, TError,{data: CreateExpenseDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof expenseControllerCreateV1>>,
+        TError,
+        {data: CreateExpenseDto},
+        TContext
+      > => {
+      return useMutation(getExpenseControllerCreateV1MutationOptions(options));
     }
-  );
+    export type expenseControllerFindAllV1Response200 = {
+  data: void
+  status: 200
+}
+    
+export type expenseControllerFindAllV1ResponseSuccess = (expenseControllerFindAllV1Response200) & {
+  headers: Headers;
 };
+;
 
-export const getExpenseControllerCreateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof expenseControllerCreateV1>>,
-    TError,
-    { data: CreateExpenseDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof expenseControllerCreateV1>>,
-  TError,
-  { data: CreateExpenseDto },
-  TContext
-> => {
-  const mutationKey = ["expenseControllerCreateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof expenseControllerCreateV1>>,
-    { data: CreateExpenseDto }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return expenseControllerCreateV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type ExpenseControllerCreateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof expenseControllerCreateV1>>
->;
-export type ExpenseControllerCreateV1MutationBody = CreateExpenseDto;
-export type ExpenseControllerCreateV1MutationError = unknown;
-
-export const useExpenseControllerCreateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof expenseControllerCreateV1>>,
-    TError,
-    { data: CreateExpenseDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof expenseControllerCreateV1>>,
-  TError,
-  { data: CreateExpenseDto },
-  TContext
-> => {
-  return useMutation(getExpenseControllerCreateV1MutationOptions(options));
-};
-export type expenseControllerFindAllV1Response200 = {
-  data: void;
-  status: 200;
-};
-
-export type expenseControllerFindAllV1ResponseSuccess =
-  expenseControllerFindAllV1Response200 & {
-    headers: Headers;
-  };
-export type expenseControllerFindAllV1Response =
-  expenseControllerFindAllV1ResponseSuccess;
+export type expenseControllerFindAllV1Response = (expenseControllerFindAllV1ResponseSuccess)
 
 export const getExpenseControllerFindAllV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/expenses`;
-};
 
-export const expenseControllerFindAllV1 = async (
-  options?: RequestInit
-): Promise<expenseControllerFindAllV1Response> => {
-  return customFetch<expenseControllerFindAllV1Response>(
-    getExpenseControllerFindAllV1Url(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/api/v1/lms/expenses`
+}
+
+export const expenseControllerFindAllV1 = async ( options?: RequestInit): Promise<expenseControllerFindAllV1Response> => {
+  
+  return customFetch<expenseControllerFindAllV1Response>(getExpenseControllerFindAllV1Url(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getExpenseControllerFindAllV1InfiniteQueryKey = () => {
-  return ["infinite", `http://localhost:3000/api/v1/lms/expenses`] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/expenses`
+    ] as const;
+    }
 
 export const getExpenseControllerFindAllV1QueryKey = () => {
-  return [`http://localhost:3000/api/v1/lms/expenses`] as const;
-};
+    return [
+    `http://localhost:3000/api/v1/lms/expenses`
+    ] as const;
+    }
 
-export const getExpenseControllerFindAllV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof expenseControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof expenseControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getExpenseControllerFindAllV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof expenseControllerFindAllV1>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof expenseControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getExpenseControllerFindAllV1InfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof expenseControllerFindAllV1>>
-  > = ({ signal }) => expenseControllerFindAllV1({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getExpenseControllerFindAllV1InfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof expenseControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type ExpenseControllerFindAllV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof expenseControllerFindAllV1>>
->;
-export type ExpenseControllerFindAllV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof expenseControllerFindAllV1>>> = ({ signal }) => expenseControllerFindAllV1({ signal, ...requestOptions });
 
-export function useExpenseControllerFindAllV1Infinite<
-  TData = Awaited<ReturnType<typeof expenseControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof expenseControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getExpenseControllerFindAllV1InfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof expenseControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ExpenseControllerFindAllV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof expenseControllerFindAllV1>>>
+export type ExpenseControllerFindAllV1InfiniteQueryError = unknown
+
+
+
+export function useExpenseControllerFindAllV1Infinite<TData = Awaited<ReturnType<typeof expenseControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof expenseControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getExpenseControllerFindAllV1InfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getExpenseControllerFindAllV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof expenseControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof expenseControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getExpenseControllerFindAllV1QueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof expenseControllerFindAllV1>>
-  > = ({ signal }) => expenseControllerFindAllV1({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof expenseControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getExpenseControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof expenseControllerFindAllV1>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof expenseControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type ExpenseControllerFindAllV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof expenseControllerFindAllV1>>
->;
-export type ExpenseControllerFindAllV1QueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function useExpenseControllerFindAllV1<
-  TData = Awaited<ReturnType<typeof expenseControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof expenseControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getExpenseControllerFindAllV1QueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getExpenseControllerFindAllV1QueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof expenseControllerFindAllV1>>> = ({ signal }) => expenseControllerFindAllV1({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof expenseControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ExpenseControllerFindAllV1QueryResult = NonNullable<Awaited<ReturnType<typeof expenseControllerFindAllV1>>>
+export type ExpenseControllerFindAllV1QueryError = unknown
+
+
+
+export function useExpenseControllerFindAllV1<TData = Awaited<ReturnType<typeof expenseControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof expenseControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getExpenseControllerFindAllV1QueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type expenseControllerFindOneV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type expenseControllerFindOneV1ResponseSuccess = (expenseControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type expenseControllerFindOneV1ResponseSuccess =
-  expenseControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type expenseControllerFindOneV1Response =
-  expenseControllerFindOneV1ResponseSuccess;
+export type expenseControllerFindOneV1Response = (expenseControllerFindOneV1ResponseSuccess)
 
-export const getExpenseControllerFindOneV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/expenses/${id}`;
-};
+export const getExpenseControllerFindOneV1Url = (id: number,) => {
 
-export const expenseControllerFindOneV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<expenseControllerFindOneV1Response> => {
-  return customFetch<expenseControllerFindOneV1Response>(
-    getExpenseControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/lms/expenses/${id}`
+}
+
+export const expenseControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<expenseControllerFindOneV1Response> => {
+  
+  return customFetch<expenseControllerFindOneV1Response>(getExpenseControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getExpenseControllerFindOneV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/expenses/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getExpenseControllerFindOneV1InfiniteQueryKey = (id: number) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/lms/expenses/${id}`,
-  ] as const;
-};
+export const getExpenseControllerFindOneV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/lms/expenses/${id}`
+    ] as const;
+    }
 
-export const getExpenseControllerFindOneV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/lms/expenses/${id}`] as const;
-};
-
-export const getExpenseControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof expenseControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof expenseControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+    
+export const getExpenseControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof expenseControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof expenseControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getExpenseControllerFindOneV1InfiniteQueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof expenseControllerFindOneV1>>
-  > = ({ signal }) => expenseControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getExpenseControllerFindOneV1InfiniteQueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof expenseControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type ExpenseControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof expenseControllerFindOneV1>>
->;
-export type ExpenseControllerFindOneV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof expenseControllerFindOneV1>>> = ({ signal }) => expenseControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useExpenseControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof expenseControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof expenseControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getExpenseControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof expenseControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ExpenseControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof expenseControllerFindOneV1>>>
+export type ExpenseControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useExpenseControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof expenseControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof expenseControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getExpenseControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getExpenseControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof expenseControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof expenseControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getExpenseControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof expenseControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof expenseControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getExpenseControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof expenseControllerFindOneV1>>
-  > = ({ signal }) => expenseControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getExpenseControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof expenseControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type ExpenseControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof expenseControllerFindOneV1>>
->;
-export type ExpenseControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof expenseControllerFindOneV1>>> = ({ signal }) => expenseControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useExpenseControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof expenseControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof expenseControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getExpenseControllerFindOneV1QueryOptions(id, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof expenseControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ExpenseControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof expenseControllerFindOneV1>>>
+export type ExpenseControllerFindOneV1QueryError = unknown
+
+
+
+export function useExpenseControllerFindOneV1<TData = Awaited<ReturnType<typeof expenseControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof expenseControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getExpenseControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type expenseControllerUpdateV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type expenseControllerUpdateV1ResponseSuccess = (expenseControllerUpdateV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type expenseControllerUpdateV1ResponseSuccess =
-  expenseControllerUpdateV1Response200 & {
-    headers: Headers;
-  };
-export type expenseControllerUpdateV1Response =
-  expenseControllerUpdateV1ResponseSuccess;
+export type expenseControllerUpdateV1Response = (expenseControllerUpdateV1ResponseSuccess)
 
-export const getExpenseControllerUpdateV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/expenses/${id}`;
-};
+export const getExpenseControllerUpdateV1Url = (id: number,) => {
 
-export const expenseControllerUpdateV1 = async (
-  id: number,
-  updateExpenseDto: UpdateExpenseDto,
-  options?: RequestInit
-): Promise<expenseControllerUpdateV1Response> => {
-  return customFetch<expenseControllerUpdateV1Response>(
-    getExpenseControllerUpdateV1Url(id),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(updateExpenseDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/expenses/${id}`
+}
+
+export const expenseControllerUpdateV1 = async (id: number,
+    updateExpenseDto: UpdateExpenseDto, options?: RequestInit): Promise<expenseControllerUpdateV1Response> => {
+  
+  return customFetch<expenseControllerUpdateV1Response>(getExpenseControllerUpdateV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateExpenseDto,)
+  }
+);}
+
+
+
+
+export const getExpenseControllerUpdateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof expenseControllerUpdateV1>>, TError,{id: number;data: UpdateExpenseDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof expenseControllerUpdateV1>>, TError,{id: number;data: UpdateExpenseDto}, TContext> => {
+
+const mutationKey = ['expenseControllerUpdateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof expenseControllerUpdateV1>>, {id: number;data: UpdateExpenseDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  expenseControllerUpdateV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ExpenseControllerUpdateV1MutationResult = NonNullable<Awaited<ReturnType<typeof expenseControllerUpdateV1>>>
+    export type ExpenseControllerUpdateV1MutationBody = UpdateExpenseDto
+    export type ExpenseControllerUpdateV1MutationError = unknown
+
+    export const useExpenseControllerUpdateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof expenseControllerUpdateV1>>, TError,{id: number;data: UpdateExpenseDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof expenseControllerUpdateV1>>,
+        TError,
+        {id: number;data: UpdateExpenseDto},
+        TContext
+      > => {
+      return useMutation(getExpenseControllerUpdateV1MutationOptions(options));
     }
-  );
+    export type expenseControllerRemoveV1Response204 = {
+  data: void
+  status: 204
+}
+    
+export type expenseControllerRemoveV1ResponseSuccess = (expenseControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export const getExpenseControllerUpdateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof expenseControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateExpenseDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof expenseControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateExpenseDto },
-  TContext
-> => {
-  const mutationKey = ["expenseControllerUpdateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+export type expenseControllerRemoveV1Response = (expenseControllerRemoveV1ResponseSuccess)
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof expenseControllerUpdateV1>>,
-    { id: number; data: UpdateExpenseDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getExpenseControllerRemoveV1Url = (id: number,) => {
 
-    return expenseControllerUpdateV1(id, data);
-  };
 
-  return { mutationFn, ...mutationOptions };
-};
+  
 
-export type ExpenseControllerUpdateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof expenseControllerUpdateV1>>
->;
-export type ExpenseControllerUpdateV1MutationBody = UpdateExpenseDto;
-export type ExpenseControllerUpdateV1MutationError = unknown;
+  return `http://localhost:3000/api/v1/lms/expenses/${id}`
+}
 
-export const useExpenseControllerUpdateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof expenseControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateExpenseDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof expenseControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateExpenseDto },
-  TContext
-> => {
-  return useMutation(getExpenseControllerUpdateV1MutationOptions(options));
-};
-export type expenseControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
-};
+export const expenseControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<expenseControllerRemoveV1Response> => {
+  
+  return customFetch<expenseControllerRemoveV1Response>(getExpenseControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
 
-export type expenseControllerRemoveV1ResponseSuccess =
-  expenseControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type expenseControllerRemoveV1Response =
-  expenseControllerRemoveV1ResponseSuccess;
 
-export const getExpenseControllerRemoveV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/expenses/${id}`;
-};
 
-export const expenseControllerRemoveV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<expenseControllerRemoveV1Response> => {
-  return customFetch<expenseControllerRemoveV1Response>(
-    getExpenseControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
+
+export const getExpenseControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof expenseControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof expenseControllerRemoveV1>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['expenseControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof expenseControllerRemoveV1>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  expenseControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ExpenseControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof expenseControllerRemoveV1>>>
+    
+    export type ExpenseControllerRemoveV1MutationError = unknown
+
+    export const useExpenseControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof expenseControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof expenseControllerRemoveV1>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getExpenseControllerRemoveV1MutationOptions(options));
     }
-  );
-};
-
-export const getExpenseControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof expenseControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof expenseControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationKey = ["expenseControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof expenseControllerRemoveV1>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return expenseControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type ExpenseControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof expenseControllerRemoveV1>>
->;
-
-export type ExpenseControllerRemoveV1MutationError = unknown;
-
-export const useExpenseControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof expenseControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof expenseControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  return useMutation(getExpenseControllerRemoveV1MutationOptions(options));
-};
+    

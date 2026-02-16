@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateExamScheduleDtoType } from "./createExamScheduleDtoType";
-import type { ExamSubjectInputDto } from "./examSubjectInputDto";
+import type { CreateExamScheduleDtoType } from './createExamScheduleDtoType';
+import type { ExamSubjectInputDto } from './examSubjectInputDto';
 
 export interface CreateExamScheduleDto {
   termId: number;

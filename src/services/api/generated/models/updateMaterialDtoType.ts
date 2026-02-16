@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateMaterialDtoType =
-  (typeof UpdateMaterialDtoType)[keyof typeof UpdateMaterialDtoType];
+export type UpdateMaterialDtoType = typeof UpdateMaterialDtoType[keyof typeof UpdateMaterialDtoType];
+
 
 export const UpdateMaterialDtoType = {
-  document: "document",
-  video: "video",
-  assignment: "assignment",
-  link: "link",
-  presentation: "presentation",
+  document: 'document',
+  video: 'video',
+  assignment: 'assignment',
+  link: 'link',
+  presentation: 'presentation',
 } as const;

@@ -5,16 +5,16 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateAdmissionEnquiryDtoConvertedStudentId } from "./updateAdmissionEnquiryDtoConvertedStudentId";
-import type { UpdateAdmissionEnquiryDtoEmail } from "./updateAdmissionEnquiryDtoEmail";
-import type { UpdateAdmissionEnquiryDtoFollowUpDate } from "./updateAdmissionEnquiryDtoFollowUpDate";
-import type { UpdateAdmissionEnquiryDtoGradeApplyingFor } from "./updateAdmissionEnquiryDtoGradeApplyingFor";
-import type { UpdateAdmissionEnquiryDtoGuardianName } from "./updateAdmissionEnquiryDtoGuardianName";
-import type { UpdateAdmissionEnquiryDtoNotes } from "./updateAdmissionEnquiryDtoNotes";
-import type { UpdateAdmissionEnquiryDtoPhone } from "./updateAdmissionEnquiryDtoPhone";
-import type { UpdateAdmissionEnquiryDtoPreviousSchool } from "./updateAdmissionEnquiryDtoPreviousSchool";
-import type { UpdateAdmissionEnquiryDtoSource } from "./updateAdmissionEnquiryDtoSource";
-import type { UpdateAdmissionEnquiryDtoStatus } from "./updateAdmissionEnquiryDtoStatus";
+import type { UpdateAdmissionEnquiryDtoConvertedStudentId } from './updateAdmissionEnquiryDtoConvertedStudentId';
+import type { UpdateAdmissionEnquiryDtoEmail } from './updateAdmissionEnquiryDtoEmail';
+import type { UpdateAdmissionEnquiryDtoFollowUpDate } from './updateAdmissionEnquiryDtoFollowUpDate';
+import type { UpdateAdmissionEnquiryDtoGradeApplyingFor } from './updateAdmissionEnquiryDtoGradeApplyingFor';
+import type { UpdateAdmissionEnquiryDtoGuardianName } from './updateAdmissionEnquiryDtoGuardianName';
+import type { UpdateAdmissionEnquiryDtoNotes } from './updateAdmissionEnquiryDtoNotes';
+import type { UpdateAdmissionEnquiryDtoPhone } from './updateAdmissionEnquiryDtoPhone';
+import type { UpdateAdmissionEnquiryDtoPreviousSchool } from './updateAdmissionEnquiryDtoPreviousSchool';
+import type { UpdateAdmissionEnquiryDtoSource } from './updateAdmissionEnquiryDtoSource';
+import type { UpdateAdmissionEnquiryDtoStatus } from './updateAdmissionEnquiryDtoStatus';
 
 export interface UpdateAdmissionEnquiryDto {
   tenantId?: string;

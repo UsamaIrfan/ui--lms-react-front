@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { ApplyLeaveDtoAttendableType } from "./applyLeaveDtoAttendableType";
-import type { ApplyLeaveDtoLeaveType } from "./applyLeaveDtoLeaveType";
+import type { ApplyLeaveDtoAttendableType } from './applyLeaveDtoAttendableType';
+import type { ApplyLeaveDtoLeaveType } from './applyLeaveDtoLeaveType';
 
 export interface ApplyLeaveDto {
   attendableType: ApplyLeaveDtoAttendableType;

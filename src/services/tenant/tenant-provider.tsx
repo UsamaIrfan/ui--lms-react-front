@@ -52,7 +52,7 @@ function TenantProvider({ children }: PropsWithChildren) {
         hasFetchedTenants.current = true;
 
         const response = await tenantUserControllerFindTenantsByUserV1(
-          String(user.id)
+          Number(user.id)
         );
         const tenantUsers = response.data;
 

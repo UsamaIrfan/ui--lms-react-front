@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,600 +19,496 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
 import type {
   CreateDepartmentDto,
   Department,
-  UpdateDepartmentDto,
-} from "../../models";
+  UpdateDepartmentDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type departmentControllerCreateV1Response201 = {
-  data: Department;
-  status: 201;
+  data: Department
+  status: 201
+}
+    
+export type departmentControllerCreateV1ResponseSuccess = (departmentControllerCreateV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type departmentControllerCreateV1ResponseSuccess =
-  departmentControllerCreateV1Response201 & {
-    headers: Headers;
-  };
-export type departmentControllerCreateV1Response =
-  departmentControllerCreateV1ResponseSuccess;
+export type departmentControllerCreateV1Response = (departmentControllerCreateV1ResponseSuccess)
 
 export const getDepartmentControllerCreateV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/departments`;
-};
 
-export const departmentControllerCreateV1 = async (
-  createDepartmentDto: CreateDepartmentDto,
-  options?: RequestInit
-): Promise<departmentControllerCreateV1Response> => {
-  return customFetch<departmentControllerCreateV1Response>(
-    getDepartmentControllerCreateV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(createDepartmentDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/departments`
+}
+
+export const departmentControllerCreateV1 = async (createDepartmentDto: CreateDepartmentDto, options?: RequestInit): Promise<departmentControllerCreateV1Response> => {
+  
+  return customFetch<departmentControllerCreateV1Response>(getDepartmentControllerCreateV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createDepartmentDto,)
+  }
+);}
+
+
+
+
+export const getDepartmentControllerCreateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof departmentControllerCreateV1>>, TError,{data: CreateDepartmentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof departmentControllerCreateV1>>, TError,{data: CreateDepartmentDto}, TContext> => {
+
+const mutationKey = ['departmentControllerCreateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof departmentControllerCreateV1>>, {data: CreateDepartmentDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  departmentControllerCreateV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DepartmentControllerCreateV1MutationResult = NonNullable<Awaited<ReturnType<typeof departmentControllerCreateV1>>>
+    export type DepartmentControllerCreateV1MutationBody = CreateDepartmentDto
+    export type DepartmentControllerCreateV1MutationError = unknown
+
+    export const useDepartmentControllerCreateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof departmentControllerCreateV1>>, TError,{data: CreateDepartmentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof departmentControllerCreateV1>>,
+        TError,
+        {data: CreateDepartmentDto},
+        TContext
+      > => {
+      return useMutation(getDepartmentControllerCreateV1MutationOptions(options));
     }
-  );
+    export type departmentControllerFindAllV1Response200 = {
+  data: Department[]
+  status: 200
+}
+    
+export type departmentControllerFindAllV1ResponseSuccess = (departmentControllerFindAllV1Response200) & {
+  headers: Headers;
 };
+;
 
-export const getDepartmentControllerCreateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof departmentControllerCreateV1>>,
-    TError,
-    { data: CreateDepartmentDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof departmentControllerCreateV1>>,
-  TError,
-  { data: CreateDepartmentDto },
-  TContext
-> => {
-  const mutationKey = ["departmentControllerCreateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof departmentControllerCreateV1>>,
-    { data: CreateDepartmentDto }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return departmentControllerCreateV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type DepartmentControllerCreateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof departmentControllerCreateV1>>
->;
-export type DepartmentControllerCreateV1MutationBody = CreateDepartmentDto;
-export type DepartmentControllerCreateV1MutationError = unknown;
-
-export const useDepartmentControllerCreateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof departmentControllerCreateV1>>,
-    TError,
-    { data: CreateDepartmentDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof departmentControllerCreateV1>>,
-  TError,
-  { data: CreateDepartmentDto },
-  TContext
-> => {
-  return useMutation(getDepartmentControllerCreateV1MutationOptions(options));
-};
-export type departmentControllerFindAllV1Response200 = {
-  data: Department[];
-  status: 200;
-};
-
-export type departmentControllerFindAllV1ResponseSuccess =
-  departmentControllerFindAllV1Response200 & {
-    headers: Headers;
-  };
-export type departmentControllerFindAllV1Response =
-  departmentControllerFindAllV1ResponseSuccess;
+export type departmentControllerFindAllV1Response = (departmentControllerFindAllV1ResponseSuccess)
 
 export const getDepartmentControllerFindAllV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/departments`;
-};
 
-export const departmentControllerFindAllV1 = async (
-  options?: RequestInit
-): Promise<departmentControllerFindAllV1Response> => {
-  return customFetch<departmentControllerFindAllV1Response>(
-    getDepartmentControllerFindAllV1Url(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/api/v1/lms/departments`
+}
+
+export const departmentControllerFindAllV1 = async ( options?: RequestInit): Promise<departmentControllerFindAllV1Response> => {
+  
+  return customFetch<departmentControllerFindAllV1Response>(getDepartmentControllerFindAllV1Url(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getDepartmentControllerFindAllV1InfiniteQueryKey = () => {
-  return ["infinite", `http://localhost:3000/api/v1/lms/departments`] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/departments`
+    ] as const;
+    }
 
 export const getDepartmentControllerFindAllV1QueryKey = () => {
-  return [`http://localhost:3000/api/v1/lms/departments`] as const;
-};
+    return [
+    `http://localhost:3000/api/v1/lms/departments`
+    ] as const;
+    }
 
-export const getDepartmentControllerFindAllV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof departmentControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof departmentControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getDepartmentControllerFindAllV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof departmentControllerFindAllV1>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof departmentControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getDepartmentControllerFindAllV1InfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof departmentControllerFindAllV1>>
-  > = ({ signal }) => departmentControllerFindAllV1({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getDepartmentControllerFindAllV1InfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof departmentControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type DepartmentControllerFindAllV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof departmentControllerFindAllV1>>
->;
-export type DepartmentControllerFindAllV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof departmentControllerFindAllV1>>> = ({ signal }) => departmentControllerFindAllV1({ signal, ...requestOptions });
 
-export function useDepartmentControllerFindAllV1Infinite<
-  TData = Awaited<ReturnType<typeof departmentControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof departmentControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getDepartmentControllerFindAllV1InfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof departmentControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type DepartmentControllerFindAllV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof departmentControllerFindAllV1>>>
+export type DepartmentControllerFindAllV1InfiniteQueryError = unknown
+
+
+
+export function useDepartmentControllerFindAllV1Infinite<TData = Awaited<ReturnType<typeof departmentControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof departmentControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getDepartmentControllerFindAllV1InfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getDepartmentControllerFindAllV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof departmentControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof departmentControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getDepartmentControllerFindAllV1QueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof departmentControllerFindAllV1>>
-  > = ({ signal }) => departmentControllerFindAllV1({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof departmentControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getDepartmentControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof departmentControllerFindAllV1>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof departmentControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type DepartmentControllerFindAllV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof departmentControllerFindAllV1>>
->;
-export type DepartmentControllerFindAllV1QueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function useDepartmentControllerFindAllV1<
-  TData = Awaited<ReturnType<typeof departmentControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof departmentControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getDepartmentControllerFindAllV1QueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getDepartmentControllerFindAllV1QueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof departmentControllerFindAllV1>>> = ({ signal }) => departmentControllerFindAllV1({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof departmentControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type DepartmentControllerFindAllV1QueryResult = NonNullable<Awaited<ReturnType<typeof departmentControllerFindAllV1>>>
+export type DepartmentControllerFindAllV1QueryError = unknown
+
+
+
+export function useDepartmentControllerFindAllV1<TData = Awaited<ReturnType<typeof departmentControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof departmentControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getDepartmentControllerFindAllV1QueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type departmentControllerFindOneV1Response200 = {
-  data: Department;
-  status: 200;
+  data: Department
+  status: 200
+}
+    
+export type departmentControllerFindOneV1ResponseSuccess = (departmentControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type departmentControllerFindOneV1ResponseSuccess =
-  departmentControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type departmentControllerFindOneV1Response =
-  departmentControllerFindOneV1ResponseSuccess;
+export type departmentControllerFindOneV1Response = (departmentControllerFindOneV1ResponseSuccess)
 
-export const getDepartmentControllerFindOneV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/departments/${id}`;
-};
+export const getDepartmentControllerFindOneV1Url = (id: number,) => {
 
-export const departmentControllerFindOneV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<departmentControllerFindOneV1Response> => {
-  return customFetch<departmentControllerFindOneV1Response>(
-    getDepartmentControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/lms/departments/${id}`
+}
+
+export const departmentControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<departmentControllerFindOneV1Response> => {
+  
+  return customFetch<departmentControllerFindOneV1Response>(getDepartmentControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getDepartmentControllerFindOneV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/departments/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getDepartmentControllerFindOneV1InfiniteQueryKey = (
-  id: number
+export const getDepartmentControllerFindOneV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/lms/departments/${id}`
+    ] as const;
+    }
+
+    
+export const getDepartmentControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof departmentControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof departmentControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/lms/departments/${id}`,
-  ] as const;
-};
 
-export const getDepartmentControllerFindOneV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/lms/departments/${id}`] as const;
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export const getDepartmentControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof departmentControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof departmentControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-) => {
-  const { query: queryOptions } = options ?? {};
+  const queryKey =  queryOptions?.queryKey ?? getDepartmentControllerFindOneV1InfiniteQueryKey(id);
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getDepartmentControllerFindOneV1InfiniteQueryKey(id);
+  
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof departmentControllerFindOneV1>>
-  > = ({ signal }) => departmentControllerFindOneV1(id, { signal });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof departmentControllerFindOneV1>>> = ({ signal }) => departmentControllerFindOneV1(id, { signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof departmentControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+      
 
-export type DepartmentControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof departmentControllerFindOneV1>>
->;
-export type DepartmentControllerFindOneV1InfiniteQueryError = unknown;
+      
 
-export function useDepartmentControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof departmentControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof departmentControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getDepartmentControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof departmentControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+export type DepartmentControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof departmentControllerFindOneV1>>>
+export type DepartmentControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useDepartmentControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof departmentControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof departmentControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getDepartmentControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getDepartmentControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof departmentControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof departmentControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getDepartmentControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof departmentControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof departmentControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getDepartmentControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof departmentControllerFindOneV1>>
-  > = ({ signal }) => departmentControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getDepartmentControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof departmentControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type DepartmentControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof departmentControllerFindOneV1>>
->;
-export type DepartmentControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof departmentControllerFindOneV1>>> = ({ signal }) => departmentControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useDepartmentControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof departmentControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof departmentControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getDepartmentControllerFindOneV1QueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof departmentControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type DepartmentControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof departmentControllerFindOneV1>>>
+export type DepartmentControllerFindOneV1QueryError = unknown
+
+
+
+export function useDepartmentControllerFindOneV1<TData = Awaited<ReturnType<typeof departmentControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof departmentControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getDepartmentControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type departmentControllerUpdateV1Response200 = {
-  data: Department;
-  status: 200;
+  data: Department
+  status: 200
+}
+    
+export type departmentControllerUpdateV1ResponseSuccess = (departmentControllerUpdateV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type departmentControllerUpdateV1ResponseSuccess =
-  departmentControllerUpdateV1Response200 & {
-    headers: Headers;
-  };
-export type departmentControllerUpdateV1Response =
-  departmentControllerUpdateV1ResponseSuccess;
+export type departmentControllerUpdateV1Response = (departmentControllerUpdateV1ResponseSuccess)
 
-export const getDepartmentControllerUpdateV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/departments/${id}`;
-};
+export const getDepartmentControllerUpdateV1Url = (id: number,) => {
 
-export const departmentControllerUpdateV1 = async (
-  id: number,
-  updateDepartmentDto: UpdateDepartmentDto,
-  options?: RequestInit
-): Promise<departmentControllerUpdateV1Response> => {
-  return customFetch<departmentControllerUpdateV1Response>(
-    getDepartmentControllerUpdateV1Url(id),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(updateDepartmentDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/departments/${id}`
+}
+
+export const departmentControllerUpdateV1 = async (id: number,
+    updateDepartmentDto: UpdateDepartmentDto, options?: RequestInit): Promise<departmentControllerUpdateV1Response> => {
+  
+  return customFetch<departmentControllerUpdateV1Response>(getDepartmentControllerUpdateV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateDepartmentDto,)
+  }
+);}
+
+
+
+
+export const getDepartmentControllerUpdateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof departmentControllerUpdateV1>>, TError,{id: number;data: UpdateDepartmentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof departmentControllerUpdateV1>>, TError,{id: number;data: UpdateDepartmentDto}, TContext> => {
+
+const mutationKey = ['departmentControllerUpdateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof departmentControllerUpdateV1>>, {id: number;data: UpdateDepartmentDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  departmentControllerUpdateV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DepartmentControllerUpdateV1MutationResult = NonNullable<Awaited<ReturnType<typeof departmentControllerUpdateV1>>>
+    export type DepartmentControllerUpdateV1MutationBody = UpdateDepartmentDto
+    export type DepartmentControllerUpdateV1MutationError = unknown
+
+    export const useDepartmentControllerUpdateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof departmentControllerUpdateV1>>, TError,{id: number;data: UpdateDepartmentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof departmentControllerUpdateV1>>,
+        TError,
+        {id: number;data: UpdateDepartmentDto},
+        TContext
+      > => {
+      return useMutation(getDepartmentControllerUpdateV1MutationOptions(options));
     }
-  );
+    export type departmentControllerRemoveV1Response204 = {
+  data: void
+  status: 204
+}
+    
+export type departmentControllerRemoveV1ResponseSuccess = (departmentControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export const getDepartmentControllerUpdateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof departmentControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateDepartmentDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof departmentControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateDepartmentDto },
-  TContext
-> => {
-  const mutationKey = ["departmentControllerUpdateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+export type departmentControllerRemoveV1Response = (departmentControllerRemoveV1ResponseSuccess)
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof departmentControllerUpdateV1>>,
-    { id: number; data: UpdateDepartmentDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getDepartmentControllerRemoveV1Url = (id: number,) => {
 
-    return departmentControllerUpdateV1(id, data);
-  };
 
-  return { mutationFn, ...mutationOptions };
-};
+  
 
-export type DepartmentControllerUpdateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof departmentControllerUpdateV1>>
->;
-export type DepartmentControllerUpdateV1MutationBody = UpdateDepartmentDto;
-export type DepartmentControllerUpdateV1MutationError = unknown;
+  return `http://localhost:3000/api/v1/lms/departments/${id}`
+}
 
-export const useDepartmentControllerUpdateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof departmentControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateDepartmentDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof departmentControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateDepartmentDto },
-  TContext
-> => {
-  return useMutation(getDepartmentControllerUpdateV1MutationOptions(options));
-};
-export type departmentControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
-};
+export const departmentControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<departmentControllerRemoveV1Response> => {
+  
+  return customFetch<departmentControllerRemoveV1Response>(getDepartmentControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
 
-export type departmentControllerRemoveV1ResponseSuccess =
-  departmentControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type departmentControllerRemoveV1Response =
-  departmentControllerRemoveV1ResponseSuccess;
 
-export const getDepartmentControllerRemoveV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/departments/${id}`;
-};
 
-export const departmentControllerRemoveV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<departmentControllerRemoveV1Response> => {
-  return customFetch<departmentControllerRemoveV1Response>(
-    getDepartmentControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
+
+export const getDepartmentControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof departmentControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof departmentControllerRemoveV1>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['departmentControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof departmentControllerRemoveV1>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  departmentControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DepartmentControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof departmentControllerRemoveV1>>>
+    
+    export type DepartmentControllerRemoveV1MutationError = unknown
+
+    export const useDepartmentControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof departmentControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof departmentControllerRemoveV1>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getDepartmentControllerRemoveV1MutationOptions(options));
     }
-  );
-};
-
-export const getDepartmentControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof departmentControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof departmentControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationKey = ["departmentControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof departmentControllerRemoveV1>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return departmentControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type DepartmentControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof departmentControllerRemoveV1>>
->;
-
-export type DepartmentControllerRemoveV1MutationError = unknown;
-
-export const useDepartmentControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof departmentControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof departmentControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  return useMutation(getDepartmentControllerRemoveV1MutationOptions(options));
-};
+    

@@ -5,9 +5,9 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateExamResultDtoGrade } from "./updateExamResultDtoGrade";
-import type { UpdateExamResultDtoMarksObtained } from "./updateExamResultDtoMarksObtained";
-import type { UpdateExamResultDtoRemarks } from "./updateExamResultDtoRemarks";
+import type { UpdateExamResultDtoGrade } from './updateExamResultDtoGrade';
+import type { UpdateExamResultDtoMarksObtained } from './updateExamResultDtoMarksObtained';
+import type { UpdateExamResultDtoRemarks } from './updateExamResultDtoRemarks';
 
 export interface UpdateExamResultDto {
   tenantId?: string;

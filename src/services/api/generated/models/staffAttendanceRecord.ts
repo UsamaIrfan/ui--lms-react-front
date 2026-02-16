@@ -5,9 +5,9 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { StaffAttendanceRecordCheckOutTime } from "./staffAttendanceRecordCheckOutTime";
-import type { StaffAttendanceRecordRemarks } from "./staffAttendanceRecordRemarks";
-import type { StaffAttendanceRecordStatus } from "./staffAttendanceRecordStatus";
+import type { StaffAttendanceRecordCheckOutTime } from './staffAttendanceRecordCheckOutTime';
+import type { StaffAttendanceRecordRemarks } from './staffAttendanceRecordRemarks';
+import type { StaffAttendanceRecordStatus } from './staffAttendanceRecordStatus';
 
 export interface StaffAttendanceRecord {
   id: number;

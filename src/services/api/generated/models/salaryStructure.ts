@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { SalaryComponent } from "./salaryComponent";
+import type { SalaryComponent } from './salaryComponent';
 
 export interface SalaryStructure {
   id: number;

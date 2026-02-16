@@ -5,10 +5,10 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { StaffLeaveApplicationAdminRemarks } from "./staffLeaveApplicationAdminRemarks";
-import type { StaffLeaveApplicationApprovedById } from "./staffLeaveApplicationApprovedById";
-import type { StaffLeaveApplicationLeaveType } from "./staffLeaveApplicationLeaveType";
-import type { StaffLeaveApplicationStatus } from "./staffLeaveApplicationStatus";
+import type { StaffLeaveApplicationAdminRemarks } from './staffLeaveApplicationAdminRemarks';
+import type { StaffLeaveApplicationApprovedById } from './staffLeaveApplicationApprovedById';
+import type { StaffLeaveApplicationLeaveType } from './staffLeaveApplicationLeaveType';
+import type { StaffLeaveApplicationStatus } from './staffLeaveApplicationStatus';
 
 export interface StaffLeaveApplication {
   id: number;

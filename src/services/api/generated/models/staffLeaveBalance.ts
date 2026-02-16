@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { StaffLeaveBalanceLeaveType } from "./staffLeaveBalanceLeaveType";
+import type { StaffLeaveBalanceLeaveType } from './staffLeaveBalanceLeaveType';
 
 export interface StaffLeaveBalance {
   id: number;

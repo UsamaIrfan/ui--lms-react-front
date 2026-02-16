@@ -1,16 +1,26 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
+
+import { useEffect, useMemo, useState } from "react";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
-import { authControllerResetPasswordV1 } from "@/services/api/generated/endpoints/auth/auth";
-import { isValidationError } from "@/services/api/generated/custom-fetch";
-import FormTextInput from "@/components/form/text-input/form-text-input";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useSnackbar } from "@/hooks/use-snackbar";
 import { useRouter } from "next/navigation";
+
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import FormTextInput from "@/components/form/text-input/form-text-input";
+import Link from "@/components/link";
+
+import { authControllerResetPasswordV1 } from "@/services/api/generated/endpoints/auth/auth";
+import { isValidationError } from "@/services/api/generated/custom-fetch";
+import { useSnackbar } from "@/hooks/use-snackbar";
 import { useTranslation } from "@/services/i18n/client";
-import { useEffect, useMemo, useState } from "react";
+import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 
 type PasswordChangeFormData = {
   password: string;
@@ -42,8 +52,21 @@ function FormActions() {
   const { isSubmitting } = useFormState();
 
   return (
-    <Button type="submit" disabled={isSubmitting} data-testid="set-password">
-      {t("password-change:actions.submit")}
+    <Button
+      type="submit"
+      disabled={isSubmitting}
+      className="w-full"
+      size="lg"
+      data-testid="set-password"
+    >
+      {isSubmitting ? (
+        <span className="flex items-center gap-2">
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+          {t("password-change:actions.submit")}
+        </span>
+      ) : (
+        t("password-change:actions.submit")
+      )}
     </Button>
   );
 }
@@ -75,13 +98,11 @@ function ExpiresAlert() {
 
   return (
     isExpired && (
-      <div>
-        <div
-          className="rounded-md border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-800 dark:bg-red-950 dark:text-red-200"
-          data-testid="reset-link-expired-alert"
-        >
-          {t("password-change:alerts.expired")}
-        </div>
+      <div
+        className="rounded-lg border border-error-lighter bg-error-lighter/10 px-4 py-3 text-paragraph-sm text-error-base"
+        data-testid="reset-link-expired-alert"
+      >
+        {t("password-change:alerts.expired")}
       </div>
     )
   );
@@ -137,37 +158,56 @@ function Form() {
 
   return (
     <FormProvider {...methods}>
-      <div className="mx-auto max-w-xs px-4">
-        <form onSubmit={onSubmit}>
-          <div className="mb-4 grid gap-4">
-            <div className="mt-6">
-              <h6 className="text-lg font-semibold">
-                {t("password-change:title")}
-              </h6>
-            </div>
-            <ExpiresAlert />
-            <div>
-              <FormTextInput<PasswordChangeFormData>
-                name="password"
-                label={t("password-change:inputs.password.label")}
-                type="password"
-                testId="password"
-              />
-            </div>
-            <div>
-              <FormTextInput<PasswordChangeFormData>
-                name="passwordConfirmation"
-                label={t("password-change:inputs.passwordConfirmation.label")}
-                type="password"
-                testId="password-confirmation"
-              />
-            </div>
+      <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-8">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <h1 className="text-title-h4 text-text-strong-950">
+              {t("password-change:title")}
+            </h1>
+            <p className="mt-1 text-paragraph-sm text-text-sub-600">
+              {t("password-change:description")}
+            </p>
+          </CardHeader>
 
-            <div>
-              <FormActions />
-            </div>
-          </div>
-        </form>
+          <CardContent>
+            <ExpiresAlert />
+
+            <form onSubmit={onSubmit} className="mt-1">
+              <div className="grid gap-5">
+                <FormTextInput<PasswordChangeFormData>
+                  name="password"
+                  label={t("password-change:inputs.password.label")}
+                  type="password"
+                  autoFocus
+                  testId="password"
+                  autoComplete="new-password"
+                />
+
+                <FormTextInput<PasswordChangeFormData>
+                  name="passwordConfirmation"
+                  label={t("password-change:inputs.passwordConfirmation.label")}
+                  type="password"
+                  testId="password-confirmation"
+                  autoComplete="new-password"
+                />
+
+                <FormActions />
+              </div>
+            </form>
+          </CardContent>
+
+          <CardFooter className="justify-center border-t border-stroke-soft-200 py-4">
+            <p className="text-paragraph-sm text-text-sub-600">
+              {t("password-change:backToSignIn")}{" "}
+              <Link
+                href="/sign-in"
+                className="text-label-sm text-primary-base transition-colors hover:text-primary-dark"
+              >
+                {t("password-change:signIn")}
+              </Link>
+            </p>
+          </CardFooter>
+        </Card>
       </div>
     </FormProvider>
   );

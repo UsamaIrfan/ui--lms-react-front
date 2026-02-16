@@ -5,15 +5,15 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateStaffMgmtDtoAddress } from "./createStaffMgmtDtoAddress";
-import type { CreateStaffMgmtDtoDepartmentId } from "./createStaffMgmtDtoDepartmentId";
-import type { CreateStaffMgmtDtoDesignation } from "./createStaffMgmtDtoDesignation";
-import type { CreateStaffMgmtDtoEmergencyContact } from "./createStaffMgmtDtoEmergencyContact";
-import type { CreateStaffMgmtDtoEmploymentType } from "./createStaffMgmtDtoEmploymentType";
-import type { CreateStaffMgmtDtoExperienceYears } from "./createStaffMgmtDtoExperienceYears";
-import type { CreateStaffMgmtDtoJoiningDate } from "./createStaffMgmtDtoJoiningDate";
-import type { CreateStaffMgmtDtoQualification } from "./createStaffMgmtDtoQualification";
-import type { CreateStaffMgmtDtoSpecialization } from "./createStaffMgmtDtoSpecialization";
+import type { CreateStaffMgmtDtoAddress } from './createStaffMgmtDtoAddress';
+import type { CreateStaffMgmtDtoDepartmentId } from './createStaffMgmtDtoDepartmentId';
+import type { CreateStaffMgmtDtoDesignation } from './createStaffMgmtDtoDesignation';
+import type { CreateStaffMgmtDtoEmergencyContact } from './createStaffMgmtDtoEmergencyContact';
+import type { CreateStaffMgmtDtoEmploymentType } from './createStaffMgmtDtoEmploymentType';
+import type { CreateStaffMgmtDtoExperienceYears } from './createStaffMgmtDtoExperienceYears';
+import type { CreateStaffMgmtDtoJoiningDate } from './createStaffMgmtDtoJoiningDate';
+import type { CreateStaffMgmtDtoQualification } from './createStaffMgmtDtoQualification';
+import type { CreateStaffMgmtDtoSpecialization } from './createStaffMgmtDtoSpecialization';
 
 export interface CreateStaffMgmtDto {
   tenantId: string;

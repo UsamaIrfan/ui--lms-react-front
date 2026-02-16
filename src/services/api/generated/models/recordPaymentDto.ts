@@ -5,10 +5,10 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { RecordPaymentDtoMethod } from "./recordPaymentDtoMethod";
-import type { RecordPaymentDtoPaidAt } from "./recordPaymentDtoPaidAt";
-import type { RecordPaymentDtoRemarks } from "./recordPaymentDtoRemarks";
-import type { RecordPaymentDtoTransactionRef } from "./recordPaymentDtoTransactionRef";
+import type { RecordPaymentDtoMethod } from './recordPaymentDtoMethod';
+import type { RecordPaymentDtoPaidAt } from './recordPaymentDtoPaidAt';
+import type { RecordPaymentDtoRemarks } from './recordPaymentDtoRemarks';
+import type { RecordPaymentDtoTransactionRef } from './recordPaymentDtoTransactionRef';
 
 export interface RecordPaymentDto {
   challanId: number;

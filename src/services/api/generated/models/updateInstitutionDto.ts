@@ -5,14 +5,14 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateInstitutionDtoAddress } from "./updateInstitutionDtoAddress";
-import type { UpdateInstitutionDtoCity } from "./updateInstitutionDtoCity";
-import type { UpdateInstitutionDtoCountry } from "./updateInstitutionDtoCountry";
-import type { UpdateInstitutionDtoEmail } from "./updateInstitutionDtoEmail";
-import type { UpdateInstitutionDtoLogo } from "./updateInstitutionDtoLogo";
-import type { UpdateInstitutionDtoPhone } from "./updateInstitutionDtoPhone";
-import type { UpdateInstitutionDtoState } from "./updateInstitutionDtoState";
-import type { UpdateInstitutionDtoWebsite } from "./updateInstitutionDtoWebsite";
+import type { UpdateInstitutionDtoAddress } from './updateInstitutionDtoAddress';
+import type { UpdateInstitutionDtoCity } from './updateInstitutionDtoCity';
+import type { UpdateInstitutionDtoCountry } from './updateInstitutionDtoCountry';
+import type { UpdateInstitutionDtoEmail } from './updateInstitutionDtoEmail';
+import type { UpdateInstitutionDtoLogo } from './updateInstitutionDtoLogo';
+import type { UpdateInstitutionDtoPhone } from './updateInstitutionDtoPhone';
+import type { UpdateInstitutionDtoState } from './updateInstitutionDtoState';
+import type { UpdateInstitutionDtoWebsite } from './updateInstitutionDtoWebsite';
 
 export interface UpdateInstitutionDto {
   tenantId?: string;

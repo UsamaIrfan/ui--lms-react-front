@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type RecordPaymentDtoMethod =
-  (typeof RecordPaymentDtoMethod)[keyof typeof RecordPaymentDtoMethod];
+export type RecordPaymentDtoMethod = typeof RecordPaymentDtoMethod[keyof typeof RecordPaymentDtoMethod];
+
 
 export const RecordPaymentDtoMethod = {
-  cash: "cash",
-  bank_transfer: "bank_transfer",
-  cheque: "cheque",
-  online: "online",
-  card: "card",
+  cash: 'cash',
+  bank_transfer: 'bank_transfer',
+  cheque: 'cheque',
+  online: 'online',
+  card: 'card',
 } as const;

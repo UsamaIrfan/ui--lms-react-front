@@ -9,12 +9,12 @@
 /**
  * Expense status
  */
-export type UpdateBranchExpenseDtoStatus =
-  (typeof UpdateBranchExpenseDtoStatus)[keyof typeof UpdateBranchExpenseDtoStatus];
+export type UpdateBranchExpenseDtoStatus = typeof UpdateBranchExpenseDtoStatus[keyof typeof UpdateBranchExpenseDtoStatus];
+
 
 export const UpdateBranchExpenseDtoStatus = {
-  pending: "pending",
-  approved: "approved",
-  paid: "paid",
-  rejected: "rejected",
+  pending: 'pending',
+  approved: 'approved',
+  paid: 'paid',
+  rejected: 'rejected',
 } as const;

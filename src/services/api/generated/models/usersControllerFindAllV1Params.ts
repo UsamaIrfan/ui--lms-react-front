@@ -7,8 +7,8 @@
  */
 
 export type UsersControllerFindAllV1Params = {
-  page?: number;
-  limit?: number;
-  filters?: string;
-  sort?: string;
+page?: number;
+limit?: number;
+filters?: string;
+sort?: string;
 };

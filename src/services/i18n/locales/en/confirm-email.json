@@ -1,5 +1,6 @@
 {
   "title": "Email Confirmation",
+  "verifying": "Verifying your email address...",
   "emailConfirmed": "Email has been confirmed!",
   "emailConfirmFailed": "Email confirmation failed!"
 }

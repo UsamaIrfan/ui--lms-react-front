@@ -7,5 +7,5 @@
  */
 
 export type AttendanceControllerApproveV1Params = {
-  attendableType: string;
+attendableType: string;
 };

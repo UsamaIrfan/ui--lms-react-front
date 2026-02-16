@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { ApplyConcessionDtoType } from "./applyConcessionDtoType";
+import type { ApplyConcessionDtoType } from './applyConcessionDtoType';
 
 export interface ApplyConcessionDto {
   studentId: number;

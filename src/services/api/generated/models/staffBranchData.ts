@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { BranchInfo } from "./branchInfo";
-import type { DashboardAttendanceSummary } from "./dashboardAttendanceSummary";
+import type { BranchInfo } from './branchInfo';
+import type { DashboardAttendanceSummary } from './dashboardAttendanceSummary';
 
 export interface StaffBranchData {
   branch: BranchInfo;

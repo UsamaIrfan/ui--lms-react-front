@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { AddPeriodDtoRoom } from "./addPeriodDtoRoom";
+import type { AddPeriodDtoRoom } from './addPeriodDtoRoom';
 
 export interface AddPeriodDto {
   timetableId: string;

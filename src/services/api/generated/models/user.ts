@@ -5,9 +5,9 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { FileType } from "./fileType";
-import type { Role } from "./role";
-import type { Status } from "./status";
+import type { FileType } from './fileType';
+import type { Role } from './role';
+import type { Status } from './status';
 
 export interface User {
   id: number;

@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { TimetableName } from "./timetableName";
+import type { TimetableName } from './timetableName';
 
 export interface Timetable {
   id: string;

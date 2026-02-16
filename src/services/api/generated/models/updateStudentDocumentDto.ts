@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateStudentDocumentDtoFileId } from "./updateStudentDocumentDtoFileId";
-import type { UpdateStudentDocumentDtoRemarks } from "./updateStudentDocumentDtoRemarks";
+import type { UpdateStudentDocumentDtoFileId } from './updateStudentDocumentDtoFileId';
+import type { UpdateStudentDocumentDtoRemarks } from './updateStudentDocumentDtoRemarks';
 
 export interface UpdateStudentDocumentDto {
   tenantId?: string;

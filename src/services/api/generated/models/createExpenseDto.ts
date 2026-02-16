@@ -5,12 +5,12 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateExpenseDtoDescription } from "./createExpenseDtoDescription";
-import type { CreateExpenseDtoPaidTo } from "./createExpenseDtoPaidTo";
-import type { CreateExpenseDtoReferenceNumber } from "./createExpenseDtoReferenceNumber";
-import type { CreateExpenseDtoRemarks } from "./createExpenseDtoRemarks";
-import type { CreateExpenseDtoSalarySlipId } from "./createExpenseDtoSalarySlipId";
-import type { CreateExpenseDtoStatus } from "./createExpenseDtoStatus";
+import type { CreateExpenseDtoDescription } from './createExpenseDtoDescription';
+import type { CreateExpenseDtoPaidTo } from './createExpenseDtoPaidTo';
+import type { CreateExpenseDtoReferenceNumber } from './createExpenseDtoReferenceNumber';
+import type { CreateExpenseDtoRemarks } from './createExpenseDtoRemarks';
+import type { CreateExpenseDtoSalarySlipId } from './createExpenseDtoSalarySlipId';
+import type { CreateExpenseDtoStatus } from './createExpenseDtoStatus';
 
 export interface CreateExpenseDto {
   tenantId: string;

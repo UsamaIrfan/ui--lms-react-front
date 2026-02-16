@@ -6,14 +6,14 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateStudentEnrollmentDtoStatus =
-  (typeof CreateStudentEnrollmentDtoStatus)[keyof typeof CreateStudentEnrollmentDtoStatus];
+export type CreateStudentEnrollmentDtoStatus = typeof CreateStudentEnrollmentDtoStatus[keyof typeof CreateStudentEnrollmentDtoStatus];
+
 
 export const CreateStudentEnrollmentDtoStatus = {
-  active: "active",
-  promoted: "promoted",
-  transferred: "transferred",
-  graduated: "graduated",
-  dropped: "dropped",
-  suspended: "suspended",
+  active: 'active',
+  promoted: 'promoted',
+  transferred: 'transferred',
+  graduated: 'graduated',
+  dropped: 'dropped',
+  suspended: 'suspended',
 } as const;

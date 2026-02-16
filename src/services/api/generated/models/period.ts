@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { PeriodRoom } from "./periodRoom";
+import type { PeriodRoom } from './periodRoom';
 
 export interface Period {
   id: string;

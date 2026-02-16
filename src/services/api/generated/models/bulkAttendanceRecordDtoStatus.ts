@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type BulkAttendanceRecordDtoStatus =
-  (typeof BulkAttendanceRecordDtoStatus)[keyof typeof BulkAttendanceRecordDtoStatus];
+export type BulkAttendanceRecordDtoStatus = typeof BulkAttendanceRecordDtoStatus[keyof typeof BulkAttendanceRecordDtoStatus];
+
 
 export const BulkAttendanceRecordDtoStatus = {
-  present: "present",
-  absent: "absent",
-  late: "late",
-  half_day: "half_day",
-  excused: "excused",
+  present: 'present',
+  absent: 'absent',
+  late: 'late',
+  half_day: 'half_day',
+  excused: 'excused',
 } as const;

@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { DashboardFeeSummaryNextDueDate } from "./dashboardFeeSummaryNextDueDate";
+import type { DashboardFeeSummaryNextDueDate } from './dashboardFeeSummaryNextDueDate';
 
 export interface DashboardFeeSummary {
   totalFees: number;

@@ -6,12 +6,12 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateStaffLeaveDtoStatus =
-  (typeof CreateStaffLeaveDtoStatus)[keyof typeof CreateStaffLeaveDtoStatus];
+export type CreateStaffLeaveDtoStatus = typeof CreateStaffLeaveDtoStatus[keyof typeof CreateStaffLeaveDtoStatus];
+
 
 export const CreateStaffLeaveDtoStatus = {
-  pending: "pending",
-  approved: "approved",
-  rejected: "rejected",
-  cancelled: "cancelled",
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected',
+  cancelled: 'cancelled',
 } as const;

@@ -5,11 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateMaterialDtoDescription } from "./createMaterialDtoDescription";
-import type { CreateMaterialDtoExternalUrl } from "./createMaterialDtoExternalUrl";
-import type { CreateMaterialDtoFilePath } from "./createMaterialDtoFilePath";
-import type { CreateMaterialDtoType } from "./createMaterialDtoType";
-import type { CreateMaterialDtoUploadedById } from "./createMaterialDtoUploadedById";
+import type { CreateMaterialDtoDescription } from './createMaterialDtoDescription';
+import type { CreateMaterialDtoExternalUrl } from './createMaterialDtoExternalUrl';
+import type { CreateMaterialDtoFilePath } from './createMaterialDtoFilePath';
+import type { CreateMaterialDtoType } from './createMaterialDtoType';
+import type { CreateMaterialDtoUploadedById } from './createMaterialDtoUploadedById';
 
 export interface CreateMaterialDto {
   tenantId: string;

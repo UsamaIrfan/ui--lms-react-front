@@ -5,16 +5,16 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { AttendanceControllerQueryV1AttendableType } from "./attendanceControllerQueryV1AttendableType";
-import type { AttendanceControllerQueryV1Status } from "./attendanceControllerQueryV1Status";
+import type { AttendanceControllerQueryV1AttendableType } from './attendanceControllerQueryV1AttendableType';
+import type { AttendanceControllerQueryV1Status } from './attendanceControllerQueryV1Status';
 
 export type AttendanceControllerQueryV1Params = {
-  startDate?: string;
-  endDate?: string;
-  attendableType?: AttendanceControllerQueryV1AttendableType;
-  attendableId?: number;
-  status?: AttendanceControllerQueryV1Status;
-  sectionId?: number;
-  page?: number;
-  limit?: number;
+startDate?: string;
+endDate?: string;
+attendableType?: AttendanceControllerQueryV1AttendableType;
+attendableId?: number;
+status?: AttendanceControllerQueryV1Status;
+sectionId?: number;
+page?: number;
+limit?: number;
 };

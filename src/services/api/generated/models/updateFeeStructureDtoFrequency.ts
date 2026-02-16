@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateFeeStructureDtoFrequency =
-  (typeof UpdateFeeStructureDtoFrequency)[keyof typeof UpdateFeeStructureDtoFrequency];
+export type UpdateFeeStructureDtoFrequency = typeof UpdateFeeStructureDtoFrequency[keyof typeof UpdateFeeStructureDtoFrequency];
+
 
 export const UpdateFeeStructureDtoFrequency = {
-  one_time: "one_time",
-  monthly: "monthly",
-  quarterly: "quarterly",
-  semi_annual: "semi_annual",
-  annual: "annual",
+  one_time: 'one_time',
+  monthly: 'monthly',
+  quarterly: 'quarterly',
+  semi_annual: 'semi_annual',
+  annual: 'annual',
 } as const;

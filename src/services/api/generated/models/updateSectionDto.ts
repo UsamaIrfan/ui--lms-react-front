@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateSectionDtoClassTeacherId } from "./updateSectionDtoClassTeacherId";
+import type { UpdateSectionDtoClassTeacherId } from './updateSectionDtoClassTeacherId';
 
 export interface UpdateSectionDto {
   tenantId?: string;

@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateFeePaymentDtoMethod =
-  (typeof CreateFeePaymentDtoMethod)[keyof typeof CreateFeePaymentDtoMethod];
+export type CreateFeePaymentDtoMethod = typeof CreateFeePaymentDtoMethod[keyof typeof CreateFeePaymentDtoMethod];
+
 
 export const CreateFeePaymentDtoMethod = {
-  cash: "cash",
-  bank_transfer: "bank_transfer",
-  cheque: "cheque",
-  online: "online",
-  card: "card",
+  cash: 'cash',
+  bank_transfer: 'bank_transfer',
+  cheque: 'cheque',
+  online: 'online',
+  card: 'card',
 } as const;

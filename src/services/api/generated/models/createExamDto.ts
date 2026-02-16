@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateExamDtoDescription } from "./createExamDtoDescription";
-import type { CreateExamDtoType } from "./createExamDtoType";
+import type { CreateExamDtoDescription } from './createExamDtoDescription';
+import type { CreateExamDtoType } from './createExamDtoType';
 
 export interface CreateExamDto {
   tenantId: string;

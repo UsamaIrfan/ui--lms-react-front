@@ -5,10 +5,10 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { PayrollSlipPaidAt } from "./payrollSlipPaidAt";
-import type { PayrollSlipRemarks } from "./payrollSlipRemarks";
-import type { PayrollSlipStatus } from "./payrollSlipStatus";
-import type { SalaryBreakdown } from "./salaryBreakdown";
+import type { PayrollSlipPaidAt } from './payrollSlipPaidAt';
+import type { PayrollSlipRemarks } from './payrollSlipRemarks';
+import type { PayrollSlipStatus } from './payrollSlipStatus';
+import type { SalaryBreakdown } from './salaryBreakdown';
 
 export interface PayrollSlip {
   id: number;

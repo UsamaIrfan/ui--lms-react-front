@@ -6,10 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type BulkAttendanceRecordDtoAttendableType =
-  (typeof BulkAttendanceRecordDtoAttendableType)[keyof typeof BulkAttendanceRecordDtoAttendableType];
+export type BulkAttendanceRecordDtoAttendableType = typeof BulkAttendanceRecordDtoAttendableType[keyof typeof BulkAttendanceRecordDtoAttendableType];
+
 
 export const BulkAttendanceRecordDtoAttendableType = {
-  student: "student",
-  staff: "staff",
+  student: 'student',
+  staff: 'staff',
 } as const;

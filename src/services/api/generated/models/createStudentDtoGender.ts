@@ -6,11 +6,11 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateStudentDtoGender =
-  (typeof CreateStudentDtoGender)[keyof typeof CreateStudentDtoGender];
+export type CreateStudentDtoGender = typeof CreateStudentDtoGender[keyof typeof CreateStudentDtoGender];
+
 
 export const CreateStudentDtoGender = {
-  male: "male",
-  female: "female",
-  other: "other",
+  male: 'male',
+  female: 'female',
+  other: 'other',
 } as const;

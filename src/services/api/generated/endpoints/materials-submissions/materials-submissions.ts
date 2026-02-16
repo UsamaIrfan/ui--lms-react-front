@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,272 +19,217 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
-import type { AssignmentSubmission } from "../../models";
+import type {
+  AssignmentSubmission
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type submissionsControllerFindOneV1Response200 = {
-  data: AssignmentSubmission;
-  status: 200;
+  data: AssignmentSubmission
+  status: 200
+}
+    
+export type submissionsControllerFindOneV1ResponseSuccess = (submissionsControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type submissionsControllerFindOneV1ResponseSuccess =
-  submissionsControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type submissionsControllerFindOneV1Response =
-  submissionsControllerFindOneV1ResponseSuccess;
+export type submissionsControllerFindOneV1Response = (submissionsControllerFindOneV1ResponseSuccess)
 
-export const getSubmissionsControllerFindOneV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/materials/submissions/${id}`;
-};
+export const getSubmissionsControllerFindOneV1Url = (id: number,) => {
 
-export const submissionsControllerFindOneV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<submissionsControllerFindOneV1Response> => {
-  return customFetch<submissionsControllerFindOneV1Response>(
-    getSubmissionsControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/materials/submissions/${id}`
+}
+
+export const submissionsControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<submissionsControllerFindOneV1Response> => {
+  
+  return customFetch<submissionsControllerFindOneV1Response>(getSubmissionsControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getSubmissionsControllerFindOneV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/materials/submissions/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getSubmissionsControllerFindOneV1InfiniteQueryKey = (
-  id: number
+export const getSubmissionsControllerFindOneV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/materials/submissions/${id}`
+    ] as const;
+    }
+
+    
+export const getSubmissionsControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof submissionsControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof submissionsControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/materials/submissions/${id}`,
-  ] as const;
-};
 
-export const getSubmissionsControllerFindOneV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/materials/submissions/${id}`] as const;
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export const getSubmissionsControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof submissionsControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof submissionsControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-) => {
-  const { query: queryOptions } = options ?? {};
+  const queryKey =  queryOptions?.queryKey ?? getSubmissionsControllerFindOneV1InfiniteQueryKey(id);
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getSubmissionsControllerFindOneV1InfiniteQueryKey(id);
+  
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof submissionsControllerFindOneV1>>
-  > = ({ signal }) => submissionsControllerFindOneV1(id, { signal });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof submissionsControllerFindOneV1>>> = ({ signal }) => submissionsControllerFindOneV1(id, { signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof submissionsControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+      
 
-export type SubmissionsControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof submissionsControllerFindOneV1>>
->;
-export type SubmissionsControllerFindOneV1InfiniteQueryError = unknown;
+      
 
-export function useSubmissionsControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof submissionsControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof submissionsControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getSubmissionsControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof submissionsControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+export type SubmissionsControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof submissionsControllerFindOneV1>>>
+export type SubmissionsControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useSubmissionsControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof submissionsControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof submissionsControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getSubmissionsControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getSubmissionsControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof submissionsControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof submissionsControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getSubmissionsControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof submissionsControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof submissionsControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getSubmissionsControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof submissionsControllerFindOneV1>>
-  > = ({ signal }) => submissionsControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getSubmissionsControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof submissionsControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type SubmissionsControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof submissionsControllerFindOneV1>>
->;
-export type SubmissionsControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof submissionsControllerFindOneV1>>> = ({ signal }) => submissionsControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useSubmissionsControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof submissionsControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof submissionsControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getSubmissionsControllerFindOneV1QueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof submissionsControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type SubmissionsControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof submissionsControllerFindOneV1>>>
+export type SubmissionsControllerFindOneV1QueryError = unknown
+
+
+
+export function useSubmissionsControllerFindOneV1<TData = Awaited<ReturnType<typeof submissionsControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof submissionsControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getSubmissionsControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type submissionsControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
+  data: void
+  status: 204
+}
+    
+export type submissionsControllerRemoveV1ResponseSuccess = (submissionsControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export type submissionsControllerRemoveV1ResponseSuccess =
-  submissionsControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type submissionsControllerRemoveV1Response =
-  submissionsControllerRemoveV1ResponseSuccess;
+export type submissionsControllerRemoveV1Response = (submissionsControllerRemoveV1ResponseSuccess)
 
-export const getSubmissionsControllerRemoveV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/materials/submissions/${id}`;
-};
+export const getSubmissionsControllerRemoveV1Url = (id: number,) => {
 
-export const submissionsControllerRemoveV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<submissionsControllerRemoveV1Response> => {
-  return customFetch<submissionsControllerRemoveV1Response>(
-    getSubmissionsControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
+
+  
+
+  return `http://localhost:3000/api/v1/materials/submissions/${id}`
+}
+
+export const submissionsControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<submissionsControllerRemoveV1Response> => {
+  
+  return customFetch<submissionsControllerRemoveV1Response>(getSubmissionsControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
+
+
+
+
+export const getSubmissionsControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submissionsControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof submissionsControllerRemoveV1>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['submissionsControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof submissionsControllerRemoveV1>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  submissionsControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SubmissionsControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof submissionsControllerRemoveV1>>>
+    
+    export type SubmissionsControllerRemoveV1MutationError = unknown
+
+    export const useSubmissionsControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submissionsControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof submissionsControllerRemoveV1>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getSubmissionsControllerRemoveV1MutationOptions(options));
     }
-  );
-};
-
-export const getSubmissionsControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof submissionsControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof submissionsControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationKey = ["submissionsControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof submissionsControllerRemoveV1>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return submissionsControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type SubmissionsControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof submissionsControllerRemoveV1>>
->;
-
-export type SubmissionsControllerRemoveV1MutationError = unknown;
-
-export const useSubmissionsControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof submissionsControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof submissionsControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  return useMutation(getSubmissionsControllerRemoveV1MutationOptions(options));
-};
+    

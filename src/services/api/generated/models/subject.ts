@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { SubjectDescription } from "./subjectDescription";
+import type { SubjectDescription } from './subjectDescription';
 
 export interface Subject {
   id: number;

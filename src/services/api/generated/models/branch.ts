@@ -5,12 +5,12 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { BranchAddress } from "./branchAddress";
-import type { BranchCity } from "./branchCity";
-import type { BranchCountry } from "./branchCountry";
-import type { BranchEmail } from "./branchEmail";
-import type { BranchPhone } from "./branchPhone";
-import type { BranchState } from "./branchState";
+import type { BranchAddress } from './branchAddress';
+import type { BranchCity } from './branchCity';
+import type { BranchCountry } from './branchCountry';
+import type { BranchEmail } from './branchEmail';
+import type { BranchPhone } from './branchPhone';
+import type { BranchState } from './branchState';
 
 export interface Branch {
   id: string;

@@ -1,8 +1,17 @@
 {
-  "title": "Sign Up",
+  "title": "Create an account",
+  "description": "Get started by creating your account",
+  "hasAccount": "Already have an account?",
+  "passwordStrength": {
+    "weak": "Weak password",
+    "fair": "Fair password",
+    "good": "Good password",
+    "strong": "Strong password",
+    "veryStrong": "Very strong password"
+  },
   "actions": {
-    "submit": "Sign Up",
-    "accountAlreadyExists": "Already have an account?"
+    "submit": "Create Account",
+    "accountAlreadyExists": "Sign in"
   },
   "inputs": {
     "firstName": {

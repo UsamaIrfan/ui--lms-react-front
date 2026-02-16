@@ -7,5 +7,5 @@
  */
 
 export type StaffLeaveControllerFindAllV1Params = {
-  staffId?: number;
+staffId?: number;
 };

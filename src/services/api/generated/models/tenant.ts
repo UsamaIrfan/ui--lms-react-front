@@ -5,9 +5,9 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { TenantContactEmail } from "./tenantContactEmail";
-import type { TenantContactPhone } from "./tenantContactPhone";
-import type { TenantSettings } from "./tenantSettings";
+import type { TenantContactEmail } from './tenantContactEmail';
+import type { TenantContactPhone } from './tenantContactPhone';
+import type { TenantSettings } from './tenantSettings';
 
 export interface Tenant {
   id: string;

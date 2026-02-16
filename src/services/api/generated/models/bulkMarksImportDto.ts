@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { BulkMarkEntryDto } from "./bulkMarkEntryDto";
+import type { BulkMarkEntryDto } from './bulkMarkEntryDto';
 
 export interface BulkMarksImportDto {
   examSubjectId: number;

@@ -6,6 +6,4 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateAdmissionEnquiryDtoPreviousSchool = {
-  [key: string]: unknown;
-};
+export type UpdateAdmissionEnquiryDtoPreviousSchool = { [key: string]: unknown };

@@ -1,0 +1,236 @@
+import { RoleEnum } from "@/services/api/types/role";
+import {
+  RiDashboardLine,
+  RiGraduationCapLine,
+  RiTeamLine,
+  RiBookOpenLine,
+  RiMoneyDollarCircleLine,
+  RiNotification3Line,
+  RiSettings4Line,
+  RiFileSearchLine,
+  RiUserAddLine,
+  RiCalendarCheckLine,
+  RiWalletLine,
+  RiFileList3Line,
+  RiBarChartBoxLine,
+  RiGroupLine,
+  RiTimeLine,
+  RiCalendarLine,
+  RiBankLine,
+  RiBookLine,
+  RiArticleLine,
+  RiListCheck3,
+  RiMoneyDollarBoxLine,
+  RiLineChartLine,
+  RiPagesLine,
+} from "@remixicon/react";
+import type { RemixiconComponentType } from "@remixicon/react";
+
+export type NavItem = {
+  id: string;
+  labelKey: string;
+  href?: string;
+  icon: RemixiconComponentType;
+  roles?: RoleEnum[];
+  children?: NavItem[];
+};
+
+export const navigationItems: NavItem[] = [
+  {
+    id: "dashboard",
+    labelKey: "navigation.dashboard",
+    href: "/admin-panel",
+    icon: RiDashboardLine,
+    roles: [
+      RoleEnum.ADMIN,
+      RoleEnum.TEACHER,
+      RoleEnum.STAFF,
+      RoleEnum.ACCOUNTANT,
+      RoleEnum.STUDENT,
+      RoleEnum.PARENT,
+    ],
+  },
+  {
+    id: "students",
+    labelKey: "navigation.students.title",
+    icon: RiGraduationCapLine,
+    roles: [
+      RoleEnum.ADMIN,
+      RoleEnum.TEACHER,
+      RoleEnum.STAFF,
+      RoleEnum.ACCOUNTANT,
+    ],
+    children: [
+      {
+        id: "students-enquiries",
+        labelKey: "navigation.students.enquiries",
+        href: "/admin-panel/students/enquiries",
+        icon: RiFileSearchLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.STAFF],
+      },
+      {
+        id: "students-registrations",
+        labelKey: "navigation.students.registrations",
+        href: "/admin-panel/students/registrations",
+        icon: RiUserAddLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.STAFF],
+      },
+      {
+        id: "students-attendance",
+        labelKey: "navigation.students.attendance",
+        href: "/admin-panel/students/attendance",
+        icon: RiCalendarCheckLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.TEACHER, RoleEnum.STAFF],
+      },
+      {
+        id: "students-fees",
+        labelKey: "navigation.students.fees",
+        href: "/admin-panel/students/fees",
+        icon: RiWalletLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.ACCOUNTANT],
+      },
+      {
+        id: "students-exams",
+        labelKey: "navigation.students.exams",
+        href: "/admin-panel/students/exams",
+        icon: RiFileList3Line,
+        roles: [RoleEnum.ADMIN, RoleEnum.TEACHER],
+      },
+      {
+        id: "students-materials",
+        labelKey: "navigation.students.materials",
+        href: "/admin-panel/students/materials",
+        icon: RiBookLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.TEACHER, RoleEnum.STAFF],
+      },
+    ],
+  },
+  {
+    id: "staff",
+    labelKey: "navigation.staff.title",
+    icon: RiTeamLine,
+    roles: [RoleEnum.ADMIN, RoleEnum.STAFF],
+    children: [
+      {
+        id: "staff-list",
+        labelKey: "navigation.staff.list",
+        href: "/admin-panel/staff",
+        icon: RiGroupLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.STAFF],
+      },
+      {
+        id: "staff-attendance",
+        labelKey: "navigation.staff.attendance",
+        href: "/admin-panel/staff/attendance",
+        icon: RiCalendarCheckLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.STAFF],
+      },
+      {
+        id: "staff-leaves",
+        labelKey: "navigation.staff.leaves",
+        href: "/admin-panel/staff/leaves",
+        icon: RiCalendarLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.STAFF],
+      },
+      {
+        id: "staff-payroll",
+        labelKey: "navigation.staff.payroll",
+        href: "/admin-panel/staff/payroll",
+        icon: RiMoneyDollarBoxLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.ACCOUNTANT],
+      },
+      {
+        id: "staff-timetable",
+        labelKey: "navigation.staff.timetable",
+        href: "/admin-panel/staff/timetable",
+        icon: RiTimeLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.STAFF, RoleEnum.TEACHER],
+      },
+    ],
+  },
+  {
+    id: "academics",
+    labelKey: "navigation.academics.title",
+    icon: RiBookOpenLine,
+    roles: [RoleEnum.ADMIN, RoleEnum.TEACHER, RoleEnum.STAFF],
+    children: [
+      {
+        id: "academics-courses",
+        labelKey: "navigation.academics.courses",
+        href: "/admin-panel/academics/courses",
+        icon: RiPagesLine,
+        roles: [RoleEnum.ADMIN],
+      },
+      {
+        id: "academics-classes",
+        labelKey: "navigation.academics.classes",
+        href: "/admin-panel/academics/classes",
+        icon: RiBankLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.TEACHER, RoleEnum.STAFF],
+      },
+      {
+        id: "academics-subjects",
+        labelKey: "navigation.academics.subjects",
+        href: "/admin-panel/academics/subjects",
+        icon: RiArticleLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.TEACHER],
+      },
+      {
+        id: "academics-year",
+        labelKey: "navigation.academics.year",
+        href: "/admin-panel/academics/year",
+        icon: RiCalendarLine,
+        roles: [RoleEnum.ADMIN],
+      },
+    ],
+  },
+  {
+    id: "accounts",
+    labelKey: "navigation.accounts.title",
+    icon: RiMoneyDollarCircleLine,
+    roles: [RoleEnum.ADMIN, RoleEnum.ACCOUNTANT],
+    children: [
+      {
+        id: "accounts-income",
+        labelKey: "navigation.accounts.income",
+        href: "/admin-panel/accounts/income",
+        icon: RiBarChartBoxLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.ACCOUNTANT],
+      },
+      {
+        id: "accounts-expenses",
+        labelKey: "navigation.accounts.expenses",
+        href: "/admin-panel/accounts/expenses",
+        icon: RiListCheck3,
+        roles: [RoleEnum.ADMIN, RoleEnum.ACCOUNTANT],
+      },
+      {
+        id: "accounts-reports",
+        labelKey: "navigation.accounts.reports",
+        href: "/admin-panel/accounts/reports",
+        icon: RiLineChartLine,
+        roles: [RoleEnum.ADMIN, RoleEnum.ACCOUNTANT],
+      },
+    ],
+  },
+  {
+    id: "notices",
+    labelKey: "navigation.notices",
+    href: "/admin-panel/notices",
+    icon: RiNotification3Line,
+    roles: [
+      RoleEnum.ADMIN,
+      RoleEnum.TEACHER,
+      RoleEnum.STAFF,
+      RoleEnum.STUDENT,
+      RoleEnum.PARENT,
+    ],
+  },
+  {
+    id: "settings",
+    labelKey: "navigation.settings",
+    href: "/admin-panel/settings",
+    icon: RiSettings4Line,
+    roles: [RoleEnum.ADMIN],
+  },
+];

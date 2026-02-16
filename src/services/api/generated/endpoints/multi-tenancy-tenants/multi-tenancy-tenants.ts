@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,586 +19,496 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
-import type { CreateTenantDto, Tenant, UpdateTenantDto } from "../../models";
+import type {
+  CreateTenantDto,
+  Tenant,
+  UpdateTenantDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type tenantControllerCreateV1Response201 = {
-  data: Tenant;
-  status: 201;
+  data: Tenant
+  status: 201
+}
+    
+export type tenantControllerCreateV1ResponseSuccess = (tenantControllerCreateV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type tenantControllerCreateV1ResponseSuccess =
-  tenantControllerCreateV1Response201 & {
-    headers: Headers;
-  };
-export type tenantControllerCreateV1Response =
-  tenantControllerCreateV1ResponseSuccess;
+export type tenantControllerCreateV1Response = (tenantControllerCreateV1ResponseSuccess)
 
 export const getTenantControllerCreateV1Url = () => {
-  return `http://localhost:3000/api/v1/tenants`;
-};
 
-export const tenantControllerCreateV1 = async (
-  createTenantDto: CreateTenantDto,
-  options?: RequestInit
-): Promise<tenantControllerCreateV1Response> => {
-  return customFetch<tenantControllerCreateV1Response>(
-    getTenantControllerCreateV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(createTenantDto),
+
+  
+
+  return `http://localhost:3000/api/v1/tenants`
+}
+
+export const tenantControllerCreateV1 = async (createTenantDto: CreateTenantDto, options?: RequestInit): Promise<tenantControllerCreateV1Response> => {
+  
+  return customFetch<tenantControllerCreateV1Response>(getTenantControllerCreateV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createTenantDto,)
+  }
+);}
+
+
+
+
+export const getTenantControllerCreateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tenantControllerCreateV1>>, TError,{data: CreateTenantDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof tenantControllerCreateV1>>, TError,{data: CreateTenantDto}, TContext> => {
+
+const mutationKey = ['tenantControllerCreateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof tenantControllerCreateV1>>, {data: CreateTenantDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  tenantControllerCreateV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type TenantControllerCreateV1MutationResult = NonNullable<Awaited<ReturnType<typeof tenantControllerCreateV1>>>
+    export type TenantControllerCreateV1MutationBody = CreateTenantDto
+    export type TenantControllerCreateV1MutationError = unknown
+
+    export const useTenantControllerCreateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tenantControllerCreateV1>>, TError,{data: CreateTenantDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof tenantControllerCreateV1>>,
+        TError,
+        {data: CreateTenantDto},
+        TContext
+      > => {
+      return useMutation(getTenantControllerCreateV1MutationOptions(options));
     }
-  );
+    export type tenantControllerFindAllV1Response200 = {
+  data: Tenant[]
+  status: 200
+}
+    
+export type tenantControllerFindAllV1ResponseSuccess = (tenantControllerFindAllV1Response200) & {
+  headers: Headers;
 };
+;
 
-export const getTenantControllerCreateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof tenantControllerCreateV1>>,
-    TError,
-    { data: CreateTenantDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof tenantControllerCreateV1>>,
-  TError,
-  { data: CreateTenantDto },
-  TContext
-> => {
-  const mutationKey = ["tenantControllerCreateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof tenantControllerCreateV1>>,
-    { data: CreateTenantDto }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return tenantControllerCreateV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type TenantControllerCreateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof tenantControllerCreateV1>>
->;
-export type TenantControllerCreateV1MutationBody = CreateTenantDto;
-export type TenantControllerCreateV1MutationError = unknown;
-
-export const useTenantControllerCreateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof tenantControllerCreateV1>>,
-    TError,
-    { data: CreateTenantDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof tenantControllerCreateV1>>,
-  TError,
-  { data: CreateTenantDto },
-  TContext
-> => {
-  return useMutation(getTenantControllerCreateV1MutationOptions(options));
-};
-export type tenantControllerFindAllV1Response200 = {
-  data: Tenant[];
-  status: 200;
-};
-
-export type tenantControllerFindAllV1ResponseSuccess =
-  tenantControllerFindAllV1Response200 & {
-    headers: Headers;
-  };
-export type tenantControllerFindAllV1Response =
-  tenantControllerFindAllV1ResponseSuccess;
+export type tenantControllerFindAllV1Response = (tenantControllerFindAllV1ResponseSuccess)
 
 export const getTenantControllerFindAllV1Url = () => {
-  return `http://localhost:3000/api/v1/tenants`;
-};
 
-export const tenantControllerFindAllV1 = async (
-  options?: RequestInit
-): Promise<tenantControllerFindAllV1Response> => {
-  return customFetch<tenantControllerFindAllV1Response>(
-    getTenantControllerFindAllV1Url(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/api/v1/tenants`
+}
+
+export const tenantControllerFindAllV1 = async ( options?: RequestInit): Promise<tenantControllerFindAllV1Response> => {
+  
+  return customFetch<tenantControllerFindAllV1Response>(getTenantControllerFindAllV1Url(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getTenantControllerFindAllV1InfiniteQueryKey = () => {
-  return ["infinite", `http://localhost:3000/api/v1/tenants`] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/api/v1/tenants`
+    ] as const;
+    }
 
 export const getTenantControllerFindAllV1QueryKey = () => {
-  return [`http://localhost:3000/api/v1/tenants`] as const;
-};
+    return [
+    `http://localhost:3000/api/v1/tenants`
+    ] as const;
+    }
 
-export const getTenantControllerFindAllV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof tenantControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof tenantControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getTenantControllerFindAllV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof tenantControllerFindAllV1>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof tenantControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getTenantControllerFindAllV1InfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof tenantControllerFindAllV1>>
-  > = ({ signal }) => tenantControllerFindAllV1({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getTenantControllerFindAllV1InfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof tenantControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type TenantControllerFindAllV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof tenantControllerFindAllV1>>
->;
-export type TenantControllerFindAllV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof tenantControllerFindAllV1>>> = ({ signal }) => tenantControllerFindAllV1({ signal, ...requestOptions });
 
-export function useTenantControllerFindAllV1Infinite<
-  TData = Awaited<ReturnType<typeof tenantControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof tenantControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getTenantControllerFindAllV1InfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof tenantControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type TenantControllerFindAllV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof tenantControllerFindAllV1>>>
+export type TenantControllerFindAllV1InfiniteQueryError = unknown
+
+
+
+export function useTenantControllerFindAllV1Infinite<TData = Awaited<ReturnType<typeof tenantControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof tenantControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getTenantControllerFindAllV1InfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getTenantControllerFindAllV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof tenantControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof tenantControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getTenantControllerFindAllV1QueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof tenantControllerFindAllV1>>
-  > = ({ signal }) => tenantControllerFindAllV1({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof tenantControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getTenantControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof tenantControllerFindAllV1>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof tenantControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type TenantControllerFindAllV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof tenantControllerFindAllV1>>
->;
-export type TenantControllerFindAllV1QueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function useTenantControllerFindAllV1<
-  TData = Awaited<ReturnType<typeof tenantControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof tenantControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getTenantControllerFindAllV1QueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getTenantControllerFindAllV1QueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof tenantControllerFindAllV1>>> = ({ signal }) => tenantControllerFindAllV1({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof tenantControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type TenantControllerFindAllV1QueryResult = NonNullable<Awaited<ReturnType<typeof tenantControllerFindAllV1>>>
+export type TenantControllerFindAllV1QueryError = unknown
+
+
+
+export function useTenantControllerFindAllV1<TData = Awaited<ReturnType<typeof tenantControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof tenantControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getTenantControllerFindAllV1QueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type tenantControllerFindOneV1Response200 = {
-  data: Tenant;
-  status: 200;
+  data: Tenant
+  status: 200
+}
+    
+export type tenantControllerFindOneV1ResponseSuccess = (tenantControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type tenantControllerFindOneV1ResponseSuccess =
-  tenantControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type tenantControllerFindOneV1Response =
-  tenantControllerFindOneV1ResponseSuccess;
+export type tenantControllerFindOneV1Response = (tenantControllerFindOneV1ResponseSuccess)
 
-export const getTenantControllerFindOneV1Url = (id: string) => {
-  return `http://localhost:3000/api/v1/tenants/${id}`;
-};
+export const getTenantControllerFindOneV1Url = (id: string,) => {
 
-export const tenantControllerFindOneV1 = async (
-  id: string,
-  options?: RequestInit
-): Promise<tenantControllerFindOneV1Response> => {
-  return customFetch<tenantControllerFindOneV1Response>(
-    getTenantControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/tenants/${id}`
+}
+
+export const tenantControllerFindOneV1 = async (id: string, options?: RequestInit): Promise<tenantControllerFindOneV1Response> => {
+  
+  return customFetch<tenantControllerFindOneV1Response>(getTenantControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getTenantControllerFindOneV1InfiniteQueryKey = (id: string,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/tenants/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getTenantControllerFindOneV1InfiniteQueryKey = (id: string) => {
-  return ["infinite", `http://localhost:3000/api/v1/tenants/${id}`] as const;
-};
+export const getTenantControllerFindOneV1QueryKey = (id: string,) => {
+    return [
+    `http://localhost:3000/api/v1/tenants/${id}`
+    ] as const;
+    }
 
-export const getTenantControllerFindOneV1QueryKey = (id: string) => {
-  return [`http://localhost:3000/api/v1/tenants/${id}`] as const;
-};
-
-export const getTenantControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof tenantControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: string,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof tenantControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+    
+export const getTenantControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof tenantControllerFindOneV1>>, TError = unknown>(id: string, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof tenantControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getTenantControllerFindOneV1InfiniteQueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof tenantControllerFindOneV1>>
-  > = ({ signal }) => tenantControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getTenantControllerFindOneV1InfiniteQueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof tenantControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type TenantControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof tenantControllerFindOneV1>>
->;
-export type TenantControllerFindOneV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof tenantControllerFindOneV1>>> = ({ signal }) => tenantControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useTenantControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof tenantControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: string,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof tenantControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getTenantControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof tenantControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type TenantControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof tenantControllerFindOneV1>>>
+export type TenantControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useTenantControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof tenantControllerFindOneV1>>, TError = unknown>(
+ id: string, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof tenantControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getTenantControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getTenantControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof tenantControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: string,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof tenantControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getTenantControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof tenantControllerFindOneV1>>, TError = unknown>(id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof tenantControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getTenantControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof tenantControllerFindOneV1>>
-  > = ({ signal }) => tenantControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getTenantControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof tenantControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type TenantControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof tenantControllerFindOneV1>>
->;
-export type TenantControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof tenantControllerFindOneV1>>> = ({ signal }) => tenantControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useTenantControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof tenantControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: string,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof tenantControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getTenantControllerFindOneV1QueryOptions(id, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof tenantControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type TenantControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof tenantControllerFindOneV1>>>
+export type TenantControllerFindOneV1QueryError = unknown
+
+
+
+export function useTenantControllerFindOneV1<TData = Awaited<ReturnType<typeof tenantControllerFindOneV1>>, TError = unknown>(
+ id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof tenantControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getTenantControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type tenantControllerUpdateV1Response200 = {
-  data: Tenant;
-  status: 200;
+  data: Tenant
+  status: 200
+}
+    
+export type tenantControllerUpdateV1ResponseSuccess = (tenantControllerUpdateV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type tenantControllerUpdateV1ResponseSuccess =
-  tenantControllerUpdateV1Response200 & {
-    headers: Headers;
-  };
-export type tenantControllerUpdateV1Response =
-  tenantControllerUpdateV1ResponseSuccess;
+export type tenantControllerUpdateV1Response = (tenantControllerUpdateV1ResponseSuccess)
 
-export const getTenantControllerUpdateV1Url = (id: string) => {
-  return `http://localhost:3000/api/v1/tenants/${id}`;
-};
+export const getTenantControllerUpdateV1Url = (id: string,) => {
 
-export const tenantControllerUpdateV1 = async (
-  id: string,
-  updateTenantDto: UpdateTenantDto,
-  options?: RequestInit
-): Promise<tenantControllerUpdateV1Response> => {
-  return customFetch<tenantControllerUpdateV1Response>(
-    getTenantControllerUpdateV1Url(id),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(updateTenantDto),
+
+  
+
+  return `http://localhost:3000/api/v1/tenants/${id}`
+}
+
+export const tenantControllerUpdateV1 = async (id: string,
+    updateTenantDto: UpdateTenantDto, options?: RequestInit): Promise<tenantControllerUpdateV1Response> => {
+  
+  return customFetch<tenantControllerUpdateV1Response>(getTenantControllerUpdateV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateTenantDto,)
+  }
+);}
+
+
+
+
+export const getTenantControllerUpdateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tenantControllerUpdateV1>>, TError,{id: string;data: UpdateTenantDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof tenantControllerUpdateV1>>, TError,{id: string;data: UpdateTenantDto}, TContext> => {
+
+const mutationKey = ['tenantControllerUpdateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof tenantControllerUpdateV1>>, {id: string;data: UpdateTenantDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  tenantControllerUpdateV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type TenantControllerUpdateV1MutationResult = NonNullable<Awaited<ReturnType<typeof tenantControllerUpdateV1>>>
+    export type TenantControllerUpdateV1MutationBody = UpdateTenantDto
+    export type TenantControllerUpdateV1MutationError = unknown
+
+    export const useTenantControllerUpdateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tenantControllerUpdateV1>>, TError,{id: string;data: UpdateTenantDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof tenantControllerUpdateV1>>,
+        TError,
+        {id: string;data: UpdateTenantDto},
+        TContext
+      > => {
+      return useMutation(getTenantControllerUpdateV1MutationOptions(options));
     }
-  );
+    export type tenantControllerRemoveV1Response204 = {
+  data: void
+  status: 204
+}
+    
+export type tenantControllerRemoveV1ResponseSuccess = (tenantControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export const getTenantControllerUpdateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof tenantControllerUpdateV1>>,
-    TError,
-    { id: string; data: UpdateTenantDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof tenantControllerUpdateV1>>,
-  TError,
-  { id: string; data: UpdateTenantDto },
-  TContext
-> => {
-  const mutationKey = ["tenantControllerUpdateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+export type tenantControllerRemoveV1Response = (tenantControllerRemoveV1ResponseSuccess)
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof tenantControllerUpdateV1>>,
-    { id: string; data: UpdateTenantDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getTenantControllerRemoveV1Url = (id: string,) => {
 
-    return tenantControllerUpdateV1(id, data);
-  };
 
-  return { mutationFn, ...mutationOptions };
-};
+  
 
-export type TenantControllerUpdateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof tenantControllerUpdateV1>>
->;
-export type TenantControllerUpdateV1MutationBody = UpdateTenantDto;
-export type TenantControllerUpdateV1MutationError = unknown;
+  return `http://localhost:3000/api/v1/tenants/${id}`
+}
 
-export const useTenantControllerUpdateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof tenantControllerUpdateV1>>,
-    TError,
-    { id: string; data: UpdateTenantDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof tenantControllerUpdateV1>>,
-  TError,
-  { id: string; data: UpdateTenantDto },
-  TContext
-> => {
-  return useMutation(getTenantControllerUpdateV1MutationOptions(options));
-};
-export type tenantControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
-};
+export const tenantControllerRemoveV1 = async (id: string, options?: RequestInit): Promise<tenantControllerRemoveV1Response> => {
+  
+  return customFetch<tenantControllerRemoveV1Response>(getTenantControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
 
-export type tenantControllerRemoveV1ResponseSuccess =
-  tenantControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type tenantControllerRemoveV1Response =
-  tenantControllerRemoveV1ResponseSuccess;
 
-export const getTenantControllerRemoveV1Url = (id: string) => {
-  return `http://localhost:3000/api/v1/tenants/${id}`;
-};
 
-export const tenantControllerRemoveV1 = async (
-  id: string,
-  options?: RequestInit
-): Promise<tenantControllerRemoveV1Response> => {
-  return customFetch<tenantControllerRemoveV1Response>(
-    getTenantControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
+
+export const getTenantControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tenantControllerRemoveV1>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof tenantControllerRemoveV1>>, TError,{id: string}, TContext> => {
+
+const mutationKey = ['tenantControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof tenantControllerRemoveV1>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  tenantControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type TenantControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof tenantControllerRemoveV1>>>
+    
+    export type TenantControllerRemoveV1MutationError = unknown
+
+    export const useTenantControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tenantControllerRemoveV1>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof tenantControllerRemoveV1>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+      return useMutation(getTenantControllerRemoveV1MutationOptions(options));
     }
-  );
-};
-
-export const getTenantControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof tenantControllerRemoveV1>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof tenantControllerRemoveV1>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationKey = ["tenantControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof tenantControllerRemoveV1>>,
-    { id: string }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return tenantControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type TenantControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof tenantControllerRemoveV1>>
->;
-
-export type TenantControllerRemoveV1MutationError = unknown;
-
-export const useTenantControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof tenantControllerRemoveV1>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof tenantControllerRemoveV1>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  return useMutation(getTenantControllerRemoveV1MutationOptions(options));
-};
+    

@@ -5,16 +5,16 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateAdmissionEnquiryDtoConvertedStudentId } from "./createAdmissionEnquiryDtoConvertedStudentId";
-import type { CreateAdmissionEnquiryDtoEmail } from "./createAdmissionEnquiryDtoEmail";
-import type { CreateAdmissionEnquiryDtoFollowUpDate } from "./createAdmissionEnquiryDtoFollowUpDate";
-import type { CreateAdmissionEnquiryDtoGradeApplyingFor } from "./createAdmissionEnquiryDtoGradeApplyingFor";
-import type { CreateAdmissionEnquiryDtoGuardianName } from "./createAdmissionEnquiryDtoGuardianName";
-import type { CreateAdmissionEnquiryDtoNotes } from "./createAdmissionEnquiryDtoNotes";
-import type { CreateAdmissionEnquiryDtoPhone } from "./createAdmissionEnquiryDtoPhone";
-import type { CreateAdmissionEnquiryDtoPreviousSchool } from "./createAdmissionEnquiryDtoPreviousSchool";
-import type { CreateAdmissionEnquiryDtoSource } from "./createAdmissionEnquiryDtoSource";
-import type { CreateAdmissionEnquiryDtoStatus } from "./createAdmissionEnquiryDtoStatus";
+import type { CreateAdmissionEnquiryDtoConvertedStudentId } from './createAdmissionEnquiryDtoConvertedStudentId';
+import type { CreateAdmissionEnquiryDtoEmail } from './createAdmissionEnquiryDtoEmail';
+import type { CreateAdmissionEnquiryDtoFollowUpDate } from './createAdmissionEnquiryDtoFollowUpDate';
+import type { CreateAdmissionEnquiryDtoGradeApplyingFor } from './createAdmissionEnquiryDtoGradeApplyingFor';
+import type { CreateAdmissionEnquiryDtoGuardianName } from './createAdmissionEnquiryDtoGuardianName';
+import type { CreateAdmissionEnquiryDtoNotes } from './createAdmissionEnquiryDtoNotes';
+import type { CreateAdmissionEnquiryDtoPhone } from './createAdmissionEnquiryDtoPhone';
+import type { CreateAdmissionEnquiryDtoPreviousSchool } from './createAdmissionEnquiryDtoPreviousSchool';
+import type { CreateAdmissionEnquiryDtoSource } from './createAdmissionEnquiryDtoSource';
+import type { CreateAdmissionEnquiryDtoStatus } from './createAdmissionEnquiryDtoStatus';
 
 export interface CreateAdmissionEnquiryDto {
   tenantId: string;

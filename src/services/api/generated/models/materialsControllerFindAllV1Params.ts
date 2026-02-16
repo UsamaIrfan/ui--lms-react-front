@@ -5,19 +5,19 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { MaterialsControllerFindAllV1Type } from "./materialsControllerFindAllV1Type";
+import type { MaterialsControllerFindAllV1Type } from './materialsControllerFindAllV1Type';
 
 export type MaterialsControllerFindAllV1Params = {
-  /**
-   * Filter by subject ID
-   */
-  subjectId?: number;
-  /**
-   * Filter by material type
-   */
-  type?: MaterialsControllerFindAllV1Type;
-  /**
-   * Search by title (case-insensitive)
-   */
-  search?: string;
+/**
+ * Filter by subject ID
+ */
+subjectId?: number;
+/**
+ * Filter by material type
+ */
+type?: MaterialsControllerFindAllV1Type;
+/**
+ * Search by title (case-insensitive)
+ */
+search?: string;
 };

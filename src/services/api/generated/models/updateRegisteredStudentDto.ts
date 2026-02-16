@@ -5,17 +5,17 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateRegisteredStudentDtoAddress } from "./updateRegisteredStudentDtoAddress";
-import type { UpdateRegisteredStudentDtoBloodGroup } from "./updateRegisteredStudentDtoBloodGroup";
-import type { UpdateRegisteredStudentDtoCity } from "./updateRegisteredStudentDtoCity";
-import type { UpdateRegisteredStudentDtoDateOfBirth } from "./updateRegisteredStudentDtoDateOfBirth";
-import type { UpdateRegisteredStudentDtoGender } from "./updateRegisteredStudentDtoGender";
-import type { UpdateRegisteredStudentDtoGuardianEmail } from "./updateRegisteredStudentDtoGuardianEmail";
-import type { UpdateRegisteredStudentDtoGuardianName } from "./updateRegisteredStudentDtoGuardianName";
-import type { UpdateRegisteredStudentDtoGuardianPhone } from "./updateRegisteredStudentDtoGuardianPhone";
-import type { UpdateRegisteredStudentDtoGuardianRelation } from "./updateRegisteredStudentDtoGuardianRelation";
-import type { UpdateRegisteredStudentDtoNationality } from "./updateRegisteredStudentDtoNationality";
-import type { UpdateRegisteredStudentDtoReligion } from "./updateRegisteredStudentDtoReligion";
+import type { UpdateRegisteredStudentDtoAddress } from './updateRegisteredStudentDtoAddress';
+import type { UpdateRegisteredStudentDtoBloodGroup } from './updateRegisteredStudentDtoBloodGroup';
+import type { UpdateRegisteredStudentDtoCity } from './updateRegisteredStudentDtoCity';
+import type { UpdateRegisteredStudentDtoDateOfBirth } from './updateRegisteredStudentDtoDateOfBirth';
+import type { UpdateRegisteredStudentDtoGender } from './updateRegisteredStudentDtoGender';
+import type { UpdateRegisteredStudentDtoGuardianEmail } from './updateRegisteredStudentDtoGuardianEmail';
+import type { UpdateRegisteredStudentDtoGuardianName } from './updateRegisteredStudentDtoGuardianName';
+import type { UpdateRegisteredStudentDtoGuardianPhone } from './updateRegisteredStudentDtoGuardianPhone';
+import type { UpdateRegisteredStudentDtoGuardianRelation } from './updateRegisteredStudentDtoGuardianRelation';
+import type { UpdateRegisteredStudentDtoNationality } from './updateRegisteredStudentDtoNationality';
+import type { UpdateRegisteredStudentDtoReligion } from './updateRegisteredStudentDtoReligion';
 
 export interface UpdateRegisteredStudentDto {
   address?: UpdateRegisteredStudentDtoAddress;

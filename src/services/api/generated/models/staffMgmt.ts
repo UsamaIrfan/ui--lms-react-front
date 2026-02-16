@@ -5,16 +5,16 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { StaffBranchAssignment } from "./staffBranchAssignment";
-import type { StaffMgmtAddress } from "./staffMgmtAddress";
-import type { StaffMgmtDepartmentId } from "./staffMgmtDepartmentId";
-import type { StaffMgmtDesignation } from "./staffMgmtDesignation";
-import type { StaffMgmtEmergencyContact } from "./staffMgmtEmergencyContact";
-import type { StaffMgmtEmploymentType } from "./staffMgmtEmploymentType";
-import type { StaffMgmtExperienceYears } from "./staffMgmtExperienceYears";
-import type { StaffMgmtJoiningDate } from "./staffMgmtJoiningDate";
-import type { StaffMgmtQualification } from "./staffMgmtQualification";
-import type { StaffMgmtSpecialization } from "./staffMgmtSpecialization";
+import type { StaffBranchAssignment } from './staffBranchAssignment';
+import type { StaffMgmtAddress } from './staffMgmtAddress';
+import type { StaffMgmtDepartmentId } from './staffMgmtDepartmentId';
+import type { StaffMgmtDesignation } from './staffMgmtDesignation';
+import type { StaffMgmtEmergencyContact } from './staffMgmtEmergencyContact';
+import type { StaffMgmtEmploymentType } from './staffMgmtEmploymentType';
+import type { StaffMgmtExperienceYears } from './staffMgmtExperienceYears';
+import type { StaffMgmtJoiningDate } from './staffMgmtJoiningDate';
+import type { StaffMgmtQualification } from './staffMgmtQualification';
+import type { StaffMgmtSpecialization } from './staffMgmtSpecialization';
 
 export interface StaffMgmt {
   id: number;

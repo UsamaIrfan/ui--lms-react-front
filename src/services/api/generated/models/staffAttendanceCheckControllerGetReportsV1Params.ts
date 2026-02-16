@@ -7,8 +7,8 @@
  */
 
 export type StaffAttendanceCheckControllerGetReportsV1Params = {
-  staffId?: number;
-  branchId?: string;
-  startDate?: string;
-  endDate?: string;
+staffId?: number;
+branchId?: string;
+startDate?: string;
+endDate?: string;
 };

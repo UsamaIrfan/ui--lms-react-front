@@ -5,11 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateCourseMaterialDtoDescription } from "./updateCourseMaterialDtoDescription";
-import type { UpdateCourseMaterialDtoExternalUrl } from "./updateCourseMaterialDtoExternalUrl";
-import type { UpdateCourseMaterialDtoFileId } from "./updateCourseMaterialDtoFileId";
-import type { UpdateCourseMaterialDtoType } from "./updateCourseMaterialDtoType";
-import type { UpdateCourseMaterialDtoUploadedById } from "./updateCourseMaterialDtoUploadedById";
+import type { UpdateCourseMaterialDtoDescription } from './updateCourseMaterialDtoDescription';
+import type { UpdateCourseMaterialDtoExternalUrl } from './updateCourseMaterialDtoExternalUrl';
+import type { UpdateCourseMaterialDtoFileId } from './updateCourseMaterialDtoFileId';
+import type { UpdateCourseMaterialDtoType } from './updateCourseMaterialDtoType';
+import type { UpdateCourseMaterialDtoUploadedById } from './updateCourseMaterialDtoUploadedById';
 
 export interface UpdateCourseMaterialDto {
   tenantId?: string;

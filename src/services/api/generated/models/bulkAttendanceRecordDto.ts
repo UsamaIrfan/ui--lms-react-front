@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { BulkAttendanceRecordDtoAttendableType } from "./bulkAttendanceRecordDtoAttendableType";
-import type { BulkAttendanceRecordDtoStatus } from "./bulkAttendanceRecordDtoStatus";
+import type { BulkAttendanceRecordDtoAttendableType } from './bulkAttendanceRecordDtoAttendableType';
+import type { BulkAttendanceRecordDtoStatus } from './bulkAttendanceRecordDtoStatus';
 
 export interface BulkAttendanceRecordDto {
   attendableType: BulkAttendanceRecordDtoAttendableType;

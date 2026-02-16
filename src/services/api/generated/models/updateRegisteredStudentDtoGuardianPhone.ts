@@ -6,6 +6,4 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateRegisteredStudentDtoGuardianPhone = {
-  [key: string]: unknown;
-};
+export type UpdateRegisteredStudentDtoGuardianPhone = { [key: string]: unknown };

@@ -5,9 +5,9 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateFeeChallanDtoIssueDate } from "./createFeeChallanDtoIssueDate";
-import type { CreateFeeChallanDtoRemarks } from "./createFeeChallanDtoRemarks";
-import type { CreateFeeChallanDtoStatus } from "./createFeeChallanDtoStatus";
+import type { CreateFeeChallanDtoIssueDate } from './createFeeChallanDtoIssueDate';
+import type { CreateFeeChallanDtoRemarks } from './createFeeChallanDtoRemarks';
+import type { CreateFeeChallanDtoStatus } from './createFeeChallanDtoStatus';
 
 export interface CreateFeeChallanDto {
   tenantId: string;

@@ -5,18 +5,18 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateStudentDtoAddress } from "./updateStudentDtoAddress";
-import type { UpdateStudentDtoAdmissionDate } from "./updateStudentDtoAdmissionDate";
-import type { UpdateStudentDtoBloodGroup } from "./updateStudentDtoBloodGroup";
-import type { UpdateStudentDtoCity } from "./updateStudentDtoCity";
-import type { UpdateStudentDtoDateOfBirth } from "./updateStudentDtoDateOfBirth";
-import type { UpdateStudentDtoGender } from "./updateStudentDtoGender";
-import type { UpdateStudentDtoGuardianEmail } from "./updateStudentDtoGuardianEmail";
-import type { UpdateStudentDtoGuardianName } from "./updateStudentDtoGuardianName";
-import type { UpdateStudentDtoGuardianPhone } from "./updateStudentDtoGuardianPhone";
-import type { UpdateStudentDtoGuardianRelation } from "./updateStudentDtoGuardianRelation";
-import type { UpdateStudentDtoNationality } from "./updateStudentDtoNationality";
-import type { UpdateStudentDtoReligion } from "./updateStudentDtoReligion";
+import type { UpdateStudentDtoAddress } from './updateStudentDtoAddress';
+import type { UpdateStudentDtoAdmissionDate } from './updateStudentDtoAdmissionDate';
+import type { UpdateStudentDtoBloodGroup } from './updateStudentDtoBloodGroup';
+import type { UpdateStudentDtoCity } from './updateStudentDtoCity';
+import type { UpdateStudentDtoDateOfBirth } from './updateStudentDtoDateOfBirth';
+import type { UpdateStudentDtoGender } from './updateStudentDtoGender';
+import type { UpdateStudentDtoGuardianEmail } from './updateStudentDtoGuardianEmail';
+import type { UpdateStudentDtoGuardianName } from './updateStudentDtoGuardianName';
+import type { UpdateStudentDtoGuardianPhone } from './updateStudentDtoGuardianPhone';
+import type { UpdateStudentDtoGuardianRelation } from './updateStudentDtoGuardianRelation';
+import type { UpdateStudentDtoNationality } from './updateStudentDtoNationality';
+import type { UpdateStudentDtoReligion } from './updateStudentDtoReligion';
 
 export interface UpdateStudentDto {
   tenantId?: string;

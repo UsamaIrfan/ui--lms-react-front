@@ -5,11 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateBranchExpenseDtoDescription } from "./updateBranchExpenseDtoDescription";
-import type { UpdateBranchExpenseDtoPaidTo } from "./updateBranchExpenseDtoPaidTo";
-import type { UpdateBranchExpenseDtoReferenceNumber } from "./updateBranchExpenseDtoReferenceNumber";
-import type { UpdateBranchExpenseDtoRemarks } from "./updateBranchExpenseDtoRemarks";
-import type { UpdateBranchExpenseDtoStatus } from "./updateBranchExpenseDtoStatus";
+import type { UpdateBranchExpenseDtoDescription } from './updateBranchExpenseDtoDescription';
+import type { UpdateBranchExpenseDtoPaidTo } from './updateBranchExpenseDtoPaidTo';
+import type { UpdateBranchExpenseDtoReferenceNumber } from './updateBranchExpenseDtoReferenceNumber';
+import type { UpdateBranchExpenseDtoRemarks } from './updateBranchExpenseDtoRemarks';
+import type { UpdateBranchExpenseDtoStatus } from './updateBranchExpenseDtoStatus';
 
 export interface UpdateBranchExpenseDto {
   tenantId?: string;

@@ -5,10 +5,10 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { StaffLeaveControllerGetBalanceV1LeaveType } from "./staffLeaveControllerGetBalanceV1LeaveType";
+import type { StaffLeaveControllerGetBalanceV1LeaveType } from './staffLeaveControllerGetBalanceV1LeaveType';
 
 export type StaffLeaveControllerGetBalanceV1Params = {
-  staffId?: number;
-  leaveType?: StaffLeaveControllerGetBalanceV1LeaveType;
-  year?: number;
+staffId?: number;
+leaveType?: StaffLeaveControllerGetBalanceV1LeaveType;
+year?: number;
 };

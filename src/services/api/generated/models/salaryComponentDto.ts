@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { SalaryComponentDtoType } from "./salaryComponentDtoType";
+import type { SalaryComponentDtoType } from './salaryComponentDtoType';
 
 export interface SalaryComponentDto {
   name: string;

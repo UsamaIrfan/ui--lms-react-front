@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CheckInDtoRemarks } from "./checkInDtoRemarks";
+import type { CheckInDtoRemarks } from './checkInDtoRemarks';
 
 export interface CheckInDto {
   tenantId: string;

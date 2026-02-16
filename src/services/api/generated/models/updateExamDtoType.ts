@@ -6,14 +6,14 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateExamDtoType =
-  (typeof UpdateExamDtoType)[keyof typeof UpdateExamDtoType];
+export type UpdateExamDtoType = typeof UpdateExamDtoType[keyof typeof UpdateExamDtoType];
+
 
 export const UpdateExamDtoType = {
-  class_test: "class_test",
-  midterm: "midterm",
-  final: "final",
-  quiz: "quiz",
-  practical: "practical",
-  assignment: "assignment",
+  class_test: 'class_test',
+  midterm: 'midterm',
+  final: 'final',
+  quiz: 'quiz',
+  practical: 'practical',
+  assignment: 'assignment',
 } as const;

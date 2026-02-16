@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { MarkEntryDto } from "./markEntryDto";
+import type { MarkEntryDto } from './markEntryDto';
 
 export interface EnterMarksDto {
   examSubjectId: number;

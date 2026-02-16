@@ -7,8 +7,8 @@
  */
 
 export type TimetablesControllerCheckConflictsV1Params = {
-  teacherId: string;
-  dayOfWeek: number;
-  startTime: string;
-  endTime: string;
+teacherId: string;
+dayOfWeek: number;
+startTime: string;
+endTime: string;
 };

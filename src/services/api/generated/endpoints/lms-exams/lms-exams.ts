@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,585 +19,495 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
-import type { CreateExamDto, UpdateExamDto } from "../../models";
+import type {
+  CreateExamDto,
+  UpdateExamDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type examControllerCreateV1Response201 = {
-  data: void;
-  status: 201;
+  data: void
+  status: 201
+}
+    
+export type examControllerCreateV1ResponseSuccess = (examControllerCreateV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type examControllerCreateV1ResponseSuccess =
-  examControllerCreateV1Response201 & {
-    headers: Headers;
-  };
-export type examControllerCreateV1Response =
-  examControllerCreateV1ResponseSuccess;
+export type examControllerCreateV1Response = (examControllerCreateV1ResponseSuccess)
 
 export const getExamControllerCreateV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/exams`;
-};
 
-export const examControllerCreateV1 = async (
-  createExamDto: CreateExamDto,
-  options?: RequestInit
-): Promise<examControllerCreateV1Response> => {
-  return customFetch<examControllerCreateV1Response>(
-    getExamControllerCreateV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(createExamDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/exams`
+}
+
+export const examControllerCreateV1 = async (createExamDto: CreateExamDto, options?: RequestInit): Promise<examControllerCreateV1Response> => {
+  
+  return customFetch<examControllerCreateV1Response>(getExamControllerCreateV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createExamDto,)
+  }
+);}
+
+
+
+
+export const getExamControllerCreateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof examControllerCreateV1>>, TError,{data: CreateExamDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof examControllerCreateV1>>, TError,{data: CreateExamDto}, TContext> => {
+
+const mutationKey = ['examControllerCreateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof examControllerCreateV1>>, {data: CreateExamDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  examControllerCreateV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ExamControllerCreateV1MutationResult = NonNullable<Awaited<ReturnType<typeof examControllerCreateV1>>>
+    export type ExamControllerCreateV1MutationBody = CreateExamDto
+    export type ExamControllerCreateV1MutationError = unknown
+
+    export const useExamControllerCreateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof examControllerCreateV1>>, TError,{data: CreateExamDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof examControllerCreateV1>>,
+        TError,
+        {data: CreateExamDto},
+        TContext
+      > => {
+      return useMutation(getExamControllerCreateV1MutationOptions(options));
     }
-  );
+    export type examControllerFindAllV1Response200 = {
+  data: void
+  status: 200
+}
+    
+export type examControllerFindAllV1ResponseSuccess = (examControllerFindAllV1Response200) & {
+  headers: Headers;
 };
+;
 
-export const getExamControllerCreateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof examControllerCreateV1>>,
-    TError,
-    { data: CreateExamDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof examControllerCreateV1>>,
-  TError,
-  { data: CreateExamDto },
-  TContext
-> => {
-  const mutationKey = ["examControllerCreateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof examControllerCreateV1>>,
-    { data: CreateExamDto }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return examControllerCreateV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type ExamControllerCreateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof examControllerCreateV1>>
->;
-export type ExamControllerCreateV1MutationBody = CreateExamDto;
-export type ExamControllerCreateV1MutationError = unknown;
-
-export const useExamControllerCreateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof examControllerCreateV1>>,
-    TError,
-    { data: CreateExamDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof examControllerCreateV1>>,
-  TError,
-  { data: CreateExamDto },
-  TContext
-> => {
-  return useMutation(getExamControllerCreateV1MutationOptions(options));
-};
-export type examControllerFindAllV1Response200 = {
-  data: void;
-  status: 200;
-};
-
-export type examControllerFindAllV1ResponseSuccess =
-  examControllerFindAllV1Response200 & {
-    headers: Headers;
-  };
-export type examControllerFindAllV1Response =
-  examControllerFindAllV1ResponseSuccess;
+export type examControllerFindAllV1Response = (examControllerFindAllV1ResponseSuccess)
 
 export const getExamControllerFindAllV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/exams`;
-};
 
-export const examControllerFindAllV1 = async (
-  options?: RequestInit
-): Promise<examControllerFindAllV1Response> => {
-  return customFetch<examControllerFindAllV1Response>(
-    getExamControllerFindAllV1Url(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/api/v1/lms/exams`
+}
+
+export const examControllerFindAllV1 = async ( options?: RequestInit): Promise<examControllerFindAllV1Response> => {
+  
+  return customFetch<examControllerFindAllV1Response>(getExamControllerFindAllV1Url(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getExamControllerFindAllV1InfiniteQueryKey = () => {
-  return ["infinite", `http://localhost:3000/api/v1/lms/exams`] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/exams`
+    ] as const;
+    }
 
 export const getExamControllerFindAllV1QueryKey = () => {
-  return [`http://localhost:3000/api/v1/lms/exams`] as const;
-};
+    return [
+    `http://localhost:3000/api/v1/lms/exams`
+    ] as const;
+    }
 
-export const getExamControllerFindAllV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof examControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof examControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getExamControllerFindAllV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof examControllerFindAllV1>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof examControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getExamControllerFindAllV1InfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof examControllerFindAllV1>>
-  > = ({ signal }) => examControllerFindAllV1({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getExamControllerFindAllV1InfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof examControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type ExamControllerFindAllV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof examControllerFindAllV1>>
->;
-export type ExamControllerFindAllV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof examControllerFindAllV1>>> = ({ signal }) => examControllerFindAllV1({ signal, ...requestOptions });
 
-export function useExamControllerFindAllV1Infinite<
-  TData = Awaited<ReturnType<typeof examControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof examControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getExamControllerFindAllV1InfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof examControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ExamControllerFindAllV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof examControllerFindAllV1>>>
+export type ExamControllerFindAllV1InfiniteQueryError = unknown
+
+
+
+export function useExamControllerFindAllV1Infinite<TData = Awaited<ReturnType<typeof examControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof examControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getExamControllerFindAllV1InfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getExamControllerFindAllV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof examControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof examControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getExamControllerFindAllV1QueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof examControllerFindAllV1>>
-  > = ({ signal }) => examControllerFindAllV1({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof examControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getExamControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof examControllerFindAllV1>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof examControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type ExamControllerFindAllV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof examControllerFindAllV1>>
->;
-export type ExamControllerFindAllV1QueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function useExamControllerFindAllV1<
-  TData = Awaited<ReturnType<typeof examControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof examControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getExamControllerFindAllV1QueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getExamControllerFindAllV1QueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof examControllerFindAllV1>>> = ({ signal }) => examControllerFindAllV1({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof examControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ExamControllerFindAllV1QueryResult = NonNullable<Awaited<ReturnType<typeof examControllerFindAllV1>>>
+export type ExamControllerFindAllV1QueryError = unknown
+
+
+
+export function useExamControllerFindAllV1<TData = Awaited<ReturnType<typeof examControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof examControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getExamControllerFindAllV1QueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type examControllerFindOneV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type examControllerFindOneV1ResponseSuccess = (examControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type examControllerFindOneV1ResponseSuccess =
-  examControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type examControllerFindOneV1Response =
-  examControllerFindOneV1ResponseSuccess;
+export type examControllerFindOneV1Response = (examControllerFindOneV1ResponseSuccess)
 
-export const getExamControllerFindOneV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/exams/${id}`;
-};
+export const getExamControllerFindOneV1Url = (id: number,) => {
 
-export const examControllerFindOneV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<examControllerFindOneV1Response> => {
-  return customFetch<examControllerFindOneV1Response>(
-    getExamControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/lms/exams/${id}`
+}
+
+export const examControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<examControllerFindOneV1Response> => {
+  
+  return customFetch<examControllerFindOneV1Response>(getExamControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getExamControllerFindOneV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/exams/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getExamControllerFindOneV1InfiniteQueryKey = (id: number) => {
-  return ["infinite", `http://localhost:3000/api/v1/lms/exams/${id}`] as const;
-};
+export const getExamControllerFindOneV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/lms/exams/${id}`
+    ] as const;
+    }
 
-export const getExamControllerFindOneV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/lms/exams/${id}`] as const;
-};
-
-export const getExamControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof examControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof examControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+    
+export const getExamControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof examControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof examControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getExamControllerFindOneV1InfiniteQueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof examControllerFindOneV1>>
-  > = ({ signal }) => examControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getExamControllerFindOneV1InfiniteQueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof examControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type ExamControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof examControllerFindOneV1>>
->;
-export type ExamControllerFindOneV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof examControllerFindOneV1>>> = ({ signal }) => examControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useExamControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof examControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof examControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getExamControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof examControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ExamControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof examControllerFindOneV1>>>
+export type ExamControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useExamControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof examControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof examControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getExamControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getExamControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof examControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof examControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getExamControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof examControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof examControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getExamControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof examControllerFindOneV1>>
-  > = ({ signal }) => examControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getExamControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof examControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type ExamControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof examControllerFindOneV1>>
->;
-export type ExamControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof examControllerFindOneV1>>> = ({ signal }) => examControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useExamControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof examControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof examControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getExamControllerFindOneV1QueryOptions(id, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof examControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ExamControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof examControllerFindOneV1>>>
+export type ExamControllerFindOneV1QueryError = unknown
+
+
+
+export function useExamControllerFindOneV1<TData = Awaited<ReturnType<typeof examControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof examControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getExamControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type examControllerUpdateV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type examControllerUpdateV1ResponseSuccess = (examControllerUpdateV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type examControllerUpdateV1ResponseSuccess =
-  examControllerUpdateV1Response200 & {
-    headers: Headers;
-  };
-export type examControllerUpdateV1Response =
-  examControllerUpdateV1ResponseSuccess;
+export type examControllerUpdateV1Response = (examControllerUpdateV1ResponseSuccess)
 
-export const getExamControllerUpdateV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/exams/${id}`;
-};
+export const getExamControllerUpdateV1Url = (id: number,) => {
 
-export const examControllerUpdateV1 = async (
-  id: number,
-  updateExamDto: UpdateExamDto,
-  options?: RequestInit
-): Promise<examControllerUpdateV1Response> => {
-  return customFetch<examControllerUpdateV1Response>(
-    getExamControllerUpdateV1Url(id),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(updateExamDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/exams/${id}`
+}
+
+export const examControllerUpdateV1 = async (id: number,
+    updateExamDto: UpdateExamDto, options?: RequestInit): Promise<examControllerUpdateV1Response> => {
+  
+  return customFetch<examControllerUpdateV1Response>(getExamControllerUpdateV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateExamDto,)
+  }
+);}
+
+
+
+
+export const getExamControllerUpdateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof examControllerUpdateV1>>, TError,{id: number;data: UpdateExamDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof examControllerUpdateV1>>, TError,{id: number;data: UpdateExamDto}, TContext> => {
+
+const mutationKey = ['examControllerUpdateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof examControllerUpdateV1>>, {id: number;data: UpdateExamDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  examControllerUpdateV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ExamControllerUpdateV1MutationResult = NonNullable<Awaited<ReturnType<typeof examControllerUpdateV1>>>
+    export type ExamControllerUpdateV1MutationBody = UpdateExamDto
+    export type ExamControllerUpdateV1MutationError = unknown
+
+    export const useExamControllerUpdateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof examControllerUpdateV1>>, TError,{id: number;data: UpdateExamDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof examControllerUpdateV1>>,
+        TError,
+        {id: number;data: UpdateExamDto},
+        TContext
+      > => {
+      return useMutation(getExamControllerUpdateV1MutationOptions(options));
     }
-  );
+    export type examControllerRemoveV1Response204 = {
+  data: void
+  status: 204
+}
+    
+export type examControllerRemoveV1ResponseSuccess = (examControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export const getExamControllerUpdateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof examControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateExamDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof examControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateExamDto },
-  TContext
-> => {
-  const mutationKey = ["examControllerUpdateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+export type examControllerRemoveV1Response = (examControllerRemoveV1ResponseSuccess)
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof examControllerUpdateV1>>,
-    { id: number; data: UpdateExamDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getExamControllerRemoveV1Url = (id: number,) => {
 
-    return examControllerUpdateV1(id, data);
-  };
 
-  return { mutationFn, ...mutationOptions };
-};
+  
 
-export type ExamControllerUpdateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof examControllerUpdateV1>>
->;
-export type ExamControllerUpdateV1MutationBody = UpdateExamDto;
-export type ExamControllerUpdateV1MutationError = unknown;
+  return `http://localhost:3000/api/v1/lms/exams/${id}`
+}
 
-export const useExamControllerUpdateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof examControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateExamDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof examControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateExamDto },
-  TContext
-> => {
-  return useMutation(getExamControllerUpdateV1MutationOptions(options));
-};
-export type examControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
-};
+export const examControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<examControllerRemoveV1Response> => {
+  
+  return customFetch<examControllerRemoveV1Response>(getExamControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
 
-export type examControllerRemoveV1ResponseSuccess =
-  examControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type examControllerRemoveV1Response =
-  examControllerRemoveV1ResponseSuccess;
 
-export const getExamControllerRemoveV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/exams/${id}`;
-};
 
-export const examControllerRemoveV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<examControllerRemoveV1Response> => {
-  return customFetch<examControllerRemoveV1Response>(
-    getExamControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
+
+export const getExamControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof examControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof examControllerRemoveV1>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['examControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof examControllerRemoveV1>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  examControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ExamControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof examControllerRemoveV1>>>
+    
+    export type ExamControllerRemoveV1MutationError = unknown
+
+    export const useExamControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof examControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof examControllerRemoveV1>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getExamControllerRemoveV1MutationOptions(options));
     }
-  );
-};
-
-export const getExamControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof examControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof examControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationKey = ["examControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof examControllerRemoveV1>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return examControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type ExamControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof examControllerRemoveV1>>
->;
-
-export type ExamControllerRemoveV1MutationError = unknown;
-
-export const useExamControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof examControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof examControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  return useMutation(getExamControllerRemoveV1MutationOptions(options));
-};
+    

@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { SectionClassTeacherId } from "./sectionClassTeacherId";
+import type { SectionClassTeacherId } from './sectionClassTeacherId';
 
 export interface Section {
   id: number;

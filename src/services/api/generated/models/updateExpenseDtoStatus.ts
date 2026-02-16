@@ -6,12 +6,12 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateExpenseDtoStatus =
-  (typeof UpdateExpenseDtoStatus)[keyof typeof UpdateExpenseDtoStatus];
+export type UpdateExpenseDtoStatus = typeof UpdateExpenseDtoStatus[keyof typeof UpdateExpenseDtoStatus];
+
 
 export const UpdateExpenseDtoStatus = {
-  pending: "pending",
-  approved: "approved",
-  paid: "paid",
-  rejected: "rejected",
+  pending: 'pending',
+  approved: 'approved',
+  paid: 'paid',
+  rejected: 'rejected',
 } as const;

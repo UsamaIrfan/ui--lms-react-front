@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,589 +19,495 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
-import type { CreateStudentDto, UpdateStudentDto } from "../../models";
+import type {
+  CreateStudentDto,
+  UpdateStudentDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type studentControllerCreateV1Response201 = {
-  data: void;
-  status: 201;
+  data: void
+  status: 201
+}
+    
+export type studentControllerCreateV1ResponseSuccess = (studentControllerCreateV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type studentControllerCreateV1ResponseSuccess =
-  studentControllerCreateV1Response201 & {
-    headers: Headers;
-  };
-export type studentControllerCreateV1Response =
-  studentControllerCreateV1ResponseSuccess;
+export type studentControllerCreateV1Response = (studentControllerCreateV1ResponseSuccess)
 
 export const getStudentControllerCreateV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/students`;
-};
 
-export const studentControllerCreateV1 = async (
-  createStudentDto: CreateStudentDto,
-  options?: RequestInit
-): Promise<studentControllerCreateV1Response> => {
-  return customFetch<studentControllerCreateV1Response>(
-    getStudentControllerCreateV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(createStudentDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/students`
+}
+
+export const studentControllerCreateV1 = async (createStudentDto: CreateStudentDto, options?: RequestInit): Promise<studentControllerCreateV1Response> => {
+  
+  return customFetch<studentControllerCreateV1Response>(getStudentControllerCreateV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createStudentDto,)
+  }
+);}
+
+
+
+
+export const getStudentControllerCreateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof studentControllerCreateV1>>, TError,{data: CreateStudentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof studentControllerCreateV1>>, TError,{data: CreateStudentDto}, TContext> => {
+
+const mutationKey = ['studentControllerCreateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof studentControllerCreateV1>>, {data: CreateStudentDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  studentControllerCreateV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type StudentControllerCreateV1MutationResult = NonNullable<Awaited<ReturnType<typeof studentControllerCreateV1>>>
+    export type StudentControllerCreateV1MutationBody = CreateStudentDto
+    export type StudentControllerCreateV1MutationError = unknown
+
+    export const useStudentControllerCreateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof studentControllerCreateV1>>, TError,{data: CreateStudentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof studentControllerCreateV1>>,
+        TError,
+        {data: CreateStudentDto},
+        TContext
+      > => {
+      return useMutation(getStudentControllerCreateV1MutationOptions(options));
     }
-  );
+    export type studentControllerFindAllV1Response200 = {
+  data: void
+  status: 200
+}
+    
+export type studentControllerFindAllV1ResponseSuccess = (studentControllerFindAllV1Response200) & {
+  headers: Headers;
 };
+;
 
-export const getStudentControllerCreateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof studentControllerCreateV1>>,
-    TError,
-    { data: CreateStudentDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof studentControllerCreateV1>>,
-  TError,
-  { data: CreateStudentDto },
-  TContext
-> => {
-  const mutationKey = ["studentControllerCreateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof studentControllerCreateV1>>,
-    { data: CreateStudentDto }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return studentControllerCreateV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type StudentControllerCreateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof studentControllerCreateV1>>
->;
-export type StudentControllerCreateV1MutationBody = CreateStudentDto;
-export type StudentControllerCreateV1MutationError = unknown;
-
-export const useStudentControllerCreateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof studentControllerCreateV1>>,
-    TError,
-    { data: CreateStudentDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof studentControllerCreateV1>>,
-  TError,
-  { data: CreateStudentDto },
-  TContext
-> => {
-  return useMutation(getStudentControllerCreateV1MutationOptions(options));
-};
-export type studentControllerFindAllV1Response200 = {
-  data: void;
-  status: 200;
-};
-
-export type studentControllerFindAllV1ResponseSuccess =
-  studentControllerFindAllV1Response200 & {
-    headers: Headers;
-  };
-export type studentControllerFindAllV1Response =
-  studentControllerFindAllV1ResponseSuccess;
+export type studentControllerFindAllV1Response = (studentControllerFindAllV1ResponseSuccess)
 
 export const getStudentControllerFindAllV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/students`;
-};
 
-export const studentControllerFindAllV1 = async (
-  options?: RequestInit
-): Promise<studentControllerFindAllV1Response> => {
-  return customFetch<studentControllerFindAllV1Response>(
-    getStudentControllerFindAllV1Url(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/api/v1/lms/students`
+}
+
+export const studentControllerFindAllV1 = async ( options?: RequestInit): Promise<studentControllerFindAllV1Response> => {
+  
+  return customFetch<studentControllerFindAllV1Response>(getStudentControllerFindAllV1Url(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getStudentControllerFindAllV1InfiniteQueryKey = () => {
-  return ["infinite", `http://localhost:3000/api/v1/lms/students`] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/students`
+    ] as const;
+    }
 
 export const getStudentControllerFindAllV1QueryKey = () => {
-  return [`http://localhost:3000/api/v1/lms/students`] as const;
-};
+    return [
+    `http://localhost:3000/api/v1/lms/students`
+    ] as const;
+    }
 
-export const getStudentControllerFindAllV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof studentControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof studentControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getStudentControllerFindAllV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof studentControllerFindAllV1>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getStudentControllerFindAllV1InfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof studentControllerFindAllV1>>
-  > = ({ signal }) => studentControllerFindAllV1({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getStudentControllerFindAllV1InfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof studentControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type StudentControllerFindAllV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof studentControllerFindAllV1>>
->;
-export type StudentControllerFindAllV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof studentControllerFindAllV1>>> = ({ signal }) => studentControllerFindAllV1({ signal, ...requestOptions });
 
-export function useStudentControllerFindAllV1Infinite<
-  TData = Awaited<ReturnType<typeof studentControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof studentControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getStudentControllerFindAllV1InfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type StudentControllerFindAllV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof studentControllerFindAllV1>>>
+export type StudentControllerFindAllV1InfiniteQueryError = unknown
+
+
+
+export function useStudentControllerFindAllV1Infinite<TData = Awaited<ReturnType<typeof studentControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getStudentControllerFindAllV1InfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getStudentControllerFindAllV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof studentControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof studentControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getStudentControllerFindAllV1QueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof studentControllerFindAllV1>>
-  > = ({ signal }) => studentControllerFindAllV1({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof studentControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getStudentControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof studentControllerFindAllV1>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof studentControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type StudentControllerFindAllV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof studentControllerFindAllV1>>
->;
-export type StudentControllerFindAllV1QueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function useStudentControllerFindAllV1<
-  TData = Awaited<ReturnType<typeof studentControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof studentControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getStudentControllerFindAllV1QueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getStudentControllerFindAllV1QueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof studentControllerFindAllV1>>> = ({ signal }) => studentControllerFindAllV1({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof studentControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type StudentControllerFindAllV1QueryResult = NonNullable<Awaited<ReturnType<typeof studentControllerFindAllV1>>>
+export type StudentControllerFindAllV1QueryError = unknown
+
+
+
+export function useStudentControllerFindAllV1<TData = Awaited<ReturnType<typeof studentControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof studentControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getStudentControllerFindAllV1QueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type studentControllerFindOneV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type studentControllerFindOneV1ResponseSuccess = (studentControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type studentControllerFindOneV1ResponseSuccess =
-  studentControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type studentControllerFindOneV1Response =
-  studentControllerFindOneV1ResponseSuccess;
+export type studentControllerFindOneV1Response = (studentControllerFindOneV1ResponseSuccess)
 
-export const getStudentControllerFindOneV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/students/${id}`;
-};
+export const getStudentControllerFindOneV1Url = (id: number,) => {
 
-export const studentControllerFindOneV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<studentControllerFindOneV1Response> => {
-  return customFetch<studentControllerFindOneV1Response>(
-    getStudentControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/lms/students/${id}`
+}
+
+export const studentControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<studentControllerFindOneV1Response> => {
+  
+  return customFetch<studentControllerFindOneV1Response>(getStudentControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getStudentControllerFindOneV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/students/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getStudentControllerFindOneV1InfiniteQueryKey = (id: number) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/lms/students/${id}`,
-  ] as const;
-};
+export const getStudentControllerFindOneV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/lms/students/${id}`
+    ] as const;
+    }
 
-export const getStudentControllerFindOneV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/lms/students/${id}`] as const;
-};
-
-export const getStudentControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof studentControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof studentControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+    
+export const getStudentControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof studentControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getStudentControllerFindOneV1InfiniteQueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof studentControllerFindOneV1>>
-  > = ({ signal }) => studentControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getStudentControllerFindOneV1InfiniteQueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof studentControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type StudentControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof studentControllerFindOneV1>>
->;
-export type StudentControllerFindOneV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof studentControllerFindOneV1>>> = ({ signal }) => studentControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useStudentControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof studentControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof studentControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getStudentControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type StudentControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof studentControllerFindOneV1>>>
+export type StudentControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useStudentControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof studentControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getStudentControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getStudentControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof studentControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof studentControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getStudentControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof studentControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof studentControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getStudentControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof studentControllerFindOneV1>>
-  > = ({ signal }) => studentControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getStudentControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof studentControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type StudentControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof studentControllerFindOneV1>>
->;
-export type StudentControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof studentControllerFindOneV1>>> = ({ signal }) => studentControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useStudentControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof studentControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof studentControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getStudentControllerFindOneV1QueryOptions(id, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof studentControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type StudentControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof studentControllerFindOneV1>>>
+export type StudentControllerFindOneV1QueryError = unknown
+
+
+
+export function useStudentControllerFindOneV1<TData = Awaited<ReturnType<typeof studentControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof studentControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getStudentControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type studentControllerUpdateV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type studentControllerUpdateV1ResponseSuccess = (studentControllerUpdateV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type studentControllerUpdateV1ResponseSuccess =
-  studentControllerUpdateV1Response200 & {
-    headers: Headers;
-  };
-export type studentControllerUpdateV1Response =
-  studentControllerUpdateV1ResponseSuccess;
+export type studentControllerUpdateV1Response = (studentControllerUpdateV1ResponseSuccess)
 
-export const getStudentControllerUpdateV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/students/${id}`;
-};
+export const getStudentControllerUpdateV1Url = (id: number,) => {
 
-export const studentControllerUpdateV1 = async (
-  id: number,
-  updateStudentDto: UpdateStudentDto,
-  options?: RequestInit
-): Promise<studentControllerUpdateV1Response> => {
-  return customFetch<studentControllerUpdateV1Response>(
-    getStudentControllerUpdateV1Url(id),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(updateStudentDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/students/${id}`
+}
+
+export const studentControllerUpdateV1 = async (id: number,
+    updateStudentDto: UpdateStudentDto, options?: RequestInit): Promise<studentControllerUpdateV1Response> => {
+  
+  return customFetch<studentControllerUpdateV1Response>(getStudentControllerUpdateV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateStudentDto,)
+  }
+);}
+
+
+
+
+export const getStudentControllerUpdateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof studentControllerUpdateV1>>, TError,{id: number;data: UpdateStudentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof studentControllerUpdateV1>>, TError,{id: number;data: UpdateStudentDto}, TContext> => {
+
+const mutationKey = ['studentControllerUpdateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof studentControllerUpdateV1>>, {id: number;data: UpdateStudentDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  studentControllerUpdateV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type StudentControllerUpdateV1MutationResult = NonNullable<Awaited<ReturnType<typeof studentControllerUpdateV1>>>
+    export type StudentControllerUpdateV1MutationBody = UpdateStudentDto
+    export type StudentControllerUpdateV1MutationError = unknown
+
+    export const useStudentControllerUpdateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof studentControllerUpdateV1>>, TError,{id: number;data: UpdateStudentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof studentControllerUpdateV1>>,
+        TError,
+        {id: number;data: UpdateStudentDto},
+        TContext
+      > => {
+      return useMutation(getStudentControllerUpdateV1MutationOptions(options));
     }
-  );
+    export type studentControllerRemoveV1Response204 = {
+  data: void
+  status: 204
+}
+    
+export type studentControllerRemoveV1ResponseSuccess = (studentControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export const getStudentControllerUpdateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof studentControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateStudentDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof studentControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateStudentDto },
-  TContext
-> => {
-  const mutationKey = ["studentControllerUpdateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+export type studentControllerRemoveV1Response = (studentControllerRemoveV1ResponseSuccess)
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof studentControllerUpdateV1>>,
-    { id: number; data: UpdateStudentDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getStudentControllerRemoveV1Url = (id: number,) => {
 
-    return studentControllerUpdateV1(id, data);
-  };
 
-  return { mutationFn, ...mutationOptions };
-};
+  
 
-export type StudentControllerUpdateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof studentControllerUpdateV1>>
->;
-export type StudentControllerUpdateV1MutationBody = UpdateStudentDto;
-export type StudentControllerUpdateV1MutationError = unknown;
+  return `http://localhost:3000/api/v1/lms/students/${id}`
+}
 
-export const useStudentControllerUpdateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof studentControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateStudentDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof studentControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateStudentDto },
-  TContext
-> => {
-  return useMutation(getStudentControllerUpdateV1MutationOptions(options));
-};
-export type studentControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
-};
+export const studentControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<studentControllerRemoveV1Response> => {
+  
+  return customFetch<studentControllerRemoveV1Response>(getStudentControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
 
-export type studentControllerRemoveV1ResponseSuccess =
-  studentControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type studentControllerRemoveV1Response =
-  studentControllerRemoveV1ResponseSuccess;
 
-export const getStudentControllerRemoveV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/students/${id}`;
-};
 
-export const studentControllerRemoveV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<studentControllerRemoveV1Response> => {
-  return customFetch<studentControllerRemoveV1Response>(
-    getStudentControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
+
+export const getStudentControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof studentControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof studentControllerRemoveV1>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['studentControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof studentControllerRemoveV1>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  studentControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type StudentControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof studentControllerRemoveV1>>>
+    
+    export type StudentControllerRemoveV1MutationError = unknown
+
+    export const useStudentControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof studentControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof studentControllerRemoveV1>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getStudentControllerRemoveV1MutationOptions(options));
     }
-  );
-};
-
-export const getStudentControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof studentControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof studentControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationKey = ["studentControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof studentControllerRemoveV1>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return studentControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type StudentControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof studentControllerRemoveV1>>
->;
-
-export type StudentControllerRemoveV1MutationError = unknown;
-
-export const useStudentControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof studentControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof studentControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  return useMutation(getStudentControllerRemoveV1MutationOptions(options));
-};
+    

@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,623 +19,496 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
-import type { Branch, CreateBranchDto, UpdateBranchDto } from "../../models";
+import type {
+  Branch,
+  CreateBranchDto,
+  UpdateBranchDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type branchControllerCreateV1Response201 = {
-  data: Branch;
-  status: 201;
+  data: Branch
+  status: 201
+}
+    
+export type branchControllerCreateV1ResponseSuccess = (branchControllerCreateV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type branchControllerCreateV1ResponseSuccess =
-  branchControllerCreateV1Response201 & {
-    headers: Headers;
-  };
-export type branchControllerCreateV1Response =
-  branchControllerCreateV1ResponseSuccess;
+export type branchControllerCreateV1Response = (branchControllerCreateV1ResponseSuccess)
 
 export const getBranchControllerCreateV1Url = () => {
-  return `http://localhost:3000/api/v1/branches`;
-};
 
-export const branchControllerCreateV1 = async (
-  createBranchDto: CreateBranchDto,
-  options?: RequestInit
-): Promise<branchControllerCreateV1Response> => {
-  return customFetch<branchControllerCreateV1Response>(
-    getBranchControllerCreateV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(createBranchDto),
-    }
-  );
-};
 
-export const getBranchControllerCreateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof branchControllerCreateV1>>,
-    TError,
-    { data: CreateBranchDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof branchControllerCreateV1>>,
-  TError,
-  { data: CreateBranchDto },
-  TContext
-> => {
-  const mutationKey = ["branchControllerCreateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+  
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof branchControllerCreateV1>>,
-    { data: CreateBranchDto }
-  > = (props) => {
-    const { data } = props ?? {};
+  return `http://localhost:3000/api/v1/branches`
+}
 
-    return branchControllerCreateV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type BranchControllerCreateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof branchControllerCreateV1>>
->;
-export type BranchControllerCreateV1MutationBody = CreateBranchDto;
-export type BranchControllerCreateV1MutationError = unknown;
-
-export const useBranchControllerCreateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof branchControllerCreateV1>>,
-    TError,
-    { data: CreateBranchDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof branchControllerCreateV1>>,
-  TError,
-  { data: CreateBranchDto },
-  TContext
-> => {
-  return useMutation(getBranchControllerCreateV1MutationOptions(options));
-};
-export type branchControllerFindAllByTenantV1Response200 = {
-  data: Branch[];
-  status: 200;
-};
-
-export type branchControllerFindAllByTenantV1ResponseSuccess =
-  branchControllerFindAllByTenantV1Response200 & {
-    headers: Headers;
-  };
-export type branchControllerFindAllByTenantV1Response =
-  branchControllerFindAllByTenantV1ResponseSuccess;
-
-export const getBranchControllerFindAllByTenantV1Url = (tenantId: string) => {
-  return `http://localhost:3000/api/v1/branches/tenant/${tenantId}`;
-};
-
-export const branchControllerFindAllByTenantV1 = async (
-  tenantId: string,
-  options?: RequestInit
-): Promise<branchControllerFindAllByTenantV1Response> => {
-  return customFetch<branchControllerFindAllByTenantV1Response>(
-    getBranchControllerFindAllByTenantV1Url(tenantId),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
-
-export const getBranchControllerFindAllByTenantV1InfiniteQueryKey = (
-  tenantId: string
-) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/branches/tenant/${tenantId}`,
-  ] as const;
-};
-
-export const getBranchControllerFindAllByTenantV1QueryKey = (
-  tenantId: string
-) => {
-  return [`http://localhost:3000/api/v1/branches/tenant/${tenantId}`] as const;
-};
-
-export const getBranchControllerFindAllByTenantV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>,
-  TError = unknown,
->(
-  tenantId: string,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>,
-      TError,
-      TData
-    >;
+export const branchControllerCreateV1 = async (createBranchDto: CreateBranchDto, options?: RequestInit): Promise<branchControllerCreateV1Response> => {
+  
+  return customFetch<branchControllerCreateV1Response>(getBranchControllerCreateV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createBranchDto,)
   }
-) => {
-  const { query: queryOptions } = options ?? {};
+);}
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getBranchControllerFindAllByTenantV1InfiniteQueryKey(tenantId);
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>
-  > = ({ signal }) => branchControllerFindAllByTenantV1(tenantId, { signal });
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!tenantId,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
+
+export const getBranchControllerCreateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof branchControllerCreateV1>>, TError,{data: CreateBranchDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof branchControllerCreateV1>>, TError,{data: CreateBranchDto}, TContext> => {
+
+const mutationKey = ['branchControllerCreateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof branchControllerCreateV1>>, {data: CreateBranchDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  branchControllerCreateV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type BranchControllerCreateV1MutationResult = NonNullable<Awaited<ReturnType<typeof branchControllerCreateV1>>>
+    export type BranchControllerCreateV1MutationBody = CreateBranchDto
+    export type BranchControllerCreateV1MutationError = unknown
+
+    export const useBranchControllerCreateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof branchControllerCreateV1>>, TError,{data: CreateBranchDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof branchControllerCreateV1>>,
+        TError,
+        {data: CreateBranchDto},
+        TContext
+      > => {
+      return useMutation(getBranchControllerCreateV1MutationOptions(options));
+    }
+    export type branchControllerFindAllByTenantV1Response200 = {
+  data: Branch[]
+  status: 200
+}
+    
+export type branchControllerFindAllByTenantV1ResponseSuccess = (branchControllerFindAllByTenantV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type BranchControllerFindAllByTenantV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>
->;
-export type BranchControllerFindAllByTenantV1InfiniteQueryError = unknown;
+export type branchControllerFindAllByTenantV1Response = (branchControllerFindAllByTenantV1ResponseSuccess)
 
-export function useBranchControllerFindAllByTenantV1Infinite<
-  TData = Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>,
-  TError = unknown,
->(
-  tenantId: string,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>,
-      TError,
-      TData
-    >;
+export const getBranchControllerFindAllByTenantV1Url = (tenantId: string,) => {
+
+
+  
+
+  return `http://localhost:3000/api/v1/branches/tenant/${tenantId}`
+}
+
+export const branchControllerFindAllByTenantV1 = async (tenantId: string, options?: RequestInit): Promise<branchControllerFindAllByTenantV1Response> => {
+  
+  return customFetch<branchControllerFindAllByTenantV1Response>(getBranchControllerFindAllByTenantV1Url(tenantId),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
   }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getBranchControllerFindAllByTenantV1InfiniteQueryOptions(
-    tenantId,
-    options
-  );
+);}
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+
+
+
+
+export const getBranchControllerFindAllByTenantV1InfiniteQueryKey = (tenantId: string,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/branches/tenant/${tenantId}`
+    ] as const;
+    }
+
+export const getBranchControllerFindAllByTenantV1QueryKey = (tenantId: string,) => {
+    return [
+    `http://localhost:3000/api/v1/branches/tenant/${tenantId}`
+    ] as const;
+    }
+
+    
+export const getBranchControllerFindAllByTenantV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>, TError = unknown>(tenantId: string, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getBranchControllerFindAllByTenantV1InfiniteQueryKey(tenantId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>> = ({ signal }) => branchControllerFindAllByTenantV1(tenantId, { signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(tenantId), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type BranchControllerFindAllByTenantV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>>
+export type BranchControllerFindAllByTenantV1InfiniteQueryError = unknown
+
+
+
+export function useBranchControllerFindAllByTenantV1Infinite<TData = Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>, TError = unknown>(
+ tenantId: string, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getBranchControllerFindAllByTenantV1InfiniteQueryOptions(tenantId,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getBranchControllerFindAllByTenantV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>,
-  TError = unknown,
->(
-  tenantId: string,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getBranchControllerFindAllByTenantV1QueryOptions = <TData = Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>, TError = unknown>(tenantId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getBranchControllerFindAllByTenantV1QueryKey(tenantId);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>
-  > = ({ signal }) => branchControllerFindAllByTenantV1(tenantId, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getBranchControllerFindAllByTenantV1QueryKey(tenantId);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!tenantId,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type BranchControllerFindAllByTenantV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>
->;
-export type BranchControllerFindAllByTenantV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>> = ({ signal }) => branchControllerFindAllByTenantV1(tenantId, { signal, ...requestOptions });
 
-export function useBranchControllerFindAllByTenantV1<
-  TData = Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>,
-  TError = unknown,
->(
-  tenantId: string,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getBranchControllerFindAllByTenantV1QueryOptions(
-    tenantId,
-    options
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(tenantId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type BranchControllerFindAllByTenantV1QueryResult = NonNullable<Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>>
+export type BranchControllerFindAllByTenantV1QueryError = unknown
+
+
+
+export function useBranchControllerFindAllByTenantV1<TData = Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>, TError = unknown>(
+ tenantId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof branchControllerFindAllByTenantV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getBranchControllerFindAllByTenantV1QueryOptions(tenantId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type branchControllerFindOneV1Response200 = {
-  data: Branch;
-  status: 200;
+  data: Branch
+  status: 200
+}
+    
+export type branchControllerFindOneV1ResponseSuccess = (branchControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type branchControllerFindOneV1ResponseSuccess =
-  branchControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type branchControllerFindOneV1Response =
-  branchControllerFindOneV1ResponseSuccess;
+export type branchControllerFindOneV1Response = (branchControllerFindOneV1ResponseSuccess)
 
-export const getBranchControllerFindOneV1Url = (id: string) => {
-  return `http://localhost:3000/api/v1/branches/${id}`;
-};
+export const getBranchControllerFindOneV1Url = (id: string,) => {
 
-export const branchControllerFindOneV1 = async (
-  id: string,
-  options?: RequestInit
-): Promise<branchControllerFindOneV1Response> => {
-  return customFetch<branchControllerFindOneV1Response>(
-    getBranchControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/branches/${id}`
+}
+
+export const branchControllerFindOneV1 = async (id: string, options?: RequestInit): Promise<branchControllerFindOneV1Response> => {
+  
+  return customFetch<branchControllerFindOneV1Response>(getBranchControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getBranchControllerFindOneV1InfiniteQueryKey = (id: string,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/branches/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getBranchControllerFindOneV1InfiniteQueryKey = (id: string) => {
-  return ["infinite", `http://localhost:3000/api/v1/branches/${id}`] as const;
-};
+export const getBranchControllerFindOneV1QueryKey = (id: string,) => {
+    return [
+    `http://localhost:3000/api/v1/branches/${id}`
+    ] as const;
+    }
 
-export const getBranchControllerFindOneV1QueryKey = (id: string) => {
-  return [`http://localhost:3000/api/v1/branches/${id}`] as const;
-};
-
-export const getBranchControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof branchControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: string,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof branchControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+    
+export const getBranchControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof branchControllerFindOneV1>>, TError = unknown>(id: string, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof branchControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getBranchControllerFindOneV1InfiniteQueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof branchControllerFindOneV1>>
-  > = ({ signal }) => branchControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getBranchControllerFindOneV1InfiniteQueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof branchControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type BranchControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof branchControllerFindOneV1>>
->;
-export type BranchControllerFindOneV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof branchControllerFindOneV1>>> = ({ signal }) => branchControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useBranchControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof branchControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: string,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof branchControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getBranchControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof branchControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type BranchControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof branchControllerFindOneV1>>>
+export type BranchControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useBranchControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof branchControllerFindOneV1>>, TError = unknown>(
+ id: string, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof branchControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getBranchControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getBranchControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof branchControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: string,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof branchControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getBranchControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof branchControllerFindOneV1>>, TError = unknown>(id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof branchControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getBranchControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof branchControllerFindOneV1>>
-  > = ({ signal }) => branchControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getBranchControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof branchControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type BranchControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof branchControllerFindOneV1>>
->;
-export type BranchControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof branchControllerFindOneV1>>> = ({ signal }) => branchControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useBranchControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof branchControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: string,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof branchControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getBranchControllerFindOneV1QueryOptions(id, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof branchControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type BranchControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof branchControllerFindOneV1>>>
+export type BranchControllerFindOneV1QueryError = unknown
+
+
+
+export function useBranchControllerFindOneV1<TData = Awaited<ReturnType<typeof branchControllerFindOneV1>>, TError = unknown>(
+ id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof branchControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getBranchControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type branchControllerUpdateV1Response200 = {
-  data: Branch;
-  status: 200;
+  data: Branch
+  status: 200
+}
+    
+export type branchControllerUpdateV1ResponseSuccess = (branchControllerUpdateV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type branchControllerUpdateV1ResponseSuccess =
-  branchControllerUpdateV1Response200 & {
-    headers: Headers;
-  };
-export type branchControllerUpdateV1Response =
-  branchControllerUpdateV1ResponseSuccess;
+export type branchControllerUpdateV1Response = (branchControllerUpdateV1ResponseSuccess)
 
-export const getBranchControllerUpdateV1Url = (id: string) => {
-  return `http://localhost:3000/api/v1/branches/${id}`;
-};
+export const getBranchControllerUpdateV1Url = (id: string,) => {
 
-export const branchControllerUpdateV1 = async (
-  id: string,
-  updateBranchDto: UpdateBranchDto,
-  options?: RequestInit
-): Promise<branchControllerUpdateV1Response> => {
-  return customFetch<branchControllerUpdateV1Response>(
-    getBranchControllerUpdateV1Url(id),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(updateBranchDto),
+
+  
+
+  return `http://localhost:3000/api/v1/branches/${id}`
+}
+
+export const branchControllerUpdateV1 = async (id: string,
+    updateBranchDto: UpdateBranchDto, options?: RequestInit): Promise<branchControllerUpdateV1Response> => {
+  
+  return customFetch<branchControllerUpdateV1Response>(getBranchControllerUpdateV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateBranchDto,)
+  }
+);}
+
+
+
+
+export const getBranchControllerUpdateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof branchControllerUpdateV1>>, TError,{id: string;data: UpdateBranchDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof branchControllerUpdateV1>>, TError,{id: string;data: UpdateBranchDto}, TContext> => {
+
+const mutationKey = ['branchControllerUpdateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof branchControllerUpdateV1>>, {id: string;data: UpdateBranchDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  branchControllerUpdateV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type BranchControllerUpdateV1MutationResult = NonNullable<Awaited<ReturnType<typeof branchControllerUpdateV1>>>
+    export type BranchControllerUpdateV1MutationBody = UpdateBranchDto
+    export type BranchControllerUpdateV1MutationError = unknown
+
+    export const useBranchControllerUpdateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof branchControllerUpdateV1>>, TError,{id: string;data: UpdateBranchDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof branchControllerUpdateV1>>,
+        TError,
+        {id: string;data: UpdateBranchDto},
+        TContext
+      > => {
+      return useMutation(getBranchControllerUpdateV1MutationOptions(options));
     }
-  );
+    export type branchControllerRemoveV1Response204 = {
+  data: void
+  status: 204
+}
+    
+export type branchControllerRemoveV1ResponseSuccess = (branchControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export const getBranchControllerUpdateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof branchControllerUpdateV1>>,
-    TError,
-    { id: string; data: UpdateBranchDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof branchControllerUpdateV1>>,
-  TError,
-  { id: string; data: UpdateBranchDto },
-  TContext
-> => {
-  const mutationKey = ["branchControllerUpdateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+export type branchControllerRemoveV1Response = (branchControllerRemoveV1ResponseSuccess)
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof branchControllerUpdateV1>>,
-    { id: string; data: UpdateBranchDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getBranchControllerRemoveV1Url = (id: string,) => {
 
-    return branchControllerUpdateV1(id, data);
-  };
 
-  return { mutationFn, ...mutationOptions };
-};
+  
 
-export type BranchControllerUpdateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof branchControllerUpdateV1>>
->;
-export type BranchControllerUpdateV1MutationBody = UpdateBranchDto;
-export type BranchControllerUpdateV1MutationError = unknown;
+  return `http://localhost:3000/api/v1/branches/${id}`
+}
 
-export const useBranchControllerUpdateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof branchControllerUpdateV1>>,
-    TError,
-    { id: string; data: UpdateBranchDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof branchControllerUpdateV1>>,
-  TError,
-  { id: string; data: UpdateBranchDto },
-  TContext
-> => {
-  return useMutation(getBranchControllerUpdateV1MutationOptions(options));
-};
-export type branchControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
-};
+export const branchControllerRemoveV1 = async (id: string, options?: RequestInit): Promise<branchControllerRemoveV1Response> => {
+  
+  return customFetch<branchControllerRemoveV1Response>(getBranchControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
 
-export type branchControllerRemoveV1ResponseSuccess =
-  branchControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type branchControllerRemoveV1Response =
-  branchControllerRemoveV1ResponseSuccess;
 
-export const getBranchControllerRemoveV1Url = (id: string) => {
-  return `http://localhost:3000/api/v1/branches/${id}`;
-};
 
-export const branchControllerRemoveV1 = async (
-  id: string,
-  options?: RequestInit
-): Promise<branchControllerRemoveV1Response> => {
-  return customFetch<branchControllerRemoveV1Response>(
-    getBranchControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
+
+export const getBranchControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof branchControllerRemoveV1>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof branchControllerRemoveV1>>, TError,{id: string}, TContext> => {
+
+const mutationKey = ['branchControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof branchControllerRemoveV1>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  branchControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type BranchControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof branchControllerRemoveV1>>>
+    
+    export type BranchControllerRemoveV1MutationError = unknown
+
+    export const useBranchControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof branchControllerRemoveV1>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof branchControllerRemoveV1>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+      return useMutation(getBranchControllerRemoveV1MutationOptions(options));
     }
-  );
-};
-
-export const getBranchControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof branchControllerRemoveV1>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof branchControllerRemoveV1>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationKey = ["branchControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof branchControllerRemoveV1>>,
-    { id: string }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return branchControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type BranchControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof branchControllerRemoveV1>>
->;
-
-export type BranchControllerRemoveV1MutationError = unknown;
-
-export const useBranchControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof branchControllerRemoveV1>>,
-    TError,
-    { id: string },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof branchControllerRemoveV1>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  return useMutation(getBranchControllerRemoveV1MutationOptions(options));
-};
+    

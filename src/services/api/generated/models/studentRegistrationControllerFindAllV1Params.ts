@@ -7,18 +7,18 @@
  */
 
 export type StudentRegistrationControllerFindAllV1Params = {
-  page?: number;
-  limit?: number;
-  /**
-   * Search by name
-   */
-  search?: string;
-  /**
-   * Filter by enrollment status
-   */
-  status?: string;
-  /**
-   * Filter by institution
-   */
-  institutionId?: number;
+page?: number;
+limit?: number;
+/**
+ * Search by name
+ */
+search?: string;
+/**
+ * Filter by enrollment status
+ */
+status?: string;
+/**
+ * Filter by institution
+ */
+institutionId?: number;
 };

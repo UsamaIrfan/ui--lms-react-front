@@ -5,10 +5,10 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateBranchIncomeDtoDescription } from "./createBranchIncomeDtoDescription";
-import type { CreateBranchIncomeDtoReceivedFrom } from "./createBranchIncomeDtoReceivedFrom";
-import type { CreateBranchIncomeDtoReferenceNumber } from "./createBranchIncomeDtoReferenceNumber";
-import type { CreateBranchIncomeDtoRemarks } from "./createBranchIncomeDtoRemarks";
+import type { CreateBranchIncomeDtoDescription } from './createBranchIncomeDtoDescription';
+import type { CreateBranchIncomeDtoReceivedFrom } from './createBranchIncomeDtoReceivedFrom';
+import type { CreateBranchIncomeDtoReferenceNumber } from './createBranchIncomeDtoReferenceNumber';
+import type { CreateBranchIncomeDtoRemarks } from './createBranchIncomeDtoRemarks';
 
 export interface CreateBranchIncomeDto {
   tenantId: string;

@@ -5,10 +5,10 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateFeeStructureDtoAcademicYearId } from "./updateFeeStructureDtoAcademicYearId";
-import type { UpdateFeeStructureDtoDescription } from "./updateFeeStructureDtoDescription";
-import type { UpdateFeeStructureDtoFrequency } from "./updateFeeStructureDtoFrequency";
-import type { UpdateFeeStructureDtoGradeClassId } from "./updateFeeStructureDtoGradeClassId";
+import type { UpdateFeeStructureDtoAcademicYearId } from './updateFeeStructureDtoAcademicYearId';
+import type { UpdateFeeStructureDtoDescription } from './updateFeeStructureDtoDescription';
+import type { UpdateFeeStructureDtoFrequency } from './updateFeeStructureDtoFrequency';
+import type { UpdateFeeStructureDtoGradeClassId } from './updateFeeStructureDtoGradeClassId';
 
 export interface UpdateFeeStructureDto {
   tenantId?: string;

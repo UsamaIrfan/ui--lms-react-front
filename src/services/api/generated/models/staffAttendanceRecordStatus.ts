@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type StaffAttendanceRecordStatus =
-  (typeof StaffAttendanceRecordStatus)[keyof typeof StaffAttendanceRecordStatus];
+export type StaffAttendanceRecordStatus = typeof StaffAttendanceRecordStatus[keyof typeof StaffAttendanceRecordStatus];
+
 
 export const StaffAttendanceRecordStatus = {
-  present: "present",
-  absent: "absent",
-  late: "late",
-  half_day: "half_day",
-  excused: "excused",
+  present: 'present',
+  absent: 'absent',
+  late: 'late',
+  half_day: 'half_day',
+  excused: 'excused',
 } as const;

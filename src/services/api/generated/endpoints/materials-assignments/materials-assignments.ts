@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,873 +19,698 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
 import type {
   Assignment,
   AssignmentSubmission,
   CreateAssignmentDto,
   SubmitAssignmentDto,
-  UpdateAssignmentDto,
-} from "../../models";
+  UpdateAssignmentDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type assignmentsControllerCreateV1Response201 = {
-  data: Assignment;
-  status: 201;
+  data: Assignment
+  status: 201
+}
+    
+export type assignmentsControllerCreateV1ResponseSuccess = (assignmentsControllerCreateV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type assignmentsControllerCreateV1ResponseSuccess =
-  assignmentsControllerCreateV1Response201 & {
-    headers: Headers;
-  };
-export type assignmentsControllerCreateV1Response =
-  assignmentsControllerCreateV1ResponseSuccess;
+export type assignmentsControllerCreateV1Response = (assignmentsControllerCreateV1ResponseSuccess)
 
 export const getAssignmentsControllerCreateV1Url = () => {
-  return `http://localhost:3000/api/v1/materials/assignments`;
-};
 
-export const assignmentsControllerCreateV1 = async (
-  createAssignmentDto: CreateAssignmentDto,
-  options?: RequestInit
-): Promise<assignmentsControllerCreateV1Response> => {
-  return customFetch<assignmentsControllerCreateV1Response>(
-    getAssignmentsControllerCreateV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(createAssignmentDto),
+
+  
+
+  return `http://localhost:3000/api/v1/materials/assignments`
+}
+
+export const assignmentsControllerCreateV1 = async (createAssignmentDto: CreateAssignmentDto, options?: RequestInit): Promise<assignmentsControllerCreateV1Response> => {
+  
+  return customFetch<assignmentsControllerCreateV1Response>(getAssignmentsControllerCreateV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createAssignmentDto,)
+  }
+);}
+
+
+
+
+export const getAssignmentsControllerCreateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerCreateV1>>, TError,{data: CreateAssignmentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerCreateV1>>, TError,{data: CreateAssignmentDto}, TContext> => {
+
+const mutationKey = ['assignmentsControllerCreateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof assignmentsControllerCreateV1>>, {data: CreateAssignmentDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  assignmentsControllerCreateV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AssignmentsControllerCreateV1MutationResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerCreateV1>>>
+    export type AssignmentsControllerCreateV1MutationBody = CreateAssignmentDto
+    export type AssignmentsControllerCreateV1MutationError = unknown
+
+    export const useAssignmentsControllerCreateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerCreateV1>>, TError,{data: CreateAssignmentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof assignmentsControllerCreateV1>>,
+        TError,
+        {data: CreateAssignmentDto},
+        TContext
+      > => {
+      return useMutation(getAssignmentsControllerCreateV1MutationOptions(options));
     }
-  );
+    export type assignmentsControllerFindAllV1Response200 = {
+  data: Assignment[]
+  status: 200
+}
+    
+export type assignmentsControllerFindAllV1ResponseSuccess = (assignmentsControllerFindAllV1Response200) & {
+  headers: Headers;
 };
+;
 
-export const getAssignmentsControllerCreateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof assignmentsControllerCreateV1>>,
-    TError,
-    { data: CreateAssignmentDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof assignmentsControllerCreateV1>>,
-  TError,
-  { data: CreateAssignmentDto },
-  TContext
-> => {
-  const mutationKey = ["assignmentsControllerCreateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof assignmentsControllerCreateV1>>,
-    { data: CreateAssignmentDto }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return assignmentsControllerCreateV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type AssignmentsControllerCreateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof assignmentsControllerCreateV1>>
->;
-export type AssignmentsControllerCreateV1MutationBody = CreateAssignmentDto;
-export type AssignmentsControllerCreateV1MutationError = unknown;
-
-export const useAssignmentsControllerCreateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof assignmentsControllerCreateV1>>,
-    TError,
-    { data: CreateAssignmentDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof assignmentsControllerCreateV1>>,
-  TError,
-  { data: CreateAssignmentDto },
-  TContext
-> => {
-  return useMutation(getAssignmentsControllerCreateV1MutationOptions(options));
-};
-export type assignmentsControllerFindAllV1Response200 = {
-  data: Assignment[];
-  status: 200;
-};
-
-export type assignmentsControllerFindAllV1ResponseSuccess =
-  assignmentsControllerFindAllV1Response200 & {
-    headers: Headers;
-  };
-export type assignmentsControllerFindAllV1Response =
-  assignmentsControllerFindAllV1ResponseSuccess;
+export type assignmentsControllerFindAllV1Response = (assignmentsControllerFindAllV1ResponseSuccess)
 
 export const getAssignmentsControllerFindAllV1Url = () => {
-  return `http://localhost:3000/api/v1/materials/assignments`;
-};
 
-export const assignmentsControllerFindAllV1 = async (
-  options?: RequestInit
-): Promise<assignmentsControllerFindAllV1Response> => {
-  return customFetch<assignmentsControllerFindAllV1Response>(
-    getAssignmentsControllerFindAllV1Url(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/api/v1/materials/assignments`
+}
+
+export const assignmentsControllerFindAllV1 = async ( options?: RequestInit): Promise<assignmentsControllerFindAllV1Response> => {
+  
+  return customFetch<assignmentsControllerFindAllV1Response>(getAssignmentsControllerFindAllV1Url(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getAssignmentsControllerFindAllV1InfiniteQueryKey = () => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/materials/assignments`,
-  ] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/api/v1/materials/assignments`
+    ] as const;
+    }
 
 export const getAssignmentsControllerFindAllV1QueryKey = () => {
-  return [`http://localhost:3000/api/v1/materials/assignments`] as const;
-};
+    return [
+    `http://localhost:3000/api/v1/materials/assignments`
+    ] as const;
+    }
 
-export const getAssignmentsControllerFindAllV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getAssignmentsControllerFindAllV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getAssignmentsControllerFindAllV1InfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>
-  > = ({ signal }) => assignmentsControllerFindAllV1({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getAssignmentsControllerFindAllV1InfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type AssignmentsControllerFindAllV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>
->;
-export type AssignmentsControllerFindAllV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>> = ({ signal }) => assignmentsControllerFindAllV1({ signal, ...requestOptions });
 
-export function useAssignmentsControllerFindAllV1Infinite<
-  TData = Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getAssignmentsControllerFindAllV1InfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type AssignmentsControllerFindAllV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>>
+export type AssignmentsControllerFindAllV1InfiniteQueryError = unknown
+
+
+
+export function useAssignmentsControllerFindAllV1Infinite<TData = Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getAssignmentsControllerFindAllV1InfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getAssignmentsControllerFindAllV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getAssignmentsControllerFindAllV1QueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>
-  > = ({ signal }) => assignmentsControllerFindAllV1({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getAssignmentsControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type AssignmentsControllerFindAllV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>
->;
-export type AssignmentsControllerFindAllV1QueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function useAssignmentsControllerFindAllV1<
-  TData = Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getAssignmentsControllerFindAllV1QueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getAssignmentsControllerFindAllV1QueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>> = ({ signal }) => assignmentsControllerFindAllV1({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type AssignmentsControllerFindAllV1QueryResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>>
+export type AssignmentsControllerFindAllV1QueryError = unknown
+
+
+
+export function useAssignmentsControllerFindAllV1<TData = Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getAssignmentsControllerFindAllV1QueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type assignmentsControllerFindOneV1Response200 = {
-  data: Assignment;
-  status: 200;
+  data: Assignment
+  status: 200
+}
+    
+export type assignmentsControllerFindOneV1ResponseSuccess = (assignmentsControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type assignmentsControllerFindOneV1ResponseSuccess =
-  assignmentsControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type assignmentsControllerFindOneV1Response =
-  assignmentsControllerFindOneV1ResponseSuccess;
+export type assignmentsControllerFindOneV1Response = (assignmentsControllerFindOneV1ResponseSuccess)
 
-export const getAssignmentsControllerFindOneV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/materials/assignments/${id}`;
-};
+export const getAssignmentsControllerFindOneV1Url = (id: number,) => {
 
-export const assignmentsControllerFindOneV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<assignmentsControllerFindOneV1Response> => {
-  return customFetch<assignmentsControllerFindOneV1Response>(
-    getAssignmentsControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/materials/assignments/${id}`
+}
+
+export const assignmentsControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<assignmentsControllerFindOneV1Response> => {
+  
+  return customFetch<assignmentsControllerFindOneV1Response>(getAssignmentsControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getAssignmentsControllerFindOneV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/materials/assignments/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getAssignmentsControllerFindOneV1InfiniteQueryKey = (
-  id: number
+export const getAssignmentsControllerFindOneV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/materials/assignments/${id}`
+    ] as const;
+    }
+
+    
+export const getAssignmentsControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/materials/assignments/${id}`,
-  ] as const;
-};
 
-export const getAssignmentsControllerFindOneV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/materials/assignments/${id}`] as const;
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export const getAssignmentsControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-) => {
-  const { query: queryOptions } = options ?? {};
+  const queryKey =  queryOptions?.queryKey ?? getAssignmentsControllerFindOneV1InfiniteQueryKey(id);
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getAssignmentsControllerFindOneV1InfiniteQueryKey(id);
+  
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>
-  > = ({ signal }) => assignmentsControllerFindOneV1(id, { signal });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>> = ({ signal }) => assignmentsControllerFindOneV1(id, { signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+      
 
-export type AssignmentsControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>
->;
-export type AssignmentsControllerFindOneV1InfiniteQueryError = unknown;
+      
 
-export function useAssignmentsControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getAssignmentsControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+export type AssignmentsControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>>
+export type AssignmentsControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useAssignmentsControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getAssignmentsControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getAssignmentsControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getAssignmentsControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getAssignmentsControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>
-  > = ({ signal }) => assignmentsControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getAssignmentsControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type AssignmentsControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>
->;
-export type AssignmentsControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>> = ({ signal }) => assignmentsControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useAssignmentsControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getAssignmentsControllerFindOneV1QueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type AssignmentsControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>>
+export type AssignmentsControllerFindOneV1QueryError = unknown
+
+
+
+export function useAssignmentsControllerFindOneV1<TData = Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getAssignmentsControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type assignmentsControllerUpdateV1Response200 = {
-  data: Assignment;
-  status: 200;
+  data: Assignment
+  status: 200
+}
+    
+export type assignmentsControllerUpdateV1ResponseSuccess = (assignmentsControllerUpdateV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type assignmentsControllerUpdateV1ResponseSuccess =
-  assignmentsControllerUpdateV1Response200 & {
-    headers: Headers;
-  };
-export type assignmentsControllerUpdateV1Response =
-  assignmentsControllerUpdateV1ResponseSuccess;
+export type assignmentsControllerUpdateV1Response = (assignmentsControllerUpdateV1ResponseSuccess)
 
-export const getAssignmentsControllerUpdateV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/materials/assignments/${id}`;
-};
+export const getAssignmentsControllerUpdateV1Url = (id: number,) => {
 
-export const assignmentsControllerUpdateV1 = async (
-  id: number,
-  updateAssignmentDto: UpdateAssignmentDto,
-  options?: RequestInit
-): Promise<assignmentsControllerUpdateV1Response> => {
-  return customFetch<assignmentsControllerUpdateV1Response>(
-    getAssignmentsControllerUpdateV1Url(id),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(updateAssignmentDto),
-    }
-  );
-};
 
-export const getAssignmentsControllerUpdateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateAssignmentDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateAssignmentDto },
-  TContext
-> => {
-  const mutationKey = ["assignmentsControllerUpdateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+  
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>,
-    { id: number; data: UpdateAssignmentDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+  return `http://localhost:3000/api/v1/materials/assignments/${id}`
+}
 
-    return assignmentsControllerUpdateV1(id, data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type AssignmentsControllerUpdateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>
->;
-export type AssignmentsControllerUpdateV1MutationBody = UpdateAssignmentDto;
-export type AssignmentsControllerUpdateV1MutationError = unknown;
-
-export const useAssignmentsControllerUpdateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateAssignmentDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateAssignmentDto },
-  TContext
-> => {
-  return useMutation(getAssignmentsControllerUpdateV1MutationOptions(options));
-};
-export type assignmentsControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
-};
-
-export type assignmentsControllerRemoveV1ResponseSuccess =
-  assignmentsControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type assignmentsControllerRemoveV1Response =
-  assignmentsControllerRemoveV1ResponseSuccess;
-
-export const getAssignmentsControllerRemoveV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/materials/assignments/${id}`;
-};
-
-export const assignmentsControllerRemoveV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<assignmentsControllerRemoveV1Response> => {
-  return customFetch<assignmentsControllerRemoveV1Response>(
-    getAssignmentsControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
-    }
-  );
-};
-
-export const getAssignmentsControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationKey = ["assignmentsControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return assignmentsControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type AssignmentsControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>
->;
-
-export type AssignmentsControllerRemoveV1MutationError = unknown;
-
-export const useAssignmentsControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  return useMutation(getAssignmentsControllerRemoveV1MutationOptions(options));
-};
-export type assignmentsControllerSubmitV1Response201 = {
-  data: AssignmentSubmission;
-  status: 201;
-};
-
-export type assignmentsControllerSubmitV1ResponseSuccess =
-  assignmentsControllerSubmitV1Response201 & {
-    headers: Headers;
-  };
-export type assignmentsControllerSubmitV1Response =
-  assignmentsControllerSubmitV1ResponseSuccess;
-
-export const getAssignmentsControllerSubmitV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/materials/assignments/${id}/submit`;
-};
-
-export const assignmentsControllerSubmitV1 = async (
-  id: number,
-  submitAssignmentDto: SubmitAssignmentDto,
-  options?: RequestInit
-): Promise<assignmentsControllerSubmitV1Response> => {
-  return customFetch<assignmentsControllerSubmitV1Response>(
-    getAssignmentsControllerSubmitV1Url(id),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(submitAssignmentDto),
-    }
-  );
-};
-
-export const getAssignmentsControllerSubmitV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>,
-    TError,
-    { id: number; data: SubmitAssignmentDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>,
-  TError,
-  { id: number; data: SubmitAssignmentDto },
-  TContext
-> => {
-  const mutationKey = ["assignmentsControllerSubmitV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>,
-    { id: number; data: SubmitAssignmentDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
-
-    return assignmentsControllerSubmitV1(id, data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type AssignmentsControllerSubmitV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>
->;
-export type AssignmentsControllerSubmitV1MutationBody = SubmitAssignmentDto;
-export type AssignmentsControllerSubmitV1MutationError = unknown;
-
-export const useAssignmentsControllerSubmitV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>,
-    TError,
-    { id: number; data: SubmitAssignmentDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>,
-  TError,
-  { id: number; data: SubmitAssignmentDto },
-  TContext
-> => {
-  return useMutation(getAssignmentsControllerSubmitV1MutationOptions(options));
-};
-export type assignmentsControllerGetSubmissionsV1Response200 = {
-  data: AssignmentSubmission[];
-  status: 200;
-};
-
-export type assignmentsControllerGetSubmissionsV1ResponseSuccess =
-  assignmentsControllerGetSubmissionsV1Response200 & {
-    headers: Headers;
-  };
-export type assignmentsControllerGetSubmissionsV1Response =
-  assignmentsControllerGetSubmissionsV1ResponseSuccess;
-
-export const getAssignmentsControllerGetSubmissionsV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/materials/assignments/${id}/submissions`;
-};
-
-export const assignmentsControllerGetSubmissionsV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<assignmentsControllerGetSubmissionsV1Response> => {
-  return customFetch<assignmentsControllerGetSubmissionsV1Response>(
-    getAssignmentsControllerGetSubmissionsV1Url(id),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
-
-export const getAssignmentsControllerGetSubmissionsV1InfiniteQueryKey = (
-  id: number
-) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/materials/assignments/${id}/submissions`,
-  ] as const;
-};
-
-export const getAssignmentsControllerGetSubmissionsV1QueryKey = (
-  id: number
-) => {
-  return [
-    `http://localhost:3000/api/v1/materials/assignments/${id}/submissions`,
-  ] as const;
-};
-
-export const getAssignmentsControllerGetSubmissionsV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>,
-      TError,
-      TData
-    >;
+export const assignmentsControllerUpdateV1 = async (id: number,
+    updateAssignmentDto: UpdateAssignmentDto, options?: RequestInit): Promise<assignmentsControllerUpdateV1Response> => {
+  
+  return customFetch<assignmentsControllerUpdateV1Response>(getAssignmentsControllerUpdateV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateAssignmentDto,)
   }
-) => {
-  const { query: queryOptions } = options ?? {};
+);}
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getAssignmentsControllerGetSubmissionsV1InfiniteQueryKey(id);
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>
-  > = ({ signal }) => assignmentsControllerGetSubmissionsV1(id, { signal });
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
+
+export const getAssignmentsControllerUpdateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>, TError,{id: number;data: UpdateAssignmentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>, TError,{id: number;data: UpdateAssignmentDto}, TContext> => {
+
+const mutationKey = ['assignmentsControllerUpdateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>, {id: number;data: UpdateAssignmentDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  assignmentsControllerUpdateV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AssignmentsControllerUpdateV1MutationResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>>
+    export type AssignmentsControllerUpdateV1MutationBody = UpdateAssignmentDto
+    export type AssignmentsControllerUpdateV1MutationError = unknown
+
+    export const useAssignmentsControllerUpdateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>, TError,{id: number;data: UpdateAssignmentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof assignmentsControllerUpdateV1>>,
+        TError,
+        {id: number;data: UpdateAssignmentDto},
+        TContext
+      > => {
+      return useMutation(getAssignmentsControllerUpdateV1MutationOptions(options));
+    }
+    export type assignmentsControllerRemoveV1Response204 = {
+  data: void
+  status: 204
+}
+    
+export type assignmentsControllerRemoveV1ResponseSuccess = (assignmentsControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export type AssignmentsControllerGetSubmissionsV1InfiniteQueryResult =
-  NonNullable<
-    Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>
-  >;
-export type AssignmentsControllerGetSubmissionsV1InfiniteQueryError = unknown;
+export type assignmentsControllerRemoveV1Response = (assignmentsControllerRemoveV1ResponseSuccess)
 
-export function useAssignmentsControllerGetSubmissionsV1Infinite<
-  TData = Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>,
-      TError,
-      TData
-    >;
+export const getAssignmentsControllerRemoveV1Url = (id: number,) => {
+
+
+  
+
+  return `http://localhost:3000/api/v1/materials/assignments/${id}`
+}
+
+export const assignmentsControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<assignmentsControllerRemoveV1Response> => {
+  
+  return customFetch<assignmentsControllerRemoveV1Response>(getAssignmentsControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
   }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getAssignmentsControllerGetSubmissionsV1InfiniteQueryOptions(id, options);
+);}
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+
+
+
+export const getAssignmentsControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['assignmentsControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  assignmentsControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AssignmentsControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>>
+    
+    export type AssignmentsControllerRemoveV1MutationError = unknown
+
+    export const useAssignmentsControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof assignmentsControllerRemoveV1>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getAssignmentsControllerRemoveV1MutationOptions(options));
+    }
+    export type assignmentsControllerSubmitV1Response201 = {
+  data: AssignmentSubmission
+  status: 201
+}
+    
+export type assignmentsControllerSubmitV1ResponseSuccess = (assignmentsControllerSubmitV1Response201) & {
+  headers: Headers;
+};
+;
+
+export type assignmentsControllerSubmitV1Response = (assignmentsControllerSubmitV1ResponseSuccess)
+
+export const getAssignmentsControllerSubmitV1Url = (id: number,) => {
+
+
+  
+
+  return `http://localhost:3000/api/v1/materials/assignments/${id}/submit`
+}
+
+export const assignmentsControllerSubmitV1 = async (id: number,
+    submitAssignmentDto: SubmitAssignmentDto, options?: RequestInit): Promise<assignmentsControllerSubmitV1Response> => {
+  
+  return customFetch<assignmentsControllerSubmitV1Response>(getAssignmentsControllerSubmitV1Url(id),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      submitAssignmentDto,)
+  }
+);}
+
+
+
+
+export const getAssignmentsControllerSubmitV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>, TError,{id: number;data: SubmitAssignmentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>, TError,{id: number;data: SubmitAssignmentDto}, TContext> => {
+
+const mutationKey = ['assignmentsControllerSubmitV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>, {id: number;data: SubmitAssignmentDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  assignmentsControllerSubmitV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AssignmentsControllerSubmitV1MutationResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>>
+    export type AssignmentsControllerSubmitV1MutationBody = SubmitAssignmentDto
+    export type AssignmentsControllerSubmitV1MutationError = unknown
+
+    export const useAssignmentsControllerSubmitV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>, TError,{id: number;data: SubmitAssignmentDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof assignmentsControllerSubmitV1>>,
+        TError,
+        {id: number;data: SubmitAssignmentDto},
+        TContext
+      > => {
+      return useMutation(getAssignmentsControllerSubmitV1MutationOptions(options));
+    }
+    export type assignmentsControllerGetSubmissionsV1Response200 = {
+  data: AssignmentSubmission[]
+  status: 200
+}
+    
+export type assignmentsControllerGetSubmissionsV1ResponseSuccess = (assignmentsControllerGetSubmissionsV1Response200) & {
+  headers: Headers;
+};
+;
+
+export type assignmentsControllerGetSubmissionsV1Response = (assignmentsControllerGetSubmissionsV1ResponseSuccess)
+
+export const getAssignmentsControllerGetSubmissionsV1Url = (id: number,) => {
+
+
+  
+
+  return `http://localhost:3000/api/v1/materials/assignments/${id}/submissions`
+}
+
+export const assignmentsControllerGetSubmissionsV1 = async (id: number, options?: RequestInit): Promise<assignmentsControllerGetSubmissionsV1Response> => {
+  
+  return customFetch<assignmentsControllerGetSubmissionsV1Response>(getAssignmentsControllerGetSubmissionsV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getAssignmentsControllerGetSubmissionsV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/materials/assignments/${id}/submissions`
+    ] as const;
+    }
+
+export const getAssignmentsControllerGetSubmissionsV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/materials/assignments/${id}/submissions`
+    ] as const;
+    }
+
+    
+export const getAssignmentsControllerGetSubmissionsV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAssignmentsControllerGetSubmissionsV1InfiniteQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>> = ({ signal }) => assignmentsControllerGetSubmissionsV1(id, { signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type AssignmentsControllerGetSubmissionsV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>>
+export type AssignmentsControllerGetSubmissionsV1InfiniteQueryError = unknown
+
+
+
+export function useAssignmentsControllerGetSubmissionsV1Infinite<TData = Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getAssignmentsControllerGetSubmissionsV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getAssignmentsControllerGetSubmissionsV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getAssignmentsControllerGetSubmissionsV1QueryOptions = <TData = Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getAssignmentsControllerGetSubmissionsV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>
-  > = ({ signal }) => assignmentsControllerGetSubmissionsV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getAssignmentsControllerGetSubmissionsV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type AssignmentsControllerGetSubmissionsV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>
->;
-export type AssignmentsControllerGetSubmissionsV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>> = ({ signal }) => assignmentsControllerGetSubmissionsV1(id, { signal, ...requestOptions });
 
-export function useAssignmentsControllerGetSubmissionsV1<
-  TData = Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getAssignmentsControllerGetSubmissionsV1QueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type AssignmentsControllerGetSubmissionsV1QueryResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>>
+export type AssignmentsControllerGetSubmissionsV1QueryError = unknown
+
+
+
+export function useAssignmentsControllerGetSubmissionsV1<TData = Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerGetSubmissionsV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getAssignmentsControllerGetSubmissionsV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
+

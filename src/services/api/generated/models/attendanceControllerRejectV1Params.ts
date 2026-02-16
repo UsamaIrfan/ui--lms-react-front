@@ -7,5 +7,5 @@
  */
 
 export type AttendanceControllerRejectV1Params = {
-  attendableType: string;
+attendableType: string;
 };

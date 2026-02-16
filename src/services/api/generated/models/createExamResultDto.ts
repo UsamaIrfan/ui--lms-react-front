@@ -5,9 +5,9 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateExamResultDtoGrade } from "./createExamResultDtoGrade";
-import type { CreateExamResultDtoMarksObtained } from "./createExamResultDtoMarksObtained";
-import type { CreateExamResultDtoRemarks } from "./createExamResultDtoRemarks";
+import type { CreateExamResultDtoGrade } from './createExamResultDtoGrade';
+import type { CreateExamResultDtoMarksObtained } from './createExamResultDtoMarksObtained';
+import type { CreateExamResultDtoRemarks } from './createExamResultDtoRemarks';
 
 export interface CreateExamResultDto {
   tenantId: string;

@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { DashboardExamSummaryLastExamPercentage } from "./dashboardExamSummaryLastExamPercentage";
+import type { DashboardExamSummaryLastExamPercentage } from './dashboardExamSummaryLastExamPercentage';
 
 export interface DashboardExamSummary {
   upcomingExams: number;

@@ -6,14 +6,14 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateFeeChallanDtoStatus =
-  (typeof UpdateFeeChallanDtoStatus)[keyof typeof UpdateFeeChallanDtoStatus];
+export type UpdateFeeChallanDtoStatus = typeof UpdateFeeChallanDtoStatus[keyof typeof UpdateFeeChallanDtoStatus];
+
 
 export const UpdateFeeChallanDtoStatus = {
-  pending: "pending",
-  partial: "partial",
-  paid: "paid",
-  overdue: "overdue",
-  waived: "waived",
-  refunded: "refunded",
+  pending: 'pending',
+  partial: 'partial',
+  paid: 'paid',
+  overdue: 'overdue',
+  waived: 'waived',
+  refunded: 'refunded',
 } as const;

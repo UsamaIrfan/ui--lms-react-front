@@ -6,12 +6,12 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateLeaveRequestDtoStatus =
-  (typeof UpdateLeaveRequestDtoStatus)[keyof typeof UpdateLeaveRequestDtoStatus];
+export type UpdateLeaveRequestDtoStatus = typeof UpdateLeaveRequestDtoStatus[keyof typeof UpdateLeaveRequestDtoStatus];
+
 
 export const UpdateLeaveRequestDtoStatus = {
-  pending: "pending",
-  approved: "approved",
-  rejected: "rejected",
-  cancelled: "cancelled",
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected',
+  cancelled: 'cancelled',
 } as const;

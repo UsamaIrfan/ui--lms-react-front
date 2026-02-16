@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CourseMaterialType } from "./courseMaterialType";
+import type { CourseMaterialType } from './courseMaterialType';
 
 export interface CourseMaterial {
   id: number;

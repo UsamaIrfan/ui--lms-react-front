@@ -9,6 +9,4 @@
 /**
  * @nullable
  */
-export type StaffLeaveApplicationApprovedById = {
-  [key: string]: unknown;
-} | null;
+export type StaffLeaveApplicationApprovedById = { [key: string]: unknown } | null;

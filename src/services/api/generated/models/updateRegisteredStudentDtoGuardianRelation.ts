@@ -6,6 +6,4 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateRegisteredStudentDtoGuardianRelation = {
-  [key: string]: unknown;
-};
+export type UpdateRegisteredStudentDtoGuardianRelation = { [key: string]: unknown };

@@ -1,5 +1,5 @@
-import ResponsiveAppBar from "@/components/app-bar";
 import AuthProvider from "@/services/auth/auth-provider";
+import { LayoutSelector } from "@/components/layout";
 import "../globals.css";
 import { dir } from "i18next";
 import "@/services/i18n/config";
@@ -58,8 +58,7 @@ export default async function RootLayout(props: {
                     <GoogleAuthProvider>
                       <FacebookAuthProvider>
                         <LeavePageProvider>
-                          <ResponsiveAppBar />
-                          {children}
+                          <LayoutSelector>{children}</LayoutSelector>
                           <ToastContainer
                             position="bottom-left"
                             hideProgressBar

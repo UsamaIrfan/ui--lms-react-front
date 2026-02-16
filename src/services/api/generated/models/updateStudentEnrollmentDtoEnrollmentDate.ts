@@ -6,6 +6,4 @@
  * OpenAPI spec version: 1.0
  */
 
-export type UpdateStudentEnrollmentDtoEnrollmentDate = {
-  [key: string]: unknown;
-};
+export type UpdateStudentEnrollmentDtoEnrollmentDate = { [key: string]: unknown };

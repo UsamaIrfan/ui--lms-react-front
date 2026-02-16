@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { DepartmentDescription } from "./departmentDescription";
+import type { DepartmentDescription } from './departmentDescription';
 
 export interface Department {
   id: number;

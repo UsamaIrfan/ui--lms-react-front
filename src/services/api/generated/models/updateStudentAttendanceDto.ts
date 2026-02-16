@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateStudentAttendanceDtoRemarks } from "./updateStudentAttendanceDtoRemarks";
-import type { UpdateStudentAttendanceDtoStatus } from "./updateStudentAttendanceDtoStatus";
+import type { UpdateStudentAttendanceDtoRemarks } from './updateStudentAttendanceDtoRemarks';
+import type { UpdateStudentAttendanceDtoStatus } from './updateStudentAttendanceDtoStatus';
 
 export interface UpdateStudentAttendanceDto {
   tenantId?: string;

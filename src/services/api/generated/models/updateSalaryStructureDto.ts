@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { SalaryComponentDto } from "./salaryComponentDto";
+import type { SalaryComponentDto } from './salaryComponentDto';
 
 export interface UpdateSalaryStructureDto {
   tenantId?: string;

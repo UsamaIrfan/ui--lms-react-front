@@ -5,15 +5,15 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateStaffDtoAddress } from "./updateStaffDtoAddress";
-import type { UpdateStaffDtoDepartmentId } from "./updateStaffDtoDepartmentId";
-import type { UpdateStaffDtoDesignation } from "./updateStaffDtoDesignation";
-import type { UpdateStaffDtoEmergencyContact } from "./updateStaffDtoEmergencyContact";
-import type { UpdateStaffDtoEmploymentType } from "./updateStaffDtoEmploymentType";
-import type { UpdateStaffDtoExperienceYears } from "./updateStaffDtoExperienceYears";
-import type { UpdateStaffDtoJoiningDate } from "./updateStaffDtoJoiningDate";
-import type { UpdateStaffDtoQualification } from "./updateStaffDtoQualification";
-import type { UpdateStaffDtoSpecialization } from "./updateStaffDtoSpecialization";
+import type { UpdateStaffDtoAddress } from './updateStaffDtoAddress';
+import type { UpdateStaffDtoDepartmentId } from './updateStaffDtoDepartmentId';
+import type { UpdateStaffDtoDesignation } from './updateStaffDtoDesignation';
+import type { UpdateStaffDtoEmergencyContact } from './updateStaffDtoEmergencyContact';
+import type { UpdateStaffDtoEmploymentType } from './updateStaffDtoEmploymentType';
+import type { UpdateStaffDtoExperienceYears } from './updateStaffDtoExperienceYears';
+import type { UpdateStaffDtoJoiningDate } from './updateStaffDtoJoiningDate';
+import type { UpdateStaffDtoQualification } from './updateStaffDtoQualification';
+import type { UpdateStaffDtoSpecialization } from './updateStaffDtoSpecialization';
 
 export interface UpdateStaffDto {
   tenantId?: string;

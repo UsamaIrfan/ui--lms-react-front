@@ -9,6 +9,4 @@
 /**
  * @nullable
  */
-export type StaffAttendanceRecordCheckOutTime = {
-  [key: string]: unknown;
-} | null;
+export type StaffAttendanceRecordCheckOutTime = { [key: string]: unknown } | null;

@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { FileType } from "./fileType";
+import type { FileType } from './fileType';
 
 export interface FileResponseDto {
   file: FileType;

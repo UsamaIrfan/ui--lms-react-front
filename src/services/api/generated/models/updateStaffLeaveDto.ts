@@ -5,10 +5,10 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateStaffLeaveDtoAdminRemarks } from "./updateStaffLeaveDtoAdminRemarks";
-import type { UpdateStaffLeaveDtoApprovedById } from "./updateStaffLeaveDtoApprovedById";
-import type { UpdateStaffLeaveDtoLeaveType } from "./updateStaffLeaveDtoLeaveType";
-import type { UpdateStaffLeaveDtoStatus } from "./updateStaffLeaveDtoStatus";
+import type { UpdateStaffLeaveDtoAdminRemarks } from './updateStaffLeaveDtoAdminRemarks';
+import type { UpdateStaffLeaveDtoApprovedById } from './updateStaffLeaveDtoApprovedById';
+import type { UpdateStaffLeaveDtoLeaveType } from './updateStaffLeaveDtoLeaveType';
+import type { UpdateStaffLeaveDtoStatus } from './updateStaffLeaveDtoStatus';
 
 export interface UpdateStaffLeaveDto {
   tenantId?: string;

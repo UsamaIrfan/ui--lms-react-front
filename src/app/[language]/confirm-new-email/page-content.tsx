@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { Spinner } from "@/components/ui/spinner";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   authControllerConfirmNewEmailV1,
   authControllerMeV1,
@@ -63,10 +64,15 @@ export default function ConfirmNewEmail() {
   }, [router, enqueueSnackbar, t, isLoaded, setUser]);
 
   return (
-    <div className="mx-auto max-w-xl px-4">
-      <div className="flex items-center justify-center p-8">
-        <Spinner size="lg" />
-      </div>
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-8">
+      <Card className="w-full max-w-md">
+        <CardContent className="flex flex-col items-center gap-4 py-12">
+          <Spinner size="lg" />
+          <p className="text-paragraph-sm text-text-sub-600">
+            {t("confirm-new-email:verifying")}
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

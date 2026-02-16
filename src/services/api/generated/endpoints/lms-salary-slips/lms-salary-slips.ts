@@ -5,7 +5,11 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryFunction,
@@ -15,596 +19,495 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query';
 
-import type { CreateSalarySlipDto, UpdateSalarySlipDto } from "../../models";
+import type {
+  CreateSalarySlipDto,
+  UpdateSalarySlipDto
+} from '../../models';
 
-import { customFetch } from "../../custom-fetch";
+import { customFetch } from '../../custom-fetch';
+
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
 
 export type salarySlipControllerCreateV1Response201 = {
-  data: void;
-  status: 201;
+  data: void
+  status: 201
+}
+    
+export type salarySlipControllerCreateV1ResponseSuccess = (salarySlipControllerCreateV1Response201) & {
+  headers: Headers;
 };
+;
 
-export type salarySlipControllerCreateV1ResponseSuccess =
-  salarySlipControllerCreateV1Response201 & {
-    headers: Headers;
-  };
-export type salarySlipControllerCreateV1Response =
-  salarySlipControllerCreateV1ResponseSuccess;
+export type salarySlipControllerCreateV1Response = (salarySlipControllerCreateV1ResponseSuccess)
 
 export const getSalarySlipControllerCreateV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/salary-slips`;
-};
 
-export const salarySlipControllerCreateV1 = async (
-  createSalarySlipDto: CreateSalarySlipDto,
-  options?: RequestInit
-): Promise<salarySlipControllerCreateV1Response> => {
-  return customFetch<salarySlipControllerCreateV1Response>(
-    getSalarySlipControllerCreateV1Url(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(createSalarySlipDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/salary-slips`
+}
+
+export const salarySlipControllerCreateV1 = async (createSalarySlipDto: CreateSalarySlipDto, options?: RequestInit): Promise<salarySlipControllerCreateV1Response> => {
+  
+  return customFetch<salarySlipControllerCreateV1Response>(getSalarySlipControllerCreateV1Url(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createSalarySlipDto,)
+  }
+);}
+
+
+
+
+export const getSalarySlipControllerCreateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salarySlipControllerCreateV1>>, TError,{data: CreateSalarySlipDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof salarySlipControllerCreateV1>>, TError,{data: CreateSalarySlipDto}, TContext> => {
+
+const mutationKey = ['salarySlipControllerCreateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof salarySlipControllerCreateV1>>, {data: CreateSalarySlipDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  salarySlipControllerCreateV1(data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SalarySlipControllerCreateV1MutationResult = NonNullable<Awaited<ReturnType<typeof salarySlipControllerCreateV1>>>
+    export type SalarySlipControllerCreateV1MutationBody = CreateSalarySlipDto
+    export type SalarySlipControllerCreateV1MutationError = unknown
+
+    export const useSalarySlipControllerCreateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salarySlipControllerCreateV1>>, TError,{data: CreateSalarySlipDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof salarySlipControllerCreateV1>>,
+        TError,
+        {data: CreateSalarySlipDto},
+        TContext
+      > => {
+      return useMutation(getSalarySlipControllerCreateV1MutationOptions(options));
     }
-  );
+    export type salarySlipControllerFindAllV1Response200 = {
+  data: void
+  status: 200
+}
+    
+export type salarySlipControllerFindAllV1ResponseSuccess = (salarySlipControllerFindAllV1Response200) & {
+  headers: Headers;
 };
+;
 
-export const getSalarySlipControllerCreateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salarySlipControllerCreateV1>>,
-    TError,
-    { data: CreateSalarySlipDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof salarySlipControllerCreateV1>>,
-  TError,
-  { data: CreateSalarySlipDto },
-  TContext
-> => {
-  const mutationKey = ["salarySlipControllerCreateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof salarySlipControllerCreateV1>>,
-    { data: CreateSalarySlipDto }
-  > = (props) => {
-    const { data } = props ?? {};
-
-    return salarySlipControllerCreateV1(data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type SalarySlipControllerCreateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof salarySlipControllerCreateV1>>
->;
-export type SalarySlipControllerCreateV1MutationBody = CreateSalarySlipDto;
-export type SalarySlipControllerCreateV1MutationError = unknown;
-
-export const useSalarySlipControllerCreateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salarySlipControllerCreateV1>>,
-    TError,
-    { data: CreateSalarySlipDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof salarySlipControllerCreateV1>>,
-  TError,
-  { data: CreateSalarySlipDto },
-  TContext
-> => {
-  return useMutation(getSalarySlipControllerCreateV1MutationOptions(options));
-};
-export type salarySlipControllerFindAllV1Response200 = {
-  data: void;
-  status: 200;
-};
-
-export type salarySlipControllerFindAllV1ResponseSuccess =
-  salarySlipControllerFindAllV1Response200 & {
-    headers: Headers;
-  };
-export type salarySlipControllerFindAllV1Response =
-  salarySlipControllerFindAllV1ResponseSuccess;
+export type salarySlipControllerFindAllV1Response = (salarySlipControllerFindAllV1ResponseSuccess)
 
 export const getSalarySlipControllerFindAllV1Url = () => {
-  return `http://localhost:3000/api/v1/lms/salary-slips`;
-};
 
-export const salarySlipControllerFindAllV1 = async (
-  options?: RequestInit
-): Promise<salarySlipControllerFindAllV1Response> => {
-  return customFetch<salarySlipControllerFindAllV1Response>(
-    getSalarySlipControllerFindAllV1Url(),
-    {
-      ...options,
-      method: "GET",
-    }
-  );
-};
+
+  
+
+  return `http://localhost:3000/api/v1/lms/salary-slips`
+}
+
+export const salarySlipControllerFindAllV1 = async ( options?: RequestInit): Promise<salarySlipControllerFindAllV1Response> => {
+  
+  return customFetch<salarySlipControllerFindAllV1Response>(getSalarySlipControllerFindAllV1Url(),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
 
 export const getSalarySlipControllerFindAllV1InfiniteQueryKey = () => {
-  return ["infinite", `http://localhost:3000/api/v1/lms/salary-slips`] as const;
-};
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/salary-slips`
+    ] as const;
+    }
 
 export const getSalarySlipControllerFindAllV1QueryKey = () => {
-  return [`http://localhost:3000/api/v1/lms/salary-slips`] as const;
-};
+    return [
+    `http://localhost:3000/api/v1/lms/salary-slips`
+    ] as const;
+    }
 
-export const getSalarySlipControllerFindAllV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
+    
+export const getSalarySlipControllerFindAllV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getSalarySlipControllerFindAllV1InfiniteQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>
-  > = ({ signal }) => salarySlipControllerFindAllV1({ signal });
+  const queryKey =  queryOptions?.queryKey ?? getSalarySlipControllerFindAllV1InfiniteQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type SalarySlipControllerFindAllV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>
->;
-export type SalarySlipControllerFindAllV1InfiniteQueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>> = ({ signal }) => salarySlipControllerFindAllV1({ signal, ...requestOptions });
 
-export function useSalarySlipControllerFindAllV1Infinite<
-  TData = Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions =
-    getSalarySlipControllerFindAllV1InfiniteQueryOptions(options);
+      
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type SalarySlipControllerFindAllV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>>
+export type SalarySlipControllerFindAllV1InfiniteQueryError = unknown
+
+
+
+export function useSalarySlipControllerFindAllV1Infinite<TData = Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getSalarySlipControllerFindAllV1InfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getSalarySlipControllerFindAllV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getSalarySlipControllerFindAllV1QueryKey();
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>
-  > = ({ signal }) => salarySlipControllerFindAllV1({ signal });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+export const getSalarySlipControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
 
-export type SalarySlipControllerFindAllV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>
->;
-export type SalarySlipControllerFindAllV1QueryError = unknown;
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export function useSalarySlipControllerFindAllV1<
-  TData = Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>,
-  TError = unknown,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>,
-    TError,
-    TData
-  >;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getSalarySlipControllerFindAllV1QueryOptions(options);
+  const queryKey =  queryOptions?.queryKey ?? getSalarySlipControllerFindAllV1QueryKey();
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>> = ({ signal }) => salarySlipControllerFindAllV1({ signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type SalarySlipControllerFindAllV1QueryResult = NonNullable<Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>>
+export type SalarySlipControllerFindAllV1QueryError = unknown
+
+
+
+export function useSalarySlipControllerFindAllV1<TData = Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>, TError = unknown>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindAllV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getSalarySlipControllerFindAllV1QueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type salarySlipControllerFindOneV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type salarySlipControllerFindOneV1ResponseSuccess = (salarySlipControllerFindOneV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type salarySlipControllerFindOneV1ResponseSuccess =
-  salarySlipControllerFindOneV1Response200 & {
-    headers: Headers;
-  };
-export type salarySlipControllerFindOneV1Response =
-  salarySlipControllerFindOneV1ResponseSuccess;
+export type salarySlipControllerFindOneV1Response = (salarySlipControllerFindOneV1ResponseSuccess)
 
-export const getSalarySlipControllerFindOneV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/salary-slips/${id}`;
-};
+export const getSalarySlipControllerFindOneV1Url = (id: number,) => {
 
-export const salarySlipControllerFindOneV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<salarySlipControllerFindOneV1Response> => {
-  return customFetch<salarySlipControllerFindOneV1Response>(
-    getSalarySlipControllerFindOneV1Url(id),
-    {
-      ...options,
-      method: "GET",
+
+  
+
+  return `http://localhost:3000/api/v1/lms/salary-slips/${id}`
+}
+
+export const salarySlipControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<salarySlipControllerFindOneV1Response> => {
+  
+  return customFetch<salarySlipControllerFindOneV1Response>(getSalarySlipControllerFindOneV1Url(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getSalarySlipControllerFindOneV1InfiniteQueryKey = (id: number,) => {
+    return [
+    'infinite', `http://localhost:3000/api/v1/lms/salary-slips/${id}`
+    ] as const;
     }
-  );
-};
 
-export const getSalarySlipControllerFindOneV1InfiniteQueryKey = (
-  id: number
+export const getSalarySlipControllerFindOneV1QueryKey = (id: number,) => {
+    return [
+    `http://localhost:3000/api/v1/lms/salary-slips/${id}`
+    ] as const;
+    }
+
+    
+export const getSalarySlipControllerFindOneV1InfiniteQueryOptions = <TData = Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  return [
-    "infinite",
-    `http://localhost:3000/api/v1/lms/salary-slips/${id}`,
-  ] as const;
-};
 
-export const getSalarySlipControllerFindOneV1QueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/lms/salary-slips/${id}`] as const;
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export const getSalarySlipControllerFindOneV1InfiniteQueryOptions = <
-  TData = Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-) => {
-  const { query: queryOptions } = options ?? {};
+  const queryKey =  queryOptions?.queryKey ?? getSalarySlipControllerFindOneV1InfiniteQueryKey(id);
 
-  const queryKey =
-    queryOptions?.queryKey ??
-    getSalarySlipControllerFindOneV1InfiniteQueryKey(id);
+  
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>
-  > = ({ signal }) => salarySlipControllerFindOneV1(id, { signal });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>> = ({ signal }) => salarySlipControllerFindOneV1(id, { signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseInfiniteQueryOptions<
-    Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+      
 
-export type SalarySlipControllerFindOneV1InfiniteQueryResult = NonNullable<
-  Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>
->;
-export type SalarySlipControllerFindOneV1InfiniteQueryError = unknown;
+      
 
-export function useSalarySlipControllerFindOneV1Infinite<
-  TData = Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseInfiniteQueryOptions<
-      Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getSalarySlipControllerFindOneV1InfiniteQueryOptions(
-    id,
-    options
-  );
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
 
-  const query = useInfiniteQuery(queryOptions) as UseInfiniteQueryResult<
-    TData,
-    TError
-  > & { queryKey: QueryKey };
+export type SalarySlipControllerFindOneV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>>
+export type SalarySlipControllerFindOneV1InfiniteQueryError = unknown
+
+
+
+export function useSalarySlipControllerFindOneV1Infinite<TData = Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getSalarySlipControllerFindOneV1InfiniteQueryOptions(id,options)
+
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getSalarySlipControllerFindOneV1QueryOptions = <
-  TData = Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
+
+
+
+export const getSalarySlipControllerFindOneV1QueryOptions = <TData = Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>, TError = unknown>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
 ) => {
-  const { query: queryOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getSalarySlipControllerFindOneV1QueryKey(id);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>
-  > = ({ signal }) => salarySlipControllerFindOneV1(id, { signal });
+  const queryKey =  queryOptions?.queryKey ?? getSalarySlipControllerFindOneV1QueryKey(id);
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type SalarySlipControllerFindOneV1QueryResult = NonNullable<
-  Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>
->;
-export type SalarySlipControllerFindOneV1QueryError = unknown;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>> = ({ signal }) => salarySlipControllerFindOneV1(id, { signal, ...requestOptions });
 
-export function useSalarySlipControllerFindOneV1<
-  TData = Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>,
-  TError = unknown,
->(
-  id: number,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>,
-      TError,
-      TData
-    >;
-  }
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getSalarySlipControllerFindOneV1QueryOptions(
-    id,
-    options
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type SalarySlipControllerFindOneV1QueryResult = NonNullable<Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>>
+export type SalarySlipControllerFindOneV1QueryError = unknown
+
+
+
+export function useSalarySlipControllerFindOneV1<TData = Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>, TError = unknown>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof salarySlipControllerFindOneV1>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+  
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getSalarySlipControllerFindOneV1QueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+
+
 
 export type salarySlipControllerUpdateV1Response200 = {
-  data: void;
-  status: 200;
+  data: void
+  status: 200
+}
+    
+export type salarySlipControllerUpdateV1ResponseSuccess = (salarySlipControllerUpdateV1Response200) & {
+  headers: Headers;
 };
+;
 
-export type salarySlipControllerUpdateV1ResponseSuccess =
-  salarySlipControllerUpdateV1Response200 & {
-    headers: Headers;
-  };
-export type salarySlipControllerUpdateV1Response =
-  salarySlipControllerUpdateV1ResponseSuccess;
+export type salarySlipControllerUpdateV1Response = (salarySlipControllerUpdateV1ResponseSuccess)
 
-export const getSalarySlipControllerUpdateV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/salary-slips/${id}`;
-};
+export const getSalarySlipControllerUpdateV1Url = (id: number,) => {
 
-export const salarySlipControllerUpdateV1 = async (
-  id: number,
-  updateSalarySlipDto: UpdateSalarySlipDto,
-  options?: RequestInit
-): Promise<salarySlipControllerUpdateV1Response> => {
-  return customFetch<salarySlipControllerUpdateV1Response>(
-    getSalarySlipControllerUpdateV1Url(id),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(updateSalarySlipDto),
+
+  
+
+  return `http://localhost:3000/api/v1/lms/salary-slips/${id}`
+}
+
+export const salarySlipControllerUpdateV1 = async (id: number,
+    updateSalarySlipDto: UpdateSalarySlipDto, options?: RequestInit): Promise<salarySlipControllerUpdateV1Response> => {
+  
+  return customFetch<salarySlipControllerUpdateV1Response>(getSalarySlipControllerUpdateV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateSalarySlipDto,)
+  }
+);}
+
+
+
+
+export const getSalarySlipControllerUpdateV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>, TError,{id: number;data: UpdateSalarySlipDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>, TError,{id: number;data: UpdateSalarySlipDto}, TContext> => {
+
+const mutationKey = ['salarySlipControllerUpdateV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>, {id: number;data: UpdateSalarySlipDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  salarySlipControllerUpdateV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SalarySlipControllerUpdateV1MutationResult = NonNullable<Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>>
+    export type SalarySlipControllerUpdateV1MutationBody = UpdateSalarySlipDto
+    export type SalarySlipControllerUpdateV1MutationError = unknown
+
+    export const useSalarySlipControllerUpdateV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>, TError,{id: number;data: UpdateSalarySlipDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>,
+        TError,
+        {id: number;data: UpdateSalarySlipDto},
+        TContext
+      > => {
+      return useMutation(getSalarySlipControllerUpdateV1MutationOptions(options));
     }
-  );
+    export type salarySlipControllerRemoveV1Response204 = {
+  data: void
+  status: 204
+}
+    
+export type salarySlipControllerRemoveV1ResponseSuccess = (salarySlipControllerRemoveV1Response204) & {
+  headers: Headers;
 };
+;
 
-export const getSalarySlipControllerUpdateV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateSalarySlipDto },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateSalarySlipDto },
-  TContext
-> => {
-  const mutationKey = ["salarySlipControllerUpdateV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
+export type salarySlipControllerRemoveV1Response = (salarySlipControllerRemoveV1ResponseSuccess)
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>,
-    { id: number; data: UpdateSalarySlipDto }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getSalarySlipControllerRemoveV1Url = (id: number,) => {
 
-    return salarySlipControllerUpdateV1(id, data);
-  };
 
-  return { mutationFn, ...mutationOptions };
-};
+  
 
-export type SalarySlipControllerUpdateV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>
->;
-export type SalarySlipControllerUpdateV1MutationBody = UpdateSalarySlipDto;
-export type SalarySlipControllerUpdateV1MutationError = unknown;
+  return `http://localhost:3000/api/v1/lms/salary-slips/${id}`
+}
 
-export const useSalarySlipControllerUpdateV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>,
-    TError,
-    { id: number; data: UpdateSalarySlipDto },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof salarySlipControllerUpdateV1>>,
-  TError,
-  { id: number; data: UpdateSalarySlipDto },
-  TContext
-> => {
-  return useMutation(getSalarySlipControllerUpdateV1MutationOptions(options));
-};
-export type salarySlipControllerRemoveV1Response204 = {
-  data: void;
-  status: 204;
-};
+export const salarySlipControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<salarySlipControllerRemoveV1Response> => {
+  
+  return customFetch<salarySlipControllerRemoveV1Response>(getSalarySlipControllerRemoveV1Url(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+);}
 
-export type salarySlipControllerRemoveV1ResponseSuccess =
-  salarySlipControllerRemoveV1Response204 & {
-    headers: Headers;
-  };
-export type salarySlipControllerRemoveV1Response =
-  salarySlipControllerRemoveV1ResponseSuccess;
 
-export const getSalarySlipControllerRemoveV1Url = (id: number) => {
-  return `http://localhost:3000/api/v1/lms/salary-slips/${id}`;
-};
 
-export const salarySlipControllerRemoveV1 = async (
-  id: number,
-  options?: RequestInit
-): Promise<salarySlipControllerRemoveV1Response> => {
-  return customFetch<salarySlipControllerRemoveV1Response>(
-    getSalarySlipControllerRemoveV1Url(id),
-    {
-      ...options,
-      method: "DELETE",
+
+export const getSalarySlipControllerRemoveV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['salarySlipControllerRemoveV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  salarySlipControllerRemoveV1(id,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SalarySlipControllerRemoveV1MutationResult = NonNullable<Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>>
+    
+    export type SalarySlipControllerRemoveV1MutationError = unknown
+
+    export const useSalarySlipControllerRemoveV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getSalarySlipControllerRemoveV1MutationOptions(options));
     }
-  );
-};
-
-export const getSalarySlipControllerRemoveV1MutationOptions = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const mutationKey = ["salarySlipControllerRemoveV1"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
-
-    return salarySlipControllerRemoveV1(id);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type SalarySlipControllerRemoveV1MutationResult = NonNullable<
-  Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>
->;
-
-export type SalarySlipControllerRemoveV1MutationError = unknown;
-
-export const useSalarySlipControllerRemoveV1 = <
-  TError = unknown,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof salarySlipControllerRemoveV1>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  return useMutation(getSalarySlipControllerRemoveV1MutationOptions(options));
-};
+    

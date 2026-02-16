@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { FileDto } from "./fileDto";
+import type { FileDto } from './fileDto';
 
 export interface AuthUpdateDto {
   photo?: FileDto;

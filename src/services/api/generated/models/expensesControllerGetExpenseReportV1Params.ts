@@ -7,20 +7,20 @@
  */
 
 export type ExpensesControllerGetExpenseReportV1Params = {
-  /**
-   * Report start date
-   */
-  startDate?: string;
-  /**
-   * Report end date
-   */
-  endDate?: string;
-  /**
-   * Filter by branch (omit for all branches)
-   */
-  branchId?: string;
-  /**
-   * Filter by expense category
-   */
-  category?: string;
+/**
+ * Report start date
+ */
+startDate?: string;
+/**
+ * Report end date
+ */
+endDate?: string;
+/**
+ * Filter by branch (omit for all branches)
+ */
+branchId?: string;
+/**
+ * Filter by expense category
+ */
+category?: string;
 };

@@ -5,8 +5,8 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UploadStudentDocumentDtoFileId } from "./uploadStudentDocumentDtoFileId";
-import type { UploadStudentDocumentDtoRemarks } from "./uploadStudentDocumentDtoRemarks";
+import type { UploadStudentDocumentDtoFileId } from './uploadStudentDocumentDtoFileId';
+import type { UploadStudentDocumentDtoRemarks } from './uploadStudentDocumentDtoRemarks';
 
 export interface UploadStudentDocumentDto {
   documentType: string;

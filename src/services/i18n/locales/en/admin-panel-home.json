@@ -1,4 +1,74 @@
 {
-  "title": "Admin Panel",
-  "description": "Welcome to the admin panel."
+  "title": "Dashboard",
+  "description": "Welcome to the admin panel.",
+  "welcome": "Welcome back",
+  "overview": "Here's an overview of your institution today.",
+
+  "branchFilter": {
+    "label": "Branch",
+    "all": "All Branches"
+  },
+
+  "metrics": {
+    "totalStudents": "Total Students",
+    "totalStaff": "Total Staff",
+    "attendanceToday": "Attendance Today",
+    "feeCollection": "Fee Collection",
+    "pendingFees": "Pending Fees",
+    "upcomingExams": "Upcoming Exams",
+    "recentEnquiries": "Recent Enquiries",
+    "lowAttendanceAlerts": "Low Attendance Alerts",
+    "vsLastMonth": "vs last month",
+    "thisMonth": "This month",
+    "viewAll": "View All",
+    "viewStudents": "View Students",
+    "viewStaff": "View Staff",
+    "viewAttendance": "View Attendance",
+    "viewFees": "View Fees",
+    "viewExams": "View Exams",
+    "viewEnquiries": "View Enquiries",
+    "viewAlerts": "View Alerts",
+    "collected": "Collected",
+    "ofTarget": "of {{target}} target"
+  },
+
+  "charts": {
+    "enrollmentTrend": "Enrollment Trend",
+    "feeCollection": "Fee Collection",
+    "attendanceBreakdown": "Attendance Breakdown",
+    "classDistribution": "Class Distribution",
+    "present": "Present",
+    "absent": "Absent",
+    "leave": "Leave",
+    "late": "Late",
+    "collectedLabel": "Collected",
+    "pendingLabel": "Pending"
+  },
+
+  "recentActivity": {
+    "title": "Recent Activity",
+    "viewAll": "View All",
+    "empty": "No recent activity"
+  },
+
+  "quickActions": {
+    "title": "Quick Actions",
+    "addStudent": "Add Student",
+    "addStaff": "Add Staff",
+    "markAttendance": "Mark Attendance",
+    "collectFees": "Collect Fees",
+    "createNotice": "Create Notice",
+    "viewReports": "View Reports"
+  },
+
+  "notifications": {
+    "title": "Pending Approvals",
+    "viewAll": "View All",
+    "empty": "No pending approvals"
+  },
+
+  "error": {
+    "title": "Failed to load dashboard",
+    "retry": "Retry"
+  }
 }

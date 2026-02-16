@@ -5,9 +5,9 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { UpdateSalarySlipDtoPaidAt } from "./updateSalarySlipDtoPaidAt";
-import type { UpdateSalarySlipDtoRemarks } from "./updateSalarySlipDtoRemarks";
-import type { UpdateSalarySlipDtoStatus } from "./updateSalarySlipDtoStatus";
+import type { UpdateSalarySlipDtoPaidAt } from './updateSalarySlipDtoPaidAt';
+import type { UpdateSalarySlipDtoRemarks } from './updateSalarySlipDtoRemarks';
+import type { UpdateSalarySlipDtoStatus } from './updateSalarySlipDtoStatus';
 
 export interface UpdateSalarySlipDto {
   tenantId?: string;

@@ -5,7 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { CreateGuardianDtoEmail } from "./createGuardianDtoEmail";
+import type { CreateGuardianDtoEmail } from './createGuardianDtoEmail';
 
 export interface CreateGuardianDto {
   name: string;

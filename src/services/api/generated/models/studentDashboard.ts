@@ -5,10 +5,10 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
-import type { DashboardAttendanceSummary } from "./dashboardAttendanceSummary";
-import type { DashboardExamSummary } from "./dashboardExamSummary";
-import type { DashboardFeeSummary } from "./dashboardFeeSummary";
-import type { StudentDashboardTenant } from "./studentDashboardTenant";
+import type { DashboardAttendanceSummary } from './dashboardAttendanceSummary';
+import type { DashboardExamSummary } from './dashboardExamSummary';
+import type { DashboardFeeSummary } from './dashboardFeeSummary';
+import type { StudentDashboardTenant } from './studentDashboardTenant';
 
 export interface StudentDashboard {
   tenant: StudentDashboardTenant;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from "@tanstack/react-query";
 import { createQueryKeys } from "@/services/react-query/query-key-factory";
 import { studentRegistrationControllerFindAllV1 } from "@/services/api/generated/endpoints/student-registration/student-registration";

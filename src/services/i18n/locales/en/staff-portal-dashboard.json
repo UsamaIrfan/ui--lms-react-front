@@ -1,0 +1,73 @@
+{
+  "title": "Staff Dashboard",
+  "welcome": {
+    "greeting": "Welcome back",
+    "staffId": "ID",
+    "role": "Role",
+    "department": "Department",
+    "branch": "Branch",
+    "branches": "Branches"
+  },
+  "quickActions": {
+    "title": "Quick Actions",
+    "markAttendance": "Mark Attendance",
+    "applyLeave": "Apply Leave",
+    "viewTimetable": "View Timetable",
+    "uploadMaterial": "Upload Material",
+    "enterMarks": "Enter Marks",
+    "viewSchedule": "View Schedule"
+  },
+  "schedule": {
+    "title": "Today's Schedule",
+    "noClasses": "No classes scheduled for today",
+    "current": "NOW",
+    "next": "NEXT",
+    "room": "Room",
+    "markAttendance": "Mark Attendance"
+  },
+  "attendance": {
+    "title": "Attendance Summary",
+    "present": "Present",
+    "absent": "Absent",
+    "late": "Late",
+    "total": "Total Days",
+    "checkIn": "Check In",
+    "checkOut": "Check Out",
+    "leaveBalance": "Leave Balance",
+    "remaining": "left",
+    "notCheckedIn": "Not checked in",
+    "notCheckedOut": "Not checked out"
+  },
+  "classes": {
+    "title": "Assigned Classes",
+    "noClasses": "No classes assigned",
+    "students": "students"
+  },
+  "tasks": {
+    "title": "Pending Tasks",
+    "noTasks": "All caught up! No pending tasks.",
+    "viewAll": "View All"
+  },
+  "salary": {
+    "title": "Latest Salary Slip",
+    "noSlip": "No salary slip available",
+    "month": "Month",
+    "netPay": "Net Pay",
+    "earnings": "Earnings",
+    "deductions": "Deductions",
+    "status": "Status",
+    "download": "Download PDF",
+    "paid": "Paid",
+    "pending": "Pending",
+    "draft": "Draft"
+  },
+  "notices": {
+    "title": "Notices",
+    "noNotices": "No notices at the moment",
+    "viewAll": "View All"
+  },
+  "error": {
+    "title": "Unable to load dashboard. Please try again.",
+    "retry": "Retry"
+  }
+}

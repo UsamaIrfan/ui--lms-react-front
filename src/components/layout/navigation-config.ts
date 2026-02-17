@@ -37,7 +37,7 @@ export type NavItem = {
 
 export const navigationItems: NavItem[] = [
   {
-    id: "dashboard",
+    id: "admin-dashboard",
     labelKey: "navigation.dashboard",
     href: "/admin-panel",
     icon: RiDashboardLine,
@@ -46,9 +46,21 @@ export const navigationItems: NavItem[] = [
       RoleEnum.TEACHER,
       RoleEnum.STAFF,
       RoleEnum.ACCOUNTANT,
-      RoleEnum.STUDENT,
-      RoleEnum.PARENT,
     ],
+  },
+  {
+    id: "student-dashboard",
+    labelKey: "navigation.dashboard",
+    href: "/student-portal",
+    icon: RiDashboardLine,
+    roles: [RoleEnum.STUDENT, RoleEnum.PARENT],
+  },
+  {
+    id: "staff-dashboard",
+    labelKey: "navigation.staffDashboard",
+    href: "/staff-portal",
+    icon: RiDashboardLine,
+    roles: [RoleEnum.TEACHER, RoleEnum.STAFF],
   },
   {
     id: "students",
@@ -214,17 +226,18 @@ export const navigationItems: NavItem[] = [
     ],
   },
   {
-    id: "notices",
+    id: "admin-notices",
     labelKey: "navigation.notices",
     href: "/admin-panel/notices",
     icon: RiNotification3Line,
-    roles: [
-      RoleEnum.ADMIN,
-      RoleEnum.TEACHER,
-      RoleEnum.STAFF,
-      RoleEnum.STUDENT,
-      RoleEnum.PARENT,
-    ],
+    roles: [RoleEnum.ADMIN, RoleEnum.TEACHER, RoleEnum.STAFF],
+  },
+  {
+    id: "student-notices",
+    labelKey: "navigation.notices",
+    href: "/student-portal/notices",
+    icon: RiNotification3Line,
+    roles: [RoleEnum.STUDENT, RoleEnum.PARENT],
   },
   {
     id: "settings",

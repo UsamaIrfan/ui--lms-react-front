@@ -1,0 +1,82 @@
+{
+  "title": "Student Dashboard",
+  "welcome": {
+    "greeting": "Welcome back",
+    "studentId": "ID",
+    "class": "Class",
+    "section": "Section",
+    "academicYear": "Year"
+  },
+  "attendance": {
+    "title": "Attendance",
+    "present": "Present",
+    "absent": "Absent",
+    "late": "Late",
+    "total": "Total Days",
+    "monthlyTrend": "Monthly Trend"
+  },
+  "fees": {
+    "title": "Fee Status",
+    "totalFee": "Total Fee",
+    "paid": "Paid",
+    "pending": "Pending",
+    "nextDue": "Next Due",
+    "recentPayments": "Recent Payments",
+    "payNow": "Pay Now",
+    "viewAll": "View All"
+  },
+  "exams": {
+    "title": "Upcoming Exams",
+    "noExams": "No upcoming exams",
+    "daysLeft": "days left",
+    "day": "day",
+    "days": "days",
+    "tomorrow": "Tomorrow",
+    "today": "Today"
+  },
+  "results": {
+    "title": "Recent Results",
+    "noResults": "No results available yet",
+    "overall": "Overall",
+    "grade": "Grade",
+    "rank": "Rank",
+    "subject": "Subject",
+    "marks": "Marks",
+    "viewAll": "View All"
+  },
+  "materials": {
+    "title": "Course Materials",
+    "noMaterials": "No materials uploaded yet",
+    "viewAll": "View All",
+    "download": "Download"
+  },
+  "assignments": {
+    "title": "Assignments",
+    "noAssignments": "No assignments right now",
+    "viewAll": "View All",
+    "submit": "Submit",
+    "submitted": "Submitted",
+    "graded": "Graded",
+    "pending": "Pending",
+    "dueIn": "Due in",
+    "overdue": "Overdue",
+    "days": "days",
+    "day": "day"
+  },
+  "notices": {
+    "title": "Notices",
+    "noNotices": "No notices at the moment",
+    "viewAll": "View All"
+  },
+  "timetable": {
+    "title": "Today's Timetable",
+    "noClasses": "No classes scheduled for today",
+    "current": "NOW",
+    "next": "NEXT",
+    "room": "Room"
+  },
+  "error": {
+    "title": "Unable to load dashboard. Please try again.",
+    "retry": "Retry"
+  }
+}

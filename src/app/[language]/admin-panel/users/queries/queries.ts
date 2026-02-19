@@ -1,7 +1,7 @@
 import {
   usersControllerFindAllV1,
   getUsersControllerFindAllV1InfiniteQueryKey,
-} from "@/services/api/generated/endpoints/users/users";
+} from "@/services/api/generated/users/users";
 import type { UsersControllerFindAllV1Params } from "@/services/api/generated/models";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { UserFilterType, UserSortType } from "../user-filter-types";

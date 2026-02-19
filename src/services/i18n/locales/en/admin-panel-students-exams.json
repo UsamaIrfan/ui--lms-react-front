@@ -1,0 +1,112 @@
+{
+  "title": "Exams",
+  "tabs": {
+    "schedules": "Exam Schedules",
+    "results": "Results",
+    "gradingScales": "Grading Scales",
+    "analytics": "Analytics"
+  },
+  "schedules": {
+    "title": "Exam Schedules",
+    "actions": {
+      "create": "Create Exam"
+    },
+    "table": {
+      "columns": {
+        "name": "Exam Name",
+        "type": "Type",
+        "class": "Class",
+        "subject": "Subject",
+        "date": "Date",
+        "totalMarks": "Total Marks",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "empty": "No exams found"
+    },
+    "types": {
+      "class_test": "Class Test",
+      "midterm": "Midterm",
+      "final": "Final",
+      "quiz": "Quiz",
+      "practical": "Practical",
+      "assignment": "Assignment"
+    },
+    "statuses": {
+      "draft": "Draft",
+      "scheduled": "Scheduled",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "results_published": "Results Published"
+    }
+  },
+  "marks": {
+    "title": "Marks Entry",
+    "actions": {
+      "enter": "Enter Marks",
+      "bulkImport": "Bulk Import"
+    },
+    "form": {
+      "studentId": "Student",
+      "marksObtained": "Marks Obtained",
+      "remarks": "Remarks"
+    }
+  },
+  "results": {
+    "title": "Results",
+    "actions": {
+      "publish": "Publish Results",
+      "reportCard": "Report Card"
+    },
+    "table": {
+      "columns": {
+        "studentName": "Student",
+        "totalMarks": "Total Marks",
+        "obtainedMarks": "Obtained",
+        "percentage": "Percentage",
+        "grade": "Grade",
+        "rank": "Rank",
+        "actions": "Actions"
+      },
+      "empty": "No results found"
+    }
+  },
+  "gradingScales": {
+    "title": "Grading Scales",
+    "actions": {
+      "create": "Create Grading Scale"
+    },
+    "form": {
+      "name": "Scale Name",
+      "grades": "Grades",
+      "minPercentage": "Min %",
+      "maxPercentage": "Max %",
+      "grade": "Grade",
+      "gradePoint": "Grade Point",
+      "description": "Description"
+    }
+  },
+  "analytics": {
+    "title": "Exam Analytics",
+    "examAnalytics": "Exam Analytics",
+    "subjectAnalytics": "Subject Analytics",
+    "metrics": {
+      "average": "Average",
+      "highest": "Highest",
+      "lowest": "Lowest",
+      "passRate": "Pass Rate"
+    }
+  },
+  "notifications": {
+    "created": "Exam created successfully",
+    "updated": "Exam updated successfully",
+    "deleted": "Exam deleted successfully",
+    "marksEntered": "Marks entered successfully",
+    "resultsPublished": "Results published successfully",
+    "error": "An error occurred"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this exam?",
+    "deleteTitle": "Confirm Delete"
+  }
+}

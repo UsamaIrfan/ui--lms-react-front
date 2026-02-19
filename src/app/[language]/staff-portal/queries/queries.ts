@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from "@tanstack/react-query";
 import { createQueryKeys } from "@/services/react-query/query-key-factory";
-import { portalsControllerGetStaffDashboardV1 } from "@/services/api/generated/endpoints/portals/portals";
-import { staffAttendanceCheckControllerGetReportsV1 } from "@/services/api/generated/endpoints/staff-attendance/staff-attendance";
-import { staffLeaveControllerGetBalanceV1 } from "@/services/api/generated/endpoints/staff-leaves/staff-leaves";
-import { payrollControllerFindAllSlipsV1 } from "@/services/api/generated/endpoints/payroll-processing-slips/payroll-processing-slips";
-import { timetableSlotControllerFindAllV1 } from "@/services/api/generated/endpoints/lms-timetable-slots/lms-timetable-slots";
-import { noticesControllerGetMyNoticesV1 } from "@/services/api/generated/endpoints/notices/notices";
-import { staffManagementControllerGetMyBranchesV1 } from "@/services/api/generated/endpoints/staff-management/staff-management";
+import { portalsControllerGetStaffDashboardV1 } from "@/services/api/generated/portals/portals";
+import { staffAttendanceCheckControllerGetReportsV1 } from "@/services/api/generated/staff-attendance/staff-attendance";
+import { staffLeaveControllerGetBalanceV1 } from "@/services/api/generated/staff-leaves/staff-leaves";
+import { payrollControllerFindAllSlipsV1 } from "@/services/api/generated/payroll-processing-slips/payroll-processing-slips";
+import { timetableSlotControllerFindAllV1 } from "@/services/api/generated/lms-timetable-slots/lms-timetable-slots";
+import { noticesControllerGetMyNoticesV1 } from "@/services/api/generated/notices/notices";
+import { staffManagementControllerGetMyBranchesV1 } from "@/services/api/generated/staff-management/staff-management";
 import type { StaffDashboardData } from "../types";
 import { demoStaffDashboard } from "./demo-data";
 

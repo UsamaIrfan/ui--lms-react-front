@@ -30,7 +30,7 @@ import { User } from "@/services/api/types/user";
 import Link from "@/components/link";
 import useAuth from "@/services/auth/use-auth";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
-import { usersControllerRemoveV1 } from "@/services/api/generated/endpoints/users/users";
+import { usersControllerRemoveV1 } from "@/services/api/generated/users/users";
 import removeDuplicatesFromArrayObjects from "@/services/helpers/remove-duplicates-from-array-of-objects";
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import UserFilter from "./user-filter";

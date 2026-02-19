@@ -1,0 +1,46 @@
+{
+  "title": "Subjects",
+  "table": {
+    "columns": {
+      "name": "Subject Name",
+      "code": "Code",
+      "department": "Department",
+      "creditHours": "Credit Hours",
+      "description": "Description",
+      "actions": "Actions"
+    },
+    "empty": "No subjects found",
+    "loading": "Loading subjects..."
+  },
+  "actions": {
+    "create": "Add Subject",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search...",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "form": {
+    "name": "Subject Name",
+    "code": "Subject Code",
+    "departmentId": "Department",
+    "creditHours": "Credit Hours",
+    "description": "Description",
+    "selectDepartment": "Select Department",
+    "validation": {
+      "nameRequired": "Subject name is required",
+      "codeRequired": "Subject code is required",
+      "departmentRequired": "Department is required"
+    }
+  },
+  "notifications": {
+    "created": "Subject created successfully",
+    "updated": "Subject updated successfully",
+    "deleted": "Subject deleted successfully",
+    "error": "An error occurred"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this subject?",
+    "deleteTitle": "Confirm Delete"
+  }
+}

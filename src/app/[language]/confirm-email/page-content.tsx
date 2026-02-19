@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { Card, CardContent } from "@/components/ui/card";
-import { authControllerConfirmEmailV1 } from "@/services/api/generated/endpoints/auth/auth";
+import { authControllerConfirmEmailV1 } from "@/services/api/generated/auth/auth";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "@/hooks/use-snackbar";
 import { useTranslation } from "@/services/i18n/client";

@@ -16,7 +16,7 @@ import {
 import FormTextInput from "@/components/form/text-input/form-text-input";
 import Link from "@/components/link";
 
-import { authControllerResetPasswordV1 } from "@/services/api/generated/endpoints/auth/auth";
+import { authControllerResetPasswordV1 } from "@/services/api/generated/auth/auth";
 import { isValidationError } from "@/services/api/generated/custom-fetch";
 import { useSnackbar } from "@/hooks/use-snackbar";
 import { useTranslation } from "@/services/i18n/client";

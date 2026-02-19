@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from "@tanstack/react-query";
 import { createQueryKeys } from "@/services/react-query/query-key-factory";
-import { portalsControllerGetStudentDashboardV1 } from "@/services/api/generated/endpoints/portals/portals";
-import { noticesControllerGetMyNoticesV1 } from "@/services/api/generated/endpoints/notices/notices";
-import { feesControllerGetMyChallansV1 } from "@/services/api/generated/endpoints/fee-management/fee-management";
-import { materialsControllerFindAllV1 } from "@/services/api/generated/endpoints/materials-course-materials/materials-course-materials";
-import { assignmentsControllerFindAllV1 } from "@/services/api/generated/endpoints/materials-assignments/materials-assignments";
-import { examControllerFindAllV1 } from "@/services/api/generated/endpoints/lms-exams/lms-exams";
-import { timetableSlotControllerFindAllV1 } from "@/services/api/generated/endpoints/lms-timetable-slots/lms-timetable-slots";
+import { portalsControllerGetStudentDashboardV1 } from "@/services/api/generated/portals/portals";
+import { noticesControllerGetMyNoticesV1 } from "@/services/api/generated/notices/notices";
+import { feesControllerGetMyChallansV1 } from "@/services/api/generated/fee-management/fee-management";
+import { materialsControllerFindAllV1 } from "@/services/api/generated/materials-course-materials/materials-course-materials";
+import { assignmentsControllerFindAllV1 } from "@/services/api/generated/materials-assignments/materials-assignments";
+import { examControllerFindAllV1 } from "@/services/api/generated/lms-exams/lms-exams";
+import { timetableSlotControllerFindAllV1 } from "@/services/api/generated/lms-timetable-slots/lms-timetable-slots";
 import type { StudentDashboardData } from "../types";
 import { demoStudentDashboard } from "./demo-data";
 

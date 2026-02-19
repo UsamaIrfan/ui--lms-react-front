@@ -12,7 +12,7 @@ import FormTextInput from "@/components/form/text-input/form-text-input";
 import FormAvatarInput from "@/components/form/avatar-input/form-avatar-input";
 import Link from "@/components/link";
 
-import { authControllerUpdateV1 } from "@/services/api/generated/endpoints/auth/auth";
+import { authControllerUpdateV1 } from "@/services/api/generated/auth/auth";
 import { isValidationError } from "@/services/api/generated/custom-fetch";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuth from "@/services/auth/use-auth";

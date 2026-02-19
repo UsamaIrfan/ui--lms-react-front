@@ -19,7 +19,7 @@ import FormTextInput from "@/components/form/text-input/form-text-input";
 import Link from "@/components/link";
 import SocialAuth from "@/services/social-auth/social-auth";
 
-import { authControllerLoginV1 } from "@/services/api/generated/endpoints/auth/auth";
+import { authControllerLoginV1 } from "@/services/api/generated/auth/auth";
 import { isValidationError } from "@/services/api/generated/custom-fetch";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";

@@ -15,13 +15,13 @@ import {
   TokensInfo,
 } from "./auth-context";
 import {
-  authControllerLogoutV1,
-  authControllerMeV1,
-} from "@/services/api/generated/endpoints/auth/auth";
-import {
   getTokensInfo,
   setTokensInfo as setTokensInfoToStorage,
 } from "./auth-tokens-info";
+import {
+  authControllerLogoutV1,
+  authControllerMeV1,
+} from "../api/generated/auth/auth";
 
 function AuthProvider(props: PropsWithChildren) {
   const [isLoaded, setIsLoaded] = useState(false);

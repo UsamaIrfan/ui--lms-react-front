@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from "@tanstack/react-query";
 import { createQueryKeys } from "@/services/react-query/query-key-factory";
-import { studentRegistrationControllerFindAllV1 } from "@/services/api/generated/endpoints/student-registration/student-registration";
-import { staffManagementControllerFindAllV1 } from "@/services/api/generated/endpoints/staff-management/staff-management";
-import { attendanceControllerAlertsV1 } from "@/services/api/generated/endpoints/attendance/attendance";
-import { feesControllerGetCollectionReportV1 } from "@/services/api/generated/endpoints/fee-management/fee-management";
-import { feesControllerGetPendingReportV1 } from "@/services/api/generated/endpoints/fee-management/fee-management";
-import { examControllerFindAllV1 } from "@/services/api/generated/endpoints/lms-exams/lms-exams";
-import { admissionEnquiryControllerFindAllV1 } from "@/services/api/generated/endpoints/lms-admission-enquiries/lms-admission-enquiries";
-import { noticesControllerFindAllV1 } from "@/services/api/generated/endpoints/notices/notices";
-import { gradeClassControllerFindAllV1 } from "@/services/api/generated/endpoints/lms-grade-classes/lms-grade-classes";
-import { staffLeaveControllerFindAllV1 } from "@/services/api/generated/endpoints/staff-leaves/staff-leaves";
+import { studentRegistrationControllerFindAllV1 } from "@/services/api/generated/student-registration/student-registration";
+import { staffManagementControllerFindAllV1 } from "@/services/api/generated/staff-management/staff-management";
+import { attendanceControllerAlertsV1 } from "@/services/api/generated/attendance/attendance";
+import { feesControllerGetCollectionReportV1 } from "@/services/api/generated/fee-management/fee-management";
+import { feesControllerGetPendingReportV1 } from "@/services/api/generated/fee-management/fee-management";
+import { examControllerFindAllV1 } from "@/services/api/generated/lms-exams/lms-exams";
+import { admissionEnquiryControllerFindAllV1 } from "@/services/api/generated/lms-admission-enquiries/lms-admission-enquiries";
+import { noticesControllerFindAllV1 } from "@/services/api/generated/notices/notices";
+import { gradeClassControllerFindAllV1 } from "@/services/api/generated/lms-grade-classes/lms-grade-classes";
+import { staffLeaveControllerFindAllV1 } from "@/services/api/generated/staff-leaves/staff-leaves";
 import type { AdminDashboardData } from "../types";
 import { demoDashboardData } from "./demo-data";
 

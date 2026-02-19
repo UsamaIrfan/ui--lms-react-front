@@ -12,7 +12,7 @@ import FormAvatarInput from "@/components/form/avatar-input/form-avatar-input";
 import { FileEntity } from "@/services/api/types/file-entity";
 import useLeavePage from "@/services/leave-page/use-leave-page";
 import { useTranslation } from "@/services/i18n/client";
-import { usersControllerCreateV1 } from "@/services/api/generated/endpoints/users/users";
+import { usersControllerCreateV1 } from "@/services/api/generated/users/users";
 import { isValidationError } from "@/services/api/generated/custom-fetch";
 import { useRouter } from "next/navigation";
 import { Role, RoleEnum } from "@/services/api/types/role";

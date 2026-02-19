@@ -16,7 +16,7 @@ import { useTranslation } from "@/services/i18n/client";
 import {
   usersControllerFindOneV1,
   usersControllerUpdateV1,
-} from "@/services/api/generated/endpoints/users/users";
+} from "@/services/api/generated/users/users";
 import { isValidationError } from "@/services/api/generated/custom-fetch";
 import { useParams } from "next/navigation";
 import { Role, RoleEnum } from "@/services/api/types/role";

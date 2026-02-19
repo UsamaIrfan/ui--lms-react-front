@@ -2,9 +2,7 @@
 
 ## Stack
 
-Next.js 15 (App Router, Turbopack), React 19, AlignUI + Radix UI + Tailwind CSS v4, React Hook Form + Yup, TanStack React Query 5, Recharts, i18next, Playwright for E2E.
-
-**UI library migration**: MUI has been fully removed. The UI layer is now:
+Next.js 15.5.9 (App Router, Turbopack), React 19.1, TypeScript 5.9, AlignUI + Radix UI + Tailwind CSS v4, React Hook Form + Yup, TanStack React Query 5, Recharts 3, i18next, Playwright for E2E, Storybook 9.
 
 | Layer         | Library                                                               | Purpose                                                                      |
 | ------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
@@ -12,9 +10,12 @@ Next.js 15 (App Router, Turbopack), React 19, AlignUI + Radix UI + Tailwind CSS 
 | Primitives    | **Radix UI** (`@radix-ui/react-*`)                                    | Headless accessible components (dialog, select, dropdown, checkbox, etc.)    |
 | Styling       | **Tailwind CSS v4** + `tailwind-variants` + `tailwind-merge` + `clsx` | Utility-first CSS                                                            |
 | Icons         | **Remix Icon** (`@remixicon/react`)                                   | Icon library                                                                 |
-| Charts        | **Recharts**                                                          | Dashboard charts (area, pie, bar)                                            |
+| Charts        | **Recharts 3** (`recharts`)                                           | Dashboard charts (area, pie, bar)                                            |
 | Animations    | `tw-animate-css`                                                      | Tailwind animation utilities                                                 |
 | Theme         | `next-themes`                                                         | Theme provider (light mode only currently)                                   |
+| Dates         | `date-fns`                                                            | Date utilities                                                               |
+| Toasts        | `react-toastify`                                                      | Toast/snackbar notifications                                                 |
+| Demo data     | `@faker-js/faker`                                                     | Generating fallback demo data for dashboards                                 |
 
 ## Project Structure
 
@@ -23,16 +24,22 @@ src/
 ├── app/
 │   ├── globals.css              # AlignUI design tokens + Tailwind v4 @theme config
 │   └── [language]/              # Pages — file-based routing with i18n segment
-│       ├── admin-panel/         # Protected admin pages (dashboard, users CRUD)
-│       │   ├── dashboard/       # Admin dashboard with charts + metrics
-│       │   │   ├── components/  # metric-card, charts, quick-actions, etc.
-│       │   │   └── queries/     # useAdminDashboard hook + demo-data fallback
-│       │   └── users/           # User management CRUD
+│       ├── admin-panel/         # Protected admin pages
+│       │   ├── components/      # Dashboard chart components (metric-card, charts, etc.)
+│       │   ├── queries/         # useAdminDashboard hook + demo-data fallback
+│       │   ├── types.ts         # AdminDashboardData type
+│       │   └── users/           # User management CRUD (list, create, edit)
+│       ├── student-portal/      # Student dashboard (attendance, fees, exams, materials)
+│       │   ├── components/      # Portal-specific components
+│       │   └── queries/         # useStudentDashboard hook + demo-data fallback
+│       ├── staff-portal/        # Staff dashboard (attendance, leaves, payroll, timetable)
+│       │   ├── components/      # Portal-specific components
+│       │   └── queries/         # useStaffDashboard hook + demo-data fallback
 │       ├── sign-in/             # Auth pages
 │       ├── sign-up/
 │       ├── forgot-password/
 │       ├── confirm-email/
-│       ├── select-tenant/       # Multi-tenant selection
+│       ├── select-tenant/       # Multi-tenant + branch selection
 │       ├── profile/
 │       ├── showcase/            # Component demo page
 │       └── ...
@@ -64,6 +71,29 @@ src/
     └── helpers/                 # Utility functions
 ```
 
+## Navigation
+
+Sidebar navigation is defined in `src/components/layout/navigation-config.ts` as a typed `NavItem[]` array:
+
+```typescript
+type NavItem = {
+  id: string;
+  labelKey: string; // i18n key from common.json (e.g., "navigation.dashboard")
+  href?: string; // omitted for parent groups with children
+  icon: RemixiconComponentType;
+  roles?: RoleEnum[];
+  children?: NavItem[];
+};
+```
+
+Navigation groups use nested `children` arrays for sub-items (students, staff, academics, accounts). Role-based filtering controls visibility per user role.
+
+### Role-Based Dashboards
+
+- **Admin dashboard** (`/admin-panel`) — `RoleEnum.ADMIN`, `TEACHER`, `STAFF`, `ACCOUNTANT`
+- **Student portal** (`/student-portal`) — `RoleEnum.STUDENT`, `PARENT`
+- **Staff portal** (`/staff-portal`) — `RoleEnum.TEACHER`, `STAFF`
+
 ## Page Pattern
 
 Every route has **two files** — never put interactive logic in the server component:
@@ -71,8 +101,24 @@ Every route has **two files** — never put interactive logic in the server comp
 - `page.tsx` — Server component. Only does `generateMetadata()` using `getServerTranslation()`, renders `<PageContent />`.
 - `page-content.tsx` — `"use client"`. All hooks, state, data fetching, forms go here.
 
-Protected pages wrap the default export: `export default withPageRequiredAuth(PageContent, { roles: [RoleEnum.Admin] })`.
+Protected pages wrap the default export: `export default withPageRequiredAuth(PageContent, { roles: [RoleEnum.ADMIN] })`.
 Guest-only pages (sign-in, sign-up): `export default withPageRequiredGuest(PageContent)`.
+
+### RoleEnum
+
+```typescript
+export enum RoleEnum {
+  ADMIN = 1,
+  USER = 2,
+  STUDENT = 3,
+  TEACHER = 4,
+  STAFF = 5,
+  ACCOUNTANT = 6,
+  PARENT = 7,
+}
+```
+
+**Important**: Values are UPPER_CASE — always use `RoleEnum.ADMIN`, not `RoleEnum.Admin`.
 
 ## API Services
 
@@ -117,6 +163,27 @@ export const usersQueryKeys = createQueryKeys(["users"], {
     sub: { by: ({ sort, filter }) => ({ key: [sort, filter] }) },
   }),
 });
+```
+
+### Dashboard Query Pattern
+
+All three dashboards (admin, student, staff) follow the same pattern:
+
+1. Define query keys with `createQueryKeys(["<scope>-dashboard"], { dashboard: () => ({ key: [] }) })`
+2. Define `safeFetch<T>(fn)` — wraps each API call in try/catch, returns `null` on failure
+3. Fire all Orval-generated endpoint functions in parallel via `Promise.all`
+4. Extract data with `(res?.data as any) ?? fallback` (Orval types may be `void` but runtime returns real data)
+5. Map/transform to typed dashboard shape, falling back to demo data per-section
+6. Export a `use<Scope>Dashboard()` hook using `useQuery` with `refetchInterval` and `staleTime`
+
+```typescript
+async function safeFetch<T>(fn: () => Promise<T>): Promise<T | null> {
+  try {
+    return await fn();
+  } catch {
+    return null;
+  }
+}
 ```
 
 ## Forms
@@ -185,7 +252,7 @@ UI components in `src/components/ui/` wrap Radix UI + AlignUI tokens:
 
 Always use `import Link from '@/components/link'` — it:
 
-1. Auto-prepends the current language prefix (`/en/path`)
+1. Auto-prepends the current language prefix (`/en/path`) — **do NOT pass a `language` prop**
 2. Integrates with the leave-page (unsaved changes) system
 3. ESLint blocks direct `next/link` imports
 
@@ -214,8 +281,11 @@ npm run dev                       # Dev server (Turbopack)
 npm run build                     # Production build
 npm run lint:fix                  # ESLint auto-fix
 npm run api:generate              # Generate API hooks from backend OpenAPI spec
+npm run api:generate:file         # Generate from local openapi.json file
+npm run api:generate:watch        # Watch mode during development
 npx playwright test               # E2E tests (needs running dev server)
 npm run sb                        # Storybook dev server
+npm run build-storybook           # Storybook production build
 ```
 
 ## Environment Variables

@@ -1,0 +1,128 @@
+{
+  "title": "Payroll",
+  "tabs": {
+    "structures": "Salary Structures",
+    "slips": "Payroll Slips"
+  },
+  "table": {
+    "empty": "No records found"
+  },
+  "actions": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "structures": {
+    "title": "Salary Structures",
+    "table": {
+      "name": "Name",
+      "staffId": "Staff",
+      "earnings": "Earnings",
+      "deductions": "Deductions",
+      "netPay": "Net Pay",
+      "actions": "Actions",
+      "columns": {
+        "name": "Name",
+        "staffName": "Staff",
+        "components": "Components",
+        "total": "Total",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "empty": "No salary structures found",
+      "loading": "Loading..."
+    },
+    "actions": {
+      "create": "Create Structure",
+      "edit": "Edit",
+      "delete": "Delete",
+      "search": "Search..."
+    },
+    "form": {
+      "name": "Structure Name",
+      "staffId": "Staff Member",
+      "isActive": "Active",
+      "components": "Salary Components",
+      "addComponent": "Add Component",
+      "componentName": "Component Name",
+      "componentAmount": "Amount",
+      "componentType": "Type",
+      "earning": "Earning",
+      "deduction": "Deduction",
+      "selectStaff": "Select Staff Member",
+      "validation": {
+        "nameRequired": "Name is required",
+        "staffRequired": "Staff member is required"
+      }
+    }
+  },
+  "slips": {
+    "title": "Payroll Slips",
+    "table": {
+      "staffId": "Staff",
+      "period": "Period",
+      "earnings": "Earnings",
+      "deductions": "Deductions",
+      "netPay": "Net Pay",
+      "days": "Days",
+      "status": "Status",
+      "columns": {
+        "staffName": "Staff",
+        "month": "Month",
+        "year": "Year",
+        "grossSalary": "Gross",
+        "deductions": "Deductions",
+        "netSalary": "Net Salary",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "empty": "No payroll slips found",
+      "loading": "Loading..."
+    },
+    "actions": {
+      "process": "Process Payroll",
+      "viewSlip": "View Slip",
+      "downloadPdf": "Download PDF",
+      "search": "Search..."
+    },
+    "status": {
+      "draft": "Draft",
+      "processed": "Processed",
+      "paid": "Paid",
+      "held": "Held"
+    }
+  },
+  "form": {
+    "name": "Structure Name",
+    "staffId": "Staff Member",
+    "components": "Salary Components",
+    "componentName": "Component Name",
+    "componentType": "Type",
+    "componentAmount": "Amount",
+    "addComponent": "Add Component",
+    "month": "Month",
+    "year": "Year",
+    "validation": {
+      "required": "All required fields must be filled",
+      "nameRequired": "Name is required",
+      "staffRequired": "Staff member is required"
+    }
+  },
+  "notifications": {
+    "created": "Created successfully",
+    "updated": "Updated successfully",
+    "deleted": "Deleted successfully",
+    "processed": "Payroll processed successfully",
+    "structureCreated": "Salary structure created",
+    "structureUpdated": "Salary structure updated",
+    "structureDeleted": "Salary structure deleted",
+    "payrollProcessed": "Payroll processed successfully",
+    "error": "An error occurred"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this structure?",
+    "deleteTitle": "Delete Structure",
+    "process": "Are you sure you want to process payroll?"
+  }
+}

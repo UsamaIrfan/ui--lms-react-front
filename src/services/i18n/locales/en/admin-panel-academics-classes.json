@@ -1,0 +1,67 @@
+{
+  "title": "Classes",
+  "table": {
+    "columns": {
+      "name": "Class Name",
+      "numericGrade": "Grade",
+      "description": "Description",
+      "sections": "Sections",
+      "actions": "Actions"
+    },
+    "empty": "No classes found",
+    "loading": "Loading classes..."
+  },
+  "actions": {
+    "create": "Add Class",
+    "edit": "Edit",
+    "delete": "Delete",
+    "manageSections": "Manage Sections",
+    "search": "Search...",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "form": {
+    "name": "Class Name",
+    "numericGrade": "Numeric Grade",
+    "description": "Description",
+    "institutionId": "Institution",
+    "selectInstitution": "Select Institution",
+    "validation": {
+      "nameRequired": "Class name is required",
+      "institutionRequired": "Institution is required"
+    }
+  },
+  "sections": {
+    "title": "Sections",
+    "table": {
+      "columns": {
+        "name": "Section Name",
+        "capacity": "Capacity",
+        "actions": "Actions"
+      },
+      "empty": "No sections found"
+    },
+    "form": {
+      "name": "Section Name",
+      "capacity": "Capacity",
+      "validation": {
+        "nameRequired": "Section name is required"
+      }
+    },
+    "actions": {
+      "create": "Add Section",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "notifications": {
+    "created": "Created successfully",
+    "updated": "Updated successfully",
+    "deleted": "Deleted successfully",
+    "error": "An error occurred"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this item?",
+    "deleteTitle": "Confirm Delete"
+  }
+}

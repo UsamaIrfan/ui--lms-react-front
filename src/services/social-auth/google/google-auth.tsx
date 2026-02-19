@@ -1,6 +1,6 @@
 "use client";
 
-import { authGoogleControllerLoginV1 } from "@/services/api/generated/endpoints/auth/auth";
+import { authGoogleControllerLoginV1 } from "@/services/api/generated/auth/auth";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";

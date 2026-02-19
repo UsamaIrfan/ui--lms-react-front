@@ -1,6 +1,6 @@
 "use client";
 
-import { authFacebookControllerLoginV1 } from "@/services/api/generated/endpoints/auth/auth";
+import { authFacebookControllerLoginV1 } from "@/services/api/generated/auth/auth";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";
 import { useState } from "react";

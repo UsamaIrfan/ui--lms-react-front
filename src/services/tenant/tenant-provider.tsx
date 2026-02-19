@@ -11,9 +11,9 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { TenantContext } from "./tenant-context";
 import { getTenantInfo, setTenantInfo } from "./tenant-storage";
-import { authControllerSelectTenantV1 } from "@/services/api/generated/endpoints/auth/auth";
-import { branchControllerFindAllByTenantV1 } from "@/services/api/generated/endpoints/multi-tenancy-branches/multi-tenancy-branches";
-import { tenantUserControllerFindTenantsByUserV1 } from "@/services/api/generated/endpoints/multi-tenancy-tenant-users/multi-tenancy-tenant-users";
+import { authControllerSelectTenantV1 } from "@/services/api/generated/auth/auth";
+import { branchControllerFindAllByTenantV1 } from "@/services/api/generated/multi-tenancy-branches/multi-tenancy-branches";
+import { tenantUserControllerFindTenantsByUserV1 } from "@/services/api/generated/multi-tenancy-tenant-users/multi-tenancy-tenant-users";
 import { setTokensInfo } from "@/services/auth/auth-tokens-info";
 import { getTokensInfo } from "@/services/auth/auth-tokens-info";
 import type { Tenant } from "@/services/api/generated/models/tenant";

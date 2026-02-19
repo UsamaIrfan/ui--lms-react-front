@@ -21,7 +21,7 @@ import SocialAuth from "@/services/social-auth/social-auth";
 import {
   authControllerLoginV1,
   authControllerRegisterV1,
-} from "@/services/api/generated/endpoints/auth/auth";
+} from "@/services/api/generated/auth/auth";
 import { isValidationError } from "@/services/api/generated/custom-fetch";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";

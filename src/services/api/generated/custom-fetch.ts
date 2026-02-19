@@ -1,6 +1,6 @@
 import { getTokensInfo, setTokensInfo } from "../../auth/auth-tokens-info";
 import { getTenantInfo } from "../../tenant/tenant-storage";
-import { getAuthControllerRefreshV1Url } from "./endpoints/auth/auth";
+import { getAuthControllerRefreshV1Url } from "./auth/auth";
 
 /**
  * Custom error class for HTTP errors (4xx/5xx).

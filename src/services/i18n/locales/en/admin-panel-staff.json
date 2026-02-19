@@ -1,0 +1,103 @@
+{
+  "title": "Staff Management",
+  "table": {
+    "columns": {
+      "staffId": "Staff ID",
+      "name": "Name",
+      "designation": "Designation",
+      "department": "Department",
+      "qualification": "Qualification",
+      "employmentType": "Type",
+      "joiningDate": "Joining Date",
+      "salary": "Basic Salary",
+      "basicSalary": "Basic Salary",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "empty": "No staff members found",
+    "loading": "Loading staff..."
+  },
+  "actions": {
+    "addStaff": "Add Staff",
+    "create": "Add Staff",
+    "view": "View Details",
+    "edit": "Edit",
+    "delete": "Delete",
+    "assignBranch": "Assign Branch",
+    "transfer": "Transfer",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "search": "Search staff..."
+  },
+  "form": {
+    "userSection": "User Account",
+    "createNewUser": "Create New User",
+    "useExistingUser": "Use Existing User ID",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "Enter first name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Enter last name",
+    "email": "Email",
+    "emailPlaceholder": "staff@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "Minimum 6 characters",
+    "userRoleLabel": "User Role",
+    "userRoles": {
+      "staff": "Staff",
+      "teacher": "Teacher",
+      "accountant": "Accountant"
+    },
+    "userIdPlaceholder": "Enter existing user ID",
+    "userId": "User ID",
+    "institutionId": "Institution",
+    "departmentId": "Department",
+    "designation": "Designation",
+    "qualification": "Qualification",
+    "specialization": "Specialization",
+    "experienceYears": "Experience (years)",
+    "joiningDate": "Joining Date",
+    "basicSalary": "Basic Salary",
+    "employmentType": "Employment Type",
+    "emergencyContact": "Emergency Contact",
+    "address": "Address",
+    "roles": "Roles",
+    "selectUser": "Select User",
+    "selectInstitution": "Select Institution",
+    "selectDepartment": "Select Department",
+    "selectType": "Select Type",
+    "validation": {
+      "userRequired": "User is required",
+      "institutionRequired": "Institution is required",
+      "required": "User ID and Institution are required",
+      "userFieldsRequired": "Email, password, first name, last name and institution are required"
+    }
+  },
+  "employmentTypes": {
+    "full_time": "Full Time",
+    "part_time": "Part Time",
+    "contract": "Contract",
+    "visiting": "Visiting"
+  },
+  "detail": {
+    "personalInfo": "Personal Information",
+    "employmentInfo": "Employment Information",
+    "branches": "Branch Assignments",
+    "noBranches": "No branch assignments"
+  },
+  "notifications": {
+    "created": "Staff member created successfully",
+    "updated": "Staff member updated successfully",
+    "deleted": "Staff member deleted successfully",
+    "assignedBranch": "Branch assigned successfully",
+    "transferred": "Staff transferred successfully",
+    "createError": "Failed to create staff member",
+    "updateError": "Failed to update staff member",
+    "deleteError": "Failed to delete staff member",
+    "error": "An error occurred"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this staff member?",
+    "deleteTitle": "Delete Staff Member"
+  }
+}

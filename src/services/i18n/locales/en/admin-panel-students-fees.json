@@ -1,0 +1,168 @@
+{
+  "title": "Fees Management",
+  "tabs": {
+    "structures": "Fee Structures",
+    "challans": "Challans",
+    "payments": "Payments",
+    "concessions": "Concessions",
+    "reports": "Reports"
+  },
+  "actions": {
+    "createStructure": "Create Fee Structure",
+    "edit": "Edit",
+    "delete": "Delete",
+    "generateChallan": "Generate Challan",
+    "generate": "Generate",
+    "recordPayment": "Record Payment",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "table": {
+    "name": "Name",
+    "amount": "Amount",
+    "frequency": "Frequency",
+    "description": "Description",
+    "actions": "Actions",
+    "empty": "No records found",
+    "challanNumber": "Challan No.",
+    "studentId": "Student",
+    "dueDate": "Due Date",
+    "status": "Status",
+    "challanId": "Challan",
+    "method": "Payment Method",
+    "reference": "Reference",
+    "verified": "Verified"
+  },
+  "form": {
+    "name": "Structure Name",
+    "amount": "Amount",
+    "institutionId": "Institution",
+    "frequency": "Frequency",
+    "description": "Description",
+    "studentId": "Student",
+    "feeStructureId": "Fee Structure",
+    "dueDate": "Due Date",
+    "challanId": "Challan",
+    "method": "Payment Method",
+    "transactionRef": "Transaction Reference",
+    "validation": {
+      "required": "All required fields must be filled",
+      "nameRequired": "Name is required",
+      "amountRequired": "Amount is required"
+    }
+  },
+  "notifications": {
+    "created": "Created successfully",
+    "updated": "Updated successfully",
+    "deleted": "Deleted successfully",
+    "challanGenerated": "Challan generated successfully",
+    "paymentRecorded": "Payment recorded successfully",
+    "remindersSent": "Reminders sent successfully",
+    "error": "An error occurred"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this?",
+    "deleteTitle": "Confirm Delete"
+  },
+  "structures": {
+    "title": "Fee Structures",
+    "actions": {
+      "create": "Create Fee Structure"
+    },
+    "table": {
+      "columns": {
+        "name": "Structure Name",
+        "class": "Class",
+        "amount": "Amount",
+        "frequency": "Frequency",
+        "dueDate": "Due Date",
+        "actions": "Actions"
+      },
+      "empty": "No fee structures found"
+    },
+    "form": {
+      "name": "Structure Name",
+      "gradeClassId": "Class",
+      "academicYearId": "Academic Year",
+      "feeType": "Fee Type",
+      "amount": "Amount",
+      "frequency": "Frequency",
+      "dueDate": "Due Date",
+      "description": "Description",
+      "validation": {
+        "nameRequired": "Name is required",
+        "amountRequired": "Amount is required"
+      }
+    }
+  },
+  "challans": {
+    "title": "Fee Challans",
+    "actions": {
+      "generate": "Generate Challan",
+      "generateBulk": "Bulk Generate"
+    },
+    "table": {
+      "columns": {
+        "challanNumber": "Challan No.",
+        "studentName": "Student",
+        "totalAmount": "Total Amount",
+        "paidAmount": "Paid Amount",
+        "dueDate": "Due Date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "empty": "No challans found"
+    }
+  },
+  "payments": {
+    "title": "Payments",
+    "actions": {
+      "record": "Record Payment",
+      "verify": "Verify Payment"
+    },
+    "table": {
+      "columns": {
+        "receiptNumber": "Receipt No.",
+        "studentName": "Student",
+        "amount": "Amount",
+        "method": "Payment Method",
+        "date": "Date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "empty": "No payments found"
+    }
+  },
+  "concessions": {
+    "title": "Fee Concessions",
+    "actions": {
+      "apply": "Apply Concession"
+    },
+    "types": {
+      "scholarship": "Scholarship",
+      "sibling": "Sibling Discount",
+      "staff_child": "Staff Child",
+      "merit": "Merit Based",
+      "financial_aid": "Financial Aid"
+    }
+  },
+  "reports": {
+    "collection": "Collection Report",
+    "pending": "Pending Fees",
+    "defaulters": "Defaulters List",
+    "sendReminders": "Send Reminders"
+  },
+  "notifications": {
+    "created": "Created successfully",
+    "updated": "Updated successfully",
+    "deleted": "Deleted successfully",
+    "challanGenerated": "Challan generated successfully",
+    "paymentRecorded": "Payment recorded successfully",
+    "remindersSent": "Reminders sent successfully",
+    "error": "An error occurred"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this?",
+    "deleteTitle": "Confirm Delete"
+  }
+}

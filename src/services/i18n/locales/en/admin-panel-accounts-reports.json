@@ -1,0 +1,37 @@
+{
+  "title": "Financial Reports",
+  "tabs": {
+    "income": "Income Report",
+    "expense": "Expense Report",
+    "consolidated": "Consolidated Report"
+  },
+  "filters": {
+    "dateRange": "Date Range",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "category": "Category",
+    "generate": "Generate Report",
+    "reset": "Reset"
+  },
+  "summary": {
+    "totalIncome": "Total Income",
+    "totalExpenses": "Total Expenses",
+    "netBalance": "Net Balance",
+    "period": "Period"
+  },
+  "table": {
+    "columns": {
+      "category": "Category",
+      "description": "Description",
+      "amount": "Amount",
+      "date": "Date",
+      "type": "Type"
+    },
+    "empty": "No data found for the selected period",
+    "loading": "Generating report..."
+  },
+  "actions": {
+    "export": "Export",
+    "print": "Print"
+  }
+}

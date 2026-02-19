@@ -24,9 +24,12 @@ export const studentDashboardQueryKeys = createQueryKeys(
 // Safe fetcher — returns null on failure so one
 // broken endpoint does not crash the whole dashboard
 // ─────────────────────────────────────────────
-async function safeFetch<T>(fn: () => Promise<T>): Promise<T | null> {
+async function safeFetch<T>(
+  fn: (opts?: { signal?: AbortSignal }) => Promise<T>,
+  signal?: AbortSignal
+): Promise<T | null> {
   try {
-    return await fn();
+    return await fn(signal ? { signal } : undefined);
   } catch {
     return null;
   }
@@ -39,7 +42,9 @@ async function safeFetch<T>(fn: () => Promise<T>): Promise<T | null> {
  * Each endpoint is wrapped in safeFetch so a single failure
  * falls back to demo data for that section instead of failing the whole page.
  */
-async function fetchStudentDashboard(): Promise<StudentDashboardData> {
+async function fetchStudentDashboard(
+  signal?: AbortSignal
+): Promise<StudentDashboardData> {
   // Fire all API calls in parallel
   const [
     dashboardRes,
@@ -50,13 +55,22 @@ async function fetchStudentDashboard(): Promise<StudentDashboardData> {
     examsRes,
     timetableRes,
   ] = await Promise.all([
-    safeFetch(() => portalsControllerGetStudentDashboardV1()),
-    safeFetch(() => noticesControllerGetMyNoticesV1()),
-    safeFetch(() => feesControllerGetMyChallansV1()),
-    safeFetch(() => materialsControllerFindAllV1()),
-    safeFetch(() => assignmentsControllerFindAllV1()),
-    safeFetch(() => examControllerFindAllV1()),
-    safeFetch(() => timetableSlotControllerFindAllV1()),
+    safeFetch(
+      () => portalsControllerGetStudentDashboardV1(undefined, { signal }),
+      signal
+    ),
+    safeFetch(
+      () => noticesControllerGetMyNoticesV1(undefined, { signal }),
+      signal
+    ),
+    safeFetch(() => feesControllerGetMyChallansV1({ signal }), signal),
+    safeFetch(
+      () => materialsControllerFindAllV1(undefined, { signal }),
+      signal
+    ),
+    safeFetch(() => assignmentsControllerFindAllV1({ signal }), signal),
+    safeFetch(() => examControllerFindAllV1({ signal }), signal),
+    safeFetch(() => timetableSlotControllerFindAllV1({ signal }), signal),
   ]);
 
   // ── Extract raw data ──
@@ -270,7 +284,7 @@ async function fetchStudentDashboard(): Promise<StudentDashboardData> {
 export function useStudentDashboard() {
   return useQuery({
     queryKey: studentDashboardQueryKeys.dashboard().key,
-    queryFn: fetchStudentDashboard,
+    queryFn: ({ signal }) => fetchStudentDashboard(signal),
     refetchInterval: 5 * 60 * 1000, // Auto-refresh every 5 minutes
     staleTime: 2 * 60 * 1000, // Consider stale after 2 minutes
   });

@@ -1,0 +1,255 @@
+{
+  "title": "Settings",
+  "description": "Manage your institution settings and configurations",
+  "sections": {
+    "general": {
+      "title": "General Settings",
+      "description": "Institution profile, logo, contact info and timezone"
+    },
+    "branches": {
+      "title": "Branch Management",
+      "description": "Manage branches, locations and branch status"
+    },
+    "users": {
+      "title": "User Management",
+      "description": "Manage users, roles and permissions"
+    },
+    "academics": {
+      "title": "Academic Configuration",
+      "description": "Courses, classes, sections and subjects"
+    },
+    "fees": {
+      "title": "Fee Configuration",
+      "description": "Fee categories, payment modes and late fee rules"
+    },
+    "attendance": {
+      "title": "Attendance Configuration",
+      "description": "Attendance policy, thresholds and leave types"
+    },
+    "notifications": {
+      "title": "Notification Settings",
+      "description": "Email and SMS notification preferences"
+    }
+  },
+  "general": {
+    "title": "General Settings",
+    "form": {
+      "institutionName": "Institution Name",
+      "slug": "URL Slug",
+      "contactEmail": "Contact Email",
+      "contactPhone": "Contact Phone",
+      "logo": "Institution Logo",
+      "address": "Address",
+      "city": "City",
+      "state": "State / Province",
+      "country": "Country",
+      "timezone": "Timezone",
+      "academicYearStart": "Academic Year Start",
+      "academicYearEnd": "Academic Year End"
+    },
+    "validation": {
+      "nameRequired": "Institution name is required",
+      "slugRequired": "URL slug is required",
+      "emailInvalid": "Please enter a valid email address"
+    },
+    "actions": {
+      "save": "Save Changes",
+      "cancel": "Cancel"
+    },
+    "notifications": {
+      "saved": "General settings saved successfully",
+      "error": "Failed to save settings"
+    }
+  },
+  "branches": {
+    "title": "Branch Management",
+    "actions": {
+      "create": "Add Branch",
+      "edit": "Edit Branch",
+      "delete": "Delete Branch",
+      "save": "Save",
+      "cancel": "Cancel",
+      "activate": "Activate",
+      "deactivate": "Deactivate"
+    },
+    "table": {
+      "columns": {
+        "name": "Name",
+        "code": "Code",
+        "city": "City",
+        "phone": "Phone",
+        "email": "Email",
+        "status": "Status",
+        "headquarters": "HQ",
+        "actions": "Actions"
+      },
+      "name": "Name",
+      "code": "Code",
+      "city": "City",
+      "email": "Email",
+      "status": "Status",
+      "headquarters": "HQ",
+      "empty": "No branches found. Create your first branch to get started."
+    },
+    "form": {
+      "name": "Branch Name",
+      "code": "Branch Code",
+      "address": "Address",
+      "city": "City",
+      "state": "State / Province",
+      "country": "Country",
+      "phone": "Phone",
+      "email": "Email",
+      "isActive": "Active",
+      "isHeadquarters": "Headquarters",
+      "titleCreate": "Add New Branch",
+      "titleEdit": "Edit Branch"
+    },
+    "validation": {
+      "nameRequired": "Branch name is required",
+      "codeRequired": "Branch code is required",
+      "required": "Please fill in all required fields"
+    },
+    "confirm": {
+      "deleteTitle": "Delete Branch",
+      "delete": "Are you sure you want to delete this branch? This action cannot be undone.",
+      "deactivateTitle": "Deactivate Branch",
+      "deactivate": "Are you sure you want to deactivate this branch?"
+    },
+    "notifications": {
+      "created": "Branch created successfully",
+      "updated": "Branch updated successfully",
+      "deleted": "Branch deleted successfully",
+      "error": "An error occurred. Please try again."
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
+  },
+  "fees": {
+    "title": "Fee Configuration",
+    "categories": {
+      "title": "Fee Categories",
+      "description": "Enter fee categories separated by commas"
+    },
+    "paymentModes": {
+      "title": "Payment Modes",
+      "cash": "Cash",
+      "bankTransfer": "Bank Transfer",
+      "onlinePayment": "Online Payment",
+      "cheque": "Cheque",
+      "upi": "UPI"
+    },
+    "lateFee": {
+      "title": "Late Fee Rules",
+      "enabled": "Enable Late Fee",
+      "gracePeriod": "Grace Period (days)",
+      "feePerDay": "Late Fee Per Day",
+      "perDay": "Late Fee Per Day",
+      "maxLateFee": "Maximum Late Fee",
+      "maxPercentage": "Max Late Fee %",
+      "percentage": "Late Fee Percentage"
+    },
+    "concessions": {
+      "title": "Concession Types"
+    },
+    "concessionTypes": {
+      "title": "Concession Types",
+      "scholarship": "Scholarship",
+      "sibling": "Sibling Discount",
+      "staffChild": "Staff Child",
+      "merit": "Merit-based",
+      "financialAid": "Financial Aid"
+    },
+    "actions": {
+      "save": "Save Configuration",
+      "cancel": "Cancel",
+      "addCategory": "Add Category",
+      "removeCategory": "Remove"
+    },
+    "notifications": {
+      "saved": "Fee configuration saved successfully",
+      "error": "Failed to save fee configuration"
+    }
+  },
+  "attendance": {
+    "title": "Attendance Configuration",
+    "policy": {
+      "title": "Attendance Policy",
+      "minimumPercentage": "Minimum Attendance Percentage",
+      "minPercentage": "Minimum Attendance (%)",
+      "trackingMode": "Tracking Mode",
+      "daily": "Daily",
+      "subjectWise": "Subject-wise",
+      "markingTime": "Attendance Marking Deadline",
+      "allowBackdated": "Allow Backdated Attendance",
+      "requireApproval": "Require Approval for Changes"
+    },
+    "threshold": {
+      "title": "Low Attendance Threshold",
+      "warningLevel": "Warning Level (%)",
+      "criticalLevel": "Critical Level (%)",
+      "enableAlerts": "Enable Low Attendance Alerts",
+      "alertWarning": "Alert on warning threshold",
+      "alertCritical": "Alert on critical threshold",
+      "notifyParents": "Notify Parents on Low Attendance"
+    },
+    "leaveTypes": {
+      "title": "Leave Types & Balance",
+      "sick": "Sick Leave",
+      "casual": "Casual Leave",
+      "earned": "Earned Leave",
+      "maternity": "Maternity Leave",
+      "paternity": "Paternity Leave",
+      "unpaid": "Unpaid Leave",
+      "other": "Other Leave",
+      "defaultBalance": "Default Annual Balance",
+      "description": "Configure leave types and their default annual balance for staff"
+    },
+    "actions": {
+      "save": "Save Configuration",
+      "cancel": "Cancel"
+    },
+    "notifications": {
+      "saved": "Attendance configuration saved successfully",
+      "error": "Failed to save attendance configuration"
+    }
+  },
+  "notifications": {
+    "title": "Notification Settings",
+    "email": {
+      "title": "Email Notifications",
+      "description": "Configure which events trigger email notifications",
+      "enabled": "Enable Email Notifications",
+      "feeReminders": "Fee Payment Reminders",
+      "attendanceAlerts": "Attendance Alerts",
+      "examResults": "Exam Results",
+      "notices": "Notice Board Updates",
+      "leaveUpdates": "Leave Request Updates",
+      "payrollNotifications": "Payroll Notifications"
+    },
+    "sms": {
+      "title": "SMS Notifications",
+      "description": "Configure which events trigger SMS notifications",
+      "enabled": "Enable SMS Notifications",
+      "emergencyAlerts": "Emergency Alerts",
+      "attendanceAbsence": "Absence Notification",
+      "feeOverdue": "Fee Overdue Reminders",
+      "examSchedule": "Exam Schedule Updates"
+    },
+    "templates": {
+      "title": "Notification Templates",
+      "description": "Customize notification templates for different events",
+      "comingSoon": "Template editor coming soon"
+    },
+    "actions": {
+      "save": "Save Settings",
+      "cancel": "Cancel"
+    },
+    "notifications": {
+      "saved": "Notification settings saved successfully",
+      "error": "Failed to save notification settings"
+    }
+  }
+}

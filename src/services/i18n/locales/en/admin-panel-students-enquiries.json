@@ -1,0 +1,201 @@
+{
+  "title": "Student Enquiries",
+  "table": {
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "gradeApplyingFor": "Grade / Course",
+      "source": "Source",
+      "status": "Status",
+      "enquiryDate": "Enquiry Date",
+      "actions": "Actions",
+      "guardian": "Guardian Name",
+      "previousSchool": "Previous School",
+      "followUpDate": "Follow-up Date",
+      "notes": "Notes"
+    },
+    "empty": "No enquiries found",
+    "loading": "Loading enquiries..."
+  },
+  "actions": {
+    "addEnquiry": "Add Enquiry",
+    "view": "View",
+    "edit": "Edit",
+    "followUp": "Follow-up",
+    "convert": "Convert to Student",
+    "delete": "Delete",
+    "export": "Export to Excel",
+    "addAnother": "Add Another",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "submit": "Submit",
+    "changeStatus": "Change Status",
+    "applyFilters": "Apply Filters",
+    "clearFilters": "Clear Filters"
+  },
+  "filter": {
+    "search": "Search by name, email or phone...",
+    "status": {
+      "label": "Status",
+      "all": "All Statuses"
+    },
+    "source": {
+      "label": "Source",
+      "all": "All Sources"
+    },
+    "dateRange": "Date Range",
+    "filters": "Filters"
+  },
+  "status": {
+    "new": "New",
+    "contacted": "Contacted",
+    "scheduled_visit": "Scheduled Visit",
+    "visit_done": "Visit Done",
+    "applied": "Applied",
+    "accepted": "Accepted",
+    "enrolled": "Enrolled",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "source": {
+    "walk_in": "Walk-in",
+    "phone": "Phone",
+    "website": "Website",
+    "referral": "Referral",
+    "social_media": "Social Media",
+    "advertisement": "Advertisement",
+    "other": "Other"
+  },
+  "addEnquiry": {
+    "title": "Add New Enquiry",
+    "editTitle": "Edit Enquiry",
+    "inputs": {
+      "studentName": {
+        "label": "Student Name",
+        "placeholder": "Enter student name",
+        "validation": {
+          "required": "Student name is required"
+        }
+      },
+      "guardianName": {
+        "label": "Guardian Name",
+        "placeholder": "Enter guardian name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter email address",
+        "validation": {
+          "invalid": "Invalid email address"
+        }
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "Enter phone number"
+      },
+      "gradeApplyingFor": {
+        "label": "Grade Applying For",
+        "placeholder": "e.g. Grade 5, Class 10"
+      },
+      "previousSchool": {
+        "label": "Previous School",
+        "placeholder": "Enter previous school name"
+      },
+      "source": {
+        "label": "Source",
+        "placeholder": "Select source"
+      },
+      "notes": {
+        "label": "Notes",
+        "placeholder": "Enter any additional notes..."
+      },
+      "followUpDate": {
+        "label": "Follow-up Date"
+      }
+    },
+    "success": "Enquiry created successfully",
+    "updateSuccess": "Enquiry updated successfully"
+  },
+  "detail": {
+    "title": "Enquiry Details",
+    "sections": {
+      "info": "Enquiry Information",
+      "timeline": "Status History",
+      "followUps": "Follow-up Notes"
+    },
+    "fields": {
+      "studentName": "Student Name",
+      "guardianName": "Guardian Name",
+      "email": "Email",
+      "phone": "Phone",
+      "gradeApplyingFor": "Grade Applying For",
+      "previousSchool": "Previous School",
+      "source": "Source",
+      "status": "Status",
+      "notes": "Notes",
+      "followUpDate": "Next Follow-up",
+      "createdAt": "Created At",
+      "updatedAt": "Last Updated",
+      "noNotes": "No notes added",
+      "noFollowUp": "No follow-up date set"
+    }
+  },
+  "followUp": {
+    "title": "Add Follow-up Note",
+    "inputs": {
+      "note": {
+        "label": "Follow-up Note",
+        "placeholder": "Enter follow-up details...",
+        "validation": {
+          "required": "Follow-up note is required"
+        }
+      },
+      "nextFollowUpDate": {
+        "label": "Next Follow-up Date"
+      }
+    },
+    "success": "Follow-up note added successfully",
+    "noFollowUps": "No follow-up notes yet"
+  },
+  "convert": {
+    "title": "Convert to Student",
+    "description": "This will create a new student record from this enquiry and update the enquiry status to Enrolled.",
+    "inputs": {
+      "studentName": {
+        "label": "Student Name"
+      },
+      "guardianName": {
+        "label": "Guardian Name"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "phone": {
+        "label": "Phone"
+      },
+      "gradeApplyingFor": {
+        "label": "Grade / Class"
+      }
+    },
+    "success": "Student created successfully from enquiry",
+    "confirm": "Are you sure you want to convert this enquiry to a student record?"
+  },
+  "confirm": {
+    "delete": {
+      "title": "Delete Enquiry",
+      "message": "Are you sure you want to delete this enquiry? This action cannot be undone.",
+      "success": "Enquiry deleted successfully"
+    },
+    "statusChange": {
+      "title": "Change Status",
+      "message": "Are you sure you want to change the status of this enquiry?"
+    }
+  },
+  "pagination": {
+    "showing": "Showing {{from}} to {{to}} of {{total}} enquiries",
+    "previous": "Previous",
+    "next": "Next",
+    "rowsPerPage": "Rows per page"
+  }
+}

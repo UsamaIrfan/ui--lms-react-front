@@ -21,6 +21,9 @@ import { isValidationError } from "@/services/api/generated/custom-fetch";
 import { useParams } from "next/navigation";
 import { Role, RoleEnum } from "@/services/api/types/role";
 import FormSelectInput from "@/components/form/select/form-select";
+import { Card, CardContent } from "@/components/ui/card";
+import { RiArrowLeftLine, RiEditLine, RiLockLine } from "@remixicon/react";
+import { Spinner } from "@/components/ui/spinner";
 
 type EditUserFormData = {
   email: string;
@@ -96,6 +99,7 @@ function EditUserFormActions() {
 
   return (
     <Button type="submit" disabled={isSubmitting}>
+      {isSubmitting && <Spinner size="sm" className="mr-2" />}
       {t("admin-panel-users-edit:actions.submit")}
     </Button>
   );
@@ -108,7 +112,8 @@ function ChangePasswordUserFormActions() {
 
   return (
     <Button type="submit" disabled={isSubmitting}>
-      {t("admin-panel-users-edit:actions.submit")}
+      {isSubmitting && <Spinner size="sm" className="mr-2" />}
+      {t("admin-panel-users-edit:actions.changePassword")}
     </Button>
   );
 }
@@ -182,73 +187,82 @@ function FormEditUser() {
 
   return (
     <FormProvider {...methods}>
-      <div className="mx-auto max-w-xs px-4">
-        <form onSubmit={onSubmit}>
-          <div className="my-6 grid gap-4">
-            <div>
-              <h6 className="text-lg font-semibold">
-                {t("admin-panel-users-edit:title1")}
-              </h6>
-            </div>
-            <div>
-              <FormAvatarInput<EditUserFormData> name="photo" testId="photo" />
-            </div>
+      <Card>
+        <CardContent className="pt-6">
+          <form onSubmit={onSubmit}>
+            <div className="grid gap-5">
+              {/* Section header */}
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-base/10">
+                  <RiEditLine className="h-4 w-4 text-primary-base" />
+                </div>
+                <div>
+                  <h6 className="text-label-md font-semibold text-text-strong-950">
+                    {t("admin-panel-users-edit:title1")}
+                  </h6>
+                  <p className="text-paragraph-xs text-text-sub-600">
+                    {t("admin-panel-users-edit:description1")}
+                  </p>
+                </div>
+              </div>
 
-            <div>
+              {/* Avatar */}
+              <div className="flex justify-center">
+                <FormAvatarInput<EditUserFormData>
+                  name="photo"
+                  testId="photo"
+                />
+              </div>
+
+              {/* Name fields */}
+              <div className="grid grid-cols-2 gap-4">
+                <FormTextInput<EditUserFormData>
+                  name="firstName"
+                  testId="first-name"
+                  label={t("admin-panel-users-edit:inputs.firstName.label")}
+                />
+                <FormTextInput<EditUserFormData>
+                  name="lastName"
+                  testId="last-name"
+                  label={t("admin-panel-users-edit:inputs.lastName.label")}
+                />
+              </div>
+
+              {/* Email */}
               <FormTextInput<EditUserFormData>
                 name="email"
                 testId="email"
                 label={t("admin-panel-users-edit:inputs.email.label")}
               />
-            </div>
 
-            <div>
-              <FormTextInput<EditUserFormData>
-                name="firstName"
-                testId="first-name"
-                label={t("admin-panel-users-edit:inputs.firstName.label")}
-              />
-            </div>
-
-            <div>
-              <FormTextInput<EditUserFormData>
-                name="lastName"
-                testId="last-name"
-                label={t("admin-panel-users-edit:inputs.lastName.label")}
-              />
-            </div>
-
-            <div>
+              {/* Role */}
               <FormSelectInput<EditUserFormData, Pick<Role, "id">>
                 name="role"
                 testId="role"
                 label={t("admin-panel-users-edit:inputs.role.label")}
                 options={[
-                  {
-                    id: RoleEnum.ADMIN,
-                  },
-                  {
-                    id: RoleEnum.USER,
-                  },
+                  { id: RoleEnum.ADMIN },
+                  { id: RoleEnum.USER },
+                  { id: RoleEnum.STUDENT },
+                  { id: RoleEnum.TEACHER },
+                  { id: RoleEnum.STAFF },
+                  { id: RoleEnum.ACCOUNTANT },
+                  { id: RoleEnum.PARENT },
                 ]}
                 keyValue="id"
                 renderOption={(option) =>
                   t(`admin-panel-users-edit:inputs.role.options.${option.id}`)
                 }
               />
-            </div>
 
-            <div className="flex items-center gap-2">
-              <EditUserFormActions />
-              <Button variant="secondary" asChild>
-                <Link href="/admin-panel/users">
-                  {t("admin-panel-users-edit:actions.cancel")}
-                </Link>
-              </Button>
+              {/* Actions */}
+              <div className="flex items-center justify-end gap-2 border-t border-stroke-soft-200 pt-4">
+                <EditUserFormActions />
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </CardContent>
+      </Card>
     </FormProvider>
   );
 }
@@ -299,55 +313,86 @@ function FormChangePasswordUser() {
 
   return (
     <FormProvider {...methods}>
-      <div className="mx-auto max-w-xs px-4">
-        <form onSubmit={onSubmit}>
-          <div className="my-6 grid gap-4">
-            <div>
-              <h6 className="text-lg font-semibold">
-                {t("admin-panel-users-edit:title2")}
-              </h6>
-            </div>
+      <Card>
+        <CardContent className="pt-6">
+          <form onSubmit={onSubmit}>
+            <div className="grid gap-5">
+              {/* Section header */}
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-warning-base/10">
+                  <RiLockLine className="h-4 w-4 text-warning-base" />
+                </div>
+                <div>
+                  <h6 className="text-label-md font-semibold text-text-strong-950">
+                    {t("admin-panel-users-edit:title2")}
+                  </h6>
+                  <p className="text-paragraph-xs text-text-sub-600">
+                    {t("admin-panel-users-edit:description2")}
+                  </p>
+                </div>
+              </div>
 
-            <div>
-              <FormTextInput<ChangeUserPasswordFormData>
-                name="password"
-                type="password"
-                label={t("admin-panel-users-edit:inputs.password.label")}
-              />
-            </div>
+              {/* Password fields */}
+              <div className="grid grid-cols-2 gap-4">
+                <FormTextInput<ChangeUserPasswordFormData>
+                  name="password"
+                  type="password"
+                  label={t("admin-panel-users-edit:inputs.password.label")}
+                />
+                <FormTextInput<ChangeUserPasswordFormData>
+                  name="passwordConfirmation"
+                  label={t(
+                    "admin-panel-users-edit:inputs.passwordConfirmation.label"
+                  )}
+                  type="password"
+                />
+              </div>
 
-            <div>
-              <FormTextInput<ChangeUserPasswordFormData>
-                name="passwordConfirmation"
-                label={t(
-                  "admin-panel-users-edit:inputs.passwordConfirmation.label"
-                )}
-                type="password"
-              />
+              {/* Actions */}
+              <div className="flex items-center justify-end gap-2 border-t border-stroke-soft-200 pt-4">
+                <ChangePasswordUserFormActions />
+              </div>
             </div>
-
-            <div className="flex items-center gap-2">
-              <ChangePasswordUserFormActions />
-              <Button variant="secondary" asChild>
-                <Link href="/admin-panel/users">
-                  {t("admin-panel-users-edit:actions.cancel")}
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </CardContent>
+      </Card>
     </FormProvider>
   );
 }
 
 function EditUser() {
   return (
-    <>
-      <FormEditUser />
-      <FormChangePasswordUser />
-    </>
+    <div className="mx-auto max-w-lg px-4 pb-8">
+      <div className="grid gap-6 pt-6">
+        {/* ── Page header ─────────────────────────── */}
+        <div className="flex items-center gap-3">
+          <Button variant="outline" size="sm" asChild className="h-8 w-8 p-0">
+            <Link href="/admin-panel/users">
+              <RiArrowLeftLine className="h-4 w-4" />
+            </Link>
+          </Button>
+          <h3 className="text-title-h5 font-bold text-text-strong-950">
+            Edit User
+          </h3>
+        </div>
+
+        <FormEditUser />
+        <FormChangePasswordUser />
+
+        {/* ── Back to users link ─────────────────── */}
+        <div className="flex justify-center">
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/admin-panel/users">
+              <RiArrowLeftLine className="mr-1 h-3.5 w-3.5" />
+              Back to Users
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 }
 
-export default withPageRequiredAuth(EditUser);
+export default withPageRequiredAuth(EditUser, {
+  roles: [RoleEnum.ADMIN],
+});

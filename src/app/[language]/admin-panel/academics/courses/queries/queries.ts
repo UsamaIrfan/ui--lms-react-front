@@ -3,13 +3,13 @@ import {
   institutionControllerCreateV1,
   institutionControllerUpdateV1,
   institutionControllerRemoveV1,
-} from "@/services/api/generated/lms-institutions/lms-institutions";
+} from "@/services/api/generated/endpoints/lms-institutions/lms-institutions";
 import {
   departmentControllerFindAllV1,
   departmentControllerCreateV1,
   departmentControllerUpdateV1,
   departmentControllerRemoveV1,
-} from "@/services/api/generated/lms-departments/lms-departments";
+} from "@/services/api/generated/endpoints/lms-departments/lms-departments";
 import type {
   CreateInstitutionDto,
   UpdateInstitutionDto,

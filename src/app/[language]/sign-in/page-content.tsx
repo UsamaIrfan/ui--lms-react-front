@@ -27,6 +27,7 @@ import useTenant from "@/services/tenant/use-tenant";
 import useLanguage from "@/services/i18n/use-language";
 import { useTranslation } from "@/services/i18n/client";
 import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
+import { getDefaultRouteForRole } from "@/services/auth/role-routes";
 
 import { isGoogleAuthEnabled } from "@/services/social-auth/google/google-config";
 import { isFacebookAuthEnabled } from "@/services/social-auth/facebook/facebook-config";
@@ -96,15 +97,23 @@ function Form() {
 
   const { handleSubmit, setError } = methods;
 
-  const handlePostLogin = useCallback(() => {
-    // Multi-tenancy: after login, check tenants
-    // TenantProvider will auto-fetch tenants once user is set
-    // If user has multiple tenants, redirect to selection
-    // For now, the tenant provider handles this on auth change
-    if (tenants.length > 1) {
-      router.push(`/${language}/select-tenant`);
-    }
-  }, [tenants.length, router, language]);
+  const handlePostLogin = useCallback(
+    (loggedInUser: User) => {
+      const defaultRoute = getDefaultRouteForRole(
+        loggedInUser.role?.id,
+        language
+      );
+
+      if (tenants.length > 1) {
+        router.push(
+          `/${language}/select-tenant?returnTo=${encodeURIComponent(defaultRoute)}`
+        );
+      } else {
+        router.push(defaultRoute);
+      }
+    },
+    [tenants.length, router, language]
+  );
 
   const onSubmit = handleSubmit(async (formData) => {
     try {
@@ -115,8 +124,9 @@ function Form() {
         refreshToken: data.refreshToken,
         tokenExpires: data.tokenExpires,
       });
-      setUser(data.user as unknown as User);
-      handlePostLogin();
+      const loggedInUser = data.user as unknown as User;
+      setUser(loggedInUser);
+      handlePostLogin(loggedInUser);
     } catch (error) {
       if (isValidationError(error)) {
         (Object.keys(error.body.errors) as Array<keyof SignInFormData>).forEach(

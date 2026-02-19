@@ -13,23 +13,33 @@ import { TableVirtuoso } from "react-virtuoso";
 import { TableCell, TableRow, TableHead } from "@/components/ui/table";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Spinner } from "@/components/ui/spinner";
+import { Badge } from "@/components/ui/badge";
 import VirtuosoTableComponents from "@/components/table/table-components";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import {
   RiArrowDownSLine,
   RiArrowUpSLine,
   RiArrowUpDownLine,
+  RiAddLine,
+  RiMoreLine,
+  RiEditLine,
+  RiDeleteBinLine,
+  RiSearchLine,
+  RiGroupLine,
 } from "@remixicon/react";
 import { User } from "@/services/api/types/user";
 import Link from "@/components/link";
 import useAuth from "@/services/auth/use-auth";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
+import { useSnackbar } from "@/hooks/use-snackbar";
 import { usersControllerRemoveV1 } from "@/services/api/generated/users/users";
 import removeDuplicatesFromArrayObjects from "@/services/helpers/remove-duplicates-from-array-of-objects";
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
@@ -39,6 +49,19 @@ import { UserFilterType, UserSortType } from "./user-filter-types";
 import { SortEnum } from "@/services/api/types/sort-type";
 
 type UsersKeys = keyof User;
+
+function getRoleBadgeVariant(
+  roleId?: number
+): "default" | "secondary" | "warning" | "success" | "outline" {
+  switch (roleId) {
+    case RoleEnum.ADMIN:
+      return "default";
+    case RoleEnum.USER:
+      return "secondary";
+    default:
+      return "outline";
+  }
+}
 
 function TableSortCellWrapper(
   props: PropsWithChildren<{
@@ -76,6 +99,7 @@ function TableSortCellWrapper(
 function Actions({ user }: { user: User }) {
   const { user: authUser } = useAuth();
   const { confirmDialog } = useConfirmDialog();
+  const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const canDelete = user.id !== authUser?.id;
   const { t: tUsers } = useTranslation("admin-panel-users");
@@ -123,40 +147,48 @@ function Actions({ user }: { user: User }) {
 
       queryClient.setQueryData(queryKey, newData);
 
-      await usersControllerRemoveV1(String(user.id));
+      try {
+        await usersControllerRemoveV1(String(user.id));
+        enqueueSnackbar(tUsers("admin-panel-users:notifications.deleted"), {
+          variant: "success",
+        });
+      } catch {
+        queryClient.setQueryData(queryKey, previousData);
+        enqueueSnackbar(tUsers("admin-panel-users:notifications.error"), {
+          variant: "error",
+        });
+      }
     }
   };
 
   return (
-    <div className="flex items-center gap-1">
-      <Button size="sm" asChild>
-        <Link href={`/admin-panel/users/edit/${user.id}`}>
-          {tUsers("admin-panel-users:actions.edit")}
-        </Link>
-      </Button>
-      {canDelete && (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              size="sm"
-              variant="outline"
-              className="px-1"
-              aria-label="select merge strategy"
-            >
-              <RiArrowDownSLine className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button size="sm" variant="outline" className="h-8 w-8 p-0">
+          <RiMoreLine className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem asChild>
+          <Link href={`/admin-panel/users/edit/${user.id}`}>
+            <RiEditLine className="mr-2 h-4 w-4" />
+            {tUsers("admin-panel-users:actions.edit")}
+          </Link>
+        </DropdownMenuItem>
+        {canDelete && (
+          <>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
-              className="bg-error-base text-static-white focus:bg-error-base/90 cursor-pointer"
+              className="text-error-base focus:text-error-base cursor-pointer"
               onClick={handleDelete}
             >
+              <RiDeleteBinLine className="mr-2 h-4 w-4" />
               {tUsers("admin-panel-users:actions.delete")}
             </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
-    </div>
+          </>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
@@ -165,6 +197,7 @@ function Users() {
   const { t: tRoles } = useTranslation("admin-panel-roles");
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
   const [{ order, orderBy }, setSort] = useState<{
     order: SortEnum;
     orderBy: UsersKeys;
@@ -204,7 +237,7 @@ function Users() {
     return undefined;
   }, [searchParams]);
 
-  const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
+  const { data, hasNextPage, isFetchingNextPage, fetchNextPage, isLoading } =
     useGetUsersQuery({ filter, sort: { order, orderBy } });
 
   const handleScroll = useCallback(() => {
@@ -220,102 +253,174 @@ function Users() {
     return removeDuplicatesFromArrayObjects(result, "id");
   }, [data]);
 
+  const filteredResult = useMemo(() => {
+    if (!searchQuery.trim()) return result;
+    const q = searchQuery.toLowerCase();
+    return result.filter(
+      (user) =>
+        user?.firstName?.toLowerCase().includes(q) ||
+        user?.lastName?.toLowerCase().includes(q) ||
+        user?.email?.toLowerCase().includes(q) ||
+        String(user?.id).includes(q)
+    );
+  }, [result, searchQuery]);
+
   return (
-    <div className="mx-auto max-w-7xl px-4">
+    <div className="mx-auto max-w-7xl px-4 pb-8">
       <div className="grid gap-6 pt-6">
-        <div className="flex items-center justify-between gap-4">
-          <h3 className="text-3xl font-bold tracking-tight">
-            {tUsers("admin-panel-users:title")}
-          </h3>
+        {/* ── Page header ─────────────────────────── */}
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-base/10">
+              <RiGroupLine className="h-5 w-5 text-primary-base" />
+            </div>
+            <div>
+              <h3 className="text-title-h5 font-bold text-text-strong-950">
+                {tUsers("admin-panel-users:title")}
+              </h3>
+              <p className="text-paragraph-sm text-text-sub-600">
+                {tUsers("admin-panel-users:description")}
+              </p>
+            </div>
+          </div>
+          <Button asChild>
+            <Link href="/admin-panel/users/create">
+              <RiAddLine className="mr-1 h-4 w-4" />
+              {tUsers("admin-panel-users:actions.create")}
+            </Link>
+          </Button>
+        </div>
+
+        {/* ── Search & filter bar ─────────────────── */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="relative w-full max-w-sm">
+            <RiSearchLine className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-soft-400" />
+            <Input
+              placeholder={tUsers("admin-panel-users:search.placeholder")}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9"
+            />
+          </div>
           <div className="flex items-center gap-2">
             <UserFilter />
-            <Button
-              asChild
-              className="bg-green-600 hover:bg-green-700 text-white"
-            >
-              <Link href="/admin-panel/users/create">
-                {tUsers("admin-panel-users:actions.create")}
-              </Link>
-            </Button>
+            {result.length > 0 && (
+              <span className="text-paragraph-sm text-text-sub-600">
+                {tUsers("admin-panel-users:table.total", {
+                  count: filteredResult.length,
+                })}
+              </span>
+            )}
           </div>
         </div>
 
-        <div className="mb-4">
-          <TableVirtuoso
-            style={{ height: 500 }}
-            data={result}
-            components={VirtuosoTableComponents}
-            endReached={handleScroll}
-            overscan={20}
-            useWindowScroll
-            increaseViewportBy={400}
-            fixedHeaderContent={() => (
-              <>
-                <TableRow>
-                  <TableHead style={{ width: 50 }}></TableHead>
-                  <TableSortCellWrapper
-                    width={100}
-                    orderBy={orderBy}
-                    order={order}
-                    column="id"
-                    handleRequestSort={handleRequestSort}
-                  >
-                    {tUsers("admin-panel-users:table.column1")}
-                  </TableSortCellWrapper>
-                  <TableHead style={{ width: 200 }}>
-                    {tUsers("admin-panel-users:table.column2")}
-                  </TableHead>
-                  <TableSortCellWrapper
-                    orderBy={orderBy}
-                    order={order}
-                    column="email"
-                    handleRequestSort={handleRequestSort}
-                  >
-                    {tUsers("admin-panel-users:table.column3")}
-                  </TableSortCellWrapper>
-
-                  <TableHead style={{ width: 80 }}>
-                    {tUsers("admin-panel-users:table.column4")}
-                  </TableHead>
-                  <TableHead style={{ width: 130 }}></TableHead>
-                </TableRow>
-                {isFetchingNextPage && (
+        {/* ── Users table ─────────────────────────── */}
+        <div className="rounded-lg border border-stroke-soft-200">
+          {isLoading ? (
+            <div className="flex h-60 items-center justify-center">
+              <Spinner size="md" />
+            </div>
+          ) : filteredResult.length === 0 ? (
+            <div className="flex h-60 flex-col items-center justify-center gap-2 text-center">
+              <RiGroupLine className="h-10 w-10 text-text-soft-400" />
+              <p className="text-paragraph-sm text-text-soft-400">
+                {searchQuery
+                  ? tUsers("admin-panel-users:table.noResults")
+                  : tUsers("admin-panel-users:table.empty")}
+              </p>
+            </div>
+          ) : (
+            <TableVirtuoso
+              style={{ height: 540 }}
+              data={filteredResult}
+              components={VirtuosoTableComponents}
+              endReached={handleScroll}
+              overscan={20}
+              useWindowScroll
+              increaseViewportBy={400}
+              fixedHeaderContent={() => (
+                <>
                   <TableRow>
-                    <TableCell colSpan={6} className="p-0">
-                      <Spinner size="sm" />
-                    </TableCell>
+                    <TableHead className="w-[50px]"></TableHead>
+                    <TableSortCellWrapper
+                      width={80}
+                      orderBy={orderBy}
+                      order={order}
+                      column="id"
+                      handleRequestSort={handleRequestSort}
+                    >
+                      {tUsers("admin-panel-users:table.id")}
+                    </TableSortCellWrapper>
+                    <TableHead className="min-w-[180px]">
+                      {tUsers("admin-panel-users:table.name")}
+                    </TableHead>
+                    <TableSortCellWrapper
+                      orderBy={orderBy}
+                      order={order}
+                      column="email"
+                      handleRequestSort={handleRequestSort}
+                    >
+                      {tUsers("admin-panel-users:table.email")}
+                    </TableSortCellWrapper>
+                    <TableHead className="w-[100px]">
+                      {tUsers("admin-panel-users:table.role")}
+                    </TableHead>
+                    <TableHead className="w-[60px]">
+                      {tUsers("admin-panel-users:table.actions")}
+                    </TableHead>
                   </TableRow>
-                )}
-              </>
-            )}
-            itemContent={(index, user) => (
-              <>
-                <TableCell style={{ width: 50 }}>
-                  <Avatar>
-                    <AvatarImage
-                      alt={user?.firstName + " " + user?.lastName}
-                      src={user?.photo?.path}
-                    />
-                    <AvatarFallback>
-                      {user?.firstName?.[0]}
-                      {user?.lastName?.[0]}
-                    </AvatarFallback>
-                  </Avatar>
-                </TableCell>
-                <TableCell style={{ width: 100 }}>{user?.id}</TableCell>
-                <TableCell style={{ width: 200 }}>
-                  {user?.firstName} {user?.lastName}
-                </TableCell>
-                <TableCell>{user?.email}</TableCell>
-                <TableCell style={{ width: 80 }}>
-                  {tRoles(`role.${user?.role?.id}`)}
-                </TableCell>
-                <TableCell style={{ width: 130 }}>
-                  {!!user && <Actions user={user} />}
-                </TableCell>
-              </>
-            )}
-          />
+                  {isFetchingNextPage && (
+                    <TableRow>
+                      <TableCell colSpan={6} className="p-0">
+                        <div className="flex justify-center py-2">
+                          <Spinner size="sm" />
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </>
+              )}
+              itemContent={(_index, user) => (
+                <>
+                  <TableCell className="w-[50px]">
+                    <Avatar>
+                      <AvatarImage
+                        alt={user?.firstName + " " + user?.lastName}
+                        src={user?.photo?.path}
+                      />
+                      <AvatarFallback>
+                        {user?.firstName?.[0]}
+                        {user?.lastName?.[0]}
+                      </AvatarFallback>
+                    </Avatar>
+                  </TableCell>
+                  <TableCell className="w-[80px] text-paragraph-sm text-text-sub-600">
+                    #{user?.id}
+                  </TableCell>
+                  <TableCell className="min-w-[180px]">
+                    <div className="flex flex-col">
+                      <span className="text-paragraph-sm font-medium text-text-strong-950">
+                        {user?.firstName} {user?.lastName}
+                      </span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-paragraph-sm text-text-sub-600">
+                    {user?.email}
+                  </TableCell>
+                  <TableCell className="w-[100px]">
+                    <Badge
+                      variant={getRoleBadgeVariant(Number(user?.role?.id))}
+                    >
+                      {tRoles(`role.${user?.role?.id}`)}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="w-[60px]">
+                    {!!user && <Actions user={user} />}
+                  </TableCell>
+                </>
+              )}
+            />
+          )}
         </div>
       </div>
     </div>

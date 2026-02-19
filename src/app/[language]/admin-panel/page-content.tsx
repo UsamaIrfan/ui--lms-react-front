@@ -380,4 +380,11 @@ function AdminPanel() {
   );
 }
 
-export default withPageRequiredAuth(AdminPanel, { roles: [RoleEnum.ADMIN] });
+export default withPageRequiredAuth(AdminPanel, {
+  roles: [
+    RoleEnum.ADMIN,
+    RoleEnum.TEACHER,
+    RoleEnum.STAFF,
+    RoleEnum.ACCOUNTANT,
+  ],
+});

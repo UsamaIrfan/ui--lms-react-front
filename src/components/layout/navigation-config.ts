@@ -23,6 +23,9 @@ import {
   RiMoneyDollarBoxLine,
   RiLineChartLine,
   RiPagesLine,
+  RiUserSettingsLine,
+  RiFileChartLine,
+  RiGitBranchLine,
 } from "@remixicon/react";
 import type { RemixiconComponentType } from "@remixicon/react";
 
@@ -226,6 +229,20 @@ export const navigationItems: NavItem[] = [
     ],
   },
   {
+    id: "reports",
+    labelKey: "navigation.reports.title",
+    href: "/admin-panel/reports",
+    icon: RiFileChartLine,
+    roles: [RoleEnum.ADMIN, RoleEnum.ACCOUNTANT, RoleEnum.STAFF],
+  },
+  {
+    id: "user-management",
+    labelKey: "navigation.userManagement",
+    href: "/admin-panel/users",
+    icon: RiUserSettingsLine,
+    roles: [RoleEnum.ADMIN],
+  },
+  {
     id: "admin-notices",
     labelKey: "navigation.notices",
     href: "/admin-panel/notices",
@@ -245,5 +262,42 @@ export const navigationItems: NavItem[] = [
     href: "/admin-panel/settings",
     icon: RiSettings4Line,
     roles: [RoleEnum.ADMIN],
+    children: [
+      {
+        id: "settings-general",
+        labelKey: "navigation.settingsGeneral",
+        href: "/admin-panel/settings/general",
+        icon: RiSettings4Line,
+        roles: [RoleEnum.ADMIN],
+      },
+      {
+        id: "settings-branches",
+        labelKey: "navigation.settingsBranches",
+        href: "/admin-panel/settings/branches",
+        icon: RiGitBranchLine,
+        roles: [RoleEnum.ADMIN],
+      },
+      {
+        id: "settings-fees",
+        labelKey: "navigation.settingsFees",
+        href: "/admin-panel/settings/fees",
+        icon: RiMoneyDollarCircleLine,
+        roles: [RoleEnum.ADMIN],
+      },
+      {
+        id: "settings-attendance",
+        labelKey: "navigation.settingsAttendance",
+        href: "/admin-panel/settings/attendance",
+        icon: RiCalendarCheckLine,
+        roles: [RoleEnum.ADMIN],
+      },
+      {
+        id: "settings-notifications",
+        labelKey: "navigation.settingsNotifications",
+        href: "/admin-panel/settings/notifications",
+        icon: RiNotification3Line,
+        roles: [RoleEnum.ADMIN],
+      },
+    ],
   },
 ];

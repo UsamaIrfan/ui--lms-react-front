@@ -17,6 +17,9 @@ import { isValidationError } from "@/services/api/generated/custom-fetch";
 import { useRouter } from "next/navigation";
 import { Role, RoleEnum } from "@/services/api/types/role";
 import FormSelectInput from "@/components/form/select/form-select";
+import { Card, CardContent } from "@/components/ui/card";
+import { RiArrowLeftLine, RiUserAddLine } from "@remixicon/react";
+import { Spinner } from "@/components/ui/spinner";
 
 type CreateFormData = {
   email: string;
@@ -84,6 +87,7 @@ function CreateUserFormActions() {
 
   return (
     <Button type="submit" disabled={isSubmitting}>
+      {isSubmitting && <Spinner size="sm" className="mr-2" />}
       {t("admin-panel-users-create:actions.submit")}
     </Button>
   );
@@ -145,94 +149,126 @@ function FormCreateUser() {
 
   return (
     <FormProvider {...methods}>
-      <div className="mx-auto max-w-xs px-4">
-        <form onSubmit={onSubmit} autoComplete="create-new-user">
-          <div className="my-6 grid gap-4">
-            <div>
-              <h6 className="text-lg font-semibold">
-                {t("admin-panel-users-create:title")}
-              </h6>
-            </div>
-            <div>
-              <FormAvatarInput<CreateFormData> name="photo" testId="photo" />
-            </div>
-
-            <div>
-              <FormTextInput<CreateFormData>
-                name="email"
-                testId="new-user-email"
-                autoComplete="new-user-email"
-                label={t("admin-panel-users-create:inputs.email.label")}
-              />
-            </div>
-
-            <div>
-              <FormTextInput<CreateFormData>
-                name="password"
-                type="password"
-                testId="new-user-password"
-                autoComplete="new-user-password"
-                label={t("admin-panel-users-create:inputs.password.label")}
-              />
-            </div>
-
-            <div>
-              <FormTextInput<CreateFormData>
-                name="passwordConfirmation"
-                testId="new-user-password-confirmation"
-                label={t(
-                  "admin-panel-users-create:inputs.passwordConfirmation.label"
-                )}
-                type="password"
-              />
-            </div>
-
-            <div>
-              <FormTextInput<CreateFormData>
-                name="firstName"
-                testId="first-name"
-                label={t("admin-panel-users-create:inputs.firstName.label")}
-              />
-            </div>
-
-            <div>
-              <FormTextInput<CreateFormData>
-                name="lastName"
-                testId="last-name"
-                label={t("admin-panel-users-create:inputs.lastName.label")}
-              />
-            </div>
-
-            <div>
-              <FormSelectInput<CreateFormData, Pick<Role, "id">>
-                name="role"
-                testId="role"
-                label={t("admin-panel-users-create:inputs.role.label")}
-                options={[
-                  {
-                    id: RoleEnum.ADMIN,
-                  },
-                  {
-                    id: RoleEnum.USER,
-                  },
-                ]}
-                keyValue="id"
-                renderOption={(option) =>
-                  t(`admin-panel-users-create:inputs.role.options.${option.id}`)
-                }
-              />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <CreateUserFormActions />
-              <Button variant="secondary" asChild>
-                <Link href="/admin-panel/users">
-                  {t("admin-panel-users-create:actions.cancel")}
-                </Link>
-              </Button>
+      <div className="mx-auto max-w-lg px-4 pb-8">
+        <div className="grid gap-6 pt-6">
+          {/* ── Page header ─────────────────────────── */}
+          <div className="flex items-center gap-3">
+            <Button variant="outline" size="sm" asChild className="h-8 w-8 p-0">
+              <Link href="/admin-panel/users">
+                <RiArrowLeftLine className="h-4 w-4" />
+              </Link>
+            </Button>
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-base/10">
+                <RiUserAddLine className="h-5 w-5 text-primary-base" />
+              </div>
+              <div>
+                <h3 className="text-title-h5 font-bold text-text-strong-950">
+                  {t("admin-panel-users-create:title")}
+                </h3>
+                <p className="text-paragraph-sm text-text-sub-600">
+                  {t("admin-panel-users-create:description")}
+                </p>
+              </div>
             </div>
           </div>
-        </form>
+
+          {/* ── Form card ─────────────────────────── */}
+          <Card>
+            <CardContent className="pt-6">
+              <form onSubmit={onSubmit} autoComplete="create-new-user">
+                <div className="grid gap-5">
+                  {/* Avatar */}
+                  <div className="flex justify-center">
+                    <FormAvatarInput<CreateFormData>
+                      name="photo"
+                      testId="photo"
+                    />
+                  </div>
+
+                  {/* Name fields */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <FormTextInput<CreateFormData>
+                      name="firstName"
+                      testId="first-name"
+                      label={t(
+                        "admin-panel-users-create:inputs.firstName.label"
+                      )}
+                    />
+                    <FormTextInput<CreateFormData>
+                      name="lastName"
+                      testId="last-name"
+                      label={t(
+                        "admin-panel-users-create:inputs.lastName.label"
+                      )}
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <FormTextInput<CreateFormData>
+                    name="email"
+                    testId="new-user-email"
+                    autoComplete="new-user-email"
+                    label={t("admin-panel-users-create:inputs.email.label")}
+                  />
+
+                  {/* Password fields */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <FormTextInput<CreateFormData>
+                      name="password"
+                      type="password"
+                      testId="new-user-password"
+                      autoComplete="new-user-password"
+                      label={t(
+                        "admin-panel-users-create:inputs.password.label"
+                      )}
+                    />
+                    <FormTextInput<CreateFormData>
+                      name="passwordConfirmation"
+                      testId="new-user-password-confirmation"
+                      label={t(
+                        "admin-panel-users-create:inputs.passwordConfirmation.label"
+                      )}
+                      type="password"
+                    />
+                  </div>
+
+                  {/* Role */}
+                  <FormSelectInput<CreateFormData, Pick<Role, "id">>
+                    name="role"
+                    testId="role"
+                    label={t("admin-panel-users-create:inputs.role.label")}
+                    options={[
+                      { id: RoleEnum.ADMIN },
+                      { id: RoleEnum.USER },
+                      { id: RoleEnum.STUDENT },
+                      { id: RoleEnum.TEACHER },
+                      { id: RoleEnum.STAFF },
+                      { id: RoleEnum.ACCOUNTANT },
+                      { id: RoleEnum.PARENT },
+                    ]}
+                    keyValue="id"
+                    renderOption={(option) =>
+                      t(
+                        `admin-panel-users-create:inputs.role.options.${option.id}`
+                      )
+                    }
+                  />
+
+                  {/* Actions */}
+                  <div className="flex items-center justify-end gap-2 border-t border-stroke-soft-200 pt-4">
+                    <Button variant="outline" asChild>
+                      <Link href="/admin-panel/users">
+                        {t("admin-panel-users-create:actions.cancel")}
+                      </Link>
+                    </Button>
+                    <CreateUserFormActions />
+                  </div>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </FormProvider>
   );
@@ -242,4 +278,6 @@ function CreateUser() {
   return <FormCreateUser />;
 }
 
-export default withPageRequiredAuth(CreateUser);
+export default withPageRequiredAuth(CreateUser, {
+  roles: [RoleEnum.ADMIN],
+});

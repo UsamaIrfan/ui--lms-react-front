@@ -1,0 +1,87 @@
+{
+  "title": "Staff Leaves",
+  "tabs": {
+    "applications": "Applications",
+    "balance": "Balance"
+  },
+  "table": {
+    "columns": {
+      "staffName": "Staff Name",
+      "staffId": "Staff ID",
+      "leaveType": "Leave Type",
+      "type": "Type",
+      "startDate": "Start Date",
+      "from": "From",
+      "endDate": "End Date",
+      "to": "To",
+      "reason": "Reason",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "empty": "No leave applications found",
+    "loading": "Loading leaves..."
+  },
+  "actions": {
+    "applyLeave": "Apply Leave",
+    "apply": "Apply Leave",
+    "approve": "Approve",
+    "reject": "Reject",
+    "viewBalance": "View Balance",
+    "cancel": "Cancel",
+    "save": "Save",
+    "search": "Search..."
+  },
+  "leaveTypes": {
+    "sick": "Sick Leave",
+    "casual": "Casual Leave",
+    "earned": "Earned Leave",
+    "maternity": "Maternity Leave",
+    "paternity": "Paternity Leave",
+    "unpaid": "Unpaid Leave",
+    "other": "Other"
+  },
+  "status": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled"
+  },
+  "form": {
+    "staffId": "Staff ID",
+    "leaveType": "Leave Type",
+    "type": "Leave Type",
+    "startDate": "Start Date",
+    "from": "From",
+    "endDate": "End Date",
+    "to": "To",
+    "reason": "Reason",
+    "adminRemarks": "Admin Remarks",
+    "selectType": "Select Leave Type",
+    "validation": {
+      "required": "All required fields must be filled",
+      "typeRequired": "Leave type is required",
+      "startRequired": "Start date is required",
+      "endRequired": "End date is required",
+      "reasonRequired": "Reason is required"
+    }
+  },
+  "balance": {
+    "title": "Leave Balance",
+    "staffId": "Staff ID",
+    "type": "Type",
+    "total": "Total",
+    "used": "Used",
+    "remaining": "Remaining",
+    "year": "Year"
+  },
+  "notifications": {
+    "applied": "Leave application submitted",
+    "approved": "Leave approved",
+    "rejected": "Leave rejected",
+    "error": "Failed to process leave"
+  },
+  "confirm": {
+    "approve": "Are you sure you want to approve this leave?",
+    "reject": "Are you sure you want to reject this leave?"
+  }
+}

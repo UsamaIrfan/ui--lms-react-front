@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import useAuth from "./use-auth";
 import React, { FunctionComponent, useEffect } from "react";
 import useLanguage from "@/services/i18n/use-language";
+import { getDefaultRouteForRole } from "./role-routes";
 
 type PropsType = {
   params?: { [key: string]: string | string[] | undefined };
@@ -20,7 +21,9 @@ function withPageRequiredGuest(Component: FunctionComponent<PropsType>) {
         if (!user || !isLoaded) return;
 
         const params = new URLSearchParams(window.location.search);
-        const returnTo = params.get("returnTo") ?? `/${language}`;
+        const returnTo =
+          params.get("returnTo") ??
+          getDefaultRouteForRole(user.role?.id, language);
         router.replace(returnTo);
       };
 

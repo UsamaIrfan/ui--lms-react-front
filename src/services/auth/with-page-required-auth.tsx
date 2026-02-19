@@ -4,6 +4,7 @@ import useAuth from "./use-auth";
 import React, { FunctionComponent, useEffect } from "react";
 import useLanguage from "../i18n/use-language";
 import { RoleEnum } from "../api/types/role";
+import { getDefaultRouteForRole } from "./role-routes";
 
 type PropsType = {
   params?: { [key: string]: string | string[] | undefined };
@@ -50,7 +51,9 @@ function withPageRequiredAuth(
         let redirectTo = `/${language}/sign-in?${params.toString()}`;
 
         if (user) {
-          redirectTo = `/${language}`;
+          // User is authenticated but doesn't have the right role for this page.
+          // Redirect to their role-appropriate default route.
+          redirectTo = getDefaultRouteForRole(user.role?.id, language);
         }
 
         router.replace(redirectTo);

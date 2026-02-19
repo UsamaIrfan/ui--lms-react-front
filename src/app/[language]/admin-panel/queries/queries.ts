@@ -29,9 +29,12 @@ export const adminDashboardQueryKeys = createQueryKeys(["admin-dashboard"], {
 // Safe fetcher — returns null on failure so one
 // broken endpoint does not crash the whole dashboard
 // ─────────────────────────────────────────────
-async function safeFetch<T>(fn: () => Promise<T>): Promise<T | null> {
+async function safeFetch<T>(
+  fn: (opts?: { signal?: AbortSignal }) => Promise<T>,
+  signal?: AbortSignal
+): Promise<T | null> {
   try {
-    return await fn();
+    return await fn(signal ? { signal } : undefined);
   } catch {
     return null;
   }
@@ -45,7 +48,8 @@ async function safeFetch<T>(fn: () => Promise<T>): Promise<T | null> {
  * falls back to demo data for that section instead of failing the whole page.
  */
 async function fetchAdminDashboard(
-  branchId?: string
+  branchId?: string,
+  signal?: AbortSignal
 ): Promise<AdminDashboardData> {
   const branchParams = branchId ? { branchId } : {};
 
@@ -62,18 +66,35 @@ async function fetchAdminDashboard(
     classesRes,
     leavesRes,
   ] = await Promise.all([
-    safeFetch(() =>
-      studentRegistrationControllerFindAllV1({ limit: 1, page: 1 })
+    safeFetch(
+      () =>
+        studentRegistrationControllerFindAllV1(
+          { limit: 1, page: 1 },
+          { signal }
+        ),
+      signal
     ),
-    safeFetch(() => staffManagementControllerFindAllV1(branchParams)),
-    safeFetch(() => attendanceControllerAlertsV1({ threshold: 75 })),
-    safeFetch(() => feesControllerGetCollectionReportV1()),
-    safeFetch(() => feesControllerGetPendingReportV1()),
-    safeFetch(() => examControllerFindAllV1()),
-    safeFetch(() => admissionEnquiryControllerFindAllV1()),
-    safeFetch(() => noticesControllerFindAllV1()),
-    safeFetch(() => gradeClassControllerFindAllV1()),
-    safeFetch(() => staffLeaveControllerFindAllV1()),
+    safeFetch(
+      () => staffManagementControllerFindAllV1(branchParams, { signal }),
+      signal
+    ),
+    safeFetch(
+      () => attendanceControllerAlertsV1({ threshold: 75 }, { signal }),
+      signal
+    ),
+    safeFetch(
+      () => feesControllerGetCollectionReportV1(undefined, { signal }),
+      signal
+    ),
+    safeFetch(() => feesControllerGetPendingReportV1({ signal }), signal),
+    safeFetch(() => examControllerFindAllV1({ signal }), signal),
+    safeFetch(() => admissionEnquiryControllerFindAllV1({ signal }), signal),
+    safeFetch(() => noticesControllerFindAllV1({ signal }), signal),
+    safeFetch(() => gradeClassControllerFindAllV1({ signal }), signal),
+    safeFetch(
+      () => staffLeaveControllerFindAllV1(undefined, { signal }),
+      signal
+    ),
   ]);
 
   // ── Extract lists (Orval types are void but runtime returns real data) ──
@@ -192,7 +213,7 @@ async function fetchAdminDashboard(
 export function useAdminDashboard(branchId?: string) {
   return useQuery({
     queryKey: adminDashboardQueryKeys.dashboard().sub.byBranch(branchId).key,
-    queryFn: () => fetchAdminDashboard(branchId),
+    queryFn: ({ signal }) => fetchAdminDashboard(branchId, signal),
     refetchInterval: 5 * 60 * 1000, // Auto-refresh every 5 minutes
     staleTime: 2 * 60 * 1000, // Consider stale after 2 minutes
   });

@@ -1,0 +1,61 @@
+{
+  "title": "Notices",
+  "table": {
+    "columns": {
+      "title": "Title",
+      "content": "Content",
+      "targetRoles": "Target Roles",
+      "targetBranches": "Target Branches",
+      "isPublished": "Published",
+      "published": "Published",
+      "publishDate": "Publish Date",
+      "expiresAt": "Expires At",
+      "createdAt": "Created At",
+      "actions": "Actions"
+    },
+    "empty": "No notices found",
+    "loading": "Loading..."
+  },
+  "actions": {
+    "create": "Create Notice",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "publish": "Publish",
+    "unpublish": "Unpublish"
+  },
+  "form": {
+    "title": "Title",
+    "content": "Content",
+    "targetRoles": "Target Roles",
+    "targetBranches": "Target Branches",
+    "attachments": "Attachments",
+    "isPublished": "Published",
+    "publishDate": "Publish Date",
+    "expiresAt": "Expires At",
+    "validation": {
+      "required": "All required fields must be filled",
+      "titleRequired": "Title is required",
+      "contentRequired": "Content is required",
+      "targetRolesRequired": "At least one target role is required",
+      "targetBranchesRequired": "At least one target branch is required"
+    }
+  },
+  "status": {
+    "published": "Published",
+    "draft": "Draft",
+    "expired": "Expired"
+  },
+  "notifications": {
+    "created": "Notice created successfully",
+    "updated": "Notice updated successfully",
+    "deleted": "Notice deleted successfully",
+    "error": "An error occurred"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this notice?",
+    "deleteTitle": "Confirm Delete"
+  }
+}

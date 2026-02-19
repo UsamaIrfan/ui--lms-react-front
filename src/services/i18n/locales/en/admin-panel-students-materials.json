@@ -1,0 +1,161 @@
+{
+  "title": "Course Materials",
+  "tabs": {
+    "materials": "Materials",
+    "assignments": "Assignments"
+  },
+  "actions": {
+    "createMaterial": "Upload Material",
+    "createAssignment": "Create Assignment",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "download": "Download"
+  },
+  "table": {
+    "title": "Title",
+    "type": "Type",
+    "subjectId": "Subject",
+    "status": "Status",
+    "downloads": "Downloads",
+    "actions": "Actions",
+    "empty": "No records found",
+    "dueDate": "Due Date",
+    "totalMarks": "Total Marks"
+  },
+  "form": {
+    "title": "Title",
+    "subjectId": "Subject",
+    "type": "Material Type",
+    "description": "Description",
+    "externalUrl": "URL",
+    "isActive": "Active",
+    "totalMarks": "Total Marks",
+    "dueDate": "Due Date",
+    "validation": {
+      "required": "All required fields must be filled",
+      "titleRequired": "Title is required",
+      "typeRequired": "Type is required",
+      "dueDateRequired": "Due date is required"
+    }
+  },
+  "notifications": {
+    "created": "Created successfully",
+    "updated": "Updated successfully",
+    "deleted": "Deleted successfully",
+    "uploaded": "Material uploaded successfully",
+    "assignmentCreated": "Assignment created successfully",
+    "error": "An error occurred"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this?",
+    "deleteTitle": "Confirm Delete"
+  },
+  "materials": {
+    "title": "Course Materials",
+    "actions": {
+      "upload": "Upload Material",
+      "edit": "Edit",
+      "delete": "Delete",
+      "download": "Download"
+    },
+    "table": {
+      "columns": {
+        "title": "Title",
+        "type": "Type",
+        "subject": "Subject",
+        "class": "Class",
+        "uploadedBy": "Uploaded By",
+        "createdAt": "Upload Date",
+        "actions": "Actions"
+      },
+      "empty": "No materials found"
+    },
+    "form": {
+      "title": "Title",
+      "description": "Description",
+      "type": "Material Type",
+      "subjectId": "Subject",
+      "gradeClassId": "Class",
+      "sectionId": "Section",
+      "file": "File",
+      "url": "URL",
+      "validation": {
+        "titleRequired": "Title is required",
+        "typeRequired": "Type is required"
+      }
+    },
+    "types": {
+      "document": "Document",
+      "video": "Video",
+      "assignment": "Assignment",
+      "link": "Link",
+      "presentation": "Presentation"
+    },
+    "quota": {
+      "title": "Storage Quota",
+      "used": "Used",
+      "total": "Total",
+      "available": "Available"
+    }
+  },
+  "assignments": {
+    "title": "Assignments",
+    "actions": {
+      "create": "Create Assignment",
+      "edit": "Edit",
+      "delete": "Delete",
+      "viewSubmissions": "View Submissions"
+    },
+    "table": {
+      "columns": {
+        "title": "Title",
+        "subject": "Subject",
+        "class": "Class",
+        "dueDate": "Due Date",
+        "submissions": "Submissions",
+        "actions": "Actions"
+      },
+      "empty": "No assignments found"
+    },
+    "form": {
+      "title": "Title",
+      "description": "Description",
+      "subjectId": "Subject",
+      "gradeClassId": "Class",
+      "sectionId": "Section",
+      "dueDate": "Due Date",
+      "totalMarks": "Total Marks",
+      "attachments": "Attachments",
+      "validation": {
+        "titleRequired": "Title is required",
+        "dueDateRequired": "Due date is required"
+      }
+    },
+    "submissions": {
+      "title": "Submissions",
+      "table": {
+        "columns": {
+          "studentName": "Student",
+          "submittedAt": "Submitted At",
+          "grade": "Grade",
+          "remarks": "Remarks",
+          "actions": "Actions"
+        },
+        "empty": "No submissions yet"
+      }
+    }
+  },
+  "notifications": {
+    "uploaded": "Material uploaded successfully",
+    "updated": "Material updated successfully",
+    "deleted": "Material deleted successfully",
+    "assignmentCreated": "Assignment created successfully",
+    "error": "An error occurred"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this?",
+    "deleteTitle": "Confirm Delete"
+  }
+}

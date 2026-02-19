@@ -1,0 +1,183 @@
+{
+  "title": "Student Attendance",
+  "dashboard": {
+    "title": "Attendance Dashboard",
+    "totalStudents": "Total Students",
+    "presentToday": "Present Today",
+    "absentToday": "Absent Today",
+    "onLeaveToday": "On Leave",
+    "percentage": "{{value}}%",
+    "classSummary": "Class-wise Attendance",
+    "noData": "No attendance data available for this date.",
+    "selectDate": "Select Date",
+    "actions": {
+      "markAttendance": "Mark Attendance",
+      "viewReports": "View Reports",
+      "viewAlerts": "View Alerts",
+      "bulkUpload": "Bulk Upload"
+    }
+  },
+  "mark": {
+    "title": "Mark Attendance",
+    "selectClass": "Select Class",
+    "selectSection": "Select Section",
+    "selectDate": "Select Date",
+    "allClasses": "All Classes",
+    "allSections": "All Sections",
+    "futureDate": "Cannot mark attendance for future dates.",
+    "markAllPresent": "Mark All Present",
+    "markAllAbsent": "Mark All Absent",
+    "submit": "Submit Attendance",
+    "submitting": "Submitting...",
+    "success": "Attendance marked successfully for {{count}} students.",
+    "error": "Failed to mark attendance.",
+    "unmarked": "Please mark attendance for all students before submitting.",
+    "noStudents": "No students found for the selected class and section.",
+    "anotherClass": "Mark Another Class",
+    "studentId": "ID",
+    "studentName": "Student Name",
+    "status": "Status",
+    "remarks": "Remarks",
+    "duplicate": "Attendance already marked for this date."
+  },
+  "reports": {
+    "title": "Attendance Reports",
+    "filters": {
+      "dateRange": "Date Range",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "class": "Class",
+      "section": "Section",
+      "student": "Search Student",
+      "status": "Status",
+      "allStatuses": "All Statuses",
+      "allClasses": "All Classes",
+      "allSections": "All Sections",
+      "clearFilters": "Clear Filters"
+    },
+    "views": {
+      "list": "List View",
+      "calendar": "Calendar View",
+      "summary": "Summary View"
+    },
+    "columns": {
+      "date": "Date",
+      "studentName": "Student Name",
+      "class": "Class / Section",
+      "status": "Status",
+      "markedBy": "Marked By",
+      "checkIn": "Check In",
+      "checkOut": "Check Out",
+      "remarks": "Remarks"
+    },
+    "noData": "No attendance records found.",
+    "export": "Export",
+    "exportSuccess": "Report exported successfully.",
+    "exportNoData": "No data to export."
+  },
+  "studentDetail": {
+    "title": "Student Attendance Detail",
+    "attendancePercentage": "Attendance Percentage",
+    "monthlyCalendar": "Monthly Calendar",
+    "attendanceTrend": "Attendance Trend",
+    "summary": "Summary",
+    "totalDays": "Total Days",
+    "present": "Present",
+    "absent": "Absent",
+    "late": "Late",
+    "halfDay": "Half Day",
+    "leave": "On Leave",
+    "percentage": "Percentage",
+    "noData": "No attendance data for this student.",
+    "filterByDate": "Filter by Date",
+    "leaveApplications": "Leave Applications",
+    "markForDate": "Mark Attendance"
+  },
+  "bulk": {
+    "title": "Bulk Attendance Entry",
+    "description": "Upload a CSV file to mark attendance for multiple students at once.",
+    "downloadTemplate": "Download Template",
+    "csvFormat": "CSV format with required columns",
+    "maxSize": "Maximum file size: 5MB",
+    "dropzone": "Click or drag & drop a CSV file here",
+    "preview": "Preview",
+    "rows": "{{count}} rows",
+    "validRows": "Valid",
+    "invalidRows": "Invalid",
+    "import": "Import Attendance",
+    "importing": "Importing attendance data...",
+    "success": "Successfully marked attendance for {{marked}} students. {{skipped}} skipped.",
+    "error": "Failed to import attendance data.",
+    "backToUpload": "Upload Another File"
+  },
+  "alerts": {
+    "title": "Low Attendance Alerts",
+    "description": "Students with attendance below the threshold.",
+    "threshold": "Threshold",
+    "thresholdLabel": "Attendance below {{value}}%",
+    "columns": {
+      "studentName": "Student Name",
+      "studentId": "Student ID",
+      "class": "Class / Section",
+      "percentage": "Attendance %",
+      "absentDays": "Days Absent",
+      "lastDate": "Last Attended",
+      "contact": "Guardian Contact"
+    },
+    "noData": "No students below the attendance threshold.",
+    "export": "Export List",
+    "sendNotifications": "Send Notifications",
+    "notificationSent": "Notifications sent to {{count}} guardians.",
+    "severity": {
+      "critical": "Critical (< 50%)",
+      "warning": "Warning (50-65%)",
+      "caution": "Caution (65-75%)"
+    }
+  },
+  "status": {
+    "present": "Present",
+    "absent": "Absent",
+    "late": "Late",
+    "half_day": "Half Day",
+    "excused": "Excused"
+  },
+  "leaveType": {
+    "sick": "Sick Leave",
+    "casual": "Casual Leave",
+    "earned": "Earned Leave",
+    "maternity": "Maternity Leave",
+    "paternity": "Paternity Leave",
+    "unpaid": "Unpaid Leave",
+    "other": "Other"
+  },
+  "leaveStatus": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled"
+  },
+  "pagination": {
+    "rowsPerPage": "Rows per page",
+    "page": "Page {{current}} of {{total}}",
+    "showing": "Showing {{from}} to {{to}} of {{total}}"
+  },
+  "actions": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "export": "Export",
+    "filter": "Filters"
+  },
+  "calendar": {
+    "sun": "Sun",
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat",
+    "prevMonth": "Previous Month",
+    "nextMonth": "Next Month"
+  }
+}

@@ -1,9 +1,12 @@
 {
-  "title1": "Edit user",
-  "title2": "Change password",
+  "title1": "Profile Information",
+  "description1": "Update the user's profile details",
+  "title2": "Change Password",
+  "description2": "Set a new password for this user",
   "actions": {
-    "submit": "Save",
-    "cancel": "Cancel"
+    "submit": "Save Changes",
+    "cancel": "Cancel",
+    "changePassword": "Update Password"
   },
   "inputs": {
     "email": {
@@ -31,11 +34,16 @@
     "role": {
       "label": "Role",
       "validation": {
-        "required": "Last Name is required"
+        "required": "Role is required"
       },
       "options": {
         "1": "Admin",
-        "2": "User"
+        "2": "User",
+        "3": "Student",
+        "4": "Teacher",
+        "5": "Staff",
+        "6": "Accountant",
+        "7": "Parent"
       }
     },
     "password": {

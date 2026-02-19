@@ -8,6 +8,7 @@ import useAuth from "@/services/auth/use-auth";
 import useLanguage from "@/services/i18n/use-language";
 import { useTranslation } from "@/services/i18n/client";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
+import { getDefaultRouteForRole } from "@/services/auth/role-routes";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import type { Tenant } from "@/services/api/generated/models/tenant";
@@ -26,7 +27,9 @@ function SelectTenantContent() {
   const [selectedTenantId, setSelectedTenantId] = useState<string | null>(null);
   const [isSelecting, setIsSelecting] = useState(false);
 
-  const returnTo = searchParams.get("returnTo") ?? `/${language}`;
+  const returnTo =
+    searchParams.get("returnTo") ??
+    getDefaultRouteForRole(user?.role?.id, language);
 
   const handleTenantSelect = useCallback(
     async (tenant: Tenant) => {

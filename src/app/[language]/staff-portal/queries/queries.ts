@@ -21,9 +21,12 @@ export const staffDashboardQueryKeys = createQueryKeys(["staff-dashboard"], {
 // Safe fetcher — returns null on failure so one
 // broken endpoint does not crash the whole dashboard
 // ─────────────────────────────────────────────
-async function safeFetch<T>(fn: () => Promise<T>): Promise<T | null> {
+async function safeFetch<T>(
+  fn: (opts?: { signal?: AbortSignal }) => Promise<T>,
+  signal?: AbortSignal
+): Promise<T | null> {
   try {
-    return await fn();
+    return await fn(signal ? { signal } : undefined);
   } catch {
     return null;
   }
@@ -36,7 +39,9 @@ async function safeFetch<T>(fn: () => Promise<T>): Promise<T | null> {
  * Each endpoint is wrapped in safeFetch so a single failure
  * falls back to demo data for that section instead of failing the whole page.
  */
-async function fetchStaffDashboard(): Promise<StaffDashboardData> {
+async function fetchStaffDashboard(
+  signal?: AbortSignal
+): Promise<StaffDashboardData> {
   const [
     dashboardRes,
     attendanceRes,
@@ -46,13 +51,28 @@ async function fetchStaffDashboard(): Promise<StaffDashboardData> {
     noticesRes,
     branchesRes,
   ] = await Promise.all([
-    safeFetch(() => portalsControllerGetStaffDashboardV1()),
-    safeFetch(() => staffAttendanceCheckControllerGetReportsV1()),
-    safeFetch(() => staffLeaveControllerGetBalanceV1()),
-    safeFetch(() => payrollControllerFindAllSlipsV1()),
-    safeFetch(() => timetableSlotControllerFindAllV1()),
-    safeFetch(() => noticesControllerGetMyNoticesV1()),
-    safeFetch(() => staffManagementControllerGetMyBranchesV1()),
+    safeFetch(
+      () => portalsControllerGetStaffDashboardV1(undefined, { signal }),
+      signal
+    ),
+    safeFetch(
+      () => staffAttendanceCheckControllerGetReportsV1(undefined, { signal }),
+      signal
+    ),
+    safeFetch(
+      () => staffLeaveControllerGetBalanceV1(undefined, { signal }),
+      signal
+    ),
+    safeFetch(() => payrollControllerFindAllSlipsV1({ signal }), signal),
+    safeFetch(() => timetableSlotControllerFindAllV1({ signal }), signal),
+    safeFetch(
+      () => noticesControllerGetMyNoticesV1(undefined, { signal }),
+      signal
+    ),
+    safeFetch(
+      () => staffManagementControllerGetMyBranchesV1({ signal }),
+      signal
+    ),
   ]);
 
   // ── Extract raw data ──
@@ -311,7 +331,7 @@ async function fetchStaffDashboard(): Promise<StaffDashboardData> {
 export function useStaffDashboard() {
   return useQuery({
     queryKey: staffDashboardQueryKeys.dashboard().key,
-    queryFn: fetchStaffDashboard,
+    queryFn: ({ signal }) => fetchStaffDashboard(signal),
     refetchInterval: 5 * 60 * 1000,
     staleTime: 2 * 60 * 1000,
   });

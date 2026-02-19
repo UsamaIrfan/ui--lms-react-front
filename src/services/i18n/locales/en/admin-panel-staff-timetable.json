@@ -1,0 +1,95 @@
+{
+  "title": "Timetable",
+  "table": {
+    "columns": {
+      "name": "Name",
+      "classId": "Class",
+      "academicYear": "Academic Year",
+      "status": "Status",
+      "day": "Day",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "subject": "Subject",
+      "teacher": "Teacher",
+      "room": "Room",
+      "class": "Class",
+      "actions": "Actions"
+    },
+    "empty": "No timetable entries found",
+    "loading": "Loading timetable..."
+  },
+  "actions": {
+    "create": "Add Timetable",
+    "edit": "Edit",
+    "delete": "Delete",
+    "viewPeriods": "View Periods",
+    "cancel": "Cancel",
+    "save": "Save",
+    "search": "Search..."
+  },
+  "days": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  "form": {
+    "name": "Timetable Name",
+    "classId": "Class",
+    "academicYearId": "Academic Year",
+    "day": "Day of Week",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "subjectId": "Subject",
+    "staffId": "Teacher",
+    "room": "Room",
+    "sectionId": "Section",
+    "selectDay": "Select Day",
+    "selectSubject": "Select Subject",
+    "selectTeacher": "Select Teacher",
+    "selectClass": "Select Class",
+    "validation": {
+      "required": "All required fields must be filled",
+      "dayRequired": "Day is required",
+      "startRequired": "Start time is required",
+      "endRequired": "End time is required",
+      "subjectRequired": "Subject is required"
+    }
+  },
+  "periods": {
+    "title": "Periods",
+    "actions": {
+      "add": "Add Period"
+    },
+    "table": {
+      "day": "Day",
+      "time": "Time",
+      "subject": "Subject",
+      "teacher": "Teacher",
+      "room": "Room"
+    },
+    "form": {
+      "subjectId": "Subject",
+      "teacherId": "Teacher",
+      "day": "Day",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "room": "Room"
+    }
+  },
+  "notifications": {
+    "created": "Timetable created successfully",
+    "updated": "Timetable updated successfully",
+    "deleted": "Timetable deleted successfully",
+    "periodAdded": "Period added successfully",
+    "periodDeleted": "Period deleted successfully",
+    "error": "An error occurred"
+  },
+  "confirm": {
+    "delete": "Are you sure you want to delete this timetable?",
+    "deleteTitle": "Delete Timetable"
+  }
+}

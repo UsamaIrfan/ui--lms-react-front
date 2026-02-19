@@ -39,6 +39,7 @@ If still missing, the backend endpoint may not have Swagger decorators (`@ApiTag
 Create a `queries/queries.ts` file co-located with the page that uses the data.
 
 **Location pattern:**
+
 ```
 src/app/[language]/admin-panel/<feature>/queries/queries.ts
 ```
@@ -123,11 +124,13 @@ export function useDeleteEntityMutation() {
 Use the hooks in a `page-content.tsx` file (never in `page.tsx` — that's server component only).
 
 **For lists:**
+
 ```typescript
 const { data, isLoading, error } = useEntityListQuery();
 ```
 
 **For mutations (create/update/delete):**
+
 ```typescript
 const createMutation = useCreateEntityMutation();
 
@@ -184,6 +187,7 @@ For mutations, disable submit button and show spinner:
 ### Step 5: Add Error State Handling
 
 **For query errors:**
+
 ```typescript
 if (error) {
   return (
@@ -198,6 +202,7 @@ if (error) {
 ```
 
 **For mutation 422 validation errors:**
+
 ```typescript
 import { isValidationError } from "@/services/api/generated/custom-fetch";
 
@@ -263,6 +268,7 @@ test.describe("Entity Management", () => {
 ### Step 9: Update Checklist
 
 Mark the endpoint as integrated in `docs/api-integration-status.md`:
+
 - Change `🔲` to `✅`
 - Add the component path
 
@@ -335,7 +341,11 @@ Use `safeFetch` + `Promise.all` pattern:
 
 ```typescript
 async function safeFetch<T>(fn: () => Promise<T>): Promise<T | null> {
-  try { return await fn(); } catch { return null; }
+  try {
+    return await fn();
+  } catch {
+    return null;
+  }
 }
 
 async function fetchDashboard(): Promise<DashboardData> {
@@ -396,7 +406,7 @@ Select-String -Path "src\**\*.ts","src\**\*.tsx" -Pattern "useMutation" -Recurse
 Select-String -Path "src\**\*.ts","src\**\*.tsx" -Pattern "useQuery" -Recurse
 
 # Find endpoints NOT imported anywhere (candidates for integration)
-# Compare generated exports vs imports  
+# Compare generated exports vs imports
 Select-String -Path "src\services\api\generated\endpoints\**\*.ts" -Pattern "export (const|function|class)" -Recurse |
   ForEach-Object { if ($_.Line -match "export (?:const|function) (\w+)") { $matches[1] } } |
   Sort-Object | Get-Unique

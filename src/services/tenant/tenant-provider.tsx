@@ -16,8 +16,8 @@ import { branchControllerFindAllByTenantV1 } from "@/services/api/generated/mult
 import { tenantUserControllerFindTenantsByUserV1 } from "@/services/api/generated/multi-tenancy-tenant-users/multi-tenancy-tenant-users";
 import { setTokensInfo } from "@/services/auth/auth-tokens-info";
 import { getTokensInfo } from "@/services/auth/auth-tokens-info";
-import type { Tenant } from "@/services/api/generated/models/tenant";
-import type { Branch } from "@/services/api/generated/models/branch";
+import type { Tenant } from "@/services/api/generated/model/tenant";
+import type { Branch } from "@/services/api/generated/model/branch";
 import useAuth from "@/services/auth/use-auth";
 
 function TenantProvider({ children }: PropsWithChildren) {

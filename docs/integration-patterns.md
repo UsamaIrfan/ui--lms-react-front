@@ -83,7 +83,7 @@ export const adminDashboardQueryKeys = createQueryKeys(["admin-dashboard"], {
 });
 
 // Usage:
-queryKey: adminDashboardQueryKeys.dashboard().sub.byBranch(branchId).key
+queryKey: adminDashboardQueryKeys.dashboard().sub.byBranch(branchId).key;
 ```
 
 ### Pattern C: Orval-Generated Infinite Query Keys (paginated lists)
@@ -93,7 +93,7 @@ Used for paginated lists like users:
 ```typescript
 import { getUsersControllerFindAllV1InfiniteQueryKey } from "@/services/api/generated/endpoints/users/users";
 
-queryKey: getUsersControllerFindAllV1InfiniteQueryKey(params)
+queryKey: getUsersControllerFindAllV1InfiniteQueryKey(params);
 ```
 
 ---
@@ -117,6 +117,7 @@ export function useStaffListQuery(branchId?: string) {
 ```
 
 **Key characteristics:**
+
 - Local `StaffItem` type (because Orval types may be `void`)
 - Cast with `as unknown as { data: T }`
 - Defensive `Array.isArray()` check
@@ -148,6 +149,7 @@ export const useGetUsersQuery = ({ sort, filter }) => {
 ```
 
 **Key characteristics:**
+
 - Uses Orval's generated infinite query key
 - `pageParam` override in each call
 - `gcTime: 0` to prevent stale page caching
@@ -157,17 +159,25 @@ export const useGetUsersQuery = ({ sort, filter }) => {
 
 ```typescript
 async function safeFetch<T>(fn: () => Promise<T>): Promise<T | null> {
-  try { return await fn(); } catch { return null; }
+  try {
+    return await fn();
+  } catch {
+    return null;
+  }
 }
 
 async function fetchDashboard(branchId?: string): Promise<DashboardData> {
   const [studentsRes, staffRes, alertsRes] = await Promise.all([
-    safeFetch(() => studentRegistrationControllerFindAllV1({ limit: 1, page: 1 })),
+    safeFetch(() =>
+      studentRegistrationControllerFindAllV1({ limit: 1, page: 1 })
+    ),
     safeFetch(() => staffManagementControllerFindAllV1(branchParams)),
     safeFetch(() => attendanceControllerAlertsV1({ threshold: 75 })),
   ]);
 
-  const totalStudents = (studentsRes?.data as any)?.total ?? demoDashboardData.metrics.totalStudents;
+  const totalStudents =
+    (studentsRes?.data as any)?.total ??
+    demoDashboardData.metrics.totalStudents;
   // ... transform and return
 }
 
@@ -182,6 +192,7 @@ export function useAdminDashboard(branchId?: string) {
 ```
 
 **Key characteristics:**
+
 - `safeFetch` wraps each call — one failure doesn't crash the dashboard
 - Falls back to `demoDashboardData` per section
 - Auto-refreshes every 5 minutes
@@ -212,8 +223,13 @@ export function useCreateStaffMutation() {
 export function useUpdateStaffMutation() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, data }: { id: number; data: Partial<UpdateStaffMgmtDto> }) =>
-      staffManagementControllerUpdateV1(id, data as UpdateStaffMgmtDto),
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: number;
+      data: Partial<UpdateStaffMgmtDto>;
+    }) => staffManagementControllerUpdateV1(id, data as UpdateStaffMgmtDto),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: STAFF_KEY });
     },
@@ -373,15 +389,15 @@ From `src/services/react-query/`:
 
 ## 9. Custom Fetch Features (built into customFetch)
 
-| Feature | Implementation |
-|---------|---------------|
-| **Token injection** | Reads from `getTokensInfo()`, adds `Authorization: Bearer` header |
-| **Auto-refresh** | If token expires within 60s, refreshes before request |
-| **Tenant/Branch headers** | Reads from cookies, adds `X-Tenant-ID` and `X-Branch-ID` |
-| **Language header** | Reads `<html lang="">`, adds `x-custom-lang` |
-| **401 redirect** | Clears tokens, redirects to `/${lang}/sign-in?returnTo=` |
-| **422 errors** | Throws `HttpError` with parsed body — use `isValidationError()` |
-| **204 No Content** | Returns `{ data: undefined, status: 204, headers }` |
+| Feature                   | Implementation                                                    |
+| ------------------------- | ----------------------------------------------------------------- |
+| **Token injection**       | Reads from `getTokensInfo()`, adds `Authorization: Bearer` header |
+| **Auto-refresh**          | If token expires within 60s, refreshes before request             |
+| **Tenant/Branch headers** | Reads from cookies, adds `X-Tenant-ID` and `X-Branch-ID`          |
+| **Language header**       | Reads `<html lang="">`, adds `x-custom-lang`                      |
+| **401 redirect**          | Clears tokens, redirects to `/${lang}/sign-in?returnTo=`          |
+| **422 errors**            | Throws `HttpError` with parsed body — use `isValidationError()`   |
+| **204 No Content**        | Returns `{ data: undefined, status: 204, headers }`               |
 
 ---
 

@@ -8,7 +8,7 @@ import {
 import type {
   CreateBranchIncomeDto,
   UpdateBranchIncomeDto,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 
 export type IncomeItem = {
   id: string;

@@ -12,7 +12,7 @@ import {
   useUpdateBranchMutation,
   useDeleteBranchMutation,
 } from "./queries/queries";
-import type { Branch } from "@/services/api/generated/models";
+import type { Branch } from "@/services/api/generated/model";
 import { useSnackbar } from "@/hooks/use-snackbar";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import Link from "@/components/link";

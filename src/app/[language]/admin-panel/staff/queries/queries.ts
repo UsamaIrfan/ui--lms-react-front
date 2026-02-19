@@ -8,7 +8,7 @@ import {
 import type {
   CreateStaffMgmtDto,
   UpdateStaffMgmtDto,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 
 export type StaffItem = {
   id: number;

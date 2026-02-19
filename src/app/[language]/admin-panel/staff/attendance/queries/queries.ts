@@ -8,7 +8,7 @@ import type {
   CheckInDto,
   CheckOutDto,
   StaffAttendanceCheckControllerGetReportsV1Params,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 
 export type AttendanceRecordItem = {
   id: number;

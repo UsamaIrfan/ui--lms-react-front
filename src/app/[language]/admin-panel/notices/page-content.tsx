@@ -11,7 +11,7 @@ import {
   useUpdateNoticeMutation,
   useDeleteNoticeMutation,
 } from "./queries/queries";
-import type { Notice } from "@/services/api/generated/models";
+import type { Notice } from "@/services/api/generated/model";
 import {
   Table,
   TableBody,

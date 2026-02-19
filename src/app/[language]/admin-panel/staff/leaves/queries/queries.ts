@@ -10,7 +10,7 @@ import type {
   ApplyStaffLeaveDto,
   ApproveStaffLeaveDto,
   RejectStaffLeaveDto,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 
 export type LeaveItem = {
   id: number;

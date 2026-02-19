@@ -4,8 +4,8 @@ import {
   admissionEnquiryControllerCreateV1,
   admissionEnquiryControllerUpdateV1,
   admissionEnquiryControllerRemoveV1,
-} from "@/services/api/generated/endpoints/lms-admission-enquiries/lms-admission-enquiries";
-import type { CreateAdmissionEnquiryDto } from "@/services/api/generated/models";
+} from "@/services/api/generated/lms-admission-enquiries/lms-admission-enquiries";
+import type { CreateAdmissionEnquiryDto } from "@/services/api/generated/model";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type {
   AdmissionEnquiry,

@@ -4,11 +4,11 @@ import {
   branchControllerCreateV1,
   branchControllerUpdateV1,
   branchControllerRemoveV1,
-} from "@/services/api/generated/endpoints/multi-tenancy-branches/multi-tenancy-branches";
+} from "@/services/api/generated/multi-tenancy-branches/multi-tenancy-branches";
 import type {
   CreateBranchDto,
   UpdateBranchDto,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 
 const BRANCHES_KEY = ["settings", "branches"];
 

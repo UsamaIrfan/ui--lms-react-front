@@ -1,8 +1,8 @@
 "use client";
 
 import { createContext } from "react";
-import type { Tenant } from "@/services/api/generated/models/tenant";
-import type { Branch } from "@/services/api/generated/models/branch";
+import type { Tenant } from "@/services/api/generated/model/tenant";
+import type { Branch } from "@/services/api/generated/model/branch";
 
 export type TenantContextType = {
   /** Currently selected tenant ID */

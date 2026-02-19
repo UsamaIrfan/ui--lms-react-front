@@ -7,7 +7,7 @@ import {
 import type {
   CreateSubjectDto,
   UpdateSubjectDto,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const subjectsQueryKeys = {

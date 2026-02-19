@@ -8,7 +8,7 @@ import {
 import type {
   CreateBranchExpenseDto,
   UpdateBranchExpenseDto,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 
 export type ExpenseItem = {
   id: string;

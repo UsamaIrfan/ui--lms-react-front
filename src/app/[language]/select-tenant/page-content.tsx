@@ -11,8 +11,8 @@ import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { getDefaultRouteForRole } from "@/services/auth/role-routes";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import type { Tenant } from "@/services/api/generated/models/tenant";
-import type { Branch } from "@/services/api/generated/models/branch";
+import type { Tenant } from "@/services/api/generated/model/tenant";
+import type { Branch } from "@/services/api/generated/model/branch";
 
 function SelectTenantContent() {
   const { t } = useTranslation("common");

@@ -12,7 +12,7 @@ import type {
   CreateTimetableDto,
   UpdateTimetableDto,
   AddPeriodDto,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 
 export type TimetableItem = {
   id: string;

@@ -9,7 +9,7 @@ import type {
   CreateNoticeDto,
   UpdateNoticeDto,
   Notice,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 
 const NOTICES_KEY = ["notices"];
 

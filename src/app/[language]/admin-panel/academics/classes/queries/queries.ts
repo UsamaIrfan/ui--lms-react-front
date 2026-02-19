@@ -13,7 +13,7 @@ import type {
   CreateGradeClassDto,
   UpdateGradeClassDto,
   CreateSectionDto,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const classesQueryKeys = {

@@ -28,15 +28,15 @@ import {
   examsControllerGetExamAnalyticsV1,
   examsControllerGetSubjectAnalyticsV1,
 } from "@/services/api/generated/examination-results/examination-results";
-import type { CreateExamDto } from "@/services/api/generated/models/createExamDto";
-import type { UpdateExamDto } from "@/services/api/generated/models/updateExamDto";
-import type { CreateExamSubjectDto } from "@/services/api/generated/models/createExamSubjectDto";
-import type { CreateExamScheduleDto } from "@/services/api/generated/models/createExamScheduleDto";
-import type { UpdateExamStatusDto } from "@/services/api/generated/models/updateExamStatusDto";
-import type { EnterMarksDto } from "@/services/api/generated/models/enterMarksDto";
-import type { BulkMarksImportDto } from "@/services/api/generated/models/bulkMarksImportDto";
-import type { PublishResultsDto } from "@/services/api/generated/models/publishResultsDto";
-import type { CreateGradingScaleDto } from "@/services/api/generated/models/createGradingScaleDto";
+import type { CreateExamDto } from "@/services/api/generated/model/createExamDto";
+import type { UpdateExamDto } from "@/services/api/generated/model/updateExamDto";
+import type { CreateExamSubjectDto } from "@/services/api/generated/model/createExamSubjectDto";
+import type { CreateExamScheduleDto } from "@/services/api/generated/model/createExamScheduleDto";
+import type { UpdateExamStatusDto } from "@/services/api/generated/model/updateExamStatusDto";
+import type { EnterMarksDto } from "@/services/api/generated/model/enterMarksDto";
+import type { BulkMarksImportDto } from "@/services/api/generated/model/bulkMarksImportDto";
+import type { PublishResultsDto } from "@/services/api/generated/model/publishResultsDto";
+import type { CreateGradingScaleDto } from "@/services/api/generated/model/createGradingScaleDto";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 

@@ -13,7 +13,7 @@ import {
 import type {
   CreateSalaryStructureDto,
   ProcessPayrollDto,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 
 export type SalaryComponentItem = {
   name: string;

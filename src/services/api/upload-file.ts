@@ -1,7 +1,7 @@
 import {
   filesVercelBlobControllerUploadFileV1,
   getFilesVercelBlobControllerUploadFileV1Url,
-} from "./generated/endpoints/files/files";
+} from "./generated/files/files";
 import { customFetch } from "./generated/custom-fetch";
 import { FileEntity } from "./types/file-entity";
 

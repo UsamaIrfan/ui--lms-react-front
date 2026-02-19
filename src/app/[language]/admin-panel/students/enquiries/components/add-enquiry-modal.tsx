@@ -18,7 +18,7 @@ import FormTextInput from "@/components/form/text-input/form-text-input";
 import FormSelectInput from "@/components/form/select/form-select";
 import { Spinner } from "@/components/ui/spinner";
 import { useCreateEnquiryMutation } from "../queries/queries";
-import type { CreateAdmissionEnquiryDto } from "@/services/api/generated/models";
+import type { CreateAdmissionEnquiryDto } from "@/services/api/generated/model";
 import { EnquirySource } from "../types";
 import type { AdmissionEnquiry } from "../types";
 import { useState } from "react";

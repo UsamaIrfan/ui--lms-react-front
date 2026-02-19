@@ -1,24 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
-import { financialDashboardControllerGetDashboardV1 } from "@/services/api/generated/endpoints/financial-dashboard/financial-dashboard";
-import { financialDashboardControllerGetProfitLossV1 } from "@/services/api/generated/endpoints/financial-dashboard/financial-dashboard";
-import { financialDashboardControllerGetBalanceSheetV1 } from "@/services/api/generated/endpoints/financial-dashboard/financial-dashboard";
-import { financialDashboardControllerGetCashFlowV1 } from "@/services/api/generated/endpoints/financial-dashboard/financial-dashboard";
+import { financialDashboardControllerGetDashboardV1 } from "@/services/api/generated/financial-dashboard/financial-dashboard";
+import { financialDashboardControllerGetProfitLossV1 } from "@/services/api/generated/financial-dashboard/financial-dashboard";
+import { financialDashboardControllerGetBalanceSheetV1 } from "@/services/api/generated/financial-dashboard/financial-dashboard";
+import { financialDashboardControllerGetCashFlowV1 } from "@/services/api/generated/financial-dashboard/financial-dashboard";
 import {
   attendanceControllerSummaryV1,
   attendanceControllerDetailedV1,
   attendanceControllerAlertsV1,
-} from "@/services/api/generated/endpoints/attendance/attendance";
+} from "@/services/api/generated/attendance/attendance";
 import type {
   AttendanceControllerSummaryV1Params,
   AttendanceControllerDetailedV1Params,
   AttendanceControllerAlertsV1Params,
   FeesControllerGetCollectionReportV1Params,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 import {
   feesControllerGetCollectionReportV1,
   feesControllerGetPendingReportV1,
   feesControllerGetDefaultersReportV1,
-} from "@/services/api/generated/endpoints/fee-management/fee-management";
+} from "@/services/api/generated/fee-management/fee-management";
 
 // ── Financial Dashboard types ──
 

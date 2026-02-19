@@ -10,13 +10,13 @@ import {
   studentRegistrationControllerAddGuardianV1,
   studentRegistrationControllerFindGuardiansV1,
   studentRegistrationControllerImportStudentsV1,
-} from "@/services/api/generated/endpoints/student-registration/student-registration";
+} from "@/services/api/generated/student-registration/student-registration";
 import type {
   RegisterStudentDto,
   UpdateRegisteredStudentDto,
   UploadStudentDocumentDto,
   CreateGuardianDto,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type {
   Student,

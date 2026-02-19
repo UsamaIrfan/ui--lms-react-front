@@ -2,8 +2,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   tenantControllerFindOneV1,
   tenantControllerUpdateV1,
-} from "@/services/api/generated/endpoints/multi-tenancy-tenants/multi-tenancy-tenants";
-import type { Tenant, UpdateTenantDto } from "@/services/api/generated/models";
+} from "@/services/api/generated/multi-tenancy-tenants/multi-tenancy-tenants";
+import type { Tenant, UpdateTenantDto } from "@/services/api/generated/model";
 
 const TENANT_SETTINGS_KEY = ["tenant-settings"];
 

@@ -6,7 +6,7 @@ import {
   attendanceControllerDetailedV1,
   attendanceControllerAlertsV1,
 } from "@/services/api/generated/attendance/attendance";
-import type { BulkAttendanceDto } from "@/services/api/generated/models";
+import type { BulkAttendanceDto } from "@/services/api/generated/model";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type {
   AttendanceRecord,

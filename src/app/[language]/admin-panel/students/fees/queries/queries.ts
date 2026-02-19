@@ -21,7 +21,7 @@ import type {
   GenerateChallanDto,
   RecordPaymentDto,
   SendRemindersDto,
-} from "@/services/api/generated/models";
+} from "@/services/api/generated/model";
 
 export type FeeStructureItem = {
   id: number;

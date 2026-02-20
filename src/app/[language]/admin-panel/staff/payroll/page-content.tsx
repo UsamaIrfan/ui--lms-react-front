@@ -16,6 +16,7 @@ import type {
   SalaryStructureItem,
   SalaryComponentItem,
 } from "./queries/queries";
+import { useStaffListQuery } from "../queries/queries";
 import {
   Table,
   TableBody,
@@ -47,6 +48,13 @@ import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const STATUS_COLORS: Record<string, "default" | "outline" | "destructive"> = {
   draft: "outline",
@@ -64,6 +72,7 @@ function StaffPayroll() {
   const { data: structures, isLoading: structuresLoading } =
     useSalaryStructuresQuery();
   const { data: slips, isLoading: slipsLoading } = usePayrollSlipsQuery();
+  const { data: staffMembers } = useStaffListQuery();
   const createMutation = useCreateStructureMutation();
   const updateMutation = useUpdateStructureMutation();
   const deleteMutation = useDeleteStructureMutation();
@@ -465,11 +474,22 @@ function StaffPayroll() {
               </div>
               <div className="grid gap-2">
                 <Label>{t("admin-panel-staff-payroll:form.staffId")}</Label>
-                <Input
-                  type="number"
+                <Select
                   value={structStaffId}
-                  onChange={(e) => setStructStaffId(e.target.value)}
-                />
+                  onValueChange={(v) => setStructStaffId(v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select staff" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(staffMembers ?? []).map((s) => (
+                      <SelectItem key={s.id} value={String(s.id)}>
+                        {s.staffId}
+                        {s.designation ? ` — ${s.designation}` : ""}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 

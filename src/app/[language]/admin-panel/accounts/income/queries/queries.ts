@@ -1,13 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   incomeControllerFindAllV1,
+  incomeControllerFindByIdV1,
   incomeControllerCreateV1,
   incomeControllerUpdateV1,
   incomeControllerRemoveV1,
+  incomeControllerGetIncomeReportV1,
+  incomeControllerGetConsolidatedReportV1,
 } from "@/services/api/generated/income/income";
 import type {
   CreateBranchIncomeDto,
   UpdateBranchIncomeDto,
+  IncomeControllerGetIncomeReportV1Params,
+  IncomeControllerGetConsolidatedReportV1Params,
 } from "@/services/api/generated/model";
 
 export type IncomeItem = {
@@ -65,6 +70,45 @@ export function useDeleteIncomeMutation() {
     mutationFn: (id: string) => incomeControllerRemoveV1(id),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: INCOME_KEY });
+    },
+  });
+}
+
+export function useIncomeDetailQuery(id?: string) {
+  return useQuery<IncomeItem>({
+    queryKey: [...INCOME_KEY, id],
+    queryFn: async ({ signal }) => {
+      const res = await incomeControllerFindByIdV1(id!, { signal });
+      return (res as unknown as { data: IncomeItem })?.data;
+    },
+    enabled: !!id,
+  });
+}
+
+// --- Income Reports ---
+
+export function useIncomeReportQuery(
+  params?: IncomeControllerGetIncomeReportV1Params
+) {
+  return useQuery({
+    queryKey: [...INCOME_KEY, "report", params],
+    queryFn: async ({ signal }) => {
+      const res = await incomeControllerGetIncomeReportV1(params, { signal });
+      return res;
+    },
+  });
+}
+
+export function useIncomeConsolidatedReportQuery(
+  params?: IncomeControllerGetConsolidatedReportV1Params
+) {
+  return useQuery({
+    queryKey: [...INCOME_KEY, "consolidated-report", params],
+    queryFn: async ({ signal }) => {
+      const res = await incomeControllerGetConsolidatedReportV1(params, {
+        signal,
+      });
+      return res;
     },
   });
 }

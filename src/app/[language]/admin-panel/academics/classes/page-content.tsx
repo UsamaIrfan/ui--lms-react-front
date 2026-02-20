@@ -15,6 +15,7 @@ import {
   useDeleteSectionMutation,
 } from "./queries/queries";
 import type { GradeClassItem, SectionItem } from "./queries/queries";
+import { useInstitutionsListQuery } from "../courses/queries/queries";
 import {
   Table,
   TableBody,
@@ -45,6 +46,13 @@ import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function AcademicClasses() {
   const { t } = useTranslation("admin-panel-academics-classes");
@@ -60,6 +68,7 @@ function AcademicClasses() {
 
   const { data: classes, isLoading: classesLoading } = useClassesListQuery();
   const { data: sections, isLoading: sectionsLoading } = useSectionsListQuery();
+  const { data: institutions } = useInstitutionsListQuery();
 
   // Class modal
   const [classModalOpen, setClassModalOpen] = useState(false);
@@ -418,11 +427,21 @@ function AcademicClasses() {
               <Label>
                 {t("admin-panel-academics-classes:form.institutionId")}
               </Label>
-              <Input
-                type="number"
+              <Select
                 value={classInstitutionId}
-                onChange={(e) => setClassInstitutionId(e.target.value)}
-              />
+                onValueChange={(v) => setClassInstitutionId(v)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select institution" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(institutions ?? []).map((inst) => (
+                    <SelectItem key={inst.id} value={String(inst.id)}>
+                      {inst.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label>
@@ -486,11 +505,21 @@ function AcademicClasses() {
               <Label>
                 {t("admin-panel-academics-classes:sections.form.gradeClassId")}
               </Label>
-              <Input
-                type="number"
+              <Select
                 value={sectionGradeClassId}
-                onChange={(e) => setSectionGradeClassId(e.target.value)}
-              />
+                onValueChange={(v) => setSectionGradeClassId(v)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select class" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(classes ?? []).map((cls) => (
+                    <SelectItem key={cls.id} value={String(cls.id)}>
+                      {cls.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label>

@@ -8,4 +8,8 @@
 
 export type StaffLeaveControllerFindAllV1Params = {
 staffId?: number;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

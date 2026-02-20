@@ -1,5 +1,6 @@
 import {
   subjectControllerFindAllV1,
+  subjectControllerFindOneV1,
   subjectControllerCreateV1,
   subjectControllerUpdateV1,
   subjectControllerRemoveV1,
@@ -13,6 +14,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 export const subjectsQueryKeys = {
   all: ["subjects"] as const,
   lists: () => [...subjectsQueryKeys.all, "list"] as const,
+  detail: (id: number) => [...subjectsQueryKeys.all, "detail", id] as const,
 };
 
 export function useSubjectsListQuery() {
@@ -20,9 +22,23 @@ export function useSubjectsListQuery() {
     queryKey: subjectsQueryKeys.lists(),
     queryFn: async ({ signal }) => {
       const response = await subjectControllerFindAllV1({ signal });
-      return (response.data as unknown as SubjectItem[]) ?? [];
+      const raw = response.data as unknown;
+      return (
+        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+      ) as SubjectItem[];
     },
     staleTime: 2 * 60 * 1000,
+  });
+}
+
+export function useSubjectDetailQuery(id: number) {
+  return useQuery({
+    queryKey: subjectsQueryKeys.detail(id),
+    queryFn: async ({ signal }) => {
+      const response = await subjectControllerFindOneV1(id, { signal });
+      return (response as unknown as { data: SubjectItem })?.data;
+    },
+    enabled: id > 0,
   });
 }
 

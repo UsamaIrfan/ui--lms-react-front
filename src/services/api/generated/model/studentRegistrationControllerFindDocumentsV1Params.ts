@@ -8,4 +8,8 @@
 
 export type StudentRegistrationControllerFindDocumentsV1Params = {
 documentType: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

@@ -11,6 +11,7 @@ import {
   useReportCardDownload,
   type ExamItem,
 } from "../queries/queries";
+import { useStudentsListQuery } from "../../../students/registrations/queries/queries";
 import {
   Table,
   TableBody,
@@ -48,6 +49,7 @@ function ReportCardContent() {
   const preselectedStudentId = Number(searchParams.get("studentId") || 0);
 
   const { data: exams } = useExamsQuery();
+  const { data: students } = useStudentsListQuery();
   const reportCard = useReportCardDownload();
 
   const [selectedExamId, setSelectedExamId] = useState(preselectedExamId);
@@ -143,14 +145,21 @@ function ReportCardContent() {
             </Select>
           </div>
           <div className="grid gap-1">
-            <Label className="text-label-sm">Student ID</Label>
-            <Input
-              type="number"
-              value={studentId}
-              onChange={(e) => setStudentId(e.target.value)}
-              placeholder="Enter Student ID"
-              className="w-48"
-            />
+            <Label className="text-label-sm">Student</Label>
+            <Select value={studentId} onValueChange={(v) => setStudentId(v)}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Select student" />
+              </SelectTrigger>
+              <SelectContent>
+                {(students ?? []).map((s) => (
+                  <SelectItem key={s.id} value={String(s.id)}>
+                    {s.firstName && s.lastName
+                      ? `${s.firstName} ${s.lastName}`
+                      : (s.rollNumber ?? `#${s.id}`)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 

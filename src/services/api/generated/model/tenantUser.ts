@@ -9,6 +9,8 @@
 export interface TenantUser {
   id: string;
   tenantId: string;
+  /** Name of the tenant */
+  tenantName?: string;
   userId: number;
   isActive: boolean;
   createdAt: string;

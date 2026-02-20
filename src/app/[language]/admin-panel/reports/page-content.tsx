@@ -39,7 +39,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { RiPrinterLine } from "@remixicon/react";
+import { useStudentsListQuery } from "../students/registrations/queries/queries";
+import { useStaffListQuery } from "../staff/queries/queries";
 
 type MainTab = "financial" | "studentAttendance" | "staffAttendance" | "fees";
 
@@ -82,6 +91,10 @@ function Reports() {
     "summary"
   );
   const [attendableId, setAttendableId] = useState("");
+
+  // ── Lookup queries for attendance dropdowns ──
+  const { data: studentsList } = useStudentsListQuery();
+  const { data: staffList } = useStaffListQuery();
 
   // ── Fee sub-tabs ──
   const [feeSubTab, setFeeSubTab] = useState<
@@ -754,13 +767,30 @@ function Reports() {
                     : t("admin-panel-reports:filters.staff")}{" "}
                   {t("admin-panel-reports:filters.attendableId")}
                 </Label>
-                <Input
-                  type="number"
-                  placeholder="Enter ID"
+                <Select
                   value={attendableId}
-                  onChange={(e) => setAttendableId(e.target.value)}
-                  className="w-40"
-                />
+                  onValueChange={(v) => setAttendableId(v)}
+                >
+                  <SelectTrigger className="w-56">
+                    <SelectValue placeholder="Select..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {activeTab === "studentAttendance"
+                      ? (studentsList ?? []).map((s) => (
+                          <SelectItem key={s.id} value={String(s.id)}>
+                            {s.firstName && s.lastName
+                              ? `${s.firstName} ${s.lastName}`
+                              : (s.rollNumber ?? `#${s.id}`)}
+                          </SelectItem>
+                        ))
+                      : (staffList ?? []).map((st) => (
+                          <SelectItem key={st.id} value={String(st.id)}>
+                            {st.staffId}
+                            {st.designation ? ` — ${st.designation}` : ""}
+                          </SelectItem>
+                        ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 

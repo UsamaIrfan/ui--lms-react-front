@@ -11,4 +11,8 @@ export type NoticesControllerGetMyNoticesV1Params = {
  * Comma-separated branch UUIDs the user belongs to
  */
 branches?: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

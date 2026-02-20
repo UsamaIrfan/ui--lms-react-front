@@ -4,23 +4,44 @@ import {
   feeStructureControllerCreateV1,
   feeStructureControllerUpdateV1,
   feeStructureControllerRemoveV1,
+  feeStructureControllerFindOneV1,
 } from "@/services/api/generated/lms-fee-structures/lms-fee-structures";
-import { feeChallanControllerFindAllV1 } from "@/services/api/generated/lms-fee-challans/lms-fee-challans";
-import { feePaymentControllerFindAllV1 } from "@/services/api/generated/lms-fee-payments/lms-fee-payments";
+import {
+  feeChallanControllerFindAllV1,
+  feeChallanControllerUpdateV1,
+  feeChallanControllerRemoveV1,
+} from "@/services/api/generated/lms-fee-challans/lms-fee-challans";
+import {
+  feePaymentControllerFindAllV1,
+  feePaymentControllerFindOneV1,
+  feePaymentControllerUpdateV1,
+  feePaymentControllerRemoveV1,
+} from "@/services/api/generated/lms-fee-payments/lms-fee-payments";
 import {
   feesControllerGenerateChallanV1,
+  feesControllerGenerateBulkChallansV1,
+  feesControllerGetChallanV1,
   feesControllerRecordPaymentV1,
+  feesControllerVerifyPaymentV1,
+  feesControllerApplyConcessionV1,
+  feesControllerGetEffectiveConcessionV1,
+  feesControllerGetReceiptPdfV1,
   feesControllerGetCollectionReportV1,
   feesControllerGetPendingReportV1,
   feesControllerGetDefaultersReportV1,
   feesControllerSendRemindersV1,
+  feesControllerGetMyChallansV1,
 } from "@/services/api/generated/fee-management/fee-management";
 import type {
   CreateFeeStructureDto,
   UpdateFeeStructureDto,
   GenerateChallanDto,
+  GenerateBulkChallanDto,
   RecordPaymentDto,
+  ApplyConcessionDto,
   SendRemindersDto,
+  UpdateFeeChallanDto,
+  UpdateFeePaymentDto,
 } from "@/services/api/generated/model";
 
 export type FeeStructureItem = {
@@ -194,5 +215,165 @@ export function useDefaultersReportQuery() {
 export function useSendRemindersMutation() {
   return useMutation({
     mutationFn: (data: SendRemindersDto) => feesControllerSendRemindersV1(data),
+  });
+}
+
+// --- Missing integrations added below ---
+
+export function useGenerateBulkChallansMutation() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data: GenerateBulkChallanDto) =>
+      feesControllerGenerateBulkChallansV1(data),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: CHALLANS_KEY });
+    },
+  });
+}
+
+export function useChallanDetailQuery(challanNumber: string | null) {
+  return useQuery({
+    queryKey: [...CHALLANS_KEY, "detail", challanNumber],
+    queryFn: async ({ signal }) => {
+      if (!challanNumber) return null;
+      const res = await feesControllerGetChallanV1(challanNumber, { signal });
+      return res;
+    },
+    enabled: !!challanNumber,
+  });
+}
+
+export function useVerifyPaymentMutation() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: number) => feesControllerVerifyPaymentV1(id),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: PAYMENTS_KEY });
+      void qc.invalidateQueries({ queryKey: CHALLANS_KEY });
+    },
+  });
+}
+
+export function useApplyConcessionMutation() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data: ApplyConcessionDto) =>
+      feesControllerApplyConcessionV1(data),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: FEES_KEY });
+    },
+  });
+}
+
+export function useEffectiveConcessionQuery(studentId: number | null) {
+  return useQuery({
+    queryKey: [...FEES_KEY, "concession", studentId],
+    queryFn: async ({ signal }) => {
+      if (!studentId) return null;
+      const res = await feesControllerGetEffectiveConcessionV1(studentId, {
+        signal,
+      });
+      return res;
+    },
+    enabled: !!studentId,
+  });
+}
+
+export function useReceiptPdfQuery(receiptId: number | null) {
+  return useQuery({
+    queryKey: [...FEES_KEY, "receipt-pdf", receiptId],
+    queryFn: async ({ signal }) => {
+      if (!receiptId) return null;
+      const res = await feesControllerGetReceiptPdfV1(receiptId, { signal });
+      return res;
+    },
+    enabled: !!receiptId,
+  });
+}
+
+// --- Fee structure detail ---
+
+export function useFeeStructureDetailQuery(id: number | null) {
+  return useQuery<FeeStructureItem | null>({
+    queryKey: [...STRUCTURES_KEY, "detail", id],
+    queryFn: async ({ signal }) => {
+      if (!id) return null;
+      const res = await feeStructureControllerFindOneV1(id, { signal });
+      return (res as unknown as { data: FeeStructureItem })?.data ?? null;
+    },
+    enabled: !!id,
+  });
+}
+
+// --- Challan update & remove ---
+
+export function useUpdateChallanMutation() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: number; data: UpdateFeeChallanDto }) =>
+      feeChallanControllerUpdateV1(id, data),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: CHALLANS_KEY });
+    },
+  });
+}
+
+export function useDeleteChallanMutation() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: number) => feeChallanControllerRemoveV1(id),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: CHALLANS_KEY });
+    },
+  });
+}
+
+// --- Payment detail, update & remove ---
+
+export function usePaymentDetailQuery(id: number | null) {
+  return useQuery<PaymentItem | null>({
+    queryKey: [...PAYMENTS_KEY, "detail", id],
+    queryFn: async ({ signal }) => {
+      if (!id) return null;
+      const res = await feePaymentControllerFindOneV1(id, { signal });
+      return (res as unknown as { data: PaymentItem })?.data ?? null;
+    },
+    enabled: !!id,
+  });
+}
+
+export function useUpdatePaymentMutation() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: number; data: UpdateFeePaymentDto }) =>
+      feePaymentControllerUpdateV1(id, data),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: PAYMENTS_KEY });
+      void qc.invalidateQueries({ queryKey: CHALLANS_KEY });
+    },
+  });
+}
+
+export function useDeletePaymentMutation() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: number) => feePaymentControllerRemoveV1(id),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: PAYMENTS_KEY });
+      void qc.invalidateQueries({ queryKey: CHALLANS_KEY });
+    },
+  });
+}
+
+// --- Student portal: my challans ---
+
+export function useMyChallansQuery() {
+  return useQuery<ChallanItem[]>({
+    queryKey: [...FEES_KEY, "my-challans"],
+    queryFn: async ({ signal }) => {
+      const res = await feesControllerGetMyChallansV1({ signal });
+      const items = (res as unknown as { data: ChallanItem[] })?.data;
+      return Array.isArray(items) ? items : [];
+    },
   });
 }

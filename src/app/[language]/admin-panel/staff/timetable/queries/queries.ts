@@ -1,6 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   timetablesControllerFindAllV1,
+  timetablesControllerFindOneV1,
+  timetablesControllerFindByBranchV1,
+  timetablesControllerCheckConflictsV1,
   timetablesControllerCreateV1,
   timetablesControllerUpdateV1,
   timetablesControllerRemoveV1,
@@ -12,6 +15,7 @@ import type {
   CreateTimetableDto,
   UpdateTimetableDto,
   AddPeriodDto,
+  TimetablesControllerCheckConflictsV1Params,
 } from "@/services/api/generated/model";
 
 export type TimetableItem = {
@@ -124,5 +128,45 @@ export function useDeletePeriodMutation() {
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: PERIODS_KEY });
     },
+  });
+}
+
+export function useTimetableDetailQuery(id?: string) {
+  return useQuery<TimetableItem>({
+    queryKey: [...TIMETABLE_KEY, id],
+    queryFn: async ({ signal }) => {
+      const res = await timetablesControllerFindOneV1(id!, { signal });
+      return (res as unknown as { data: TimetableItem })?.data;
+    },
+    enabled: !!id,
+  });
+}
+
+export function useTimetablesByBranchQuery(branchId?: string) {
+  return useQuery<TimetableItem[]>({
+    queryKey: [...TIMETABLE_KEY, "branch", branchId],
+    queryFn: async ({ signal }) => {
+      const res = await timetablesControllerFindByBranchV1(branchId!, {
+        signal,
+      });
+      const items = (res as unknown as { data: TimetableItem[] })?.data;
+      return Array.isArray(items) ? items : [];
+    },
+    enabled: !!branchId,
+  });
+}
+
+export function useCheckTimetableConflictsQuery(
+  params: TimetablesControllerCheckConflictsV1Params | undefined
+) {
+  return useQuery({
+    queryKey: [...TIMETABLE_KEY, "conflicts", params],
+    queryFn: async ({ signal }) => {
+      const res = await timetablesControllerCheckConflictsV1(params!, {
+        signal,
+      });
+      return (res as unknown as { data: unknown })?.data;
+    },
+    enabled: !!params?.teacherId && !!params?.startTime && !!params?.endTime,
   });
 }

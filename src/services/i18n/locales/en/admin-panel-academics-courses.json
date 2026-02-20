@@ -1,42 +1,52 @@
 {
-  "title": "Courses & Institutions",
-  "table": {
-    "columns": {
-      "name": "Name",
-      "code": "Code",
-      "address": "Address",
-      "city": "City",
-      "phone": "Phone",
-      "email": "Email",
-      "status": "Status",
-      "actions": "Actions"
-    },
-    "empty": "No institutions found",
-    "loading": "Loading..."
+  "title": "Institutions & Departments",
+  "tabs": {
+    "institutions": "Institutions",
+    "departments": "Departments"
   },
   "actions": {
-    "create": "Add Institution",
     "edit": "Edit",
     "delete": "Delete",
     "search": "Search...",
     "save": "Save",
     "cancel": "Cancel"
   },
-  "form": {
-    "name": "Institution Name",
-    "code": "Code",
-    "address": "Address",
-    "city": "City",
-    "state": "State",
-    "country": "Country",
-    "phone": "Phone",
-    "email": "Email",
-    "website": "Website",
-    "logo": "Logo URL",
-    "isActive": "Active",
-    "validation": {
-      "nameRequired": "Name is required",
-      "codeRequired": "Code is required"
+  "institutions": {
+    "table": {
+      "columns": {
+        "name": "Name",
+        "code": "Code",
+        "address": "Address",
+        "city": "City",
+        "phone": "Phone",
+        "email": "Email",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "empty": "No institutions found",
+      "loading": "Loading..."
+    },
+    "actions": {
+      "create": "Add Institution",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "form": {
+      "name": "Institution Name",
+      "code": "Code",
+      "address": "Address",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "phone": "Phone",
+      "email": "Email",
+      "website": "Website",
+      "logo": "Logo URL",
+      "isActive": "Active",
+      "validation": {
+        "nameRequired": "Name is required",
+        "codeRequired": "Code is required"
+      }
     }
   },
   "departments": {

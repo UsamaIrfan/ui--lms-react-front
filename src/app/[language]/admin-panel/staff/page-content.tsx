@@ -10,8 +10,10 @@ import {
   useCreateStaffMutation,
   useUpdateStaffMutation,
   useDeleteStaffMutation,
+  useUsersDropdownQuery,
 } from "./queries/queries";
 import type { StaffItem } from "./queries/queries";
+import { useInstitutionsListQuery } from "../academics/courses/queries/queries";
 import {
   Table,
   TableBody,
@@ -42,6 +44,13 @@ import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const EMPLOYMENT_TYPES = [
   "full_time",
@@ -57,6 +66,8 @@ function StaffManagement() {
   const { tenantId } = useTenant();
 
   const { data: staffList, isLoading } = useStaffListQuery();
+  const { data: users } = useUsersDropdownQuery();
+  const { data: institutions } = useInstitutionsListQuery();
   const createMutation = useCreateStaffMutation();
   const updateMutation = useUpdateStaffMutation();
   const deleteMutation = useDeleteStaffMutation();
@@ -467,14 +478,18 @@ function StaffManagement() {
                 ) : (
                   <div className="grid gap-2">
                     <Label>{t("admin-panel-staff:form.userId")}</Label>
-                    <Input
-                      type="number"
-                      value={userId}
-                      onChange={(e) => setUserId(e.target.value)}
-                      placeholder={t(
-                        "admin-panel-staff:form.userIdPlaceholder"
-                      )}
-                    />
+                    <Select value={userId} onValueChange={(v) => setUserId(v)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select user" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {(users ?? []).map((u) => (
+                          <SelectItem key={u.id} value={String(u.id)}>
+                            {u.firstName} {u.lastName} ({u.email})
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                 )}
               </div>
@@ -483,26 +498,57 @@ function StaffManagement() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="grid gap-2">
                   <Label>{t("admin-panel-staff:form.userId")}</Label>
-                  <Input type="number" value={userId} disabled />
+                  <Select value={userId} disabled>
+                    <SelectTrigger>
+                      <SelectValue placeholder="—" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {(users ?? []).map((u) => (
+                        <SelectItem key={u.id} value={String(u.id)}>
+                          {u.firstName} {u.lastName} ({u.email})
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="grid gap-2">
                   <Label>{t("admin-panel-staff:form.institutionId")}</Label>
-                  <Input
-                    type="number"
+                  <Select
                     value={institutionId}
-                    onChange={(e) => setInstitutionId(e.target.value)}
-                  />
+                    onValueChange={(v) => setInstitutionId(v)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select institution" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {(institutions ?? []).map((inst) => (
+                        <SelectItem key={inst.id} value={String(inst.id)}>
+                          {inst.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             )}
             {!editItem && (
               <div className="grid gap-2">
                 <Label>{t("admin-panel-staff:form.institutionId")}</Label>
-                <Input
-                  type="number"
+                <Select
                   value={institutionId}
-                  onChange={(e) => setInstitutionId(e.target.value)}
-                />
+                  onValueChange={(v) => setInstitutionId(v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select institution" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(institutions ?? []).map((inst) => (
+                      <SelectItem key={inst.id} value={String(inst.id)}>
+                        {inst.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             )}
             <div className="grid grid-cols-2 gap-4">

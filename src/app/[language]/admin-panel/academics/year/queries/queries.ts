@@ -1,5 +1,6 @@
 import {
   academicYearControllerFindAllV1,
+  academicYearControllerFindOneV1,
   academicYearControllerCreateV1,
   academicYearControllerUpdateV1,
   academicYearControllerRemoveV1,
@@ -13,6 +14,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 export const academicYearQueryKeys = {
   all: ["academic-years"] as const,
   lists: () => [...academicYearQueryKeys.all, "list"] as const,
+  detail: (id: number) => [...academicYearQueryKeys.all, "detail", id] as const,
 };
 
 export function useAcademicYearsListQuery() {
@@ -20,9 +22,23 @@ export function useAcademicYearsListQuery() {
     queryKey: academicYearQueryKeys.lists(),
     queryFn: async ({ signal }) => {
       const response = await academicYearControllerFindAllV1({ signal });
-      return (response.data as unknown as AcademicYearItem[]) ?? [];
+      const raw = response.data as unknown;
+      return (
+        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+      ) as AcademicYearItem[];
     },
     staleTime: 2 * 60 * 1000,
+  });
+}
+
+export function useAcademicYearDetailQuery(id: number) {
+  return useQuery({
+    queryKey: academicYearQueryKeys.detail(id),
+    queryFn: async ({ signal }) => {
+      const response = await academicYearControllerFindOneV1(id, { signal });
+      return (response as unknown as { data: AcademicYearItem })?.data;
+    },
+    enabled: id > 0,
   });
 }
 

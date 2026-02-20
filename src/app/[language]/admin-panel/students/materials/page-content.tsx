@@ -15,6 +15,7 @@ import {
   useDeleteAssignmentMutation,
 } from "./queries/queries";
 import type { MaterialItem, AssignmentItem } from "./queries/queries";
+import { useSubjectsListQuery } from "../../academics/subjects/queries/queries";
 import {
   Table,
   TableBody,
@@ -45,6 +46,13 @@ import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const MATERIAL_TYPES = [
   "document",
@@ -66,6 +74,7 @@ function StudentsMaterials() {
 
   // Materials
   const { data: materials, isLoading: matLoading } = useMaterialsListQuery();
+  const { data: subjects } = useSubjectsListQuery();
   const createMaterialMut = useCreateMaterialMutation();
   const updateMaterialMut = useUpdateMaterialMutation();
   const deleteMaterialMut = useDeleteMaterialMutation();
@@ -594,11 +603,21 @@ function StudentsMaterials() {
                 <Label>
                   {t("admin-panel-students-materials:form.subjectId")}
                 </Label>
-                <Input
-                  type="number"
+                <Select
                   value={matSubjectId}
-                  onChange={(e) => setMatSubjectId(e.target.value)}
-                />
+                  onValueChange={(v) => setMatSubjectId(v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select subject" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(subjects ?? []).map((s) => (
+                      <SelectItem key={s.id} value={String(s.id)}>
+                        {s.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="grid gap-2">
                 <Label>{t("admin-panel-students-materials:form.type")}</Label>
@@ -689,11 +708,21 @@ function StudentsMaterials() {
                 <Label>
                   {t("admin-panel-students-materials:form.subjectId")}
                 </Label>
-                <Input
-                  type="number"
+                <Select
                   value={assignSubjectId}
-                  onChange={(e) => setAssignSubjectId(e.target.value)}
-                />
+                  onValueChange={(v) => setAssignSubjectId(v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select subject" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(subjects ?? []).map((s) => (
+                      <SelectItem key={s.id} value={String(s.id)}>
+                        {s.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="grid gap-2">
                 <Label>

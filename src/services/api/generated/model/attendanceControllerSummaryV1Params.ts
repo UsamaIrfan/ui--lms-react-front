@@ -16,4 +16,8 @@ endDate: string;
  * Group by month
  */
 groupBy?: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

@@ -2,11 +2,23 @@
 import {
   attendanceControllerQueryV1,
   attendanceControllerBulkV1,
+  attendanceControllerMarkV1,
   attendanceControllerSummaryV1,
   attendanceControllerDetailedV1,
   attendanceControllerAlertsV1,
+  attendanceControllerApplyLeaveV1,
+  attendanceControllerApproveV1,
+  attendanceControllerRejectV1,
 } from "@/services/api/generated/attendance/attendance";
-import type { BulkAttendanceDto } from "@/services/api/generated/model";
+import type {
+  BulkAttendanceDto,
+  MarkAttendanceDto,
+  ApplyLeaveDto,
+  ApproveLeaveDto,
+  RejectLeaveDto,
+  AttendanceControllerApproveV1Params,
+  AttendanceControllerRejectV1Params,
+} from "@/services/api/generated/model";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type {
   AttendanceRecord,
@@ -52,7 +64,10 @@ export function useDashboardQuery(date: string) {
         { signal }
       );
 
-      const records = ((response as any).data ?? []) as AttendanceRecord[];
+      const raw = (response as any).data;
+      const records = (
+        Array.isArray(raw) ? raw : (raw?.data ?? [])
+      ) as AttendanceRecord[];
 
       const classMap = new Map<
         string,
@@ -141,7 +156,10 @@ export function useAttendanceListQuery(filter: AttendanceFilterType) {
         { signal }
       );
 
-      const data = ((response as any).data ?? []) as AttendanceRecord[];
+      const raw = (response as any).data;
+      const data = (
+        Array.isArray(raw) ? raw : (raw?.data ?? [])
+      ) as AttendanceRecord[];
       return { data };
     },
     staleTime: 60 * 1000,
@@ -245,6 +263,86 @@ export function useBulkAttendanceMutation() {
   return useMutation({
     mutationFn: async (data: BulkAttendanceDto) => {
       const response = await attendanceControllerBulkV1(data);
+      return (response as any).data;
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: attendanceQueryKeys.all,
+      });
+    },
+  });
+}
+
+// --- Single Mark Attendance ---
+
+export function useMarkAttendanceMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: MarkAttendanceDto) => {
+      const response = await attendanceControllerMarkV1(data);
+      return (response as any).data;
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: attendanceQueryKeys.all,
+      });
+    },
+  });
+}
+
+// --- Leave Management ---
+
+export function useApplyLeaveMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: ApplyLeaveDto) => {
+      const response = await attendanceControllerApplyLeaveV1(data);
+      return (response as any).data;
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: attendanceQueryKeys.all,
+      });
+    },
+  });
+}
+
+export function useApproveLeaveMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      id,
+      data,
+      params,
+    }: {
+      id: number;
+      data: ApproveLeaveDto;
+      params: AttendanceControllerApproveV1Params;
+    }) => {
+      const response = await attendanceControllerApproveV1(id, data, params);
+      return (response as any).data;
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: attendanceQueryKeys.all,
+      });
+    },
+  });
+}
+
+export function useRejectLeaveMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      id,
+      data,
+      params,
+    }: {
+      id: number;
+      data: RejectLeaveDto;
+      params: AttendanceControllerRejectV1Params;
+    }) => {
+      const response = await attendanceControllerRejectV1(id, data, params);
       return (response as any).data;
     },
     onSuccess: () => {

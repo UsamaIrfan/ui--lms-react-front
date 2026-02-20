@@ -8,4 +8,8 @@
 
 export type StaffManagementControllerFindAllV1Params = {
 branchId?: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

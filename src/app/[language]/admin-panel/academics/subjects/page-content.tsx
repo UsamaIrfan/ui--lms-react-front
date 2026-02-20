@@ -12,6 +12,7 @@ import {
   useDeleteSubjectMutation,
 } from "./queries/queries";
 import type { SubjectItem } from "./queries/queries";
+import { useDepartmentsListQuery } from "../courses/queries/queries";
 import {
   Table,
   TableBody,
@@ -41,6 +42,13 @@ import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function AcademicSubjects() {
   const { t } = useTranslation("admin-panel-academics-subjects");
@@ -53,6 +61,7 @@ function AcademicSubjects() {
   const deleteMutation = useDeleteSubjectMutation();
 
   const { data, isLoading } = useSubjectsListQuery();
+  const { data: departments } = useDepartmentsListQuery();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editItem, setEditItem] = useState<SubjectItem | null>(null);
@@ -304,11 +313,21 @@ function AcademicSubjects() {
               <Label>
                 {t("admin-panel-academics-subjects:form.departmentId")}
               </Label>
-              <Input
-                type="number"
+              <Select
                 value={formDepartmentId}
-                onChange={(e) => setFormDepartmentId(e.target.value)}
-              />
+                onValueChange={(v) => setFormDepartmentId(v)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select department" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(departments ?? []).map((d) => (
+                    <SelectItem key={d.id} value={String(d.id)}>
+                      {d.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label>

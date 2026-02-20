@@ -10,4 +10,8 @@ export type FeesControllerGetCollectionReportV1Params = {
 dateFrom?: string;
 dateTo?: string;
 gradeClassId?: number;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

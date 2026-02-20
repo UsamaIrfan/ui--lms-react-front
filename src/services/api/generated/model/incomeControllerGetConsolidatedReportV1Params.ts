@@ -23,4 +23,8 @@ branchId?: string;
  * Filter by income category
  */
 category?: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

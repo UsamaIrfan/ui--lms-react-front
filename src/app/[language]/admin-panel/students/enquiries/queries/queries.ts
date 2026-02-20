@@ -30,7 +30,10 @@ export function useEnquiriesListQuery(
     queryKey: enquiriesQueryKeys.list(filter, sort),
     queryFn: async ({ signal }) => {
       const response = await admissionEnquiryControllerFindAllV1({ signal });
-      const items = (response.data as unknown as AdmissionEnquiry[]) ?? [];
+      const raw = response.data as unknown;
+      const items = (
+        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+      ) as AdmissionEnquiry[];
 
       // Client-side filtering
       let filtered = [...items];

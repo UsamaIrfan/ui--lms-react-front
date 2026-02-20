@@ -8,6 +8,13 @@ import Link from "@/components/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Table,
@@ -29,6 +36,7 @@ import {
 } from "../queries/queries";
 import { AttendanceStatus, ATTENDANCE_STATUSES } from "../types";
 import type { AttendanceRecord } from "../types";
+import { useSectionsListQuery } from "../../../academics/classes/queries/queries";
 
 const NS = "admin-panel-students-attendance";
 
@@ -54,6 +62,7 @@ function MarkAttendance() {
   const [selectedDate, setSelectedDate] = useState(today);
   const [sectionId, setSectionId] = useState<string>("");
   const [submitted, setSubmitted] = useState(false);
+  const { data: sections } = useSectionsListQuery();
 
   // Fetch existing attendance for the selected date+section
   const { data: existingData, isLoading } = useAttendanceListQuery({
@@ -223,17 +232,25 @@ function MarkAttendance() {
             <label className="text-label-sm text-text-sub-600">
               {t(`${NS}:mark.selectSection`)}
             </label>
-            <Input
-              type="number"
-              placeholder="Section ID"
+            <Select
               value={sectionId}
-              onChange={(e) => {
-                setSectionId(e.target.value);
+              onValueChange={(v) => {
+                setSectionId(v);
                 setStatusOverrides(new Map());
                 setSubmitted(false);
               }}
-              className="w-32"
-            />
+            >
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder={t(`${NS}:mark.selectSection`)} />
+              </SelectTrigger>
+              <SelectContent>
+                {(sections ?? []).map((s) => (
+                  <SelectItem key={s.id} value={String(s.id)}>
+                    {s.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 

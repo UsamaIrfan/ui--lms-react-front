@@ -11,4 +11,8 @@ export type StaffLeaveControllerGetBalanceV1Params = {
 staffId?: number;
 leaveType?: StaffLeaveControllerGetBalanceV1LeaveType;
 year?: number;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

@@ -19,4 +19,8 @@ endDate?: string;
  * Filter P&L by specific branch
  */
 branchId?: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

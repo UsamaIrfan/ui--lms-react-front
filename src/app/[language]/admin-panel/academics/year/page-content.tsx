@@ -41,6 +41,14 @@ import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useInstitutionsListQuery } from "../courses/queries/queries";
 
 function formatDate(dateStr: string | null | undefined) {
   if (!dateStr) return "—";
@@ -71,6 +79,7 @@ function AcademicYear() {
   const [formIsCurrent, setFormIsCurrent] = useState(false);
 
   const { data, isLoading } = useAcademicYearsListQuery();
+  const { data: institutions } = useInstitutionsListQuery();
 
   const resetForm = useCallback(() => {
     setFormName("");
@@ -311,12 +320,25 @@ function AcademicYear() {
               <Label>
                 {t("admin-panel-academics-year:form.institutionId")}
               </Label>
-              <Input
-                type="number"
+              <Select
                 value={formInstitutionId}
-                onChange={(e) => setFormInstitutionId(e.target.value)}
-                placeholder={t("admin-panel-academics-year:form.institutionId")}
-              />
+                onValueChange={(v) => setFormInstitutionId(v)}
+              >
+                <SelectTrigger>
+                  <SelectValue
+                    placeholder={t(
+                      "admin-panel-academics-year:form.institutionId"
+                    )}
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  {(institutions ?? []).map((inst) => (
+                    <SelectItem key={inst.id} value={String(inst.id)}>
+                      {inst.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">

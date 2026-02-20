@@ -12,4 +12,8 @@ attendableType: AttendanceControllerDetailedV1AttendableType;
 attendableId: number;
 startDate: string;
 endDate: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

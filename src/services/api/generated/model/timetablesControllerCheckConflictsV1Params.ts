@@ -11,4 +11,8 @@ teacherId: string;
 dayOfWeek: number;
 startTime: string;
 endTime: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

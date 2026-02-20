@@ -11,4 +11,8 @@ export type PortalsControllerGetStaffDashboardV1Params = {
  * Filter data by specific branch
  */
 branchId?: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

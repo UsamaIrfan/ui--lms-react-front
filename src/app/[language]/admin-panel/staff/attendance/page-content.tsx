@@ -10,6 +10,7 @@ import {
   useCheckInMutation,
   useCheckOutMutation,
 } from "./queries/queries";
+import { useStaffListQuery } from "../queries/queries";
 import {
   Table,
   TableBody,
@@ -27,6 +28,13 @@ import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const STATUS_COLORS: Record<string, "default" | "outline" | "destructive"> = {
   present: "default",
@@ -52,6 +60,7 @@ function StaffAttendance() {
   };
 
   const { data: records, isLoading } = useStaffAttendanceReportsQuery(params);
+  const { data: staffMembers } = useStaffListQuery();
   const checkInMutation = useCheckInMutation();
   const checkOutMutation = useCheckOutMutation();
 
@@ -148,12 +157,22 @@ function StaffAttendance() {
             <Label className="text-label-xs">
               {t("admin-panel-staff-attendance:filters.staffId")}
             </Label>
-            <Input
-              type="number"
-              className="w-32"
+            <Select
               value={filterStaffId}
-              onChange={(e) => setFilterStaffId(e.target.value)}
-            />
+              onValueChange={(v) => setFilterStaffId(v)}
+            >
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="All staff" />
+              </SelectTrigger>
+              <SelectContent>
+                {(staffMembers ?? []).map((s) => (
+                  <SelectItem key={s.id} value={String(s.id)}>
+                    {s.staffId}
+                    {s.designation ? ` — ${s.designation}` : ""}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div className="grid gap-1">
             <Label className="text-label-xs">
@@ -265,11 +284,22 @@ function StaffAttendance() {
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <Label>{t("admin-panel-staff-attendance:form.staffId")}</Label>
-              <Input
-                type="number"
+              <Select
                 value={checkInStaffId}
-                onChange={(e) => setCheckInStaffId(e.target.value)}
-              />
+                onValueChange={(v) => setCheckInStaffId(v)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select staff" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(staffMembers ?? []).map((s) => (
+                    <SelectItem key={s.id} value={String(s.id)}>
+                      {s.staffId}
+                      {s.designation ? ` — ${s.designation}` : ""}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label>{t("admin-panel-staff-attendance:form.remarks")}</Label>
@@ -307,11 +337,22 @@ function StaffAttendance() {
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <Label>{t("admin-panel-staff-attendance:form.staffId")}</Label>
-              <Input
-                type="number"
+              <Select
                 value={checkOutStaffId}
-                onChange={(e) => setCheckOutStaffId(e.target.value)}
-              />
+                onValueChange={(v) => setCheckOutStaffId(v)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select staff" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(staffMembers ?? []).map((s) => (
+                    <SelectItem key={s.id} value={String(s.id)}>
+                      {s.staffId}
+                      {s.designation ? ` — ${s.designation}` : ""}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <Dialog.DialogFooter>

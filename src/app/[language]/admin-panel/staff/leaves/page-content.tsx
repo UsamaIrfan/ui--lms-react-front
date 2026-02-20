@@ -12,6 +12,7 @@ import {
   useRejectLeaveMutation,
 } from "./queries/queries";
 import type { LeaveItem } from "./queries/queries";
+import { useStaffListQuery } from "../queries/queries";
 import {
   Table,
   TableBody,
@@ -40,6 +41,13 @@ import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const LEAVE_TYPES = [
   "sick",
@@ -65,6 +73,7 @@ function StaffLeaves() {
 
   const { data: leaves, isLoading } = useStaffLeavesQuery();
   const { data: balances } = useLeaveBalanceQuery();
+  const { data: staffMembers } = useStaffListQuery();
   const applyMutation = useApplyLeaveMutation();
   const approveMutation = useApproveLeaveMutation();
   const rejectMutation = useRejectLeaveMutation();
@@ -394,11 +403,19 @@ function StaffLeaves() {
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <Label>{t("admin-panel-staff-leaves:form.staffId")}</Label>
-              <Input
-                type="number"
-                value={staffId}
-                onChange={(e) => setStaffId(e.target.value)}
-              />
+              <Select value={staffId} onValueChange={(v) => setStaffId(v)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select staff" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(staffMembers ?? []).map((s) => (
+                    <SelectItem key={s.id} value={String(s.id)}>
+                      {s.staffId}
+                      {s.designation ? ` — ${s.designation}` : ""}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">

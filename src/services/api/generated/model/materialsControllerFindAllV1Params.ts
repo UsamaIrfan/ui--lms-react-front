@@ -20,4 +20,8 @@ type?: MaterialsControllerFindAllV1Type;
  * Search by title (case-insensitive)
  */
 search?: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

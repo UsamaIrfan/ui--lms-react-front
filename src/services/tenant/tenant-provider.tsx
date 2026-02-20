@@ -57,11 +57,6 @@ function TenantProvider({ children }: PropsWithChildren) {
         const tenantUsers = response.data;
 
         if (Array.isArray(tenantUsers) && tenantUsers.length > 0) {
-          // tenantUsers contains TenantUser objects with tenantId.
-          // We need to fetch full Tenant objects. For now, we create
-          // lightweight Tenant objects from the TenantUser data.
-          // The authControllerGetTenantsV1 endpoint or separate
-          // tenant fetch calls can be used for full details.
           const tenantIds = tenantUsers.map(
             (tu: { tenantId: string }) => tu.tenantId
           );
@@ -72,18 +67,18 @@ function TenantProvider({ children }: PropsWithChildren) {
             await fetchBranches(stored.tenantId);
           }
 
-          // Store minimal tenant info — the full Tenant objects will be
-          // populated when tenantControllerFindAll is called or via
-          // individual fetches. For now, we store the IDs.
+          // Build Tenant objects from TenantUser data (API returns tenantName)
           setTenants(
-            tenantUsers.map((tu: { tenantId: string; id: string }) => ({
-              id: tu.tenantId,
-              name: tu.tenantId, // Will be replaced with actual name
-              slug: "",
-              isActive: true,
-              createdAt: "",
-              updatedAt: "",
-            }))
+            tenantUsers.map(
+              (tu: { tenantId: string; tenantName?: string; id: string }) => ({
+                id: tu.tenantId,
+                name: tu.tenantName ?? tu.tenantId,
+                slug: "",
+                isActive: true,
+                createdAt: "",
+                updatedAt: "",
+              })
+            )
           );
         }
       } catch {

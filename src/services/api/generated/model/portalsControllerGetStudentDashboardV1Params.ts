@@ -11,4 +11,8 @@ export type PortalsControllerGetStudentDashboardV1Params = {
  * Filter by specific branch
  */
 branchId?: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

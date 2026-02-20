@@ -12,10 +12,12 @@ import {
   useGradingScalesQuery,
   useCreateGradingScaleMutation,
   useExamAnalyticsQuery,
+  useTermsListQuery,
   type ExamItem,
   type GradingScaleItem,
   type GradeDefinition,
 } from "./queries/queries";
+import { useSubjectsListQuery } from "../../academics/subjects/queries/queries";
 import {
   Table,
   TableBody,
@@ -105,6 +107,8 @@ function ExamsPageContent() {
 
   // ── Schedules tab state ──────────────────────────────────────────────────
   const { data: exams, isLoading: examsLoading } = useExamsQuery();
+  const { data: terms } = useTermsListQuery();
+  const { data: subjects } = useSubjectsListQuery();
   const createSchedule = useCreateExamScheduleMutation();
   const deleteExam = useDeleteExamMutation();
   const updateStatus = useUpdateExamStatusMutation();
@@ -747,13 +751,19 @@ function ExamsPageContent() {
               </div>
             </div>
             <div className="grid gap-1">
-              <Label className="text-label-sm">Term ID</Label>
-              <Input
-                type="number"
-                value={formTermId}
-                onChange={(e) => setFormTermId(e.target.value)}
-                placeholder="Academic Term ID"
-              />
+              <Label className="text-label-sm">Term</Label>
+              <Select value={formTermId} onValueChange={setFormTermId}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select term" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(terms ?? []).map((term) => (
+                    <SelectItem key={term.id} value={String(term.id)}>
+                      {term.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-1">
@@ -796,14 +806,24 @@ function ExamsPageContent() {
                   className="grid grid-cols-5 items-end gap-2 rounded border border-stroke-soft-200 p-2"
                 >
                   <div className="grid gap-1">
-                    <Label className="text-xs">Subject ID</Label>
-                    <Input
-                      type="number"
+                    <Label className="text-xs">Subject</Label>
+                    <Select
                       value={sub.subjectId}
-                      onChange={(e) =>
-                        updateSubjectRow(idx, "subjectId", e.target.value)
+                      onValueChange={(v) =>
+                        updateSubjectRow(idx, "subjectId", v)
                       }
-                    />
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {(subjects ?? []).map((s) => (
+                          <SelectItem key={s.id} value={String(s.id)}>
+                            {s.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="grid gap-1">
                     <Label className="text-xs">Exam Date</Label>

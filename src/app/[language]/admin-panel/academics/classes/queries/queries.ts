@@ -1,29 +1,35 @@
 import {
   gradeClassControllerFindAllV1,
+  gradeClassControllerFindOneV1,
   gradeClassControllerCreateV1,
   gradeClassControllerUpdateV1,
   gradeClassControllerRemoveV1,
 } from "@/services/api/generated/lms-grade-classes/lms-grade-classes";
 import {
   sectionControllerFindAllV1,
+  sectionControllerFindOneV1,
   sectionControllerCreateV1,
+  sectionControllerUpdateV1,
   sectionControllerRemoveV1,
 } from "@/services/api/generated/lms-sections/lms-sections";
 import type {
   CreateGradeClassDto,
   UpdateGradeClassDto,
   CreateSectionDto,
+  UpdateSectionDto,
 } from "@/services/api/generated/model";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const classesQueryKeys = {
   all: ["grade-classes"] as const,
   lists: () => [...classesQueryKeys.all, "list"] as const,
+  detail: (id: number) => [...classesQueryKeys.all, "detail", id] as const,
 };
 
 export const sectionsQueryKeys = {
   all: ["sections"] as const,
   lists: () => [...sectionsQueryKeys.all, "list"] as const,
+  detail: (id: number) => [...sectionsQueryKeys.all, "detail", id] as const,
 };
 
 export function useClassesListQuery() {
@@ -31,9 +37,23 @@ export function useClassesListQuery() {
     queryKey: classesQueryKeys.lists(),
     queryFn: async ({ signal }) => {
       const response = await gradeClassControllerFindAllV1({ signal });
-      return (response.data as unknown as GradeClassItem[]) ?? [];
+      const raw = response.data as unknown;
+      return (
+        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+      ) as GradeClassItem[];
     },
     staleTime: 2 * 60 * 1000,
+  });
+}
+
+export function useClassDetailQuery(id: number) {
+  return useQuery({
+    queryKey: classesQueryKeys.detail(id),
+    queryFn: async ({ signal }) => {
+      const response = await gradeClassControllerFindOneV1(id, { signal });
+      return (response as unknown as { data: GradeClassItem })?.data;
+    },
+    enabled: id > 0,
   });
 }
 
@@ -42,9 +62,23 @@ export function useSectionsListQuery() {
     queryKey: sectionsQueryKeys.lists(),
     queryFn: async ({ signal }) => {
       const response = await sectionControllerFindAllV1({ signal });
-      return (response.data as unknown as SectionItem[]) ?? [];
+      const raw = response.data as unknown;
+      return (
+        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+      ) as SectionItem[];
     },
     staleTime: 2 * 60 * 1000,
+  });
+}
+
+export function useSectionDetailQuery(id: number) {
+  return useQuery({
+    queryKey: sectionsQueryKeys.detail(id),
+    queryFn: async ({ signal }) => {
+      const response = await sectionControllerFindOneV1(id, { signal });
+      return (response as unknown as { data: SectionItem })?.data;
+    },
+    enabled: id > 0,
   });
 }
 
@@ -103,6 +137,27 @@ export function useCreateSectionMutation() {
   return useMutation({
     mutationFn: async (data: CreateSectionDto) => {
       const response = await sectionControllerCreateV1(data);
+      return response.data;
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: sectionsQueryKeys.lists(),
+      });
+    },
+  });
+}
+
+export function useUpdateSectionMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      id,
+      data,
+    }: {
+      id: number;
+      data: UpdateSectionDto;
+    }) => {
+      const response = await sectionControllerUpdateV1(id, data);
       return response.data;
     },
     onSuccess: () => {

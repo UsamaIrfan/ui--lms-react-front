@@ -5,10 +5,13 @@ import {
   salaryStructureControllerCreateV1,
   salaryStructureControllerUpdateV1,
   salaryStructureControllerRemoveV1,
+  salaryStructureControllerFindOneV1,
 } from "@/services/api/generated/payroll-salary-structures/payroll-salary-structures";
 import {
   payrollControllerProcessV1,
   payrollControllerFindAllSlipsV1,
+  payrollControllerFindOneSlipV1,
+  payrollControllerGeneratePdfV1,
 } from "@/services/api/generated/payroll-processing-slips/payroll-processing-slips";
 import type {
   CreateSalaryStructureDto,
@@ -119,5 +122,45 @@ export function useProcessPayrollMutation() {
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: SLIPS_KEY });
     },
+  });
+}
+
+// --- Slip detail & PDF ---
+
+export function usePayrollSlipDetailQuery(id: number | null) {
+  return useQuery<PayrollSlipItem | null>({
+    queryKey: [...SLIPS_KEY, "detail", id],
+    queryFn: async ({ signal }) => {
+      if (!id) return null;
+      const res = await payrollControllerFindOneSlipV1(id, { signal });
+      return (res as unknown as PayrollSlipItem) ?? null;
+    },
+    enabled: !!id,
+  });
+}
+
+export function usePayrollSlipPdfQuery(id: number | null) {
+  return useQuery({
+    queryKey: [...SLIPS_KEY, "pdf", id],
+    queryFn: async ({ signal }) => {
+      if (!id) return null;
+      const res = await payrollControllerGeneratePdfV1(id, { signal });
+      return res;
+    },
+    enabled: !!id,
+  });
+}
+
+// --- Salary structure detail ---
+
+export function useSalaryStructureDetailQuery(id: number | null) {
+  return useQuery<SalaryStructureItem | null>({
+    queryKey: [...STRUCTURES_KEY, "detail", id],
+    queryFn: async ({ signal }) => {
+      if (!id) return null;
+      const res = await salaryStructureControllerFindOneV1(id, { signal });
+      return (res as unknown as SalaryStructureItem) ?? null;
+    },
+    enabled: !!id,
   });
 }

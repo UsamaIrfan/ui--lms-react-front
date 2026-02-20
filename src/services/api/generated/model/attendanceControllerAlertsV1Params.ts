@@ -12,4 +12,8 @@ threshold?: number;
 attendableType?: AttendanceControllerAlertsV1AttendableType;
 startDate?: string;
 endDate?: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

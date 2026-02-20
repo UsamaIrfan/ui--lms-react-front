@@ -16,6 +16,8 @@ import {
   useRecordPaymentMutation,
 } from "./queries/queries";
 import type { FeeStructureItem, ChallanItem } from "./queries/queries";
+import { useInstitutionsListQuery } from "../../academics/courses/queries/queries";
+import { useStudentsListQuery } from "../registrations/queries/queries";
 import {
   Table,
   TableBody,
@@ -47,6 +49,13 @@ import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const FREQUENCY_OPTIONS = [
   "one_time",
@@ -70,6 +79,8 @@ function StudentsFees() {
   // Fee Structures
   const { data: structures, isLoading: structLoading } =
     useFeeStructuresQuery();
+  const { data: institutions } = useInstitutionsListQuery();
+  const { data: students } = useStudentsListQuery();
   const createStructMutation = useCreateFeeStructureMutation();
   const updateStructMutation = useUpdateFeeStructureMutation();
   const deleteStructMutation = useDeleteFeeStructureMutation();
@@ -603,11 +614,21 @@ function StudentsFees() {
                 <Label>
                   {t("admin-panel-students-fees:form.institutionId")}
                 </Label>
-                <Input
-                  type="number"
+                <Select
                   value={structInstitutionId}
-                  onChange={(e) => setStructInstitutionId(e.target.value)}
-                />
+                  onValueChange={(v) => setStructInstitutionId(v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select institution" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(institutions ?? []).map((inst) => (
+                      <SelectItem key={inst.id} value={String(inst.id)}>
+                        {inst.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             <div className="grid gap-2">
@@ -663,21 +684,43 @@ function StudentsFees() {
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <Label>{t("admin-panel-students-fees:form.studentId")}</Label>
-              <Input
-                type="number"
+              <Select
                 value={challanStudentId}
-                onChange={(e) => setChallanStudentId(e.target.value)}
-              />
+                onValueChange={(v) => setChallanStudentId(v)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select student" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(students ?? []).map((s) => (
+                    <SelectItem key={s.id} value={String(s.id)}>
+                      {s.firstName && s.lastName
+                        ? `${s.firstName} ${s.lastName}`
+                        : (s.rollNumber ?? `#${s.id}`)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label>
                 {t("admin-panel-students-fees:form.feeStructureId")}
               </Label>
-              <Input
-                type="number"
+              <Select
                 value={challanStructureId}
-                onChange={(e) => setChallanStructureId(e.target.value)}
-              />
+                onValueChange={(v) => setChallanStructureId(v)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select fee structure" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(structures ?? []).map((fs) => (
+                    <SelectItem key={fs.id} value={String(fs.id)}>
+                      {fs.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label>{t("admin-panel-students-fees:form.dueDate")}</Label>
@@ -719,11 +762,21 @@ function StudentsFees() {
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <Label>{t("admin-panel-students-fees:form.challanId")}</Label>
-              <Input
-                type="number"
+              <Select
                 value={payChallanId}
-                onChange={(e) => setPayChallanId(e.target.value)}
-              />
+                onValueChange={(v) => setPayChallanId(v)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select challan" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(challans ?? []).map((ch) => (
+                    <SelectItem key={ch.id} value={String(ch.id)}>
+                      {ch.challanNumber ?? `#${ch.id}`}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label>{t("admin-panel-students-fees:form.amount")}</Label>

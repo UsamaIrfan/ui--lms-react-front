@@ -11,4 +11,8 @@ staffId?: number;
 branchId?: string;
 startDate?: string;
 endDate?: string;
+/**
+ * Page number for pagination
+ */
+page?: number;
 };

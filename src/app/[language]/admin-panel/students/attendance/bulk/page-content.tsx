@@ -8,6 +8,13 @@ import Link from "@/components/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import {
   Table,
@@ -28,6 +35,7 @@ import {
 import { useSnackbar } from "@/hooks/use-snackbar";
 import { useBulkAttendanceMutation } from "../queries/queries";
 import { AttendanceStatus } from "../types";
+import { useSectionsListQuery } from "../../academics/classes/queries/queries";
 
 const NS = "admin-panel-students-attendance";
 
@@ -55,6 +63,7 @@ function BulkAttendance() {
   const [state, setState] = useState<BulkState>("idle");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [sectionId, setSectionId] = useState<string>("");
+  const { data: sections } = useSectionsListQuery();
   const [rows, setRows] = useState<CsvRow[]>([]);
   const [fileName, setFileName] = useState("");
   const [result, setResult] = useState<{
@@ -293,13 +302,18 @@ function BulkAttendance() {
             <label className="text-label-sm text-text-sub-600">
               {t(`${NS}:mark.selectSection`)}
             </label>
-            <Input
-              type="number"
-              placeholder="Section ID"
-              value={sectionId}
-              onChange={(e) => setSectionId(e.target.value)}
-              className="w-32"
-            />
+            <Select value={sectionId} onValueChange={(v) => setSectionId(v)}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder={t(`${NS}:mark.selectSection`)} />
+              </SelectTrigger>
+              <SelectContent>
+                {(sections ?? []).map((s) => (
+                  <SelectItem key={s.id} value={String(s.id)}>
+                    {s.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 

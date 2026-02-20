@@ -46,6 +46,13 @@ import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function AcademicCourses() {
   const { t } = useTranslation("admin-panel-academics-courses");
@@ -681,11 +688,21 @@ function AcademicCourses() {
                   "admin-panel-academics-courses:departments.form.institutionId"
                 )}
               </Label>
-              <Input
-                type="number"
+              <Select
                 value={deptInstId}
-                onChange={(e) => setDeptInstId(e.target.value)}
-              />
+                onValueChange={(v) => setDeptInstId(v)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select institution" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(institutions ?? []).map((inst) => (
+                    <SelectItem key={inst.id} value={String(inst.id)}>
+                      {inst.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label>

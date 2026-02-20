@@ -28,6 +28,7 @@ import {
   RiInformationLine,
 } from "@remixicon/react";
 import { useRegisterStudentMutation } from "../queries/queries";
+import { useInstitutionsListQuery } from "../../../academics/courses/queries/queries";
 import {
   Gender,
   BloodGroup,
@@ -375,13 +376,22 @@ function StepBasicInfo() {
 
 function StepEnrollmentDetails() {
   const { t } = useTranslation("admin-panel-students-registrations");
+  const { data: institutions } = useInstitutionsListQuery();
+  const institutionOptions = (institutions ?? []).map((inst) => ({
+    id: String(inst.id),
+    label: inst.name,
+  }));
   return (
     <div className="grid gap-4">
-      <FormTextInput<AddStudentFormData>
-        name="institutionId.id"
+      <FormSelectInput<AddStudentFormData, { id: string; label: string }>
+        name="institutionId"
         label={t(
           "admin-panel-students-registrations:addStudent.inputs.institutionId.label"
         )}
+        options={institutionOptions}
+        keyValue="id"
+        keyExtractor={(o) => o.id}
+        renderOption={(o) => o.label}
         testId="student-institution"
       />
       <FormDatePickerInput<AddStudentFormData>

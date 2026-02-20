@@ -22,6 +22,15 @@ import {
   RiErrorWarningLine,
 } from "@remixicon/react";
 import { useImportStudentsMutation } from "../queries/queries";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useInstitutionsListQuery } from "../../../academics/courses/queries/queries";
 
 interface BulkImportModalProps {
   open: boolean;
@@ -32,14 +41,15 @@ const CSV_TEMPLATE_HEADERS = [
   "firstName",
   "lastName",
   "email",
-  "gender",
+  "password",
   "dateOfBirth",
-  "phone",
-  "address",
+  "gender",
   "guardianName",
   "guardianPhone",
   "guardianEmail",
   "guardianRelation",
+  "address",
+  "city",
 ];
 
 type ImportState = "idle" | "preview" | "importing" | "done";
@@ -54,10 +64,12 @@ function BulkImportModal({ open, onOpenChange }: BulkImportModalProps) {
   const { t } = useTranslation("admin-panel-students-registrations");
   const { enqueueSnackbar } = useSnackbar();
   const importMutation = useImportStudentsMutation();
+  const { data: institutions } = useInstitutionsListQuery();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [state, setState] = useState<ImportState>("idle");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedInstitutionId, setSelectedInstitutionId] = useState("");
   const [previewRows, setPreviewRows] = useState<PreviewRow[]>([]);
   const [importResult, setImportResult] = useState<{
     imported: number;
@@ -67,6 +79,7 @@ function BulkImportModal({ open, onOpenChange }: BulkImportModalProps) {
   const reset = useCallback(() => {
     setState("idle");
     setSelectedFile(null);
+    setSelectedInstitutionId("");
     setPreviewRows([]);
     setImportResult(null);
     if (fileInputRef.current) {
@@ -110,13 +123,22 @@ function BulkImportModal({ open, onOpenChange }: BulkImportModalProps) {
         data[header] = values[idx] || "";
       });
 
-      const valid = Boolean(data.firstName && data.lastName);
+      const missing: string[] = [];
+      if (!data.firstName) missing.push("firstName");
+      if (!data.lastName) missing.push("lastName");
+      if (!data.email) missing.push("email");
+      if (!data.password) missing.push("password");
+      if (!data.dateOfBirth) missing.push("dateOfBirth");
+      if (!data.gender) missing.push("gender");
+      if (!data.guardianName) missing.push("guardianName");
+      if (!data.guardianPhone) missing.push("guardianPhone");
+      const valid = missing.length === 0;
       return {
         data,
         valid,
         error: valid
           ? undefined
-          : "Missing required fields (firstName, lastName)",
+          : `Missing required fields: ${missing.join(", ")}`,
       };
     });
   }, []);
@@ -162,6 +184,7 @@ function BulkImportModal({ open, onOpenChange }: BulkImportModalProps) {
     try {
       const result = await importMutation.mutateAsync({
         file: selectedFile,
+        institutionId: parseInt(selectedInstitutionId, 10),
       });
       setImportResult(result);
       setState("done");
@@ -223,24 +246,56 @@ function BulkImportModal({ open, onOpenChange }: BulkImportModalProps) {
 
           {/* Upload area */}
           {state === "idle" && (
-            <label className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-stroke-soft-200 p-8 transition-colors hover:border-primary-base hover:bg-bg-weak-50">
-              <RiUploadLine className="h-10 w-10 text-text-soft-400" />
-              <div className="text-center">
-                <p className="text-paragraph-sm font-medium text-text-strong-950">
-                  {t("admin-panel-students-registrations:import.dropzone")}
-                </p>
-                <p className="text-paragraph-xs text-text-soft-400">
-                  {t("admin-panel-students-registrations:import.maxSize")}
-                </p>
+            <div className="grid gap-4">
+              {/* Institution selection */}
+              <div className="grid gap-2">
+                <Label className="text-label-sm">
+                  {t("admin-panel-students-registrations:import.institution", {
+                    defaultValue: "Institution",
+                  })}
+                </Label>
+                <Select
+                  value={selectedInstitutionId}
+                  onValueChange={(v) => setSelectedInstitutionId(v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue
+                      placeholder={t(
+                        "admin-panel-students-registrations:import.selectInstitution",
+                        { defaultValue: "Select institution" }
+                      )}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(institutions ?? []).map((inst) => (
+                      <SelectItem key={inst.id} value={String(inst.id)}>
+                        {inst.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".csv"
-                className="hidden"
-                onChange={handleFileSelect}
-              />
-            </label>
+
+              <label className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-stroke-soft-200 p-8 transition-colors hover:border-primary-base hover:bg-bg-weak-50">
+                <RiUploadLine className="h-10 w-10 text-text-soft-400" />
+                <div className="text-center">
+                  <p className="text-paragraph-sm font-medium text-text-strong-950">
+                    {t("admin-panel-students-registrations:import.dropzone")}
+                  </p>
+                  <p className="text-paragraph-xs text-text-soft-400">
+                    {t("admin-panel-students-registrations:import.maxSize")}
+                  </p>
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".csv"
+                  className="hidden"
+                  onChange={handleFileSelect}
+                  disabled={!selectedInstitutionId}
+                />
+              </label>
+            </div>
           )}
 
           {/* Preview */}
@@ -377,7 +432,7 @@ function BulkImportModal({ open, onOpenChange }: BulkImportModalProps) {
               {state === "preview" && (
                 <Button
                   onClick={() => void handleImport()}
-                  disabled={validCount === 0}
+                  disabled={validCount === 0 || !selectedInstitutionId}
                 >
                   {t(
                     "admin-panel-students-registrations:actions.importStudents"

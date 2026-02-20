@@ -8,9 +8,12 @@ import {
 } from "@/services/api/generated/lms-exams/lms-exams";
 import {
   examSubjectControllerFindAllV1,
+  examSubjectControllerFindOneV1,
   examSubjectControllerCreateV1,
+  examSubjectControllerUpdateV1,
   examSubjectControllerRemoveV1,
 } from "@/services/api/generated/lms-exam-subjects/lms-exam-subjects";
+import { termControllerFindAllV1 } from "@/services/api/generated/lms-terms/lms-terms";
 import {
   examsControllerCreateGradingScaleV1,
   examsControllerListGradingScalesV1,
@@ -37,6 +40,7 @@ import type { EnterMarksDto } from "@/services/api/generated/model/enterMarksDto
 import type { BulkMarksImportDto } from "@/services/api/generated/model/bulkMarksImportDto";
 import type { PublishResultsDto } from "@/services/api/generated/model/publishResultsDto";
 import type { CreateGradingScaleDto } from "@/services/api/generated/model/createGradingScaleDto";
+import type { UpdateExamSubjectDto } from "@/services/api/generated/model/updateExamSubjectDto";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -263,6 +267,28 @@ export function useCreateExamSubjectMutation() {
   });
 }
 
+export function useExamSubjectDetailQuery(id: number) {
+  return useQuery<ExamSubjectItem>({
+    queryKey: [...EXAM_SUBJECTS_KEY, id],
+    queryFn: async ({ signal }) => {
+      const res = await examSubjectControllerFindOneV1(id, { signal });
+      return (res as unknown as { data: ExamSubjectItem })?.data;
+    },
+    enabled: id > 0,
+  });
+}
+
+export function useUpdateExamSubjectMutation() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: number; data: UpdateExamSubjectDto }) =>
+      examSubjectControllerUpdateV1(id, data),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: EXAM_SUBJECTS_KEY });
+    },
+  });
+}
+
 export function useDeleteExamSubjectMutation() {
   const qc = useQueryClient();
   return useMutation({
@@ -435,5 +461,29 @@ export function useSubjectAnalyticsQuery(examSubjectId: number) {
       return (res as unknown as { data: SubjectAnalytics })?.data;
     },
     enabled: examSubjectId > 0,
+  });
+}
+
+// ── Terms Lookup ───────────────────────────────────────────────────────────
+
+export type TermItem = {
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  academicYearId: number;
+};
+
+const TERMS_KEY = ["terms", "list"];
+
+export function useTermsListQuery() {
+  return useQuery<TermItem[]>({
+    queryKey: TERMS_KEY,
+    queryFn: async ({ signal }) => {
+      const res = await termControllerFindAllV1({ signal });
+      const raw = (res as any)?.data;
+      return Array.isArray(raw) ? raw : [];
+    },
+    staleTime: 5 * 60_000,
   });
 }

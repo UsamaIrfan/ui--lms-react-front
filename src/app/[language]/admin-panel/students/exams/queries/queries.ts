@@ -481,7 +481,7 @@ export function useTermsListQuery() {
     queryKey: TERMS_KEY,
     queryFn: async ({ signal }) => {
       const res = await termControllerFindAllV1({ signal });
-      const raw = (res as any)?.data;
+      const raw = (res as unknown as Record<string, unknown>)?.data;
       return Array.isArray(raw) ? raw : [];
     },
     staleTime: 5 * 60_000,

@@ -24,7 +24,9 @@ export function useSubjectsListQuery() {
       const response = await subjectControllerFindAllV1({ signal });
       const raw = response.data as unknown;
       return (
-        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+        Array.isArray(raw)
+          ? raw
+          : ((raw as Record<string, unknown>)?.data ?? [])
       ) as SubjectItem[];
     },
     staleTime: 2 * 60 * 1000,

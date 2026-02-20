@@ -32,7 +32,9 @@ export function useEnquiriesListQuery(
       const response = await admissionEnquiryControllerFindAllV1({ signal });
       const raw = response.data as unknown;
       const items = (
-        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+        Array.isArray(raw)
+          ? raw
+          : ((raw as Record<string, unknown>)?.data ?? [])
       ) as AdmissionEnquiry[];
 
       // Client-side filtering

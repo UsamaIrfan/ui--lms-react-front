@@ -39,7 +39,9 @@ export function useClassesListQuery() {
       const response = await gradeClassControllerFindAllV1({ signal });
       const raw = response.data as unknown;
       return (
-        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+        Array.isArray(raw)
+          ? raw
+          : ((raw as Record<string, unknown>)?.data ?? [])
       ) as GradeClassItem[];
     },
     staleTime: 2 * 60 * 1000,
@@ -64,7 +66,9 @@ export function useSectionsListQuery() {
       const response = await sectionControllerFindAllV1({ signal });
       const raw = response.data as unknown;
       return (
-        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+        Array.isArray(raw)
+          ? raw
+          : ((raw as Record<string, unknown>)?.data ?? [])
       ) as SectionItem[];
     },
     staleTime: 2 * 60 * 1000,

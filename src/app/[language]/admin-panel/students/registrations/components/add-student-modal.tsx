@@ -390,7 +390,6 @@ function StepEnrollmentDetails() {
         )}
         options={institutionOptions}
         keyValue="id"
-        keyExtractor={(o) => o.id}
         renderOption={(o) => o.label}
         testId="student-institution"
       />

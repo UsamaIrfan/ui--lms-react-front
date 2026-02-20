@@ -35,7 +35,7 @@ import {
 import { useSnackbar } from "@/hooks/use-snackbar";
 import { useBulkAttendanceMutation } from "../queries/queries";
 import { AttendanceStatus } from "../types";
-import { useSectionsListQuery } from "../../academics/classes/queries/queries";
+import { useSectionsListQuery } from "../../../academics/classes/queries/queries";
 
 const NS = "admin-panel-students-attendance";
 

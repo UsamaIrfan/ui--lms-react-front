@@ -321,7 +321,8 @@ export function useUsersDropdownQuery() {
         { page: 1, limit: 100 },
         { signal }
       );
-      const raw = (res as any)?.data?.data;
+      const raw = (res as unknown as { data?: { data?: UserDropdownItem[] } })
+        ?.data?.data;
       return Array.isArray(raw) ? raw : [];
     },
     staleTime: 5 * 60_000,

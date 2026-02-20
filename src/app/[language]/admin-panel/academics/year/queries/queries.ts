@@ -24,7 +24,9 @@ export function useAcademicYearsListQuery() {
       const response = await academicYearControllerFindAllV1({ signal });
       const raw = response.data as unknown;
       return (
-        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+        Array.isArray(raw)
+          ? raw
+          : ((raw as Record<string, unknown>)?.data ?? [])
       ) as AcademicYearItem[];
     },
     staleTime: 2 * 60 * 1000,

@@ -39,7 +39,9 @@ export function useInstitutionsListQuery() {
       const response = await institutionControllerFindAllV1({ signal });
       const raw = response.data as unknown;
       return (
-        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+        Array.isArray(raw)
+          ? raw
+          : ((raw as Record<string, unknown>)?.data ?? [])
       ) as InstitutionItem[];
     },
     staleTime: 2 * 60 * 1000,
@@ -64,7 +66,9 @@ export function useDepartmentsListQuery() {
       const response = await departmentControllerFindAllV1({ signal });
       const raw = response.data as unknown;
       return (
-        Array.isArray(raw) ? raw : ((raw as any)?.data ?? [])
+        Array.isArray(raw)
+          ? raw
+          : ((raw as Record<string, unknown>)?.data ?? [])
       ) as DepartmentItem[];
     },
     staleTime: 2 * 60 * 1000,

@@ -1,0 +1,42 @@
+{
+  "title": "Accept Invitation",
+  "loading": "Verifying your invitation...",
+  "invalidLink": "Invalid invitation link",
+  "invalidLinkDescription": "This invitation link is invalid or has expired. Please contact your administrator for a new invitation.",
+  "welcomeTitle": "You're Invited!",
+  "welcomeDescription": "You've been invited to join {{tenantName}}",
+  "branchInfo": "Branch: {{branchName}}",
+  "roleInfo": "Your role: {{roleName}}",
+  "existingUserTitle": "Welcome Back!",
+  "existingUserDescription": "You already have an account. Click below to accept the invitation and join the organization.",
+  "inputs": {
+    "firstName": {
+      "label": "First Name",
+      "validation": {
+        "required": "First name is required"
+      }
+    },
+    "lastName": {
+      "label": "Last Name",
+      "validation": {
+        "required": "Last name is required"
+      }
+    },
+    "password": {
+      "label": "Password",
+      "validation": {
+        "required": "Password is required",
+        "min": "Password must be at least 6 characters"
+      }
+    }
+  },
+  "actions": {
+    "accept": "Accept Invitation",
+    "acceptExisting": "Accept & Join",
+    "goToSignIn": "Go to Sign In"
+  },
+  "success": "Invitation accepted! You're now logged in.",
+  "error": "Failed to accept invitation. Please try again.",
+  "expired": "This invitation has expired.",
+  "alreadyAccepted": "This invitation has already been accepted."
+}

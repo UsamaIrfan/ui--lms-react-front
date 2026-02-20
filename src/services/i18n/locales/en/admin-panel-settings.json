@@ -29,6 +29,10 @@
     "notifications": {
       "title": "Notification Settings",
       "description": "Email and SMS notification preferences"
+    },
+    "invitations": {
+      "title": "Invitations",
+      "description": "Invite staff and students to join your institution"
     }
   },
   "general": {

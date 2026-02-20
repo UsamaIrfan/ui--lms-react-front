@@ -26,6 +26,7 @@ import {
   RiUserSettingsLine,
   RiFileChartLine,
   RiGitBranchLine,
+  RiMailSendLine,
 } from "@remixicon/react";
 import type { RemixiconComponentType } from "@remixicon/react";
 
@@ -296,6 +297,13 @@ export const navigationItems: NavItem[] = [
         labelKey: "navigation.settingsNotifications",
         href: "/admin-panel/settings/notifications",
         icon: RiNotification3Line,
+        roles: [RoleEnum.ADMIN],
+      },
+      {
+        id: "settings-invitations",
+        labelKey: "navigation.settingsInvitations",
+        href: "/admin-panel/settings/invitations",
+        icon: RiMailSendLine,
         roles: [RoleEnum.ADMIN],
       },
     ],

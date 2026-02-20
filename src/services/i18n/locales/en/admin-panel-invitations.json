@@ -1,0 +1,63 @@
+{
+  "title": "Invitations",
+  "description": "Send email invitations to staff and students to join your institution",
+  "sendInvitation": "Send Invitation",
+  "noInvitations": "No invitations sent yet",
+  "noInvitationsDescription": "Send your first invitation to get started",
+  "form": {
+    "email": {
+      "label": "Email Address",
+      "placeholder": "e.g. john@example.com",
+      "validation": {
+        "required": "Email is required",
+        "invalid": "Please enter a valid email"
+      }
+    },
+    "role": {
+      "label": "Role",
+      "placeholder": "Select a role",
+      "validation": {
+        "required": "Role is required"
+      }
+    },
+    "branch": {
+      "label": "Branch (Optional)",
+      "placeholder": "Select a branch"
+    }
+  },
+  "table": {
+    "email": "Email",
+    "role": "Role",
+    "branch": "Branch",
+    "status": "Status",
+    "sentAt": "Sent At",
+    "expiresAt": "Expires At",
+    "actions": "Actions"
+  },
+  "status": {
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "expired": "Expired",
+    "cancelled": "Cancelled"
+  },
+  "roles": {
+    "3": "Student",
+    "4": "Teacher",
+    "5": "Staff",
+    "6": "Accountant",
+    "7": "Parent"
+  },
+  "actions": {
+    "send": "Send Invitation",
+    "resend": "Resend",
+    "cancel": "Cancel Invitation",
+    "close": "Close"
+  },
+  "notifications": {
+    "sent": "Invitation sent successfully",
+    "resent": "Invitation resent successfully",
+    "cancelled": "Invitation cancelled",
+    "error": "Failed to send invitation",
+    "duplicateError": "A pending invitation already exists for this email"
+  }
+}

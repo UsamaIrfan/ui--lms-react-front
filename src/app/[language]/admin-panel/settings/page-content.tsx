@@ -14,6 +14,7 @@ import {
   RiCalendarCheckLine,
   RiNotification3Line,
   RiArrowRightSLine,
+  RiMailSendLine,
 } from "@remixicon/react";
 import type { RemixiconComponentType } from "@remixicon/react";
 
@@ -66,6 +67,12 @@ const settingsSections: SettingsSection[] = [
     icon: RiNotification3Line,
     href: "/admin-panel/settings/notifications",
     translationKey: "notifications",
+  },
+  {
+    id: "invitations",
+    icon: RiMailSendLine,
+    href: "/admin-panel/settings/invitations",
+    translationKey: "invitations",
   },
 ];
 

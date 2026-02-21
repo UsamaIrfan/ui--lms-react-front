@@ -41,7 +41,6 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -58,7 +57,6 @@ function AcademicClasses() {
   const { t } = useTranslation("admin-panel-academics-classes");
   const { enqueueSnackbar } = useSnackbar();
   const { confirmDialog } = useConfirmDialog();
-  const { tenantId } = useTenant();
 
   const createClassMutation = useCreateClassMutation();
   const updateClassMutation = useUpdateClassMutation();
@@ -143,14 +141,13 @@ function AcademicClasses() {
         );
       } else {
         await createClassMutation.mutateAsync({
-          tenantId: tenantId ?? "",
           name: className,
           numericGrade: classNumericGrade
             ? (Number(classNumericGrade) as any)
             : undefined,
           description: (classDescription || undefined) as any,
           institutionId: Number(classInstitutionId),
-        });
+        } as any);
         enqueueSnackbar(
           t("admin-panel-academics-classes:notifications.created"),
           { variant: "success" }
@@ -169,7 +166,6 @@ function AcademicClasses() {
     classDescription,
     classInstitutionId,
     editClass,
-    tenantId,
     createClassMutation,
     updateClassMutation,
     enqueueSnackbar,
@@ -210,11 +206,10 @@ function AcademicClasses() {
     if (!sectionName || !sectionGradeClassId) return;
     try {
       await createSectionMutation.mutateAsync({
-        tenantId: tenantId ?? "",
         name: sectionName,
         gradeClassId: Number(sectionGradeClassId),
         capacity: Number(sectionCapacity),
-      });
+      } as any);
       enqueueSnackbar(
         t("admin-panel-academics-classes:notifications.sectionCreated"),
         { variant: "success" }
@@ -230,7 +225,6 @@ function AcademicClasses() {
     sectionName,
     sectionGradeClassId,
     sectionCapacity,
-    tenantId,
     createSectionMutation,
     enqueueSnackbar,
     t,

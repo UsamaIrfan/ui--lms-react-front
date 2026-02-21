@@ -37,7 +37,6 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -46,7 +45,6 @@ function AccountsIncome() {
   const { t } = useTranslation("admin-panel-accounts-income");
   const { enqueueSnackbar } = useSnackbar();
   const { confirmDialog } = useConfirmDialog();
-  const { tenantId } = useTenant();
 
   const { data: items, isLoading } = useIncomeListQuery();
   const createMutation = useCreateIncomeMutation();
@@ -117,7 +115,6 @@ function AccountsIncome() {
         );
       } else {
         await createMutation.mutateAsync({
-          tenantId: tenantId ?? "",
           ...payload,
         });
         enqueueSnackbar(
@@ -141,7 +138,6 @@ function AccountsIncome() {
     receivedFrom,
     remarks,
     editItem,
-    tenantId,
     createMutation,
     updateMutation,
     enqueueSnackbar,

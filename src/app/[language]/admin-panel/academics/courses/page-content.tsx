@@ -41,7 +41,6 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -58,7 +57,6 @@ function AcademicCourses() {
   const { t } = useTranslation("admin-panel-academics-courses");
   const { enqueueSnackbar } = useSnackbar();
   const { confirmDialog } = useConfirmDialog();
-  const { tenantId } = useTenant();
 
   const createInstMutation = useCreateInstitutionMutation();
   const updateInstMutation = useUpdateInstitutionMutation();
@@ -158,7 +156,6 @@ function AcademicCourses() {
         );
       } else {
         await createInstMutation.mutateAsync({
-          tenantId: tenantId ?? "",
           ...payload,
         });
         enqueueSnackbar(
@@ -181,7 +178,6 @@ function AcademicCourses() {
     instCity,
     instAddress,
     editInst,
-    tenantId,
     createInstMutation,
     updateInstMutation,
     enqueueSnackbar,
@@ -256,7 +252,6 @@ function AcademicCourses() {
         );
       } else {
         await createDeptMutation.mutateAsync({
-          tenantId: tenantId ?? "",
           ...payload,
         });
         enqueueSnackbar(
@@ -277,7 +272,6 @@ function AcademicCourses() {
     deptInstId,
     deptDescription,
     editDept,
-    tenantId,
     createDeptMutation,
     updateDeptMutation,
     enqueueSnackbar,

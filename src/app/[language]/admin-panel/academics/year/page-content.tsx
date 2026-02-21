@@ -36,7 +36,6 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -63,7 +62,6 @@ function AcademicYear() {
   const { t } = useTranslation("admin-panel-academics-year");
   const { enqueueSnackbar } = useSnackbar();
   const { confirmDialog } = useConfirmDialog();
-  const { tenantId } = useTenant();
   const deleteMutation = useDeleteAcademicYearMutation();
   const createMutation = useCreateAcademicYearMutation();
   const updateMutation = useUpdateAcademicYearMutation();
@@ -131,7 +129,6 @@ function AcademicYear() {
         });
       } else {
         await createMutation.mutateAsync({
-          tenantId: tenantId ?? "",
           name: formName,
           startDate: formStartDate,
           endDate: formEndDate,
@@ -156,7 +153,6 @@ function AcademicYear() {
     formInstitutionId,
     formIsCurrent,
     editItem,
-    tenantId,
     createMutation,
     updateMutation,
     enqueueSnackbar,

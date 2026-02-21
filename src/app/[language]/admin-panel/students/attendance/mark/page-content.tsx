@@ -36,7 +36,10 @@ import {
 } from "../queries/queries";
 import { AttendanceStatus, ATTENDANCE_STATUSES } from "../types";
 import type { AttendanceRecord } from "../types";
-import { useSectionsListQuery } from "../../../academics/classes/queries/queries";
+import {
+  useClassesListQuery,
+  useSectionsListQuery,
+} from "../../../academics/classes/queries/queries";
 
 const NS = "admin-panel-students-attendance";
 
@@ -60,9 +63,18 @@ function MarkAttendance() {
 
   const today = formatDateInput(new Date());
   const [selectedDate, setSelectedDate] = useState(today);
+  const [classId, setClassId] = useState<string>("");
   const [sectionId, setSectionId] = useState<string>("");
   const [submitted, setSubmitted] = useState(false);
+  const { data: classes } = useClassesListQuery();
   const { data: sections } = useSectionsListQuery();
+
+  // Filter sections by selected class
+  const filteredSections = useMemo(() => {
+    if (!sections) return [];
+    if (!classId) return sections;
+    return sections.filter((s) => s.gradeClassId === Number(classId));
+  }, [sections, classId]);
 
   // Fetch existing attendance for the selected date+section
   const { data: existingData, isLoading } = useAttendanceListQuery({
@@ -185,6 +197,7 @@ function MarkAttendance() {
 
   const handleAnotherClass = useCallback(() => {
     setSubmitted(false);
+    setClassId("");
     setSectionId("");
     setStatusOverrides(new Map());
   }, []);
@@ -230,6 +243,32 @@ function MarkAttendance() {
 
           <div className="space-y-1.5">
             <label className="text-label-sm text-text-sub-600">
+              {t(`${NS}:mark.selectClass`)}
+            </label>
+            <Select
+              value={classId}
+              onValueChange={(v) => {
+                setClassId(v);
+                setSectionId("");
+                setStatusOverrides(new Map());
+                setSubmitted(false);
+              }}
+            >
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder={t(`${NS}:mark.selectClass`)} />
+              </SelectTrigger>
+              <SelectContent>
+                {(classes ?? []).map((c) => (
+                  <SelectItem key={c.id} value={String(c.id)}>
+                    {c.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-1.5">
+            <label className="text-label-sm text-text-sub-600">
               {t(`${NS}:mark.selectSection`)}
             </label>
             <Select
@@ -244,7 +283,7 @@ function MarkAttendance() {
                 <SelectValue placeholder={t(`${NS}:mark.selectSection`)} />
               </SelectTrigger>
               <SelectContent>
-                {(sections ?? []).map((s) => (
+                {filteredSections.map((s) => (
                   <SelectItem key={s.id} value={String(s.id)}>
                     {s.name}
                   </SelectItem>

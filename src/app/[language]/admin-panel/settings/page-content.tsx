@@ -15,6 +15,7 @@ import {
   RiNotification3Line,
   RiArrowRightSLine,
   RiMailSendLine,
+  RiBuildingLine,
 } from "@remixicon/react";
 import type { RemixiconComponentType } from "@remixicon/react";
 
@@ -26,6 +27,12 @@ type SettingsSection = {
 };
 
 const settingsSections: SettingsSection[] = [
+  {
+    id: "tenants",
+    icon: RiBuildingLine,
+    href: "/admin-panel/settings/tenants",
+    translationKey: "tenants",
+  },
   {
     id: "general",
     icon: RiSettings4Line,

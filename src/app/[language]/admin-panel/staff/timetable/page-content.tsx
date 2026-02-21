@@ -41,7 +41,6 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -61,7 +60,6 @@ function StaffTimetable() {
   const { t } = useTranslation("admin-panel-staff-timetable");
   const { enqueueSnackbar } = useSnackbar();
   const { confirmDialog } = useConfirmDialog();
-  const { tenantId } = useTenant();
 
   const { data: timetables, isLoading } = useTimetablesQuery();
   const createMutation = useCreateTimetableMutation();
@@ -133,7 +131,6 @@ function StaffTimetable() {
         );
       } else {
         await createMutation.mutateAsync({
-          tenantId: tenantId ?? "",
           ...payload,
         });
         enqueueSnackbar(
@@ -153,7 +150,6 @@ function StaffTimetable() {
     ttAcademicYearId,
     ttName,
     editTt,
-    tenantId,
     createMutation,
     updateMutation,
     enqueueSnackbar,

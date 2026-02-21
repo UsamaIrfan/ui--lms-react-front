@@ -39,7 +39,6 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -63,7 +62,6 @@ function StaffManagement() {
   const { t } = useTranslation("admin-panel-staff");
   const { enqueueSnackbar } = useSnackbar();
   const { confirmDialog } = useConfirmDialog();
-  const { tenantId } = useTenant();
 
   const { data: staffList, isLoading } = useStaffListQuery();
   const { data: users } = useUsersDropdownQuery();
@@ -193,7 +191,6 @@ function StaffManagement() {
           : { ...staffFields, userId: Number(userId) };
 
         await createMutation.mutateAsync({
-          tenantId: tenantId ?? "",
           ...createPayload,
         });
         enqueueSnackbar(t("admin-panel-staff:notifications.created"), {
@@ -226,7 +223,6 @@ function StaffManagement() {
     emergencyContact,
     address,
     editItem,
-    tenantId,
     createMutation,
     updateMutation,
     enqueueSnackbar,

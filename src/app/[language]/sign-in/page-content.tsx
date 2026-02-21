@@ -81,7 +81,7 @@ function FormActions() {
 function Form() {
   const { setUser } = useAuthActions();
   const { setTokensInfo } = useAuthTokens();
-  const { tenants } = useTenant();
+  const { tenants, selectTenant } = useTenant();
   const { t } = useTranslation("sign-in");
   const language = useLanguage();
   const router = useRouter();
@@ -98,7 +98,7 @@ function Form() {
   const { handleSubmit, setError } = methods;
 
   const handlePostLogin = useCallback(
-    (loggedInUser: User) => {
+    async (loggedInUser: User) => {
       const defaultRoute = getDefaultRouteForRole(
         loggedInUser.role?.id,
         language
@@ -108,11 +108,23 @@ function Form() {
         router.push(
           `/${language}/select-tenant?returnTo=${encodeURIComponent(defaultRoute)}`
         );
+      } else if (tenants.length === 1) {
+        // Auto-select the single tenant so the JWT includes tenantId
+        try {
+          await selectTenant(tenants[0].id);
+        } catch {
+          // If auto-select fails, redirect to tenant selection page
+          router.push(
+            `/${language}/select-tenant?returnTo=${encodeURIComponent(defaultRoute)}`
+          );
+          return;
+        }
+        router.push(defaultRoute);
       } else {
         router.push(defaultRoute);
       }
     },
-    [tenants.length, router, language]
+    [tenants, selectTenant, router, language]
   );
 
   const onSubmit = handleSubmit(async (formData) => {
@@ -126,7 +138,7 @@ function Form() {
       });
       const loggedInUser = data.user as unknown as User;
       setUser(loggedInUser);
-      handlePostLogin(loggedInUser);
+      await handlePostLogin(loggedInUser);
     } catch (error) {
       if (isValidationError(error)) {
         (Object.keys(error.body.errors) as Array<keyof SignInFormData>).forEach(

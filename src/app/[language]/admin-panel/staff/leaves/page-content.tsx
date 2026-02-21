@@ -36,7 +36,6 @@ import {
   RiCloseLine,
 } from "@remixicon/react";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -69,7 +68,6 @@ const STATUS_COLORS: Record<string, "default" | "outline" | "destructive"> = {
 function StaffLeaves() {
   const { t } = useTranslation("admin-panel-staff-leaves");
   const { enqueueSnackbar } = useSnackbar();
-  const { tenantId } = useTenant();
 
   const { data: leaves, isLoading } = useStaffLeavesQuery();
   const { data: balances } = useLeaveBalanceQuery();
@@ -103,7 +101,6 @@ function StaffLeaves() {
     }
     try {
       await applyMutation.mutateAsync({
-        tenantId: tenantId ?? "",
         staffId: Number(staffId),
         fromDate,
         toDate,
@@ -136,7 +133,6 @@ function StaffLeaves() {
     toDate,
     leaveType,
     reason,
-    tenantId,
     applyMutation,
     enqueueSnackbar,
     t,

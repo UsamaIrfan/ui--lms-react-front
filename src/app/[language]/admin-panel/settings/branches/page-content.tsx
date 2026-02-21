@@ -135,7 +135,6 @@ function BranchManagement() {
         );
       } else {
         await createMutation.mutateAsync({
-          tenantId: tenantId ?? "",
           name,
           code,
           address: address || undefined,
@@ -168,7 +167,6 @@ function BranchManagement() {
     email,
     isHeadquarters,
     editItem,
-    tenantId,
     createMutation,
     updateMutation,
     enqueueSnackbar,

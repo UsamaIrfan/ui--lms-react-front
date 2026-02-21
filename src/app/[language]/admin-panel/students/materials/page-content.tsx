@@ -42,7 +42,6 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -66,7 +65,6 @@ function StudentsMaterials() {
   const { t } = useTranslation("admin-panel-students-materials");
   const { enqueueSnackbar } = useSnackbar();
   const { confirmDialog } = useConfirmDialog();
-  const { tenantId } = useTenant();
 
   const [activeTab, setActiveTab] = useState<"materials" | "assignments">(
     "materials"
@@ -165,7 +163,6 @@ function StudentsMaterials() {
         );
       } else {
         await createMaterialMut.mutateAsync({
-          tenantId: tenantId ?? "",
           ...payload,
         });
         enqueueSnackbar(
@@ -188,7 +185,6 @@ function StudentsMaterials() {
     matExternalUrl,
     matIsActive,
     editMat,
-    tenantId,
     createMaterialMut,
     updateMaterialMut,
     enqueueSnackbar,
@@ -273,7 +269,6 @@ function StudentsMaterials() {
         );
       } else {
         await createAssignmentMut.mutateAsync({
-          tenantId: tenantId ?? "",
           ...payload,
         });
         enqueueSnackbar(
@@ -296,7 +291,6 @@ function StudentsMaterials() {
     assignDescription,
     assignIsActive,
     editAssign,
-    tenantId,
     createAssignmentMut,
     updateAssignmentMut,
     enqueueSnackbar,

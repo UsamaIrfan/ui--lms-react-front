@@ -14,6 +14,7 @@ import {
   type ExamSubjectItem,
   type MarkResult,
 } from "../queries/queries";
+import { useStudentsListQuery } from "../../registrations/queries/queries";
 import {
   Table,
   TableBody,
@@ -56,6 +57,7 @@ function MarksEntryContent() {
 
   const { data: exams, isLoading: examsLoading } = useExamsQuery();
   const { data: examSubjects } = useExamSubjectsQuery();
+  const { data: allStudents } = useStudentsListQuery();
   const enterMarks = useEnterMarksMutation();
 
   const [selectedExamId, setSelectedExamId] = useState(preselectedExamId);
@@ -94,9 +96,12 @@ function MarksEntryContent() {
     setSelectedSubjectId(subjectId);
   }, []);
 
-  // Update marks entries when existing marks load
+  // Update marks entries when existing marks load or use all students as fallback
   useMemo(() => {
-    if (existingMarks && existingMarks.length > 0 && selectedSubjectId > 0) {
+    if (selectedSubjectId <= 0) return;
+
+    if (existingMarks && existingMarks.length > 0) {
+      // Use existing marks data
       setMarksEntries(
         existingMarks.map((m: MarkResult) => ({
           studentId: m.studentId,
@@ -110,8 +115,23 @@ function MarksEntryContent() {
           remarks: m.remarks ?? "",
         }))
       );
+    } else if (!marksLoading && allStudents && allStudents.length > 0) {
+      // No marks entered yet — show all enrolled students for marks entry
+      setMarksEntries(
+        allStudents.map((s) => ({
+          studentId: s.id,
+          studentName:
+            s.firstName && s.lastName
+              ? `${s.firstName} ${s.lastName}`
+              : `Student #${s.id}`,
+          rollNumber: s.rollNumber ?? "",
+          marksObtained: "",
+          isAbsent: false,
+          remarks: "",
+        }))
+      );
     }
-  }, [existingMarks, selectedSubjectId]);
+  }, [existingMarks, selectedSubjectId, marksLoading, allStudents]);
 
   const updateEntry = useCallback(
     (idx: number, field: keyof MarkEntry, value: string | boolean) => {

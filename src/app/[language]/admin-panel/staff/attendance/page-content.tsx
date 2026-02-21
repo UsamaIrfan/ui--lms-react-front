@@ -23,7 +23,6 @@ import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { RiLoginBoxLine, RiLogoutBoxLine } from "@remixicon/react";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -47,7 +46,6 @@ const STATUS_COLORS: Record<string, "default" | "outline" | "destructive"> = {
 function StaffAttendance() {
   const { t } = useTranslation("admin-panel-staff-attendance");
   const { enqueueSnackbar } = useSnackbar();
-  const { tenantId } = useTenant();
 
   const [filterStaffId, setFilterStaffId] = useState("");
   const [filterStartDate, setFilterStartDate] = useState("");
@@ -81,7 +79,6 @@ function StaffAttendance() {
     }
     try {
       await checkInMutation.mutateAsync({
-        tenantId: tenantId ?? "",
         staffId: Number(checkInStaffId),
         remarks: checkInRemarks || undefined,
       } as any);
@@ -100,7 +97,6 @@ function StaffAttendance() {
   }, [
     checkInStaffId,
     checkInRemarks,
-    tenantId,
     checkInMutation,
     enqueueSnackbar,
     t,
@@ -116,7 +112,6 @@ function StaffAttendance() {
     }
     try {
       await checkOutMutation.mutateAsync({
-        tenantId: tenantId ?? "",
         staffId: Number(checkOutStaffId),
       });
       enqueueSnackbar(
@@ -130,7 +125,7 @@ function StaffAttendance() {
         variant: "error",
       });
     }
-  }, [checkOutStaffId, tenantId, checkOutMutation, enqueueSnackbar, t]);
+  }, [checkOutStaffId, checkOutMutation, enqueueSnackbar, t]);
 
   return (
     <div className="mx-auto max-w-7xl px-4">

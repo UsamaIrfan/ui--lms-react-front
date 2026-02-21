@@ -45,7 +45,6 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
-import useTenant from "@/services/tenant/use-tenant";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -70,7 +69,6 @@ function StudentsFees() {
   const { t } = useTranslation("admin-panel-students-fees");
   const { enqueueSnackbar } = useSnackbar();
   const { confirmDialog } = useConfirmDialog();
-  const { tenantId } = useTenant();
 
   const [activeTab, setActiveTab] = useState<
     "structures" | "challans" | "payments"
@@ -160,7 +158,6 @@ function StudentsFees() {
         });
       } else {
         await createStructMutation.mutateAsync({
-          tenantId: tenantId ?? "",
           ...payload,
         });
         enqueueSnackbar(t("admin-panel-students-fees:notifications.created"), {
@@ -181,7 +178,6 @@ function StudentsFees() {
     structDescription,
     structInstitutionId,
     editStruct,
-    tenantId,
     createStructMutation,
     updateStructMutation,
     enqueueSnackbar,
@@ -277,10 +273,16 @@ function StudentsFees() {
       setPayAmount("");
       setPayMethod("cash");
       setPayRef("");
-    } catch {
-      enqueueSnackbar(t("admin-panel-students-fees:notifications.error"), {
-        variant: "error",
-      });
+    } catch (err: any) {
+      const serverErrors = err?.response?.data?.errors ?? err?.data?.errors;
+      if (serverErrors) {
+        const message = Object.values(serverErrors).join(". ");
+        enqueueSnackbar(message, { variant: "error" });
+      } else {
+        enqueueSnackbar(t("admin-panel-students-fees:notifications.error"), {
+          variant: "error",
+        });
+      }
     }
   }, [
     payChallanId,
@@ -486,10 +488,14 @@ function StudentsFees() {
                           {item.studentId}
                         </TableCell>
                         <TableCell className="text-paragraph-sm">
-                          {item.amount.toLocaleString()}
+                          {item.amount != null
+                            ? item.amount.toLocaleString()
+                            : "—"}
                         </TableCell>
                         <TableCell className="text-paragraph-sm">
-                          {new Date(item.dueDate).toLocaleDateString()}
+                          {item.dueDate
+                            ? new Date(item.dueDate).toLocaleDateString()
+                            : "—"}
                         </TableCell>
                         <TableCell>
                           <Badge variant={challanStatus(item.status)}>
@@ -764,7 +770,16 @@ function StudentsFees() {
               <Label>{t("admin-panel-students-fees:form.challanId")}</Label>
               <Select
                 value={payChallanId}
-                onValueChange={(v) => setPayChallanId(v)}
+                onValueChange={(v) => {
+                  setPayChallanId(v);
+                  // Prepopulate amount from selected challan
+                  const selected = (challans as ChallanItem[] | undefined)?.find(
+                    (ch) => String(ch.id) === v
+                  );
+                  if (selected?.amount != null) {
+                    setPayAmount(String(selected.amount));
+                  }
+                }}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select challan" />

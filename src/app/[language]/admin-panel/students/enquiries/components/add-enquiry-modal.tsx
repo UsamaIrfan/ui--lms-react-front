@@ -128,8 +128,6 @@ export default function AddEnquiryModal({
         previousSchool: formData.previousSchool || undefined,
         source: formData.source?.id || undefined,
         notes: formData.notes || undefined,
-        tenantId: "",
-        institutionId: 0,
       } as CreateAdmissionEnquiryDto);
 
       enqueueSnackbar(t("admin-panel-students-enquiries:addEnquiry.success"), {

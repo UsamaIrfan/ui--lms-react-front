@@ -94,13 +94,7 @@ function StaffAttendance() {
         variant: "error",
       });
     }
-  }, [
-    checkInStaffId,
-    checkInRemarks,
-    checkInMutation,
-    enqueueSnackbar,
-    t,
-  ]);
+  }, [checkInStaffId, checkInRemarks, checkInMutation, enqueueSnackbar, t]);
 
   const handleCheckOut = useCallback(async () => {
     if (!checkOutStaffId) {

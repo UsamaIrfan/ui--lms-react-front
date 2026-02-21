@@ -122,10 +122,9 @@ function TenantManagement() {
       setModalOpen(false);
       resetForm();
     } catch {
-      enqueueSnackbar(
-        t("admin-panel-settings:tenants.notifications.error"),
-        { variant: "error" }
-      );
+      enqueueSnackbar(t("admin-panel-settings:tenants.notifications.error"), {
+        variant: "error",
+      });
     }
   }, [
     name,
@@ -176,10 +175,9 @@ function TenantManagement() {
           { variant: "success" }
         );
       } catch {
-        enqueueSnackbar(
-          t("admin-panel-settings:tenants.notifications.error"),
-          { variant: "error" }
-        );
+        enqueueSnackbar(t("admin-panel-settings:tenants.notifications.error"), {
+          variant: "error",
+        });
       }
     },
     [updateMutation, enqueueSnackbar, t]
@@ -390,9 +388,7 @@ function TenantManagement() {
             </Button>
             <Button
               onClick={() => void handleSubmit()}
-              disabled={
-                createMutation.isPending || updateMutation.isPending
-              }
+              disabled={createMutation.isPending || updateMutation.isPending}
             >
               {createMutation.isPending || updateMutation.isPending ? (
                 <Spinner size="sm" className="mr-1" />

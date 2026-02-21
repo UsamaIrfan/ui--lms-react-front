@@ -223,13 +223,7 @@ function StaffPayroll() {
         variant: "error",
       });
     }
-  }, [
-    processMonth,
-    processYear,
-    processMutation,
-    enqueueSnackbar,
-    t,
-  ]);
+  }, [processMonth, processYear, processMutation, enqueueSnackbar, t]);
 
   return (
     <div className="mx-auto max-w-7xl px-4">

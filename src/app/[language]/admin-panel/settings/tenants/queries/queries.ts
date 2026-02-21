@@ -45,13 +45,7 @@ export function useCreateTenantMutation() {
 export function useUpdateTenantMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({
-      id,
-      data,
-    }: {
-      id: string;
-      data: UpdateTenantDto;
-    }) => {
+    mutationFn: async ({ id, data }: { id: string; data: UpdateTenantDto }) => {
       const res = await tenantControllerUpdateV1(id, data);
       return res.data;
     },

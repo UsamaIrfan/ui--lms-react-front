@@ -773,9 +773,9 @@ function StudentsFees() {
                 onValueChange={(v) => {
                   setPayChallanId(v);
                   // Prepopulate amount from selected challan
-                  const selected = (challans as ChallanItem[] | undefined)?.find(
-                    (ch) => String(ch.id) === v
-                  );
+                  const selected = (
+                    challans as ChallanItem[] | undefined
+                  )?.find((ch) => String(ch.id) === v);
                   if (selected?.amount != null) {
                     setPayAmount(String(selected.amount));
                   }

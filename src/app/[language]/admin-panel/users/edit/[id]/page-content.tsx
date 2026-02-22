@@ -461,10 +461,9 @@ function PermissionOverrides() {
       setSelectedPermissionId("");
       await loadData();
     } catch {
-      enqueueSnackbar(
-        t("admin-panel-users-edit:permissionOverrides.error"),
-        { variant: "error" }
-      );
+      enqueueSnackbar(t("admin-panel-users-edit:permissionOverrides.error"), {
+        variant: "error",
+      });
     } finally {
       setAdding(false);
     }
@@ -489,16 +488,17 @@ function PermissionOverrides() {
         );
         await loadData();
       } catch {
-        enqueueSnackbar(
-          t("admin-panel-users-edit:permissionOverrides.error"),
-          { variant: "error" }
-        );
+        enqueueSnackbar(t("admin-panel-users-edit:permissionOverrides.error"), {
+          variant: "error",
+        });
       }
     }
   };
 
   const getPermissionCode = (permissionId: number) => {
-    return permissions.find((p) => p.id === permissionId)?.code ?? `#${permissionId}`;
+    return (
+      permissions.find((p) => p.id === permissionId)?.code ?? `#${permissionId}`
+    );
   };
 
   if (loading) {
@@ -566,10 +566,7 @@ function PermissionOverrides() {
                       </SelectTrigger>
                       <SelectContent>
                         {permissions.map((perm) => (
-                          <SelectItem
-                            key={perm.id}
-                            value={String(perm.id)}
-                          >
+                          <SelectItem key={perm.id} value={String(perm.id)}>
                             {perm.code}
                           </SelectItem>
                         ))}
@@ -676,9 +673,7 @@ function PermissionOverrides() {
                       {t("admin-panel-users-edit:permissionOverrides.scope")}
                     </TableHead>
                     <TableHead className="w-20">
-                      {t(
-                        "admin-panel-users-edit:permissionOverrides.remove"
-                      )}
+                      {t("admin-panel-users-edit:permissionOverrides.remove")}
                     </TableHead>
                   </TableRow>
                 </TableHeader>

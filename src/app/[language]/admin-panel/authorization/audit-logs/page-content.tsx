@@ -200,9 +200,7 @@ function AuditLogsPage() {
                   </div>
                   <div>
                     <label className="mb-1 block text-label-xs text-text-sub-600">
-                      {t(
-                        "admin-panel-authorization:auditLogs.filterByAction"
-                      )}
+                      {t("admin-panel-authorization:auditLogs.filterByAction")}
                     </label>
                     <Input
                       value={filterAction}

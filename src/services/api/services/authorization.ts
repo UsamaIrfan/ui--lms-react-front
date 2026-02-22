@@ -79,10 +79,9 @@ type WrappedResponse<T> = {
 export async function fetchAllPermissions(): Promise<
   WrappedResponse<Permission[]>
 > {
-  return customFetch<WrappedResponse<Permission[]>>(
-    `${API_BASE}/permissions`,
-    { method: "GET" }
-  );
+  return customFetch<WrappedResponse<Permission[]>>(`${API_BASE}/permissions`, {
+    method: "GET",
+  });
 }
 
 export async function fetchPermissionsByDomain(

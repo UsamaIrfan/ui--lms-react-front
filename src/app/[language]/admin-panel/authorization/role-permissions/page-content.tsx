@@ -78,10 +78,9 @@ function RolePermissionsPage() {
       setPermissions(res.data ?? []);
     } catch (err) {
       console.error("[RolePermissions] Failed to load permissions:", err);
-      enqueueSnackbar(
-        t("admin-panel-authorization:rolePermissions.error"),
-        { variant: "error" }
-      );
+      enqueueSnackbar(t("admin-panel-authorization:rolePermissions.error"), {
+        variant: "error",
+      });
     }
   }, [enqueueSnackbar, t]);
 
@@ -98,13 +97,10 @@ function RolePermissionsPage() {
           err
         );
         setRolePermissions([]);
-        setLoadError(
-          t("admin-panel-authorization:rolePermissions.loadError")
-        );
-        enqueueSnackbar(
-          t("admin-panel-authorization:rolePermissions.error"),
-          { variant: "error" }
-        );
+        setLoadError(t("admin-panel-authorization:rolePermissions.loadError"));
+        enqueueSnackbar(t("admin-panel-authorization:rolePermissions.error"), {
+          variant: "error",
+        });
       } finally {
         setLoading(false);
       }
@@ -165,10 +161,9 @@ function RolePermissionsPage() {
       );
       await loadRolePermissions(Number(selectedRoleId));
     } catch {
-      enqueueSnackbar(
-        t("admin-panel-authorization:rolePermissions.error"),
-        { variant: "error" }
-      );
+      enqueueSnackbar(t("admin-panel-authorization:rolePermissions.error"), {
+        variant: "error",
+      });
     } finally {
       setAddingPermId(null);
     }
@@ -184,10 +179,9 @@ function RolePermissionsPage() {
       );
       await loadRolePermissions(Number(selectedRoleId));
     } catch {
-      enqueueSnackbar(
-        t("admin-panel-authorization:rolePermissions.error"),
-        { variant: "error" }
-      );
+      enqueueSnackbar(t("admin-panel-authorization:rolePermissions.error"), {
+        variant: "error",
+      });
     } finally {
       setRemovingPermId(null);
     }
@@ -224,10 +218,7 @@ function RolePermissionsPage() {
             <label className="mb-1 block text-label-xs text-text-sub-600">
               {t("admin-panel-authorization:rolePermissions.role")}
             </label>
-            <Select
-              value={selectedRoleId}
-              onValueChange={setSelectedRoleId}
-            >
+            <Select value={selectedRoleId} onValueChange={setSelectedRoleId}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -248,9 +239,7 @@ function RolePermissionsPage() {
             </label>
             <Select
               value={selectedScope}
-              onValueChange={(v) =>
-                setSelectedScope(v as PermissionScopeEnum)
-              }
+              onValueChange={(v) => setSelectedScope(v as PermissionScopeEnum)}
             >
               <SelectTrigger>
                 <SelectValue />
@@ -421,9 +410,7 @@ function RolePermissionsPage() {
               <div className="flex h-40 flex-col items-center justify-center gap-2 text-center">
                 <RiShieldKeyholeLine className="h-10 w-10 text-text-soft-400" />
                 <p className="text-paragraph-sm text-text-soft-400">
-                  {t(
-                    "admin-panel-authorization:rolePermissions.noPermissions"
-                  )}
+                  {t("admin-panel-authorization:rolePermissions.noPermissions")}
                 </p>
               </div>
             )}

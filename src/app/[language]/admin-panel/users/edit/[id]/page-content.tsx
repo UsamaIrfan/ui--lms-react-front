@@ -6,7 +6,7 @@ import FormTextInput from "@/components/form/text-input/form-text-input";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSnackbar } from "@/hooks/use-snackbar";
 import Link from "@/components/link";
 import FormAvatarInput from "@/components/form/avatar-input/form-avatar-input";
@@ -22,8 +22,45 @@ import { useParams } from "next/navigation";
 import { Role, RoleEnum } from "@/services/api/types/role";
 import FormSelectInput from "@/components/form/select/form-select";
 import { Card, CardContent } from "@/components/ui/card";
-import { RiArrowLeftLine, RiEditLine, RiLockLine } from "@remixicon/react";
+import {
+  RiArrowLeftLine,
+  RiEditLine,
+  RiLockLine,
+  RiShieldKeyholeLine,
+  RiAddLine,
+  RiDeleteBinLine,
+} from "@remixicon/react";
 import { Spinner } from "@/components/ui/spinner";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  fetchAllPermissions,
+  fetchUserOverrides,
+  createUserOverride,
+  deleteUserOverride,
+  PermissionOverrideActionEnum,
+  PermissionScopeEnum,
+} from "@/services/api/services/authorization";
+import type {
+  Permission,
+  UserPermissionOverride,
+} from "@/services/api/services/authorization";
+import { getTenantInfo } from "@/services/tenant/tenant-storage";
+import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type EditUserFormData = {
   email: string;
@@ -360,6 +397,338 @@ function FormChangePasswordUser() {
   );
 }
 
+function PermissionOverrides() {
+  const params = useParams<{ id: string }>();
+  const userId = Number(params.id);
+  const { t } = useTranslation("admin-panel-users-edit");
+  const { enqueueSnackbar } = useSnackbar();
+  const { confirmDialog } = useConfirmDialog();
+
+  const [overrides, setOverrides] = useState<UserPermissionOverride[]>([]);
+  const [permissions, setPermissions] = useState<Permission[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [adding, setAdding] = useState(false);
+
+  // Add override form state
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [selectedPermissionId, setSelectedPermissionId] = useState<string>("");
+  const [selectedAction, setSelectedAction] = useState<string>(
+    PermissionOverrideActionEnum.GRANT
+  );
+  const [selectedScope, setSelectedScope] = useState<string>(
+    PermissionScopeEnum.TENANT
+  );
+
+  const loadData = useCallback(async () => {
+    try {
+      const [overridesRes, permissionsRes] = await Promise.all([
+        fetchUserOverrides(userId),
+        fetchAllPermissions(),
+      ]);
+      setOverrides(overridesRes.data ?? []);
+      setPermissions(permissionsRes.data ?? []);
+    } catch {
+      // silently handle - user may not have permission to view overrides
+    } finally {
+      setLoading(false);
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  const handleAddOverride = async () => {
+    if (!selectedPermissionId) return;
+
+    const tenantInfo = getTenantInfo();
+    if (!tenantInfo?.tenantId) return;
+
+    setAdding(true);
+    try {
+      await createUserOverride({
+        userId,
+        tenantId: tenantInfo.tenantId,
+        permissionId: Number(selectedPermissionId),
+        action: selectedAction as PermissionOverrideActionEnum,
+        scope: selectedScope as PermissionScopeEnum,
+      });
+      enqueueSnackbar(
+        t("admin-panel-users-edit:permissionOverrides.overrideAdded"),
+        { variant: "success" }
+      );
+      setShowAddForm(false);
+      setSelectedPermissionId("");
+      await loadData();
+    } catch {
+      enqueueSnackbar(
+        t("admin-panel-users-edit:permissionOverrides.error"),
+        { variant: "error" }
+      );
+    } finally {
+      setAdding(false);
+    }
+  };
+
+  const handleRemoveOverride = async (overrideId: number) => {
+    const isConfirmed = await confirmDialog({
+      title: t(
+        "admin-panel-users-edit:permissionOverrides.confirm.remove.title"
+      ),
+      message: t(
+        "admin-panel-users-edit:permissionOverrides.confirm.remove.message"
+      ),
+    });
+
+    if (isConfirmed) {
+      try {
+        await deleteUserOverride(overrideId);
+        enqueueSnackbar(
+          t("admin-panel-users-edit:permissionOverrides.overrideRemoved"),
+          { variant: "success" }
+        );
+        await loadData();
+      } catch {
+        enqueueSnackbar(
+          t("admin-panel-users-edit:permissionOverrides.error"),
+          { variant: "error" }
+        );
+      }
+    }
+  };
+
+  const getPermissionCode = (permissionId: number) => {
+    return permissions.find((p) => p.id === permissionId)?.code ?? `#${permissionId}`;
+  };
+
+  if (loading) {
+    return (
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex h-32 items-center justify-center">
+            <Spinner size="md" />
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <Card>
+      <CardContent className="pt-6">
+        <div className="grid gap-5">
+          {/* Section header */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-success-base/10">
+                <RiShieldKeyholeLine className="h-4 w-4 text-success-base" />
+              </div>
+              <div>
+                <h6 className="text-label-md font-semibold text-text-strong-950">
+                  {t("admin-panel-users-edit:permissionOverrides.title")}
+                </h6>
+                <p className="text-paragraph-xs text-text-sub-600">
+                  {t("admin-panel-users-edit:permissionOverrides.description")}
+                </p>
+              </div>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowAddForm(!showAddForm)}
+            >
+              <RiAddLine className="mr-1 h-4 w-4" />
+              {t("admin-panel-users-edit:permissionOverrides.addOverride")}
+            </Button>
+          </div>
+
+          {/* Add override form */}
+          {showAddForm && (
+            <div className="rounded-lg border border-stroke-soft-200 bg-bg-weak-50 p-4">
+              <div className="grid gap-3">
+                <div className="grid grid-cols-3 gap-3">
+                  <div>
+                    <label className="mb-1 block text-label-xs text-text-sub-600">
+                      {t(
+                        "admin-panel-users-edit:permissionOverrides.selectPermission"
+                      )}
+                    </label>
+                    <Select
+                      value={selectedPermissionId}
+                      onValueChange={setSelectedPermissionId}
+                    >
+                      <SelectTrigger>
+                        <SelectValue
+                          placeholder={t(
+                            "admin-panel-users-edit:permissionOverrides.selectPermission"
+                          )}
+                        />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {permissions.map((perm) => (
+                          <SelectItem
+                            key={perm.id}
+                            value={String(perm.id)}
+                          >
+                            {perm.code}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-label-xs text-text-sub-600">
+                      {t(
+                        "admin-panel-users-edit:permissionOverrides.selectAction"
+                      )}
+                    </label>
+                    <Select
+                      value={selectedAction}
+                      onValueChange={setSelectedAction}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value={PermissionOverrideActionEnum.GRANT}>
+                          {t(
+                            "admin-panel-users-edit:permissionOverrides.actionOptions.grant"
+                          )}
+                        </SelectItem>
+                        <SelectItem value={PermissionOverrideActionEnum.REVOKE}>
+                          {t(
+                            "admin-panel-users-edit:permissionOverrides.actionOptions.revoke"
+                          )}
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-label-xs text-text-sub-600">
+                      {t(
+                        "admin-panel-users-edit:permissionOverrides.selectScope"
+                      )}
+                    </label>
+                    <Select
+                      value={selectedScope}
+                      onValueChange={setSelectedScope}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.values(PermissionScopeEnum).map((scope) => (
+                          <SelectItem key={scope} value={scope}>
+                            {t(
+                              `admin-panel-users-edit:permissionOverrides.scopeOptions.${scope}`
+                            )}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="flex justify-end gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowAddForm(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    size="sm"
+                    onClick={handleAddOverride}
+                    disabled={!selectedPermissionId || adding}
+                  >
+                    {adding && <Spinner size="sm" className="mr-2" />}
+                    {t(
+                      "admin-panel-users-edit:permissionOverrides.addOverride"
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Overrides table */}
+          {overrides.length === 0 ? (
+            <div className="flex h-24 flex-col items-center justify-center gap-1 text-center">
+              <RiShieldKeyholeLine className="h-8 w-8 text-text-soft-400" />
+              <p className="text-paragraph-sm text-text-soft-400">
+                {t("admin-panel-users-edit:permissionOverrides.noOverrides")}
+              </p>
+            </div>
+          ) : (
+            <div className="rounded-lg border border-stroke-soft-200">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>
+                      {t(
+                        "admin-panel-users-edit:permissionOverrides.permission"
+                      )}
+                    </TableHead>
+                    <TableHead>
+                      {t("admin-panel-users-edit:permissionOverrides.action")}
+                    </TableHead>
+                    <TableHead>
+                      {t("admin-panel-users-edit:permissionOverrides.scope")}
+                    </TableHead>
+                    <TableHead className="w-20">
+                      {t(
+                        "admin-panel-users-edit:permissionOverrides.remove"
+                      )}
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {overrides.map((override) => (
+                    <TableRow key={override.id}>
+                      <TableCell className="text-paragraph-sm font-medium">
+                        {getPermissionCode(override.permissionId)}
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={
+                            override.action ===
+                            PermissionOverrideActionEnum.GRANT
+                              ? "success"
+                              : "destructive"
+                          }
+                        >
+                          {override.action}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-paragraph-sm text-text-sub-600">
+                        {override.scope
+                          ? t(
+                              `admin-panel-users-edit:permissionOverrides.scopeOptions.${override.scope}`
+                            )
+                          : "—"}
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0 text-error-base hover:text-error-base"
+                          onClick={() => handleRemoveOverride(override.id)}
+                        >
+                          <RiDeleteBinLine className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 function EditUser() {
   return (
     <div className="mx-auto max-w-lg px-4 pb-8">
@@ -378,6 +747,7 @@ function EditUser() {
 
         <FormEditUser />
         <FormChangePasswordUser />
+        <PermissionOverrides />
 
         {/* ── Back to users link ─────────────────── */}
         <div className="flex justify-center">

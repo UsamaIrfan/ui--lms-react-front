@@ -28,6 +28,8 @@ import {
   RiGitBranchLine,
   RiMailSendLine,
   RiBuildingLine,
+  RiShieldKeyholeLine,
+  RiHistoryLine,
 } from "@remixicon/react";
 import type { RemixiconComponentType } from "@remixicon/react";
 
@@ -243,6 +245,28 @@ export const navigationItems: NavItem[] = [
     href: "/admin-panel/users",
     icon: RiUserSettingsLine,
     roles: [RoleEnum.ADMIN],
+  },
+  {
+    id: "authorization",
+    labelKey: "navigation.authorization.title",
+    icon: RiShieldKeyholeLine,
+    roles: [RoleEnum.ADMIN],
+    children: [
+      {
+        id: "authorization-role-permissions",
+        labelKey: "navigation.authorization.rolePermissions",
+        href: "/admin-panel/authorization/role-permissions",
+        icon: RiShieldKeyholeLine,
+        roles: [RoleEnum.ADMIN],
+      },
+      {
+        id: "authorization-audit-logs",
+        labelKey: "navigation.authorization.auditLogs",
+        href: "/admin-panel/authorization/audit-logs",
+        icon: RiHistoryLine,
+        roles: [RoleEnum.ADMIN],
+      },
+    ],
   },
   {
     id: "admin-notices",

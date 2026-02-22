@@ -88,6 +88,21 @@ function UserFilter() {
                       {
                         id: RoleEnum.USER,
                       },
+                      {
+                        id: RoleEnum.STUDENT,
+                      },
+                      {
+                        id: RoleEnum.TEACHER,
+                      },
+                      {
+                        id: RoleEnum.STAFF,
+                      },
+                      {
+                        id: RoleEnum.ACCOUNTANT,
+                      },
+                      {
+                        id: RoleEnum.PARENT,
+                      },
                     ]}
                     keyValue="id"
                     renderOption={(option) =>

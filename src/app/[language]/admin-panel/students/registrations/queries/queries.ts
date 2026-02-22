@@ -30,8 +30,12 @@ import type {
 export const studentsQueryKeys = {
   all: ["students"] as const,
   lists: () => [...studentsQueryKeys.all, "list"] as const,
-  list: (filter?: StudentFilterType, sort?: StudentSortType) =>
-    [...studentsQueryKeys.lists(), { filter, sort }] as const,
+  list: (
+    filter?: StudentFilterType,
+    sort?: StudentSortType,
+    page?: number,
+    limit?: number
+  ) => [...studentsQueryKeys.lists(), { filter, sort, page, limit }] as const,
   details: () => [...studentsQueryKeys.all, "detail"] as const,
   detail: (id: number) => [...studentsQueryKeys.details(), id] as const,
   documents: (id: number) =>
@@ -42,13 +46,17 @@ export const studentsQueryKeys = {
 
 export function useStudentsListQuery(
   filter?: StudentFilterType,
-  sort?: StudentSortType
+  sort?: StudentSortType,
+  page: number = 1,
+  limit: number = 10
 ) {
   return useQuery({
-    queryKey: studentsQueryKeys.list(filter, sort),
+    queryKey: studentsQueryKeys.list(filter, sort, page, limit),
     queryFn: async ({ signal }) => {
       const response = await studentRegistrationControllerFindAllV1(
         {
+          page,
+          limit,
           search: filter?.search,
           status: filter?.status,
           institutionId: filter?.institutionId,
@@ -61,7 +69,7 @@ export function useStudentsListQuery(
       };
       let items = result?.data ?? [];
 
-      // Client-side sorting
+      // Client-side sorting (server doesn't support sort params)
       if (sort) {
         items = [...items].sort((a, b) => {
           const aVal = a[sort.orderBy];
@@ -76,9 +84,10 @@ export function useStudentsListQuery(
         });
       }
 
-      return items;
+      return { data: items, hasNextPage: result?.hasNextPage ?? false };
     },
     staleTime: 2 * 60 * 1000,
+    placeholderData: (prev) => prev,
   });
 }
 

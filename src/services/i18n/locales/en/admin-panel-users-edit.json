@@ -69,5 +69,43 @@
     "user": {
       "success": "User's profile has been updated successfully"
     }
+  },
+  "permissionOverrides": {
+    "title": "Permission Overrides",
+    "description": "Grant or revoke specific permissions for this user",
+    "permission": "Permission",
+    "action": "Action",
+    "scope": "Scope",
+    "grantedBy": "Granted By",
+    "createdAt": "Created",
+    "noOverrides": "No permission overrides configured",
+    "addOverride": "Add Override",
+    "remove": "Remove",
+    "grant": "Grant",
+    "revoke": "Revoke",
+    "selectPermission": "Select Permission",
+    "selectAction": "Select Action",
+    "selectScope": "Select Scope",
+    "overrideAdded": "Permission override added",
+    "overrideRemoved": "Permission override removed",
+    "error": "An error occurred",
+    "confirm": {
+      "remove": {
+        "title": "Remove Override",
+        "message": "Are you sure you want to remove this permission override?"
+      }
+    },
+    "scopeOptions": {
+      "platform": "Platform",
+      "tenant": "Tenant",
+      "branch": "Branch",
+      "section": "Section",
+      "self": "Self",
+      "parent": "Parent"
+    },
+    "actionOptions": {
+      "grant": "Grant",
+      "revoke": "Revoke"
+    }
   }
 }

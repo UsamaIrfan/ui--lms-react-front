@@ -3,7 +3,7 @@
 import { RoleEnum } from "@/services/api/types/role";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useTranslation } from "@/services/i18n/client";
-import { PropsWithChildren, useCallback, useMemo, useState } from "react";
+import { PropsWithChildren, useCallback, useState } from "react";
 import {
   useStudentsListQuery,
   useDeleteStudentMutation,
@@ -49,7 +49,6 @@ import {
   RiArrowLeftSLine,
   RiArrowRightSLine,
   RiSkipBackLine,
-  RiSkipForwardLine,
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
@@ -130,16 +129,15 @@ function StudentRegistrations() {
   const [enrollStudent, setEnrollStudent] = useState<Student | null>(null);
   const [importModalOpen, setImportModalOpen] = useState(false);
 
-  const { data, isLoading } = useStudentsListQuery(filter, sort);
+  const { data: queryResult, isLoading } = useStudentsListQuery(
+    filter,
+    sort,
+    page + 1, // API uses 1-based pages, UI uses 0-based
+    rowsPerPage
+  );
 
-  // Paginated data
-  const totalItems = data?.length ?? 0;
-  const totalPages = Math.max(1, Math.ceil(totalItems / rowsPerPage));
-  const paginatedData = useMemo(() => {
-    if (!data) return [];
-    const start = page * rowsPerPage;
-    return data.slice(start, start + rowsPerPage);
-  }, [data, page, rowsPerPage]);
+  const paginatedData = queryResult?.data ?? [];
+  const hasNextPage = queryResult?.hasNextPage ?? false;
 
   const handleRequestSort = useCallback(
     (_event: React.MouseEvent<unknown>, property: StudentKeys) => {
@@ -148,6 +146,7 @@ function StudentRegistrations() {
         order: isAsc ? "DESC" : "ASC",
         orderBy: property,
       });
+      setPage(0);
     },
     [sort]
   );
@@ -195,7 +194,7 @@ function StudentRegistrations() {
   );
 
   const handleExport = useCallback(() => {
-    if (!data || data.length === 0) {
+    if (!paginatedData || paginatedData.length === 0) {
       enqueueSnackbar(t("admin-panel-students-registrations:export.noData"), {
         variant: "error",
       });
@@ -216,7 +215,7 @@ function StudentRegistrations() {
     ];
     const csvRows = [
       headers.join(","),
-      ...data.map((s) =>
+      ...paginatedData.map((s) =>
         [
           s.rollNumber || s.studentId || "",
           s.firstName || "",
@@ -247,7 +246,7 @@ function StudentRegistrations() {
     enqueueSnackbar(t("admin-panel-students-registrations:export.success"), {
       variant: "success",
     });
-  }, [data, enqueueSnackbar, t]);
+  }, [paginatedData, enqueueSnackbar, t]);
 
   return (
     <div className="mx-auto max-w-7xl px-4">
@@ -258,7 +257,13 @@ function StudentRegistrations() {
             {t("admin-panel-students-registrations:title")}
           </h3>
           <div className="flex items-center gap-2">
-            <StudentFilter filter={filter} onFilterChange={setFilter} />
+            <StudentFilter
+              filter={filter}
+              onFilterChange={(newFilter) => {
+                setFilter(newFilter);
+                setPage(0);
+              }}
+            />
             <Button variant="outline" onClick={handleExport}>
               <RiDownloadLine className="mr-1 h-4 w-4" />
               {t("admin-panel-students-registrations:actions.export")}
@@ -474,7 +479,7 @@ function StudentRegistrations() {
         </div>
 
         {/* Pagination */}
-        {totalItems > 0 && (
+        {paginatedData.length > 0 && (
           <div className="flex items-center justify-between gap-4 pb-4">
             <div className="flex items-center gap-2 text-paragraph-sm text-text-soft-400">
               <span>
@@ -502,9 +507,8 @@ function StudentRegistrations() {
 
             <div className="flex items-center gap-2 text-paragraph-sm text-text-soft-400">
               <span>
-                {t("admin-panel-students-registrations:pagination.page", {
+                {t("admin-panel-students-registrations:pagination.pageLabel", {
                   current: page + 1,
-                  total: totalPages,
                 })}
               </span>
               <div className="flex items-center gap-1">
@@ -530,21 +534,10 @@ function StudentRegistrations() {
                   size="sm"
                   variant="outline"
                   className="h-8 w-8 p-0"
-                  disabled={page >= totalPages - 1}
-                  onClick={() =>
-                    setPage((prev) => Math.min(totalPages - 1, prev + 1))
-                  }
+                  disabled={!hasNextPage}
+                  onClick={() => setPage((prev) => prev + 1)}
                 >
                   <RiArrowRightSLine className="h-4 w-4" />
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  disabled={page >= totalPages - 1}
-                  onClick={() => setPage(totalPages - 1)}
-                >
-                  <RiSkipForwardLine className="h-4 w-4" />
                 </Button>
               </div>
             </div>

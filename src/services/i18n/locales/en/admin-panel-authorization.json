@@ -1,0 +1,109 @@
+{
+  "title": "Authorization",
+  "description": "Manage role permissions and user overrides",
+  "tabs": {
+    "rolePermissions": "Role Permissions",
+    "auditLogs": "Audit Logs"
+  },
+  "rolePermissions": {
+    "title": "Role Permissions",
+    "description": "Configure which permissions each role has access to",
+    "selectRole": "Select a role to manage permissions",
+    "role": "Role",
+    "permission": "Permission",
+    "scope": "Scope",
+    "domain": "Domain",
+    "actions": "Actions",
+    "code": "Code",
+    "noPermissions": "No permissions assigned to this role",
+    "allPermissions": "All Permissions",
+    "assignedPermissions": "Assigned Permissions",
+    "availablePermissions": "Available Permissions",
+    "addPermission": "Add Permission",
+    "removePermission": "Remove Permission",
+    "selectScope": "Select Scope",
+    "permissionAdded": "Permission added successfully",
+    "permissionRemoved": "Permission removed successfully",
+    "error": "An error occurred",
+    "search": "Search permissions...",
+    "assign": "Assign",
+    "assigned": "Assigned",
+    "total": "{{count}} permission(s)",
+    "scopeOptions": {
+      "platform": "Platform",
+      "tenant": "Tenant",
+      "branch": "Branch",
+      "section": "Section",
+      "self": "Self",
+      "parent": "Parent"
+    },
+    "roleOptions": {
+      "1": "Admin",
+      "2": "User",
+      "3": "Student",
+      "4": "Teacher",
+      "5": "Staff",
+      "6": "Accountant",
+      "7": "Parent"
+    },
+    "domains": {
+      "academic": "Academic",
+      "communication": "Communication",
+      "finance": "Finance",
+      "hr": "Human Resources",
+      "portal": "Portal",
+      "system": "System"
+    },
+    "loadError": "Failed to load role permissions. Please try again."
+  },
+  "auditLogs": {
+    "title": "Audit Logs",
+    "description": "View system activity and security audit trail",
+    "userId": "User ID",
+    "action": "Action",
+    "resourceType": "Resource Type",
+    "resourceId": "Resource ID",
+    "details": "Details",
+    "ipAddress": "IP Address",
+    "timestamp": "Timestamp",
+    "empty": "No audit logs found",
+    "noResults": "No audit logs match your filters",
+    "search": "Search by action or resource...",
+    "filterByUser": "Filter by User ID",
+    "filterByAction": "Filter by Action",
+    "filterByResource": "Filter by Resource Type",
+    "loadMore": "Load More",
+    "total": "{{count}} log(s)",
+    "filters": {
+      "title": "Filters",
+      "apply": "Apply",
+      "clear": "Clear"
+    }
+  },
+  "userOverrides": {
+    "title": "Permission Overrides",
+    "description": "Grant or revoke specific permissions for this user",
+    "permission": "Permission",
+    "action": "Action",
+    "scope": "Scope",
+    "grantedBy": "Granted By",
+    "createdAt": "Created At",
+    "noOverrides": "No permission overrides for this user",
+    "addOverride": "Add Override",
+    "removeOverride": "Remove",
+    "grant": "Grant",
+    "revoke": "Revoke",
+    "selectPermission": "Select Permission",
+    "selectAction": "Select Action",
+    "selectScope": "Select Scope (optional)",
+    "overrideAdded": "Permission override added successfully",
+    "overrideRemoved": "Permission override removed successfully",
+    "error": "An error occurred",
+    "confirm": {
+      "remove": {
+        "title": "Remove Override",
+        "message": "Are you sure you want to remove this permission override?"
+      }
+    }
+  }
+}

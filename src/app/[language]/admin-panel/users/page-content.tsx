@@ -52,11 +52,21 @@ type UsersKeys = keyof User;
 
 function getRoleBadgeVariant(
   roleId?: number
-): "default" | "secondary" | "warning" | "success" | "outline" {
+): "default" | "secondary" | "warning" | "success" | "destructive" | "outline" {
   switch (roleId) {
     case RoleEnum.ADMIN:
       return "default";
     case RoleEnum.USER:
+      return "secondary";
+    case RoleEnum.STUDENT:
+      return "success";
+    case RoleEnum.TEACHER:
+      return "warning";
+    case RoleEnum.STAFF:
+      return "outline";
+    case RoleEnum.ACCOUNTANT:
+      return "destructive";
+    case RoleEnum.PARENT:
       return "secondary";
     default:
       return "outline";

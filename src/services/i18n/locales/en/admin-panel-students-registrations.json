@@ -51,7 +51,8 @@
     "last": "Last",
     "next": "Next",
     "previous": "Previous",
-    "page": "Page {{page}} of {{totalPages}}"
+    "page": "Page {{page}} of {{totalPages}}",
+    "pageLabel": "Page {{current}}"
   },
   "filter": {
     "search": "Search by name, ID, or phone...",

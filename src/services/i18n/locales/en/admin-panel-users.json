@@ -45,7 +45,12 @@
         "label": "Role",
         "options": {
           "1": "Admin",
-          "2": "User"
+          "2": "User",
+          "3": "Student",
+          "4": "Teacher",
+          "5": "Staff",
+          "6": "Accountant",
+          "7": "Parent"
         }
       }
     }

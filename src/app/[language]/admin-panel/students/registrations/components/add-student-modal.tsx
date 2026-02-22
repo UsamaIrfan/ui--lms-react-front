@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -628,6 +628,43 @@ export default function AddStudentModal({
   });
 
   const { handleSubmit, reset, trigger } = methods;
+
+  // Reset form values when editData changes (e.g. switching from create to edit)
+  useEffect(() => {
+    if (open) {
+      reset({
+        firstName: editData?.firstName ?? "",
+        lastName: editData?.lastName ?? "",
+        email: editData?.email ?? "",
+        password: "",
+        dateOfBirth: editData?.dateOfBirth
+          ? new Date(editData.dateOfBirth)
+          : null,
+        gender: editData?.gender ? { id: editData.gender } : null,
+        phone: editData?.phone ?? "",
+        address: editData?.address ?? "",
+        city: editData?.city ?? "",
+        bloodGroup: editData?.bloodGroup ? { id: editData.bloodGroup } : null,
+        nationality: editData?.nationality ?? "",
+        religion: editData?.religion ?? "",
+        institutionId: { id: String(editData?.institutionId ?? "1") },
+        admissionDate: editData?.admissionDate
+          ? new Date(editData.admissionDate)
+          : null,
+        guardianName: editData?.guardianName ?? "",
+        guardianPhone: editData?.guardianPhone ?? "",
+        guardianEmail: editData?.guardianEmail ?? "",
+        guardianRelation: editData?.guardianRelation
+          ? { id: editData.guardianRelation }
+          : null,
+        emergencyContactName: editData?.emergencyContactName ?? "",
+        emergencyContactPhone: editData?.emergencyContactPhone ?? "",
+        emergencyContactRelation: editData?.emergencyContactRelation ?? "",
+        emergencyContactAltPhone: "",
+      });
+      setCurrentStep(0);
+    }
+  }, [editData, open, reset]);
 
   const handleNext = useCallback(async () => {
     const stepFields: Record<number, (keyof AddStudentFormData)[]> = {

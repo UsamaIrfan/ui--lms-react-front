@@ -22,6 +22,11 @@
     "settingsInvitations": "Invitations",
     "notices": "Notices",
     "userManagement": "User Management",
+    "authorization": {
+      "title": "Authorization",
+      "rolePermissions": "Role Permissions",
+      "auditLogs": "Audit Logs"
+    },
     "openSidebar": "Open sidebar",
     "closeSidebar": "Close sidebar",
     "expandSidebar": "Expand sidebar",

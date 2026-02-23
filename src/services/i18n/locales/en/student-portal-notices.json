@@ -1,0 +1,33 @@
+{
+  "title": "Notices",
+  "pageTitle": "Notices & Announcements",
+  "description": "Stay updated with the latest notices and announcements",
+
+  "filters": {
+    "all": "All Notices",
+    "unread": "Unread"
+  },
+
+  "list": {
+    "noNotices": "No notices at the moment",
+    "noUnread": "You're all caught up!",
+    "publishedOn": "Published on",
+    "expiresOn": "Expires on",
+    "attachments": "Attachments",
+    "attachment": "Attachment"
+  },
+
+  "detail": {
+    "title": "Notice Details",
+    "close": "Close",
+    "publishedOn": "Published",
+    "expiresOn": "Expires",
+    "attachments": "Attachments",
+    "downloadAttachment": "Download"
+  },
+
+  "error": {
+    "title": "Failed to load notices",
+    "retry": "Retry"
+  }
+}

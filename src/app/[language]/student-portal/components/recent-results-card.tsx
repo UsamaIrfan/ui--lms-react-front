@@ -77,7 +77,7 @@ export function RecentResultsCard({
             </div>
             <CardTitle>{title}</CardTitle>
           </div>
-          <Link href="/student-portal/results">
+          <Link href="/student-portal/exams">
             <Button variant="ghost" size="sm" className="gap-1">
               {labels.viewAll}
               <RiArrowRightSLine className="h-4 w-4" />

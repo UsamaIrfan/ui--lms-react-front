@@ -1,0 +1,68 @@
+{
+  "title": "Assignments",
+  "pageTitle": "Assignments",
+  "description": "View and submit your assignments",
+
+  "tabs": {
+    "all": "All",
+    "pending": "Pending",
+    "submitted": "Submitted",
+    "graded": "Graded"
+  },
+
+  "list": {
+    "noAssignments": "No assignments yet",
+    "noResults": "No assignments in this category",
+    "dueDate": "Due",
+    "dueIn": "Due in",
+    "overdue": "Overdue",
+    "days": "days",
+    "day": "day",
+    "totalMarks": "Total Marks",
+    "submit": "Submit",
+    "viewSubmission": "View Submission",
+    "viewDetails": "Details"
+  },
+
+  "status": {
+    "pending": "Pending",
+    "submitted": "Submitted",
+    "graded": "Graded",
+    "overdue": "Overdue"
+  },
+
+  "detail": {
+    "title": "Assignment Details",
+    "description": "Description",
+    "dueDate": "Due Date",
+    "totalMarks": "Total Marks",
+    "subject": "Subject",
+    "close": "Close",
+    "submitAssignment": "Submit Assignment"
+  },
+
+  "submission": {
+    "title": "Submit Assignment",
+    "file": "Upload File",
+    "fileHint": "PDF, DOC, DOCX, images up to 10MB",
+    "remarks": "Remarks (Optional)",
+    "remarksPlaceholder": "Add any notes for your teacher...",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "success": "Assignment submitted successfully!",
+    "error": "Failed to submit assignment",
+    "dragDrop": "Drag & drop your file here, or click to browse",
+    "maxSize": "Maximum file size: 10MB",
+    "removeFile": "Remove",
+    "yourSubmission": "Your Submission",
+    "submittedOn": "Submitted on",
+    "marks": "Marks",
+    "grade": "Grade",
+    "feedback": "Feedback"
+  },
+
+  "error": {
+    "title": "Failed to load assignments",
+    "retry": "Retry"
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "title": "Fees",
+  "pageTitle": "My Fees",
+  "description": "View fee challans, payment history, and concessions",
+
+  "summary": {
+    "title": "Fee Summary",
+    "totalFees": "Total Fees",
+    "paidAmount": "Paid Amount",
+    "pendingAmount": "Pending Amount",
+    "nextDue": "Next Due",
+    "dueDate": "Due Date",
+    "dueAmount": "Amount Due",
+    "noDue": "No upcoming dues",
+    "overdue": "Overdue",
+    "partiallyPaid": "Partially Paid",
+    "fullyPaid": "Fully Paid"
+  },
+
+  "challans": {
+    "title": "Fee Challans",
+    "challanNumber": "Challan #",
+    "amount": "Amount",
+    "dueDate": "Due Date",
+    "status": "Status",
+    "paidAmount": "Paid",
+    "balance": "Balance",
+    "viewDetails": "View Details",
+    "noChallans": "No fee challans found.",
+    "statuses": {
+      "pending": "Pending",
+      "partially_paid": "Partially Paid",
+      "paid": "Paid",
+      "overdue": "Overdue",
+      "cancelled": "Cancelled"
+    }
+  },
+
+  "challanDetail": {
+    "title": "Challan Details",
+    "challanNumber": "Challan Number",
+    "studentName": "Student Name",
+    "class": "Class",
+    "section": "Section",
+    "generatedOn": "Generated On",
+    "dueDate": "Due Date",
+    "feeStructure": "Fee Structure",
+    "amount": "Amount",
+    "discount": "Discount",
+    "netAmount": "Net Amount",
+    "paidAmount": "Paid Amount",
+    "balance": "Balance Due",
+    "status": "Status",
+    "paymentInstructions": "Payment Instructions",
+    "close": "Close",
+    "downloadReceipt": "Download Receipt"
+  },
+
+  "payments": {
+    "title": "Payment History",
+    "date": "Date",
+    "amount": "Amount",
+    "method": "Payment Method",
+    "transactionRef": "Transaction Ref",
+    "challanNumber": "Challan #",
+    "status": "Status",
+    "receiptNo": "Receipt #",
+    "downloadReceipt": "Download",
+    "noPayments": "No payment records found.",
+    "methods": {
+      "cash": "Cash",
+      "bank_transfer": "Bank Transfer",
+      "online": "Online Payment",
+      "cheque": "Cheque",
+      "card": "Card"
+    }
+  },
+
+  "concession": {
+    "title": "Concession Details",
+    "type": "Concession Type",
+    "discount": "Discount",
+    "discountOff": "Fee Discount",
+    "validFrom": "Valid From",
+    "validTo": "Valid To",
+    "reason": "Reason",
+    "noConcession": "No active concession applied.",
+    "types": {
+      "scholarship": "Scholarship",
+      "sibling": "Sibling Discount",
+      "staff_child": "Staff Child",
+      "merit": "Merit Based",
+      "financial_aid": "Financial Aid"
+    }
+  },
+
+  "structure": {
+    "title": "Fee Structure",
+    "name": "Fee Name",
+    "amount": "Amount",
+    "frequency": "Frequency",
+    "description": "Description",
+    "installments": "Installments",
+    "installmentNumber": "Installment #",
+    "installmentDueDate": "Due Date",
+    "installmentAmount": "Amount"
+  },
+
+  "export": {
+    "button": "Export PDF",
+    "filename": "fee-statement"
+  },
+
+  "tabs": {
+    "overview": "Overview",
+    "challans": "Challans",
+    "payments": "Payments",
+    "concession": "Concession"
+  },
+
+  "loading": "Loading fee data...",
+  "error": "Failed to load fee data. Please try again."
+}

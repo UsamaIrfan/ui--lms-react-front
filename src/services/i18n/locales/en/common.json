@@ -63,6 +63,17 @@
     },
     "reports": {
       "title": "Reports"
+    },
+    "studentPortal": {
+      "title": "Student Portal",
+      "dashboard": "Dashboard",
+      "attendance": "Attendance",
+      "fees": "Fees",
+      "exams": "Exams & Results",
+      "materials": "Materials",
+      "assignments": "Assignments",
+      "timetable": "Timetable",
+      "notices": "Notices"
     }
   },
   "breadcrumb": {

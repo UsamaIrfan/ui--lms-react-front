@@ -1,0 +1,41 @@
+{
+  "title": "Materials",
+  "pageTitle": "Course Materials",
+  "description": "Access study materials, documents, and resources shared by your teachers",
+
+  "filters": {
+    "all": "All Types",
+    "document": "Documents",
+    "video": "Videos",
+    "presentation": "Presentations",
+    "link": "Links",
+    "search": "Search materials...",
+    "subject": "Subject",
+    "allSubjects": "All Subjects",
+    "type": "Type"
+  },
+
+  "list": {
+    "noMaterials": "No materials available",
+    "noResults": "No materials match your filters",
+    "downloads": "downloads",
+    "download": "Download",
+    "viewLink": "Open Link",
+    "uploadedOn": "Uploaded on",
+    "version": "v",
+    "size": "Size"
+  },
+
+  "types": {
+    "document": "Document",
+    "video": "Video",
+    "presentation": "Presentation",
+    "link": "Link",
+    "assignment": "Assignment"
+  },
+
+  "error": {
+    "title": "Failed to load materials",
+    "retry": "Retry"
+  }
+}

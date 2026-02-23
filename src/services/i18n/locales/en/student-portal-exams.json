@@ -1,0 +1,95 @@
+{
+  "title": "Exams & Results",
+  "pageTitle": "My Exams & Results",
+  "description": "View upcoming exams, results, and performance analytics",
+
+  "tabs": {
+    "upcoming": "Upcoming Exams",
+    "results": "Results",
+    "analytics": "Performance"
+  },
+
+  "upcoming": {
+    "title": "Upcoming Exams",
+    "name": "Exam Name",
+    "subject": "Subject",
+    "date": "Date",
+    "time": "Time",
+    "type": "Type",
+    "status": "Status",
+    "venue": "Venue",
+    "duration": "Duration",
+    "noExams": "No upcoming exams scheduled.",
+    "countdown": "Starts in",
+    "days": "days",
+    "hours": "hours",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "types": {
+      "class_test": "Class Test",
+      "midterm": "Mid Term",
+      "final": "Final",
+      "quiz": "Quiz",
+      "practical": "Practical",
+      "assignment": "Assignment"
+    },
+    "statuses": {
+      "draft": "Draft",
+      "scheduled": "Scheduled",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "results_published": "Results Published"
+    }
+  },
+
+  "results": {
+    "title": "Exam Results",
+    "examName": "Exam",
+    "overallPercentage": "Overall %",
+    "grade": "Grade",
+    "rank": "Rank",
+    "totalMarks": "Total Marks",
+    "marksObtained": "Marks Obtained",
+    "percentage": "Percentage",
+    "viewDetails": "View Details",
+    "noResults": "No exam results available yet.",
+    "reportCard": "Report Card",
+    "downloadReportCard": "Download Report Card",
+    "subjectWise": "Subject-wise Results"
+  },
+
+  "resultDetail": {
+    "title": "Exam Result Details",
+    "subject": "Subject",
+    "marksObtained": "Marks Obtained",
+    "totalMarks": "Total Marks",
+    "percentage": "Percentage",
+    "grade": "Grade",
+    "remarks": "Remarks",
+    "passStatus": "Status",
+    "passed": "Passed",
+    "failed": "Failed",
+    "close": "Close"
+  },
+
+  "analytics": {
+    "title": "Performance Analytics",
+    "subjectPerformance": "Subject Performance",
+    "performanceTrend": "Performance Trend",
+    "overallGPA": "Overall GPA",
+    "bestSubject": "Best Subject",
+    "weakSubject": "Needs Improvement",
+    "averagePercentage": "Average %",
+    "examName": "Exam",
+    "percentage": "Percentage",
+    "noData": "Not enough data for performance analytics."
+  },
+
+  "export": {
+    "button": "Export PDF",
+    "filename": "exam-results"
+  },
+
+  "loading": "Loading exam data...",
+  "error": "Failed to load exam data. Please try again."
+}

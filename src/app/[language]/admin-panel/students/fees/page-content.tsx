@@ -776,7 +776,10 @@ function StudentsFees() {
                   const selected = (
                     challans as ChallanItem[] | undefined
                   )?.find((ch) => String(ch.id) === v);
-                  if (selected?.amount !== null && selected?.amount !== undefined) {
+                  if (
+                    selected?.amount !== null &&
+                    selected?.amount !== undefined
+                  ) {
                     setPayAmount(String(selected.amount));
                   }
                 }}

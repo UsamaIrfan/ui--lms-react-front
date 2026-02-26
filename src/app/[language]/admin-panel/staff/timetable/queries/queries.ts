@@ -197,7 +197,9 @@ export function useTeachersQuery() {
       );
       const inner = (res as Record<string, unknown>)?.data;
       const innerData = (inner as Record<string, unknown>)?.data;
-      return Array.isArray(innerData) ? (innerData as TeacherDropdownItem[]) : [];
+      return Array.isArray(innerData)
+        ? (innerData as TeacherDropdownItem[])
+        : [];
     },
   });
 }

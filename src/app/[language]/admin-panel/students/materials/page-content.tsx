@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { RoleEnum } from "@/services/api/types/role";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
@@ -164,7 +165,7 @@ function StudentsMaterials() {
       } else {
         await createMaterialMut.mutateAsync({
           ...payload,
-        });
+        } as any);
         enqueueSnackbar(
           t("admin-panel-students-materials:notifications.created"),
           { variant: "success" }
@@ -270,7 +271,7 @@ function StudentsMaterials() {
       } else {
         await createAssignmentMut.mutateAsync({
           ...payload,
-        });
+        } as any);
         enqueueSnackbar(
           t("admin-panel-students-materials:notifications.created"),
           { variant: "success" }

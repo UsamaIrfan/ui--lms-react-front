@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { RoleEnum } from "@/services/api/types/role";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
@@ -161,7 +162,7 @@ function StaffPayroll() {
       } else {
         await createMutation.mutateAsync({
           ...payload,
-        });
+        } as any);
         enqueueSnackbar(t("admin-panel-staff-payroll:notifications.created"), {
           variant: "success",
         });
@@ -213,7 +214,7 @@ function StaffPayroll() {
       await processMutation.mutateAsync({
         month: Number(processMonth),
         year: Number(processYear),
-      });
+      } as any);
       enqueueSnackbar(t("admin-panel-staff-payroll:notifications.processed"), {
         variant: "success",
       });

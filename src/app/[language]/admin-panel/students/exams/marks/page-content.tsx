@@ -115,10 +115,14 @@ function MarksEntryContent() {
           remarks: m.remarks ?? "",
         }))
       );
-    } else if (!marksLoading && allStudents && allStudents.length > 0) {
+    } else if (
+      !marksLoading &&
+      allStudents?.data &&
+      allStudents.data.length > 0
+    ) {
       // No marks entered yet — show all enrolled students for marks entry
       setMarksEntries(
-        allStudents.map((s) => ({
+        allStudents.data.map((s) => ({
           studentId: s.id,
           studentName:
             s.firstName && s.lastName

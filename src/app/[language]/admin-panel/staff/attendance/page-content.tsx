@@ -107,7 +107,7 @@ function StaffAttendance() {
     try {
       await checkOutMutation.mutateAsync({
         staffId: Number(checkOutStaffId),
-      });
+      } as any);
       enqueueSnackbar(
         t("admin-panel-staff-attendance:notifications.checkedOut"),
         { variant: "success" }

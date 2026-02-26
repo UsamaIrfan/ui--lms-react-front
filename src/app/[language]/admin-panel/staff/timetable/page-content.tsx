@@ -605,10 +605,10 @@ function StaffTimetable() {
                           {p.startTime} - {p.endTime}
                         </TableCell>
                         <TableCell className="text-paragraph-sm">
-                          {subjectMap.get(p.subjectId) ?? p.subjectId}
+                          {subjectMap.get(Number(p.subjectId)) ?? p.subjectId}
                         </TableCell>
                         <TableCell className="text-paragraph-sm">
-                          {teacherMap.get(p.teacherId) ?? p.teacherId}
+                          {teacherMap.get(Number(p.teacherId)) ?? p.teacherId}
                         </TableCell>
                         <TableCell className="text-paragraph-sm">
                           {p.room ?? "—"}

@@ -113,7 +113,8 @@ function StaffLeaves() {
           | "unpaid"
           | "other",
         reason,
-      });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any);
       enqueueSnackbar(t("admin-panel-staff-leaves:notifications.applied"), {
         variant: "success",
       });

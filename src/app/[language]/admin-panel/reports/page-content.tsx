@@ -776,7 +776,7 @@ function Reports() {
                   </SelectTrigger>
                   <SelectContent>
                     {activeTab === "studentAttendance"
-                      ? (studentsList ?? []).map((s) => (
+                      ? (studentsList?.data ?? []).map((s) => (
                           <SelectItem key={s.id} value={String(s.id)}>
                             {s.firstName && s.lastName
                               ? `${s.firstName} ${s.lastName}`

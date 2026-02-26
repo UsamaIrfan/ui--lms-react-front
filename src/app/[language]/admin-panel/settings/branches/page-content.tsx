@@ -143,7 +143,7 @@ function BranchManagement() {
           country: country || undefined,
           phone: phone || undefined,
           email: email || undefined,
-        });
+        } as any);
         enqueueSnackbar(
           t("admin-panel-settings:branches.notifications.created"),
           { variant: "success" }

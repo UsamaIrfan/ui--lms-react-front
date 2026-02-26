@@ -150,7 +150,7 @@ function ReportCardContent() {
                 <SelectValue placeholder="Select student" />
               </SelectTrigger>
               <SelectContent>
-                {(students ?? []).map((s) => (
+                {(students?.data ?? []).map((s) => (
                   <SelectItem key={s.id} value={String(s.id)}>
                     {s.firstName && s.lastName
                       ? `${s.firstName} ${s.lastName}`

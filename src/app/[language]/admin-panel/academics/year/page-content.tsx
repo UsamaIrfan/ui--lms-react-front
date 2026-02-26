@@ -1,6 +1,7 @@
 "use client";
 
 import { RoleEnum } from "@/services/api/types/role";
+import type { CreateAcademicYearDto } from "@/services/api/generated/model";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useTranslation } from "@/services/i18n/client";
 import { useCallback, useState } from "react";
@@ -134,7 +135,7 @@ function AcademicYear() {
           endDate: formEndDate,
           institutionId: Number(formInstitutionId),
           isCurrent: formIsCurrent,
-        });
+        } as CreateAcademicYearDto);
         enqueueSnackbar(t("admin-panel-academics-year:notifications.created"), {
           variant: "success",
         });

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useCallback, useEffect, useState } from "react";
-import { useForm, FormProvider, useFormState } from "react-hook-form";
+import { useForm, FormProvider, useFormState, useWatch } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "@/services/i18n/client";
@@ -27,8 +27,17 @@ import {
   RiFileTextLine,
   RiInformationLine,
 } from "@remixicon/react";
-import { useRegisterStudentMutation } from "../queries/queries";
+import {
+  useRegisterStudentMutation,
+  useUpdateStudentMutation,
+  useStudentDetailQuery,
+} from "../queries/queries";
 import { useInstitutionsListQuery } from "../../../academics/courses/queries/queries";
+import {
+  useClassesListQuery,
+  useSectionsListQuery,
+} from "../../../academics/classes/queries/queries";
+import { useAcademicYearsListQuery } from "../../../academics/year/queries/queries";
 import {
   Gender,
   BloodGroup,
@@ -60,6 +69,9 @@ type AddStudentFormData = {
   religion: string;
   // Step 2: Enrollment
   institutionId: { id: string };
+  gradeClassId: { id: string } | null;
+  sectionId: { id: string } | null;
+  academicYearId: { id: string } | null;
   admissionDate: Date | null;
   // Step 3: Guardian
   guardianName: string;
@@ -87,8 +99,25 @@ const bloodGroupOptions = Object.values(BloodGroup).map((b) => ({ id: b }));
 const relationOptions = GUARDIAN_RELATIONS.map((r) => ({ id: r }));
 
 // ─── Validation ─────────────────────────────────────────
-function useValidationSchema() {
+function useValidationSchema(isEditing: boolean) {
   const { t } = useTranslation("admin-panel-students-registrations");
+
+  const passwordSchema = isEditing
+    ? yup.string().default("")
+    : yup
+        .string()
+        .min(
+          6,
+          t(
+            "admin-panel-students-registrations:addStudent.inputs.password.validation.minLength"
+          )
+        )
+        .required(
+          t(
+            "admin-panel-students-registrations:addStudent.inputs.password.validation.required"
+          )
+        );
+
   return yup.object().shape({
     firstName: yup
       .string()
@@ -116,19 +145,7 @@ function useValidationSchema() {
           "admin-panel-students-registrations:addStudent.inputs.email.validation.required"
         )
       ),
-    password: yup
-      .string()
-      .min(
-        6,
-        t(
-          "admin-panel-students-registrations:addStudent.inputs.password.validation.minLength"
-        )
-      )
-      .required(
-        t(
-          "admin-panel-students-registrations:addStudent.inputs.password.validation.required"
-        )
-      ),
+    password: passwordSchema,
     dateOfBirth: yup
       .date()
       .required(
@@ -165,6 +182,21 @@ function useValidationSchema() {
         )
       ),
     admissionDate: yup.date().nullable().default(null),
+    gradeClassId: yup
+      .object()
+      .shape({ id: yup.string().required() })
+      .nullable()
+      .default(null),
+    sectionId: yup
+      .object()
+      .shape({ id: yup.string().required() })
+      .nullable()
+      .default(null),
+    academicYearId: yup
+      .object()
+      .shape({ id: yup.string().required() })
+      .nullable()
+      .default(null),
     guardianName: yup
       .string()
       .required(
@@ -377,10 +409,40 @@ function StepBasicInfo() {
 function StepEnrollmentDetails() {
   const { t } = useTranslation("admin-panel-students-registrations");
   const { data: institutions } = useInstitutionsListQuery();
+  const { data: classes } = useClassesListQuery();
+  const { data: sections } = useSectionsListQuery();
+  const { data: academicYears } = useAcademicYearsListQuery();
+
+  const selectedGradeClassId = useWatch<AddStudentFormData>({
+    name: "gradeClassId",
+  }) as { id: string } | null | undefined;
+
   const institutionOptions = (institutions ?? []).map((inst) => ({
     id: String(inst.id),
     label: inst.name,
   }));
+
+  const classOptions = (classes ?? []).map((cls) => ({
+    id: String(cls.id),
+    label: cls.name,
+  }));
+
+  // Filter sections by selected grade class
+  const filteredSections = (sections ?? []).filter(
+    (s) =>
+      !selectedGradeClassId?.id ||
+      String(s.gradeClassId) === selectedGradeClassId.id
+  );
+  const sectionOptions = filteredSections.map((s) => ({
+    id: String(s.id),
+    label: s.name,
+  }));
+
+  const academicYearOptions = (academicYears ?? []).map((ay) => ({
+    id: String(ay.id),
+    label: ay.name,
+  }));
+
   return (
     <div className="grid gap-4">
       <FormSelectInput<AddStudentFormData, { id: string; label: string }>
@@ -393,13 +455,49 @@ function StepEnrollmentDetails() {
         renderOption={(o) => o.label}
         testId="student-institution"
       />
-      <FormDatePickerInput<AddStudentFormData>
-        name="admissionDate"
-        label={t(
-          "admin-panel-students-registrations:addStudent.inputs.admissionDate.label"
-        )}
-        testId="student-admission-date"
-      />
+
+      <div className="grid grid-cols-2 gap-4">
+        <FormSelectInput<AddStudentFormData, { id: string; label: string }>
+          name="gradeClassId"
+          label={t(
+            "admin-panel-students-registrations:addStudent.inputs.gradeClassId.label"
+          )}
+          options={classOptions}
+          keyValue="id"
+          renderOption={(o) => o.label}
+          testId="student-grade-class"
+        />
+        <FormSelectInput<AddStudentFormData, { id: string; label: string }>
+          name="sectionId"
+          label={t(
+            "admin-panel-students-registrations:addStudent.inputs.sectionId.label"
+          )}
+          options={sectionOptions}
+          keyValue="id"
+          renderOption={(o) => o.label}
+          testId="student-section"
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <FormSelectInput<AddStudentFormData, { id: string; label: string }>
+          name="academicYearId"
+          label={t(
+            "admin-panel-students-registrations:addStudent.inputs.academicYearId.label"
+          )}
+          options={academicYearOptions}
+          keyValue="id"
+          renderOption={(o) => o.label}
+          testId="student-academic-year"
+        />
+        <FormDatePickerInput<AddStudentFormData>
+          name="admissionDate"
+          label={t(
+            "admin-panel-students-registrations:addStudent.inputs.admissionDate.label"
+          )}
+          testId="student-admission-date"
+        />
+      </div>
     </div>
   );
 }
@@ -588,10 +686,19 @@ export default function AddStudentModal({
   const { t } = useTranslation("admin-panel-students-registrations");
   const { enqueueSnackbar } = useSnackbar();
   const registerMutation = useRegisterStudentMutation();
+  const updateMutation = useUpdateStudentMutation();
   const [currentStep, setCurrentStep] = useState(0);
   const [pendingDocuments, setPendingDocuments] = useState<DocumentEntry[]>([]);
 
-  const validationSchema = useValidationSchema();
+  const isEditing = !!editData;
+
+  // Fetch full student detail (includes enrollments) when editing
+  const { data: studentDetail } = useStudentDetailQuery(editData?.id ?? 0);
+
+  // Fetch sections list to derive gradeClassId from sectionId
+  const { data: allSections } = useSectionsListQuery();
+
+  const validationSchema = useValidationSchema(isEditing);
 
   const methods = useForm<AddStudentFormData>({
     resolver: yupResolver(validationSchema) as any,
@@ -611,6 +718,9 @@ export default function AddStudentModal({
       nationality: editData?.nationality ?? "",
       religion: editData?.religion ?? "",
       institutionId: { id: String(editData?.institutionId ?? "1") },
+      gradeClassId: null,
+      sectionId: null,
+      academicYearId: null,
       admissionDate: editData?.admissionDate
         ? new Date(editData.admissionDate)
         : null,
@@ -632,6 +742,23 @@ export default function AddStudentModal({
   // Reset form values when editData changes (e.g. switching from create to edit)
   useEffect(() => {
     if (open) {
+      // Derive enrollment data when editing
+      const detail = isEditing ? studentDetail : undefined;
+      const activeEnrollment =
+        detail?.enrollments?.find((e) => e.status === "active") ??
+        detail?.enrollments?.[0];
+
+      // Derive gradeClassId from sectionId using sections list
+      let derivedGradeClassId: string | null = null;
+      if (activeEnrollment?.sectionId && allSections) {
+        const section = allSections.find(
+          (s) => s.id === activeEnrollment.sectionId
+        );
+        if (section) {
+          derivedGradeClassId = String(section.gradeClassId);
+        }
+      }
+
       reset({
         firstName: editData?.firstName ?? "",
         lastName: editData?.lastName ?? "",
@@ -648,6 +775,13 @@ export default function AddStudentModal({
         nationality: editData?.nationality ?? "",
         religion: editData?.religion ?? "",
         institutionId: { id: String(editData?.institutionId ?? "1") },
+        gradeClassId: derivedGradeClassId ? { id: derivedGradeClassId } : null,
+        sectionId: activeEnrollment?.sectionId
+          ? { id: String(activeEnrollment.sectionId) }
+          : null,
+        academicYearId: activeEnrollment?.academicYearId
+          ? { id: String(activeEnrollment.academicYearId) }
+          : null,
         admissionDate: editData?.admissionDate
           ? new Date(editData.admissionDate)
           : null,
@@ -664,7 +798,7 @@ export default function AddStudentModal({
       });
       setCurrentStep(0);
     }
-  }, [editData, open, reset]);
+  }, [editData, open, reset, isEditing, studentDetail, allSections]);
 
   const handleNext = useCallback(async () => {
     const stepFields: Record<number, (keyof AddStudentFormData)[]> = {
@@ -729,16 +863,68 @@ export default function AddStudentModal({
       emergencyContactName: formData.emergencyContactName || undefined,
       emergencyContactPhone: formData.emergencyContactPhone || undefined,
       emergencyContactRelation: formData.emergencyContactRelation || undefined,
+      sectionId: formData.sectionId
+        ? parseInt(formData.sectionId.id, 10)
+        : undefined,
+      academicYearId: formData.academicYearId
+        ? parseInt(formData.academicYearId.id, 10)
+        : undefined,
+    }),
+    []
+  );
+
+  const buildUpdatePayload = useCallback(
+    (formData: AddStudentFormData) => ({
+      firstName: formData.firstName || undefined,
+      lastName: formData.lastName || undefined,
+      phone: formData.phone || undefined,
+      gender: formData.gender?.id || undefined,
+      guardianName: formData.guardianName || undefined,
+      guardianPhone: formData.guardianPhone || undefined,
+      guardianEmail: formData.guardianEmail || undefined,
+      guardianRelation: formData.guardianRelation?.id || undefined,
+      address: formData.address || undefined,
+      city: formData.city || undefined,
+      bloodGroup: formData.bloodGroup?.id || undefined,
+      nationality: formData.nationality || undefined,
+      religion: formData.religion || undefined,
+      dateOfBirth: formData.dateOfBirth
+        ? formData.dateOfBirth.toISOString().split("T")[0]
+        : undefined,
+      admissionDate: formData.admissionDate
+        ? formData.admissionDate.toISOString().split("T")[0]
+        : undefined,
+      institutionId: parseInt(formData.institutionId.id, 10) || undefined,
+      sectionId: formData.sectionId
+        ? parseInt(formData.sectionId.id, 10)
+        : undefined,
+      academicYearId: formData.academicYearId
+        ? parseInt(formData.academicYearId.id, 10)
+        : undefined,
+      emergencyContactName: formData.emergencyContactName || undefined,
+      emergencyContactPhone: formData.emergencyContactPhone || undefined,
+      emergencyContactRelation: formData.emergencyContactRelation || undefined,
     }),
     []
   );
 
   const onSubmit = handleSubmit(async (formData) => {
     try {
-      await registerMutation.mutateAsync(buildPayload(formData) as any);
+      if (isEditing && editData) {
+        await updateMutation.mutateAsync({
+          id: editData.id,
+          data: buildUpdatePayload(formData) as any,
+        });
+      } else {
+        await registerMutation.mutateAsync(buildPayload(formData) as any);
+      }
 
       enqueueSnackbar(
-        t("admin-panel-students-registrations:addStudent.success"),
+        t(
+          isEditing
+            ? "admin-panel-students-registrations:addStudent.updateSuccess"
+            : "admin-panel-students-registrations:addStudent.success"
+        ),
         { variant: "success" }
       );
       onOpenChange(false);
@@ -746,11 +932,15 @@ export default function AddStudentModal({
       setCurrentStep(0);
       setPendingDocuments([]);
     } catch {
-      enqueueSnackbar("Failed to register student", { variant: "error" });
+      enqueueSnackbar(
+        isEditing ? "Failed to update student" : "Failed to register student",
+        { variant: "error" }
+      );
     }
   });
 
   const handleSaveDraft = useCallback(async () => {
+    if (isEditing) return; // Draft only for new registrations
     const formData = methods.getValues();
     try {
       await registerMutation.mutateAsync({
@@ -769,6 +959,7 @@ export default function AddStudentModal({
       enqueueSnackbar("Failed to save draft", { variant: "error" });
     }
   }, [
+    isEditing,
     methods,
     buildPayload,
     registerMutation,
@@ -834,13 +1025,15 @@ export default function AddStudentModal({
                 </Button>
               )}
               <div className="flex-1" />
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => void handleSaveDraft()}
-              >
-                {t("admin-panel-students-registrations:actions.saveDraft")}
-              </Button>
+              {!isEditing && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => void handleSaveDraft()}
+                >
+                  {t("admin-panel-students-registrations:actions.saveDraft")}
+                </Button>
+              )}
               {currentStep < STEPS.length - 1 ? (
                 <Button type="button" onClick={handleNext}>
                   {t("admin-panel-students-registrations:actions.next")}

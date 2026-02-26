@@ -41,26 +41,30 @@ interface RawNoticesResponse {
 // ─────────────────────────────────────────────
 
 async function fetchNotices(signal?: AbortSignal): Promise<NoticeDetail[]> {
-  const res = (await noticesControllerGetMyNoticesV1(undefined, {
-    signal,
-  })) as unknown as RawNoticesResponse;
+  try {
+    const res = (await noticesControllerGetMyNoticesV1(undefined, {
+      signal,
+    })) as unknown as RawNoticesResponse;
 
-  const notices = res?.data ?? [];
-  if (!Array.isArray(notices)) return [];
+    const notices = res?.data ?? [];
+    if (!Array.isArray(notices)) return [];
 
-  return notices.map(
-    (n): NoticeDetail => ({
-      id: String(n.id ?? ""),
-      title: n.title ?? "",
-      content: n.content ?? "",
-      publishDate: n.publishDate ?? n.createdAt ?? "",
-      expiresAt: n.expiresAt ?? undefined,
-      attachments: Array.isArray(n.attachments) ? n.attachments : [],
-      isRead: n.isRead ?? false,
-      targetRoles: Array.isArray(n.targetRoles) ? n.targetRoles : [],
-      createdAt: n.createdAt ?? "",
-    })
-  );
+    return notices.map(
+      (n): NoticeDetail => ({
+        id: String(n.id ?? ""),
+        title: n.title ?? "",
+        content: n.content ?? "",
+        publishDate: n.publishDate ?? n.createdAt ?? "",
+        expiresAt: n.expiresAt ?? undefined,
+        attachments: Array.isArray(n.attachments) ? n.attachments : [],
+        isRead: n.isRead ?? false,
+        targetRoles: Array.isArray(n.targetRoles) ? n.targetRoles : [],
+        createdAt: n.createdAt ?? "",
+      })
+    );
+  } catch {
+    return [];
+  }
 }
 
 // ─────────────────────────────────────────────

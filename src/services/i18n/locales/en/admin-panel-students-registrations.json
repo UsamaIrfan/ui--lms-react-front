@@ -179,6 +179,15 @@
         "label": "Institution",
         "validation": { "required": "Institution is required" }
       },
+      "gradeClassId": {
+        "label": "Class"
+      },
+      "sectionId": {
+        "label": "Section"
+      },
+      "academicYearId": {
+        "label": "Academic Year"
+      },
       "guardianName": {
         "label": "Guardian Name",
         "validation": { "required": "Guardian name is required" }

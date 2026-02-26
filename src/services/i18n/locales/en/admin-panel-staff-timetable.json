@@ -4,6 +4,7 @@
     "columns": {
       "name": "Name",
       "classId": "Class",
+      "section": "Section",
       "academicYear": "Academic Year",
       "status": "Status",
       "day": "Day",
@@ -39,7 +40,9 @@
   "form": {
     "name": "Timetable Name",
     "classId": "Class",
+    "section": "Section",
     "academicYearId": "Academic Year",
+    "selectPlaceholder": "Select...",
     "day": "Day of Week",
     "startTime": "Start Time",
     "endTime": "End Time",

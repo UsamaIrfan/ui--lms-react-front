@@ -29,6 +29,7 @@
   "error": {
     "title": "Failed to load timetable",
     "retry": "Retry",
-    "noTimetable": "No timetable is configured for your class"
+    "noTimetable": "No timetable is configured for your class",
+    "notEnrolled": "You are not enrolled in any class yet. Please contact your administrator."
   }
 }

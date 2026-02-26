@@ -11,6 +11,7 @@ import {
   timetablesControllerFindPeriodsV1,
   timetablesControllerRemovePeriodV1,
 } from "@/services/api/generated/timetables/timetables";
+import { usersControllerFindAllV1 } from "@/services/api/generated/users/users";
 import type {
   CreateTimetableDto,
   UpdateTimetableDto,
@@ -20,8 +21,12 @@ import type {
 
 export type TimetableItem = {
   id: string;
-  classId: string;
-  academicYearId: string;
+  classId: number;
+  className?: string;
+  sectionId?: number | null;
+  sectionName?: string | null;
+  academicYearId: number;
+  academicYearName?: string;
   name?: string | null;
   isActive: boolean;
   createdAt: string;
@@ -168,5 +173,30 @@ export function useCheckTimetableConflictsQuery(
       return (res as unknown as { data: unknown })?.data;
     },
     enabled: !!params?.teacherId && !!params?.startTime && !!params?.endTime,
+  });
+}
+
+export type TeacherDropdownItem = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
+export function useTeachersQuery() {
+  return useQuery<TeacherDropdownItem[]>({
+    queryKey: ["teachers-dropdown"],
+    queryFn: async ({ signal }) => {
+      const res = await usersControllerFindAllV1(
+        {
+          page: 1,
+          limit: 200,
+          filters: JSON.stringify({ roles: [{ id: 4 }] }),
+        },
+        { signal }
+      );
+      const inner = (res as any)?.data?.data;
+      return Array.isArray(inner) ? (inner as TeacherDropdownItem[]) : [];
+    },
   });
 }

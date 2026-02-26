@@ -20,6 +20,7 @@ import Link from "@/components/link";
 import SocialAuth from "@/services/social-auth/social-auth";
 
 import { authControllerLoginV1 } from "@/services/api/generated/auth/auth";
+import { tenantUserControllerFindTenantsByUserV1 } from "@/services/api/generated/multi-tenancy-tenant-users/multi-tenancy-tenant-users";
 import { isValidationError } from "@/services/api/generated/custom-fetch";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";
@@ -104,14 +105,32 @@ function Form() {
         language
       );
 
-      if (tenants.length > 1) {
+      // Fetch tenants directly instead of relying on TenantProvider state,
+      // which may not have updated yet after setUser().
+      let userTenantIds: string[] = [];
+      try {
+        const response = await tenantUserControllerFindTenantsByUserV1(
+          Number(loggedInUser.id)
+        );
+        const tenantUsers = response.data;
+        if (Array.isArray(tenantUsers)) {
+          userTenantIds = tenantUsers.map(
+            (tu: { tenantId: string }) => tu.tenantId
+          );
+        }
+      } catch {
+        // If fetching tenants fails, the server-side auto-tenant-select
+        // may have already embedded tenantId in the JWT. Navigate to default route.
+      }
+
+      if (userTenantIds.length > 1) {
         router.push(
           `/${language}/select-tenant?returnTo=${encodeURIComponent(defaultRoute)}`
         );
-      } else if (tenants.length === 1) {
+      } else if (userTenantIds.length === 1) {
         // Auto-select the single tenant so the JWT includes tenantId
         try {
-          await selectTenant(tenants[0].id);
+          await selectTenant(userTenantIds[0]);
         } catch {
           // If auto-select fails, redirect to tenant selection page
           router.push(
@@ -124,7 +143,7 @@ function Form() {
         router.push(defaultRoute);
       }
     },
-    [tenants, selectTenant, router, language]
+    [selectTenant, router, language]
   );
 
   const onSubmit = handleSubmit(async (formData) => {

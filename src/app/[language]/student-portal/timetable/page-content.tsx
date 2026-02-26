@@ -1,7 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { RiAlertLine, RiRefreshLine, RiCalendarLine } from "@remixicon/react";
+import {
+  RiAlertLine,
+  RiRefreshLine,
+  RiCalendarLine,
+  RiUserLine,
+} from "@remixicon/react";
 
 import { RoleEnum } from "@/services/api/types/role";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
@@ -10,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
+import { useStudentEnrollment } from "../hooks/use-student-enrollment";
 import { useTimetable } from "./queries/queries";
 import { DaySchedule } from "./components/day-schedule";
 import { DaySelector } from "./components/day-selector";
@@ -67,7 +73,11 @@ function TimetablePageSkeleton() {
 
 function TimetablePageContent() {
   const { t } = useTranslation("student-portal-timetable");
-  const { data, isLoading, isError, refetch } = useTimetable();
+  const { data: enrollment, isLoading: enrollmentLoading } =
+    useStudentEnrollment();
+  const { data, isLoading, isError, refetch } = useTimetable(
+    enrollment?.isEnrolled ?? false
+  );
 
   // Default to today, but only Mon–Sat; if Sunday, show Monday
   const todayDay = new Date().getDay() as DayOfWeek;
@@ -105,7 +115,7 @@ function TimetablePageContent() {
   };
 
   // ── Loading ──
-  if (isLoading) {
+  if (isLoading || enrollmentLoading) {
     return (
       <div className="flex flex-col gap-6">
         <div>
@@ -135,6 +145,28 @@ function TimetablePageContent() {
           errorTitle={t("error.title")}
           retryLabel={t("error.retry")}
         />
+      </div>
+    );
+  }
+
+  // ── Not enrolled ──
+  if (!enrollment?.isEnrolled) {
+    return (
+      <div className="flex flex-col gap-6">
+        <div>
+          <h1 className="text-title-h4 text-text-strong-950">
+            {t("pageTitle")}
+          </h1>
+          <p className="mt-1 text-paragraph-sm text-text-sub-600">
+            {t("description")}
+          </p>
+        </div>
+        <div className="flex flex-col items-center gap-3 py-16">
+          <RiUserLine className="size-12 text-text-soft-400" />
+          <p className="text-paragraph-sm text-text-soft-400">
+            {t("error.notEnrolled")}
+          </p>
+        </div>
       </div>
     );
   }

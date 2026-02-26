@@ -62,56 +62,60 @@ interface RawDashboardResponse {
 async function fetchAssignments(
   signal?: AbortSignal
 ): Promise<AssignmentDetail[]> {
-  const res = (await assignmentsControllerFindAllV1({
-    signal,
-  })) as unknown as RawAssignmentsResponse;
+  try {
+    const res = (await assignmentsControllerFindAllV1({
+      signal,
+    })) as unknown as RawAssignmentsResponse;
 
-  const assignments = res?.data ?? [];
-  if (!Array.isArray(assignments)) return [];
+    const assignments = res?.data ?? [];
+    if (!Array.isArray(assignments)) return [];
 
-  const now = new Date();
+    const now = new Date();
 
-  return assignments.map((a): AssignmentDetail => {
-    const hasSubmission = !!a.submission;
-    const isGraded = hasSubmission && a.submission?.marks !== null;
-    const isPastDue = a.dueDate ? new Date(a.dueDate) < now : false;
+    return assignments.map((a): AssignmentDetail => {
+      const hasSubmission = !!a.submission;
+      const isGraded = hasSubmission && a.submission?.marks !== null;
+      const isPastDue = a.dueDate ? new Date(a.dueDate) < now : false;
 
-    let status: AssignmentDetail["status"];
-    if (isGraded) {
-      status = "graded";
-    } else if (hasSubmission) {
-      status = "submitted";
-    } else if (isPastDue) {
-      status = "overdue";
-    } else {
-      status = "not_submitted";
-    }
+      let status: AssignmentDetail["status"];
+      if (isGraded) {
+        status = "graded";
+      } else if (hasSubmission) {
+        status = "submitted";
+      } else if (isPastDue) {
+        status = "overdue";
+      } else {
+        status = "not_submitted";
+      }
 
-    const submission: SubmissionInfo | undefined = a.submission
-      ? {
-          id: a.submission.id ?? 0,
-          filePath: a.submission.filePath ?? undefined,
-          fileSize: a.submission.fileSize ?? 0,
-          remarks: a.submission.remarks ?? undefined,
-          marks: a.submission.marks ?? undefined,
-          submittedAt: a.submission.submittedAt ?? "",
-        }
-      : undefined;
+      const submission: SubmissionInfo | undefined = a.submission
+        ? {
+            id: a.submission.id ?? 0,
+            filePath: a.submission.filePath ?? undefined,
+            fileSize: a.submission.fileSize ?? 0,
+            remarks: a.submission.remarks ?? undefined,
+            marks: a.submission.marks ?? undefined,
+            submittedAt: a.submission.submittedAt ?? "",
+          }
+        : undefined;
 
-    return {
-      id: a.id ?? 0,
-      title: a.title ?? "",
-      description: a.description ?? undefined,
-      subject: a.subject?.name ?? a.subjectName ?? "",
-      subjectId: a.subject?.id ?? a.subjectId ?? 0,
-      dueDate: a.dueDate ?? "",
-      totalMarks: a.totalMarks ?? 0,
-      isActive: a.isActive ?? true,
-      createdAt: a.createdAt ?? "",
-      status,
-      submission,
-    };
-  });
+      return {
+        id: a.id ?? 0,
+        title: a.title ?? "",
+        description: a.description ?? undefined,
+        subject: a.subject?.name ?? a.subjectName ?? "",
+        subjectId: a.subject?.id ?? a.subjectId ?? 0,
+        dueDate: a.dueDate ?? "",
+        totalMarks: a.totalMarks ?? 0,
+        isActive: a.isActive ?? true,
+        createdAt: a.createdAt ?? "",
+        status,
+        submission,
+      };
+    });
+  } catch {
+    return [];
+  }
 }
 
 // ─────────────────────────────────────────────
@@ -133,10 +137,14 @@ export function useStudentId() {
   return useQuery({
     queryKey: ["student-portal-student-id"],
     queryFn: async ({ signal }) => {
-      const res = (await portalsControllerGetStudentDashboardV1(undefined, {
-        signal,
-      })) as unknown as RawDashboardResponse;
-      return res?.data?.student?.id ?? null;
+      try {
+        const res = (await portalsControllerGetStudentDashboardV1(undefined, {
+          signal,
+        })) as unknown as RawDashboardResponse;
+        return res?.data?.student?.id ?? null;
+      } catch {
+        return null;
+      }
     },
     staleTime: 10 * 60 * 1000,
   });

@@ -4,7 +4,7 @@
 import { RoleEnum } from "@/services/api/types/role";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useTranslation } from "@/services/i18n/client";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   useTimetablesQuery,
   usePeriodsQuery,
@@ -15,6 +15,20 @@ import {
   useDeletePeriodMutation,
 } from "./queries/queries";
 import type { TimetableItem } from "./queries/queries";
+import {
+  useClassesListQuery,
+  useSectionsListQuery,
+} from "@/app/[language]/admin-panel/academics/classes/queries/queries";
+import { useAcademicYearsListQuery } from "@/app/[language]/admin-panel/academics/year/queries/queries";
+import { useSubjectsListQuery } from "@/app/[language]/admin-panel/academics/subjects/queries/queries";
+import { useTeachersQuery } from "./queries/queries";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -46,6 +60,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 
+// Generate 30-minute interval time slots from 00:00 to 23:30
+const TIME_SLOTS = Array.from({ length: 48 }, (_, i) => {
+  const hours = Math.floor(i / 2);
+  const minutes = i % 2 === 0 ? "00" : "30";
+  const value = `${String(hours).padStart(2, "0")}:${minutes}`;
+  const hour12 = hours % 12 || 12;
+  const ampm = hours < 12 ? "AM" : "PM";
+  const label = `${hour12}:${minutes} ${ampm}`;
+  return { value, label };
+});
+
 const DAY_NAMES = [
   "Sunday",
   "Monday",
@@ -62,6 +87,11 @@ function StaffTimetable() {
   const { confirmDialog } = useConfirmDialog();
 
   const { data: timetables, isLoading } = useTimetablesQuery();
+  const { data: classes } = useClassesListQuery();
+  const { data: sections } = useSectionsListQuery();
+  const { data: academicYears } = useAcademicYearsListQuery();
+  const { data: teachers } = useTeachersQuery();
+  const { data: subjects } = useSubjectsListQuery();
   const createMutation = useCreateTimetableMutation();
   const updateMutation = useUpdateTimetableMutation();
   const deleteMutation = useDeleteTimetableMutation();
@@ -72,8 +102,31 @@ function StaffTimetable() {
   const [ttModalOpen, setTtModalOpen] = useState(false);
   const [editTt, setEditTt] = useState<TimetableItem | null>(null);
   const [ttName, setTtName] = useState("");
-  const [ttClassId, setTtClassId] = useState("");
-  const [ttAcademicYearId, setTtAcademicYearId] = useState("");
+  const [ttClassId, setTtClassId] = useState<number>(0);
+  const [ttSectionId, setTtSectionId] = useState<number>(0);
+  const [ttAcademicYearId, setTtAcademicYearId] = useState<number>(0);
+
+  // Filter sections by selected class (must be after ttClassId state declaration)
+  const filteredSections = useMemo(
+    () =>
+      (sections ?? []).filter(
+        (s) => ttClassId > 0 && s.gradeClassId === ttClassId
+      ),
+    [sections, ttClassId]
+  );
+
+  // Lookup maps for resolving IDs to names in periods table
+  const subjectMap = useMemo(
+    () => new Map((subjects ?? []).map((s) => [s.id, `${s.name} (${s.code})`])),
+    [subjects]
+  );
+  const teacherMap = useMemo(
+    () =>
+      new Map(
+        (teachers ?? []).map((t) => [t.id, `${t.firstName} ${t.lastName}`])
+      ),
+    [teachers]
+  );
 
   // Periods view
   const [selectedTtId, setSelectedTtId] = useState<string | undefined>();
@@ -91,8 +144,9 @@ function StaffTimetable() {
 
   const resetTtForm = useCallback(() => {
     setTtName("");
-    setTtClassId("");
-    setTtAcademicYearId("");
+    setTtClassId(0);
+    setTtSectionId(0);
+    setTtAcademicYearId(0);
   }, []);
 
   const handleOpenCreateTt = useCallback(() => {
@@ -105,6 +159,7 @@ function StaffTimetable() {
     setEditTt(item);
     setTtName(item.name ?? "");
     setTtClassId(item.classId);
+    setTtSectionId(item.sectionId ?? 0);
     setTtAcademicYearId(item.academicYearId);
     setTtModalOpen(true);
   }, []);
@@ -121,6 +176,7 @@ function StaffTimetable() {
       const payload = {
         classId: ttClassId,
         academicYearId: ttAcademicYearId,
+        sectionId: ttSectionId || undefined,
         name: ttName || undefined,
       } as any;
       if (editTt) {
@@ -147,6 +203,7 @@ function StaffTimetable() {
     }
   }, [
     ttClassId,
+    ttSectionId,
     ttAcademicYearId,
     ttName,
     editTt,
@@ -205,8 +262,8 @@ function StaffTimetable() {
         timetableId: selectedTtId,
         data: {
           timetableId: selectedTtId,
-          subjectId: periodSubjectId,
-          teacherId: periodTeacherId,
+          subjectId: Number(periodSubjectId),
+          teacherId: Number(periodTeacherId),
           dayOfWeek: Number(periodDay),
           startTime: periodStart,
           endTime: periodEnd,
@@ -289,6 +346,9 @@ function StaffTimetable() {
                   {t("admin-panel-staff-timetable:table.columns.classId")}
                 </TableHead>
                 <TableHead style={{ width: 120 }}>
+                  {t("admin-panel-staff-timetable:table.columns.section")}
+                </TableHead>
+                <TableHead style={{ width: 120 }}>
                   {t("admin-panel-staff-timetable:table.columns.academicYear")}
                 </TableHead>
                 <TableHead style={{ width: 80 }}>
@@ -302,14 +362,14 @@ function StaffTimetable() {
             <TableBody>
               {isLoading ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="h-40 text-center">
+                  <TableCell colSpan={6} className="h-40 text-center">
                     <Spinner size="md" />
                   </TableCell>
                 </TableRow>
               ) : !timetables || timetables.length === 0 ? (
                 <TableRow>
                   <TableCell
-                    colSpan={5}
+                    colSpan={6}
                     className="h-40 text-center text-paragraph-sm text-text-soft-400"
                   >
                     {t("admin-panel-staff-timetable:table.empty")}
@@ -322,10 +382,13 @@ function StaffTimetable() {
                       {item.name ?? "—"}
                     </TableCell>
                     <TableCell className="text-paragraph-sm">
-                      {item.classId}
+                      {item.className ?? item.classId}
                     </TableCell>
                     <TableCell className="text-paragraph-sm">
-                      {item.academicYearId}
+                      {item.sectionName ?? "—"}
+                    </TableCell>
+                    <TableCell className="text-paragraph-sm">
+                      {item.academicYearName ?? item.academicYearId}
                     </TableCell>
                     <TableCell>
                       <Badge variant={item.isActive ? "default" : "outline"}>
@@ -398,20 +461,76 @@ function StaffTimetable() {
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label>{t("admin-panel-staff-timetable:form.classId")}</Label>
-                <Input
-                  value={ttClassId}
-                  onChange={(e) => setTtClassId(e.target.value)}
-                />
+                <Select
+                  value={ttClassId ? String(ttClassId) : undefined}
+                  onValueChange={(v) => {
+                    setTtClassId(Number(v) || 0);
+                    setTtSectionId(0);
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue
+                      placeholder={t(
+                        "admin-panel-staff-timetable:form.selectPlaceholder"
+                      )}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(classes ?? []).map((cls) => (
+                      <SelectItem key={cls.id} value={String(cls.id)}>
+                        {cls.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="grid gap-2">
-                <Label>
-                  {t("admin-panel-staff-timetable:form.academicYearId")}
-                </Label>
-                <Input
-                  value={ttAcademicYearId}
-                  onChange={(e) => setTtAcademicYearId(e.target.value)}
-                />
+                <Label>{t("admin-panel-staff-timetable:form.section")}</Label>
+                <Select
+                  value={ttSectionId ? String(ttSectionId) : undefined}
+                  onValueChange={(v) => setTtSectionId(Number(v) || 0)}
+                  disabled={!ttClassId}
+                >
+                  <SelectTrigger>
+                    <SelectValue
+                      placeholder={t(
+                        "admin-panel-staff-timetable:form.selectPlaceholder"
+                      )}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {filteredSections.map((sec) => (
+                      <SelectItem key={sec.id} value={String(sec.id)}>
+                        {sec.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
+            </div>
+            <div className="grid gap-2">
+              <Label>
+                {t("admin-panel-staff-timetable:form.academicYearId")}
+              </Label>
+              <Select
+                value={ttAcademicYearId ? String(ttAcademicYearId) : undefined}
+                onValueChange={(v) => setTtAcademicYearId(Number(v) || 0)}
+              >
+                <SelectTrigger>
+                  <SelectValue
+                    placeholder={t(
+                      "admin-panel-staff-timetable:form.selectPlaceholder"
+                    )}
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  {(academicYears ?? []).map((ay) => (
+                    <SelectItem key={ay.id} value={String(ay.id)}>
+                      {ay.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <Dialog.DialogFooter>
@@ -486,10 +605,10 @@ function StaffTimetable() {
                           {p.startTime} - {p.endTime}
                         </TableCell>
                         <TableCell className="text-paragraph-sm">
-                          {p.subjectId}
+                          {subjectMap.get(p.subjectId) ?? p.subjectId}
                         </TableCell>
                         <TableCell className="text-paragraph-sm">
-                          {p.teacherId}
+                          {teacherMap.get(p.teacherId) ?? p.teacherId}
                         </TableCell>
                         <TableCell className="text-paragraph-sm">
                           {p.room ?? "—"}
@@ -528,55 +647,118 @@ function StaffTimetable() {
                 <Label>
                   {t("admin-panel-staff-timetable:periods.form.subjectId")}
                 </Label>
-                <Input
-                  value={periodSubjectId}
-                  onChange={(e) => setPeriodSubjectId(e.target.value)}
-                />
+                <Select
+                  value={periodSubjectId || undefined}
+                  onValueChange={(v) => setPeriodSubjectId(v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue
+                      placeholder={t(
+                        "admin-panel-staff-timetable:form.selectPlaceholder"
+                      )}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(subjects ?? []).map((subj) => (
+                      <SelectItem key={subj.id} value={String(subj.id)}>
+                        {subj.name} ({subj.code})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="grid gap-2">
                 <Label>
                   {t("admin-panel-staff-timetable:periods.form.teacherId")}
                 </Label>
-                <Input
-                  value={periodTeacherId}
-                  onChange={(e) => setPeriodTeacherId(e.target.value)}
-                />
+                <Select
+                  value={periodTeacherId || undefined}
+                  onValueChange={(v) => setPeriodTeacherId(v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue
+                      placeholder={t(
+                        "admin-panel-staff-timetable:form.selectPlaceholder"
+                      )}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(teachers ?? []).map((teacher) => (
+                      <SelectItem key={teacher.id} value={String(teacher.id)}>
+                        {teacher.firstName} {teacher.lastName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             <div className="grid gap-2">
               <Label>{t("admin-panel-staff-timetable:periods.form.day")}</Label>
-              <select
-                className="flex h-10 w-full rounded-md border border-stroke-soft-200 bg-bg-white-0 px-3 py-2 text-paragraph-sm"
-                value={periodDay}
-                onChange={(e) => setPeriodDay(e.target.value)}
-              >
-                {DAY_NAMES.map((name, i) => (
-                  <option key={i} value={String(i)}>
-                    {name}
-                  </option>
-                ))}
-              </select>
+              <Select value={periodDay} onValueChange={(v) => setPeriodDay(v)}>
+                <SelectTrigger>
+                  <SelectValue
+                    placeholder={t(
+                      "admin-panel-staff-timetable:form.selectPlaceholder"
+                    )}
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  {DAY_NAMES.map((name, i) => (
+                    <SelectItem key={i} value={String(i)}>
+                      {name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label>
                   {t("admin-panel-staff-timetable:periods.form.startTime")}
                 </Label>
-                <Input
-                  type="time"
-                  value={periodStart}
-                  onChange={(e) => setPeriodStart(e.target.value)}
-                />
+                <Select
+                  value={periodStart || undefined}
+                  onValueChange={(v) => setPeriodStart(v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue
+                      placeholder={t(
+                        "admin-panel-staff-timetable:form.selectPlaceholder"
+                      )}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {TIME_SLOTS.map((slot) => (
+                      <SelectItem key={slot.value} value={slot.value}>
+                        {slot.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="grid gap-2">
                 <Label>
                   {t("admin-panel-staff-timetable:periods.form.endTime")}
                 </Label>
-                <Input
-                  type="time"
-                  value={periodEnd}
-                  onChange={(e) => setPeriodEnd(e.target.value)}
-                />
+                <Select
+                  value={periodEnd || undefined}
+                  onValueChange={(v) => setPeriodEnd(v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue
+                      placeholder={t(
+                        "admin-panel-staff-timetable:form.selectPlaceholder"
+                      )}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {TIME_SLOTS.map((slot) => (
+                      <SelectItem key={slot.value} value={slot.value}>
+                        {slot.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             <div className="grid gap-2">

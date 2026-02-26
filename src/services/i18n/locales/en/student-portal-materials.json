@@ -36,6 +36,7 @@
 
   "error": {
     "title": "Failed to load materials",
-    "retry": "Retry"
+    "retry": "Retry",
+    "notEnrolled": "You are not enrolled in any class yet. Please contact your administrator."
   }
 }

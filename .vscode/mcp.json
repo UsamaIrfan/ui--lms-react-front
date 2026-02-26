@@ -1,0 +1,21 @@
+{
+	"servers": {
+		"TestSprite": {
+			"command": "npx",
+			"args": [
+				"@testsprite/testsprite-mcp@0.0.26"
+			],
+			"env": {
+				"API_KEY": "${input:api_key}"
+			},
+			"type": "stdio"
+		}
+	},
+	"inputs": [
+		{
+			"id": "api_key",
+			"type": "promptString",
+			"description": "TestSprite API Key"
+		}
+	]
+}

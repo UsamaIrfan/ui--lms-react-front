@@ -488,7 +488,7 @@ function StudentsFees() {
                           {item.studentId}
                         </TableCell>
                         <TableCell className="text-paragraph-sm">
-                          {item.amount != null
+                          {item.amount !== null && item.amount !== undefined
                             ? item.amount.toLocaleString()
                             : "—"}
                         </TableCell>
@@ -776,7 +776,7 @@ function StudentsFees() {
                   const selected = (
                     challans as ChallanItem[] | undefined
                   )?.find((ch) => String(ch.id) === v);
-                  if (selected?.amount != null) {
+                  if (selected?.amount !== null && selected?.amount !== undefined) {
                     setPayAmount(String(selected.amount));
                   }
                 }}

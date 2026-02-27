@@ -10,7 +10,7 @@ import type { CreateFeeChallanDtoRemarks } from './createFeeChallanDtoRemarks';
 import type { CreateFeeChallanDtoStatus } from './createFeeChallanDtoStatus';
 
 export interface CreateFeeChallanDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   studentId: number;
   feeStructureId: number;

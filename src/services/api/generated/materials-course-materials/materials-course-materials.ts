@@ -61,7 +61,7 @@ export const getMaterialsControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/materials`
+  return `https://multivendor-updated.vercel.app/api/v1/materials`
 }
 
 export const materialsControllerCreateV1 = async (createMaterialDto: CreateMaterialDto, options?: RequestInit): Promise<materialsControllerCreateV1Response> => {
@@ -144,7 +144,7 @@ export const getMaterialsControllerFindAllV1Url = (params?: MaterialsControllerF
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/materials?${stringifiedParams}` : `http://localhost:3000/api/v1/materials`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/materials?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/materials`
 }
 
 export const materialsControllerFindAllV1 = async (params?: MaterialsControllerFindAllV1Params, options?: RequestInit): Promise<materialsControllerFindAllV1Response> => {
@@ -164,13 +164,13 @@ export const materialsControllerFindAllV1 = async (params?: MaterialsControllerF
 
 export const getMaterialsControllerFindAllV1InfiniteQueryKey = (params?: MaterialsControllerFindAllV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/materials`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/materials`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getMaterialsControllerFindAllV1QueryKey = (params?: MaterialsControllerFindAllV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/materials`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/materials`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -316,7 +316,7 @@ export const getMaterialsControllerGetQuotaV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/quota`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/quota`
 }
 
 export const materialsControllerGetQuotaV1 = async ( options?: RequestInit): Promise<materialsControllerGetQuotaV1Response> => {
@@ -336,13 +336,13 @@ export const materialsControllerGetQuotaV1 = async ( options?: RequestInit): Pro
 
 export const getMaterialsControllerGetQuotaV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/materials/quota`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/materials/quota`
     ] as const;
     }
 
 export const getMaterialsControllerGetQuotaV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/materials/quota`
+    `https://multivendor-updated.vercel.app/api/v1/materials/quota`
     ] as const;
     }
 
@@ -488,7 +488,7 @@ export const getMaterialsControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/${id}`
 }
 
 export const materialsControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<materialsControllerFindOneV1Response> => {
@@ -508,13 +508,13 @@ export const materialsControllerFindOneV1 = async (id: number, options?: Request
 
 export const getMaterialsControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/materials/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/materials/${id}`
     ] as const;
     }
 
 export const getMaterialsControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/materials/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/materials/${id}`
     ] as const;
     }
 
@@ -660,7 +660,7 @@ export const getMaterialsControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/${id}`
 }
 
 export const materialsControllerUpdateV1 = async (id: number,
@@ -737,7 +737,7 @@ export const getMaterialsControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/${id}`
 }
 
 export const materialsControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<materialsControllerRemoveV1Response> => {
@@ -812,7 +812,7 @@ export const getMaterialsControllerDownloadV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/${id}/download`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/${id}/download`
 }
 
 export const materialsControllerDownloadV1 = async (id: number, options?: RequestInit): Promise<materialsControllerDownloadV1Response> => {
@@ -832,13 +832,13 @@ export const materialsControllerDownloadV1 = async (id: number, options?: Reques
 
 export const getMaterialsControllerDownloadV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/materials/${id}/download`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/materials/${id}/download`
     ] as const;
     }
 
 export const getMaterialsControllerDownloadV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/materials/${id}/download`
+    `https://multivendor-updated.vercel.app/api/v1/materials/${id}/download`
     ] as const;
     }
 

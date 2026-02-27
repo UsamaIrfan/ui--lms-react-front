@@ -61,7 +61,7 @@ export const getAssignmentsControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/assignments`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/assignments`
 }
 
 export const assignmentsControllerCreateV1 = async (createAssignmentDto: CreateAssignmentDto, options?: RequestInit): Promise<assignmentsControllerCreateV1Response> => {
@@ -137,7 +137,7 @@ export const getAssignmentsControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/assignments`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/assignments`
 }
 
 export const assignmentsControllerFindAllV1 = async ( options?: RequestInit): Promise<assignmentsControllerFindAllV1Response> => {
@@ -157,13 +157,13 @@ export const assignmentsControllerFindAllV1 = async ( options?: RequestInit): Pr
 
 export const getAssignmentsControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/materials/assignments`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/materials/assignments`
     ] as const;
     }
 
 export const getAssignmentsControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/materials/assignments`
+    `https://multivendor-updated.vercel.app/api/v1/materials/assignments`
     ] as const;
     }
 
@@ -309,7 +309,7 @@ export const getAssignmentsControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/assignments/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/assignments/${id}`
 }
 
 export const assignmentsControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<assignmentsControllerFindOneV1Response> => {
@@ -329,13 +329,13 @@ export const assignmentsControllerFindOneV1 = async (id: number, options?: Reque
 
 export const getAssignmentsControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/materials/assignments/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/materials/assignments/${id}`
     ] as const;
     }
 
 export const getAssignmentsControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/materials/assignments/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/materials/assignments/${id}`
     ] as const;
     }
 
@@ -481,7 +481,7 @@ export const getAssignmentsControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/assignments/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/assignments/${id}`
 }
 
 export const assignmentsControllerUpdateV1 = async (id: number,
@@ -558,7 +558,7 @@ export const getAssignmentsControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/assignments/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/assignments/${id}`
 }
 
 export const assignmentsControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<assignmentsControllerRemoveV1Response> => {
@@ -633,7 +633,7 @@ export const getAssignmentsControllerSubmitV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/assignments/${id}/submit`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/assignments/${id}/submit`
 }
 
 export const assignmentsControllerSubmitV1 = async (id: number,
@@ -710,7 +710,7 @@ export const getAssignmentsControllerGetSubmissionsV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/assignments/${id}/submissions`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/assignments/${id}/submissions`
 }
 
 export const assignmentsControllerGetSubmissionsV1 = async (id: number, options?: RequestInit): Promise<assignmentsControllerGetSubmissionsV1Response> => {
@@ -730,13 +730,13 @@ export const assignmentsControllerGetSubmissionsV1 = async (id: number, options?
 
 export const getAssignmentsControllerGetSubmissionsV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/materials/assignments/${id}/submissions`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/materials/assignments/${id}/submissions`
     ] as const;
     }
 
 export const getAssignmentsControllerGetSubmissionsV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/materials/assignments/${id}/submissions`
+    `https://multivendor-updated.vercel.app/api/v1/materials/assignments/${id}/submissions`
     ] as const;
     }
 

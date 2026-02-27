@@ -8,7 +8,7 @@
 import type { CreateSectionDtoClassTeacherId } from './createSectionDtoClassTeacherId';
 
 export interface CreateSectionDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   gradeClassId: number;
   name: string;

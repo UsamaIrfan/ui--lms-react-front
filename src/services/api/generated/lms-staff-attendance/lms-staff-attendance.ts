@@ -58,7 +58,7 @@ export const getStaffAttendanceControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/staff-attendance`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/staff-attendance`
 }
 
 export const staffAttendanceControllerCreateV1 = async (createStaffAttendanceDto: CreateStaffAttendanceDto, options?: RequestInit): Promise<staffAttendanceControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getStaffAttendanceControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/staff-attendance`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/staff-attendance`
 }
 
 export const staffAttendanceControllerFindAllV1 = async ( options?: RequestInit): Promise<staffAttendanceControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const staffAttendanceControllerFindAllV1 = async ( options?: RequestInit)
 
 export const getStaffAttendanceControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/staff-attendance`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/staff-attendance`
     ] as const;
     }
 
 export const getStaffAttendanceControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/staff-attendance`
+    `https://multivendor-updated.vercel.app/api/v1/lms/staff-attendance`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getStaffAttendanceControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/staff-attendance/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/staff-attendance/${id}`
 }
 
 export const staffAttendanceControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<staffAttendanceControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const staffAttendanceControllerFindOneV1 = async (id: number, options?: R
 
 export const getStaffAttendanceControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/staff-attendance/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/staff-attendance/${id}`
     ] as const;
     }
 
 export const getStaffAttendanceControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/staff-attendance/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/staff-attendance/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getStaffAttendanceControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/staff-attendance/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/staff-attendance/${id}`
 }
 
 export const staffAttendanceControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getStaffAttendanceControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/staff-attendance/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/staff-attendance/${id}`
 }
 
 export const staffAttendanceControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<staffAttendanceControllerRemoveV1Response> => {

@@ -7,7 +7,7 @@
  */
 
 export interface ProcessPayrollDto {
-  tenantId: string;
+  tenantId?: string;
   /** Filter by branch. Omit to process all branches. */
   branchId?: string;
   /** Month (1-12) */

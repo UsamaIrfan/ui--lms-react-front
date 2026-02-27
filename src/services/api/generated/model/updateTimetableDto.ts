@@ -11,8 +11,12 @@ export interface UpdateTimetableDto {
   tenantId?: string;
   /** Branch for this timetable */
   branchId?: string;
-  classId?: string;
-  academicYearId?: string;
+  /** Grade class ID */
+  classId?: number;
+  /** Section ID (optional) */
+  sectionId?: number;
+  /** Academic year ID */
+  academicYearId?: number;
   name?: UpdateTimetableDtoName;
   isActive?: boolean;
 }

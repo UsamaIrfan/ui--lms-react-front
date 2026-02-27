@@ -8,11 +8,13 @@
 import type { DashboardAttendanceSummary } from './dashboardAttendanceSummary';
 import type { DashboardExamSummary } from './dashboardExamSummary';
 import type { DashboardFeeSummary } from './dashboardFeeSummary';
+import type { DashboardStudentProfile } from './dashboardStudentProfile';
 import type { StudentDashboardTenant } from './studentDashboardTenant';
 
 export interface StudentDashboard {
   tenant: StudentDashboardTenant;
   branch: string;
+  student?: DashboardStudentProfile;
   attendance: DashboardAttendanceSummary;
   fees: DashboardFeeSummary;
   exams: DashboardExamSummary;

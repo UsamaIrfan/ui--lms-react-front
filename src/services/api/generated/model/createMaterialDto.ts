@@ -12,7 +12,7 @@ import type { CreateMaterialDtoType } from './createMaterialDtoType';
 import type { CreateMaterialDtoUploadedById } from './createMaterialDtoUploadedById';
 
 export interface CreateMaterialDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   subjectId: number;
   uploadedById?: CreateMaterialDtoUploadedById;

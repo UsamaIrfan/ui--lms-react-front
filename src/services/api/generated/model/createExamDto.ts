@@ -9,7 +9,7 @@ import type { CreateExamDtoDescription } from './createExamDtoDescription';
 import type { CreateExamDtoType } from './createExamDtoType';
 
 export interface CreateExamDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   termId: number;
   name: string;

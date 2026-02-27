@@ -70,7 +70,7 @@ export const getStaffLeaveControllerFindAllV1Url = (params?: StaffLeaveControlle
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/staff/leaves?${stringifiedParams}` : `http://localhost:3000/api/v1/staff/leaves`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/staff/leaves?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/staff/leaves`
 }
 
 export const staffLeaveControllerFindAllV1 = async (params?: StaffLeaveControllerFindAllV1Params, options?: RequestInit): Promise<staffLeaveControllerFindAllV1Response> => {
@@ -90,13 +90,13 @@ export const staffLeaveControllerFindAllV1 = async (params?: StaffLeaveControlle
 
 export const getStaffLeaveControllerFindAllV1InfiniteQueryKey = (params?: StaffLeaveControllerFindAllV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/staff/leaves`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/staff/leaves`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getStaffLeaveControllerFindAllV1QueryKey = (params?: StaffLeaveControllerFindAllV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/staff/leaves`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/staff/leaves`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -242,7 +242,7 @@ export const getStaffLeaveControllerApplyV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/staff/leaves`
+  return `https://multivendor-updated.vercel.app/api/v1/staff/leaves`
 }
 
 export const staffLeaveControllerApplyV1 = async (applyStaffLeaveDto: ApplyStaffLeaveDto, options?: RequestInit): Promise<staffLeaveControllerApplyV1Response> => {
@@ -325,7 +325,7 @@ export const getStaffLeaveControllerGetBalanceV1Url = (params?: StaffLeaveContro
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/staff/leaves/balance?${stringifiedParams}` : `http://localhost:3000/api/v1/staff/leaves/balance`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/staff/leaves/balance?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/staff/leaves/balance`
 }
 
 export const staffLeaveControllerGetBalanceV1 = async (params?: StaffLeaveControllerGetBalanceV1Params, options?: RequestInit): Promise<staffLeaveControllerGetBalanceV1Response> => {
@@ -345,13 +345,13 @@ export const staffLeaveControllerGetBalanceV1 = async (params?: StaffLeaveContro
 
 export const getStaffLeaveControllerGetBalanceV1InfiniteQueryKey = (params?: StaffLeaveControllerGetBalanceV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/staff/leaves/balance`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/staff/leaves/balance`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getStaffLeaveControllerGetBalanceV1QueryKey = (params?: StaffLeaveControllerGetBalanceV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/staff/leaves/balance`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/staff/leaves/balance`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -497,7 +497,7 @@ export const getStaffLeaveControllerApproveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/staff/leaves/${id}/approve`
+  return `https://multivendor-updated.vercel.app/api/v1/staff/leaves/${id}/approve`
 }
 
 export const staffLeaveControllerApproveV1 = async (id: number,
@@ -574,7 +574,7 @@ export const getStaffLeaveControllerRejectV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/staff/leaves/${id}/reject`
+  return `https://multivendor-updated.vercel.app/api/v1/staff/leaves/${id}/reject`
 }
 
 export const staffLeaveControllerRejectV1 = async (id: number,

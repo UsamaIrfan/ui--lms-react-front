@@ -9,7 +9,7 @@ import type { CreateNoticeDtoExpiresAt } from './createNoticeDtoExpiresAt';
 import type { CreateNoticeDtoPublishDate } from './createNoticeDtoPublishDate';
 
 export interface CreateNoticeDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   /** Target branch UUIDs. Empty array = all branches in the tenant. */
   targetBranches: string[];

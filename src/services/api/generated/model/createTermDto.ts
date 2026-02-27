@@ -7,7 +7,7 @@
  */
 
 export interface CreateTermDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   academicYearId: number;
   name: string;

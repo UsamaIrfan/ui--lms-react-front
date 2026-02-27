@@ -9,7 +9,7 @@ import type { CreateStudentEnrollmentDtoEnrollmentDate } from './createStudentEn
 import type { CreateStudentEnrollmentDtoStatus } from './createStudentEnrollmentDtoStatus';
 
 export interface CreateStudentEnrollmentDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   studentId: number;
   sectionId: number;

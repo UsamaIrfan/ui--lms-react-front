@@ -11,7 +11,7 @@ import type { CreateStaffAttendanceDtoRemarks } from './createStaffAttendanceDto
 import type { CreateStaffAttendanceDtoStatus } from './createStaffAttendanceDtoStatus';
 
 export interface CreateStaffAttendanceDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   staffId: number;
   date: string;

@@ -60,7 +60,7 @@ export const getExpensesControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/expenses`
+  return `https://multivendor-updated.vercel.app/api/v1/expenses`
 }
 
 export const expensesControllerCreateV1 = async (createBranchExpenseDto: CreateBranchExpenseDto, options?: RequestInit): Promise<expensesControllerCreateV1Response> => {
@@ -136,7 +136,7 @@ export const getExpensesControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/expenses`
+  return `https://multivendor-updated.vercel.app/api/v1/expenses`
 }
 
 export const expensesControllerFindAllV1 = async ( options?: RequestInit): Promise<expensesControllerFindAllV1Response> => {
@@ -156,13 +156,13 @@ export const expensesControllerFindAllV1 = async ( options?: RequestInit): Promi
 
 export const getExpensesControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/expenses`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/expenses`
     ] as const;
     }
 
 export const getExpensesControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/expenses`
+    `https://multivendor-updated.vercel.app/api/v1/expenses`
     ] as const;
     }
 
@@ -315,7 +315,7 @@ export const getExpensesControllerGetExpenseReportV1Url = (params?: ExpensesCont
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/expenses/reports?${stringifiedParams}` : `http://localhost:3000/api/v1/expenses/reports`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/expenses/reports?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/expenses/reports`
 }
 
 export const expensesControllerGetExpenseReportV1 = async (params?: ExpensesControllerGetExpenseReportV1Params, options?: RequestInit): Promise<expensesControllerGetExpenseReportV1Response> => {
@@ -335,13 +335,13 @@ export const expensesControllerGetExpenseReportV1 = async (params?: ExpensesCont
 
 export const getExpensesControllerGetExpenseReportV1InfiniteQueryKey = (params?: ExpensesControllerGetExpenseReportV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/expenses/reports`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/expenses/reports`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getExpensesControllerGetExpenseReportV1QueryKey = (params?: ExpensesControllerGetExpenseReportV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/expenses/reports`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/expenses/reports`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -494,7 +494,7 @@ export const getExpensesControllerGetConsolidatedReportV1Url = (params?: Expense
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/expenses/reports/consolidated?${stringifiedParams}` : `http://localhost:3000/api/v1/expenses/reports/consolidated`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/expenses/reports/consolidated?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/expenses/reports/consolidated`
 }
 
 export const expensesControllerGetConsolidatedReportV1 = async (params?: ExpensesControllerGetConsolidatedReportV1Params, options?: RequestInit): Promise<expensesControllerGetConsolidatedReportV1Response> => {
@@ -514,13 +514,13 @@ export const expensesControllerGetConsolidatedReportV1 = async (params?: Expense
 
 export const getExpensesControllerGetConsolidatedReportV1InfiniteQueryKey = (params?: ExpensesControllerGetConsolidatedReportV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/expenses/reports/consolidated`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/expenses/reports/consolidated`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getExpensesControllerGetConsolidatedReportV1QueryKey = (params?: ExpensesControllerGetConsolidatedReportV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/expenses/reports/consolidated`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/expenses/reports/consolidated`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -666,7 +666,7 @@ export const getExpensesControllerFindByIdV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/expenses/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/expenses/${id}`
 }
 
 export const expensesControllerFindByIdV1 = async (id: string, options?: RequestInit): Promise<expensesControllerFindByIdV1Response> => {
@@ -686,13 +686,13 @@ export const expensesControllerFindByIdV1 = async (id: string, options?: Request
 
 export const getExpensesControllerFindByIdV1InfiniteQueryKey = (id: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/expenses/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/expenses/${id}`
     ] as const;
     }
 
 export const getExpensesControllerFindByIdV1QueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/api/v1/expenses/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/expenses/${id}`
     ] as const;
     }
 
@@ -838,7 +838,7 @@ export const getExpensesControllerUpdateV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/expenses/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/expenses/${id}`
 }
 
 export const expensesControllerUpdateV1 = async (id: string,
@@ -915,7 +915,7 @@ export const getExpensesControllerRemoveV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/expenses/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/expenses/${id}`
 }
 
 export const expensesControllerRemoveV1 = async (id: string, options?: RequestInit): Promise<expensesControllerRemoveV1Response> => {

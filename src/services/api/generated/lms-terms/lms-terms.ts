@@ -59,7 +59,7 @@ export const getTermControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/terms`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/terms`
 }
 
 export const termControllerCreateV1 = async (createTermDto: CreateTermDto, options?: RequestInit): Promise<termControllerCreateV1Response> => {
@@ -135,7 +135,7 @@ export const getTermControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/terms`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/terms`
 }
 
 export const termControllerFindAllV1 = async ( options?: RequestInit): Promise<termControllerFindAllV1Response> => {
@@ -155,13 +155,13 @@ export const termControllerFindAllV1 = async ( options?: RequestInit): Promise<t
 
 export const getTermControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/terms`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/terms`
     ] as const;
     }
 
 export const getTermControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/terms`
+    `https://multivendor-updated.vercel.app/api/v1/lms/terms`
     ] as const;
     }
 
@@ -307,7 +307,7 @@ export const getTermControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/terms/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/terms/${id}`
 }
 
 export const termControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<termControllerFindOneV1Response> => {
@@ -327,13 +327,13 @@ export const termControllerFindOneV1 = async (id: number, options?: RequestInit)
 
 export const getTermControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/terms/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/terms/${id}`
     ] as const;
     }
 
 export const getTermControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/terms/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/terms/${id}`
     ] as const;
     }
 
@@ -479,7 +479,7 @@ export const getTermControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/terms/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/terms/${id}`
 }
 
 export const termControllerUpdateV1 = async (id: number,
@@ -556,7 +556,7 @@ export const getTermControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/terms/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/terms/${id}`
 }
 
 export const termControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<termControllerRemoveV1Response> => {

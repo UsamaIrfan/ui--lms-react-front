@@ -8,7 +8,7 @@
 import type { CreateDepartmentDtoDescription } from './createDepartmentDtoDescription';
 
 export interface CreateDepartmentDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   institutionId: number;
   name: string;

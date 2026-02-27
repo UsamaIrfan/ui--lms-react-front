@@ -58,7 +58,7 @@ export const getCourseMaterialControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/course-materials`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/course-materials`
 }
 
 export const courseMaterialControllerCreateV1 = async (createCourseMaterialDto: CreateCourseMaterialDto, options?: RequestInit): Promise<courseMaterialControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getCourseMaterialControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/course-materials`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/course-materials`
 }
 
 export const courseMaterialControllerFindAllV1 = async ( options?: RequestInit): Promise<courseMaterialControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const courseMaterialControllerFindAllV1 = async ( options?: RequestInit):
 
 export const getCourseMaterialControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/course-materials`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/course-materials`
     ] as const;
     }
 
 export const getCourseMaterialControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/course-materials`
+    `https://multivendor-updated.vercel.app/api/v1/lms/course-materials`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getCourseMaterialControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/course-materials/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/course-materials/${id}`
 }
 
 export const courseMaterialControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<courseMaterialControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const courseMaterialControllerFindOneV1 = async (id: number, options?: Re
 
 export const getCourseMaterialControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/course-materials/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/course-materials/${id}`
     ] as const;
     }
 
 export const getCourseMaterialControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/course-materials/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/course-materials/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getCourseMaterialControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/course-materials/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/course-materials/${id}`
 }
 
 export const courseMaterialControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getCourseMaterialControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/course-materials/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/course-materials/${id}`
 }
 
 export const courseMaterialControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<courseMaterialControllerRemoveV1Response> => {

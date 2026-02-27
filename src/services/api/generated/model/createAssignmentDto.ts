@@ -8,7 +8,7 @@
 import type { CreateAssignmentDtoDescription } from './createAssignmentDtoDescription';
 
 export interface CreateAssignmentDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   subjectId: number;
   title: string;

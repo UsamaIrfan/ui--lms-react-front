@@ -1,4 +1,8 @@
 import { defineConfig } from "orval";
+import { config } from "dotenv";
+
+// Load .env and .env.local so process.env picks up variables like NEXT_PUBLIC_ORVAL_API_URL
+config({ path: ".env" });
 
 export default defineConfig({
   api: {
@@ -11,7 +15,7 @@ export default defineConfig({
       schemas: "./src/services/api/generated/model",
       client: "react-query",
       httpClient: "fetch",
-      baseUrl: "http://localhost:3000",
+      baseUrl: process.env.NEXT_PUBLIC_ORVAL_API_URL || "http://localhost:3000",
       override: {
         mutator: {
           path: "./src/services/api/generated/custom-fetch.ts",

@@ -8,7 +8,7 @@
 import type { SalaryComponentDto } from './salaryComponentDto';
 
 export interface CreateSalaryStructureDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   staffId: number;
   name: string;

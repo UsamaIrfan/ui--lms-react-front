@@ -8,7 +8,7 @@
 import type { CheckInDtoRemarks } from './checkInDtoRemarks';
 
 export interface CheckInDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   /** Staff ID (from staff_mgmt) */
   staffId: number;

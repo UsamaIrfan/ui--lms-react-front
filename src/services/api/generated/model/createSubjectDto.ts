@@ -8,7 +8,7 @@
 import type { CreateSubjectDtoDescription } from './createSubjectDtoDescription';
 
 export interface CreateSubjectDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   departmentId: number;
   name: string;

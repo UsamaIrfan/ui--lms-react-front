@@ -7,7 +7,7 @@
  */
 
 export interface AssignBranchDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   roles: string[];
   isPrimary?: boolean;

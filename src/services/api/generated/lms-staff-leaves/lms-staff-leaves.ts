@@ -58,7 +58,7 @@ export const getStaffLeaveControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/staff-leaves`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/staff-leaves`
 }
 
 export const staffLeaveControllerCreateV1 = async (createStaffLeaveDto: CreateStaffLeaveDto, options?: RequestInit): Promise<staffLeaveControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getStaffLeaveControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/staff-leaves/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/staff-leaves/${id}`
 }
 
 export const staffLeaveControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<staffLeaveControllerFindOneV1Response> => {
@@ -154,13 +154,13 @@ export const staffLeaveControllerFindOneV1 = async (id: number, options?: Reques
 
 export const getStaffLeaveControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/staff-leaves/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/staff-leaves/${id}`
     ] as const;
     }
 
 export const getStaffLeaveControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/staff-leaves/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/staff-leaves/${id}`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getStaffLeaveControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/staff-leaves/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/staff-leaves/${id}`
 }
 
 export const staffLeaveControllerUpdateV1 = async (id: number,
@@ -383,7 +383,7 @@ export const getStaffLeaveControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/staff-leaves/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/staff-leaves/${id}`
 }
 
 export const staffLeaveControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<staffLeaveControllerRemoveV1Response> => {

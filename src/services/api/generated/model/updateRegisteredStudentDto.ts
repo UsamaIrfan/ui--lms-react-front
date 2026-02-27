@@ -6,18 +6,26 @@
  * OpenAPI spec version: 1.0
  */
 import type { UpdateRegisteredStudentDtoAddress } from './updateRegisteredStudentDtoAddress';
+import type { UpdateRegisteredStudentDtoAdmissionDate } from './updateRegisteredStudentDtoAdmissionDate';
 import type { UpdateRegisteredStudentDtoBloodGroup } from './updateRegisteredStudentDtoBloodGroup';
 import type { UpdateRegisteredStudentDtoCity } from './updateRegisteredStudentDtoCity';
 import type { UpdateRegisteredStudentDtoDateOfBirth } from './updateRegisteredStudentDtoDateOfBirth';
+import type { UpdateRegisteredStudentDtoEmergencyContactName } from './updateRegisteredStudentDtoEmergencyContactName';
+import type { UpdateRegisteredStudentDtoEmergencyContactPhone } from './updateRegisteredStudentDtoEmergencyContactPhone';
+import type { UpdateRegisteredStudentDtoEmergencyContactRelation } from './updateRegisteredStudentDtoEmergencyContactRelation';
 import type { UpdateRegisteredStudentDtoGender } from './updateRegisteredStudentDtoGender';
 import type { UpdateRegisteredStudentDtoGuardianEmail } from './updateRegisteredStudentDtoGuardianEmail';
 import type { UpdateRegisteredStudentDtoGuardianName } from './updateRegisteredStudentDtoGuardianName';
 import type { UpdateRegisteredStudentDtoGuardianPhone } from './updateRegisteredStudentDtoGuardianPhone';
 import type { UpdateRegisteredStudentDtoGuardianRelation } from './updateRegisteredStudentDtoGuardianRelation';
 import type { UpdateRegisteredStudentDtoNationality } from './updateRegisteredStudentDtoNationality';
+import type { UpdateRegisteredStudentDtoPhone } from './updateRegisteredStudentDtoPhone';
 import type { UpdateRegisteredStudentDtoReligion } from './updateRegisteredStudentDtoReligion';
 
 export interface UpdateRegisteredStudentDto {
+  firstName?: string;
+  lastName?: string;
+  phone?: UpdateRegisteredStudentDtoPhone;
   address?: UpdateRegisteredStudentDtoAddress;
   city?: UpdateRegisteredStudentDtoCity;
   gender?: UpdateRegisteredStudentDtoGender;
@@ -29,4 +37,14 @@ export interface UpdateRegisteredStudentDto {
   guardianEmail?: UpdateRegisteredStudentDtoGuardianEmail;
   guardianRelation?: UpdateRegisteredStudentDtoGuardianRelation;
   dateOfBirth?: UpdateRegisteredStudentDtoDateOfBirth;
+  admissionDate?: UpdateRegisteredStudentDtoAdmissionDate;
+  /** Institution ID */
+  institutionId?: number;
+  /** Section ID — updates active enrollment */
+  sectionId?: number;
+  /** Academic Year ID — updates active enrollment */
+  academicYearId?: number;
+  emergencyContactName?: UpdateRegisteredStudentDtoEmergencyContactName;
+  emergencyContactPhone?: UpdateRegisteredStudentDtoEmergencyContactPhone;
+  emergencyContactRelation?: UpdateRegisteredStudentDtoEmergencyContactRelation;
 }

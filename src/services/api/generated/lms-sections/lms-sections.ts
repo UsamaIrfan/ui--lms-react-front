@@ -59,7 +59,7 @@ export const getSectionControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/sections`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/sections`
 }
 
 export const sectionControllerCreateV1 = async (createSectionDto: CreateSectionDto, options?: RequestInit): Promise<sectionControllerCreateV1Response> => {
@@ -135,7 +135,7 @@ export const getSectionControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/sections`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/sections`
 }
 
 export const sectionControllerFindAllV1 = async ( options?: RequestInit): Promise<sectionControllerFindAllV1Response> => {
@@ -155,13 +155,13 @@ export const sectionControllerFindAllV1 = async ( options?: RequestInit): Promis
 
 export const getSectionControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/sections`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/sections`
     ] as const;
     }
 
 export const getSectionControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/sections`
+    `https://multivendor-updated.vercel.app/api/v1/lms/sections`
     ] as const;
     }
 
@@ -307,7 +307,7 @@ export const getSectionControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/sections/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/sections/${id}`
 }
 
 export const sectionControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<sectionControllerFindOneV1Response> => {
@@ -327,13 +327,13 @@ export const sectionControllerFindOneV1 = async (id: number, options?: RequestIn
 
 export const getSectionControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/sections/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/sections/${id}`
     ] as const;
     }
 
 export const getSectionControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/sections/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/sections/${id}`
     ] as const;
     }
 
@@ -479,7 +479,7 @@ export const getSectionControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/sections/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/sections/${id}`
 }
 
 export const sectionControllerUpdateV1 = async (id: number,
@@ -556,7 +556,7 @@ export const getSectionControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/sections/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/sections/${id}`
 }
 
 export const sectionControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<sectionControllerRemoveV1Response> => {

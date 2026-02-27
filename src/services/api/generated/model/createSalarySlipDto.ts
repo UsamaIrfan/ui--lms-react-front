@@ -10,7 +10,7 @@ import type { CreateSalarySlipDtoRemarks } from './createSalarySlipDtoRemarks';
 import type { CreateSalarySlipDtoStatus } from './createSalarySlipDtoStatus';
 
 export interface CreateSalarySlipDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   staffId: number;
   /** Month (1-12) */

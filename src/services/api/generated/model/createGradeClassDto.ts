@@ -9,7 +9,7 @@ import type { CreateGradeClassDtoDescription } from './createGradeClassDtoDescri
 import type { CreateGradeClassDtoNumericGrade } from './createGradeClassDtoNumericGrade';
 
 export interface CreateGradeClassDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   institutionId: number;
   name: string;

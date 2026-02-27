@@ -7,7 +7,7 @@
  */
 
 export type TimetablesControllerCheckConflictsV1Params = {
-teacherId: string;
+teacherId: number;
 dayOfWeek: number;
 startTime: string;
 endTime: string;

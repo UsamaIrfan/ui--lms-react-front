@@ -19,7 +19,7 @@ import type { CreateStudentDtoNationality } from './createStudentDtoNationality'
 import type { CreateStudentDtoReligion } from './createStudentDtoReligion';
 
 export interface CreateStudentDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   userId: number;
   institutionId: number;

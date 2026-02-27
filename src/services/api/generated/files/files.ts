@@ -44,7 +44,7 @@ export const getFilesVercelBlobControllerUploadFileV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/files/upload`
+  return `https://multivendor-updated.vercel.app/api/v1/files/upload`
 }
 
 export const filesVercelBlobControllerUploadFileV1 = async (filesVercelBlobControllerUploadFileV1Body: FilesVercelBlobControllerUploadFileV1Body, options?: RequestInit): Promise<filesVercelBlobControllerUploadFileV1Response> => {

@@ -69,7 +69,7 @@ export const getPortalsControllerGetStudentDashboardV1Url = (params?: PortalsCon
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/portals/student/dashboard?${stringifiedParams}` : `http://localhost:3000/api/v1/portals/student/dashboard`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/portals/student/dashboard?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/portals/student/dashboard`
 }
 
 export const portalsControllerGetStudentDashboardV1 = async (params?: PortalsControllerGetStudentDashboardV1Params, options?: RequestInit): Promise<portalsControllerGetStudentDashboardV1Response> => {
@@ -89,13 +89,13 @@ export const portalsControllerGetStudentDashboardV1 = async (params?: PortalsCon
 
 export const getPortalsControllerGetStudentDashboardV1InfiniteQueryKey = (params?: PortalsControllerGetStudentDashboardV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/portals/student/dashboard`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/portals/student/dashboard`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getPortalsControllerGetStudentDashboardV1QueryKey = (params?: PortalsControllerGetStudentDashboardV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/portals/student/dashboard`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/portals/student/dashboard`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -248,7 +248,7 @@ export const getPortalsControllerGetStaffDashboardV1Url = (params?: PortalsContr
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/portals/staff/dashboard?${stringifiedParams}` : `http://localhost:3000/api/v1/portals/staff/dashboard`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/portals/staff/dashboard?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/portals/staff/dashboard`
 }
 
 export const portalsControllerGetStaffDashboardV1 = async (params?: PortalsControllerGetStaffDashboardV1Params, options?: RequestInit): Promise<portalsControllerGetStaffDashboardV1Response> => {
@@ -268,13 +268,13 @@ export const portalsControllerGetStaffDashboardV1 = async (params?: PortalsContr
 
 export const getPortalsControllerGetStaffDashboardV1InfiniteQueryKey = (params?: PortalsControllerGetStaffDashboardV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/portals/staff/dashboard`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/portals/staff/dashboard`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getPortalsControllerGetStaffDashboardV1QueryKey = (params?: PortalsControllerGetStaffDashboardV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/portals/staff/dashboard`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/portals/staff/dashboard`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -420,7 +420,7 @@ export const getPortalsControllerSwitchBranchV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/portals/switch-branch`
+  return `https://multivendor-updated.vercel.app/api/v1/portals/switch-branch`
 }
 
 export const portalsControllerSwitchBranchV1 = async (switchBranchDto: SwitchBranchDto, options?: RequestInit): Promise<portalsControllerSwitchBranchV1Response> => {

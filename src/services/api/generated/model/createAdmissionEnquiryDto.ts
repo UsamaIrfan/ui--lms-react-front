@@ -17,7 +17,7 @@ import type { CreateAdmissionEnquiryDtoSource } from './createAdmissionEnquiryDt
 import type { CreateAdmissionEnquiryDtoStatus } from './createAdmissionEnquiryDtoStatus';
 
 export interface CreateAdmissionEnquiryDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   institutionId: number;
   studentName: string;

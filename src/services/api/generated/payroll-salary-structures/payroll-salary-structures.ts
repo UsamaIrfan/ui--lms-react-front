@@ -59,7 +59,7 @@ export const getSalaryStructureControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/payroll/structures`
+  return `https://multivendor-updated.vercel.app/api/v1/payroll/structures`
 }
 
 export const salaryStructureControllerCreateV1 = async (createSalaryStructureDto: CreateSalaryStructureDto, options?: RequestInit): Promise<salaryStructureControllerCreateV1Response> => {
@@ -135,7 +135,7 @@ export const getSalaryStructureControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/payroll/structures`
+  return `https://multivendor-updated.vercel.app/api/v1/payroll/structures`
 }
 
 export const salaryStructureControllerFindAllV1 = async ( options?: RequestInit): Promise<salaryStructureControllerFindAllV1Response> => {
@@ -155,13 +155,13 @@ export const salaryStructureControllerFindAllV1 = async ( options?: RequestInit)
 
 export const getSalaryStructureControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/payroll/structures`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/payroll/structures`
     ] as const;
     }
 
 export const getSalaryStructureControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/payroll/structures`
+    `https://multivendor-updated.vercel.app/api/v1/payroll/structures`
     ] as const;
     }
 
@@ -307,7 +307,7 @@ export const getSalaryStructureControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/payroll/structures/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/payroll/structures/${id}`
 }
 
 export const salaryStructureControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<salaryStructureControllerFindOneV1Response> => {
@@ -327,13 +327,13 @@ export const salaryStructureControllerFindOneV1 = async (id: number, options?: R
 
 export const getSalaryStructureControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/payroll/structures/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/payroll/structures/${id}`
     ] as const;
     }
 
 export const getSalaryStructureControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/payroll/structures/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/payroll/structures/${id}`
     ] as const;
     }
 
@@ -479,7 +479,7 @@ export const getSalaryStructureControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/payroll/structures/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/payroll/structures/${id}`
 }
 
 export const salaryStructureControllerUpdateV1 = async (id: number,
@@ -556,7 +556,7 @@ export const getSalaryStructureControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/payroll/structures/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/payroll/structures/${id}`
 }
 
 export const salaryStructureControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<salaryStructureControllerRemoveV1Response> => {

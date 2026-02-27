@@ -7,7 +7,7 @@
  */
 
 export interface TransferBranchDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   fromBranchId: string;
   toBranchId: string;

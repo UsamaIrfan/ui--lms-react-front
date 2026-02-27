@@ -57,7 +57,7 @@ export const getSubmissionsControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/submissions/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/submissions/${id}`
 }
 
 export const submissionsControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<submissionsControllerFindOneV1Response> => {
@@ -77,13 +77,13 @@ export const submissionsControllerFindOneV1 = async (id: number, options?: Reque
 
 export const getSubmissionsControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/materials/submissions/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/materials/submissions/${id}`
     ] as const;
     }
 
 export const getSubmissionsControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/materials/submissions/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/materials/submissions/${id}`
     ] as const;
     }
 
@@ -229,7 +229,7 @@ export const getSubmissionsControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/materials/submissions/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/materials/submissions/${id}`
 }
 
 export const submissionsControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<submissionsControllerRemoveV1Response> => {

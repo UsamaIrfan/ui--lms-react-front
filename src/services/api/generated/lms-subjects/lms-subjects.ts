@@ -59,7 +59,7 @@ export const getSubjectControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/subjects`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/subjects`
 }
 
 export const subjectControllerCreateV1 = async (createSubjectDto: CreateSubjectDto, options?: RequestInit): Promise<subjectControllerCreateV1Response> => {
@@ -135,7 +135,7 @@ export const getSubjectControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/subjects`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/subjects`
 }
 
 export const subjectControllerFindAllV1 = async ( options?: RequestInit): Promise<subjectControllerFindAllV1Response> => {
@@ -155,13 +155,13 @@ export const subjectControllerFindAllV1 = async ( options?: RequestInit): Promis
 
 export const getSubjectControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/subjects`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/subjects`
     ] as const;
     }
 
 export const getSubjectControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/subjects`
+    `https://multivendor-updated.vercel.app/api/v1/lms/subjects`
     ] as const;
     }
 
@@ -307,7 +307,7 @@ export const getSubjectControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/subjects/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/subjects/${id}`
 }
 
 export const subjectControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<subjectControllerFindOneV1Response> => {
@@ -327,13 +327,13 @@ export const subjectControllerFindOneV1 = async (id: number, options?: RequestIn
 
 export const getSubjectControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/subjects/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/subjects/${id}`
     ] as const;
     }
 
 export const getSubjectControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/subjects/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/subjects/${id}`
     ] as const;
     }
 
@@ -479,7 +479,7 @@ export const getSubjectControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/subjects/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/subjects/${id}`
 }
 
 export const subjectControllerUpdateV1 = async (id: number,
@@ -556,7 +556,7 @@ export const getSubjectControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/subjects/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/subjects/${id}`
 }
 
 export const subjectControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<subjectControllerRemoveV1Response> => {

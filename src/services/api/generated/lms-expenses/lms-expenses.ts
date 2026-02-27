@@ -58,7 +58,7 @@ export const getExpenseControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/expenses`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/expenses`
 }
 
 export const expenseControllerCreateV1 = async (createExpenseDto: CreateExpenseDto, options?: RequestInit): Promise<expenseControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getExpenseControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/expenses`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/expenses`
 }
 
 export const expenseControllerFindAllV1 = async ( options?: RequestInit): Promise<expenseControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const expenseControllerFindAllV1 = async ( options?: RequestInit): Promis
 
 export const getExpenseControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/expenses`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/expenses`
     ] as const;
     }
 
 export const getExpenseControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/expenses`
+    `https://multivendor-updated.vercel.app/api/v1/lms/expenses`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getExpenseControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/expenses/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/expenses/${id}`
 }
 
 export const expenseControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<expenseControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const expenseControllerFindOneV1 = async (id: number, options?: RequestIn
 
 export const getExpenseControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/expenses/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/expenses/${id}`
     ] as const;
     }
 
 export const getExpenseControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/expenses/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/expenses/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getExpenseControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/expenses/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/expenses/${id}`
 }
 
 export const expenseControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getExpenseControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/expenses/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/expenses/${id}`
 }
 
 export const expenseControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<expenseControllerRemoveV1Response> => {

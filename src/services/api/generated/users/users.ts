@@ -61,7 +61,7 @@ export const getUsersControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/users`
+  return `https://multivendor-updated.vercel.app/api/v1/users`
 }
 
 export const usersControllerCreateV1 = async (createUserDto: CreateUserDto, options?: RequestInit): Promise<usersControllerCreateV1Response> => {
@@ -144,7 +144,7 @@ export const getUsersControllerFindAllV1Url = (params?: UsersControllerFindAllV1
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/users?${stringifiedParams}` : `http://localhost:3000/api/v1/users`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/users?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/users`
 }
 
 export const usersControllerFindAllV1 = async (params?: UsersControllerFindAllV1Params, options?: RequestInit): Promise<usersControllerFindAllV1Response> => {
@@ -164,13 +164,13 @@ export const usersControllerFindAllV1 = async (params?: UsersControllerFindAllV1
 
 export const getUsersControllerFindAllV1InfiniteQueryKey = (params?: UsersControllerFindAllV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/users`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/users`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getUsersControllerFindAllV1QueryKey = (params?: UsersControllerFindAllV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/users`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/users`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -316,7 +316,7 @@ export const getUsersControllerFindOneV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/users/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/users/${id}`
 }
 
 export const usersControllerFindOneV1 = async (id: string, options?: RequestInit): Promise<usersControllerFindOneV1Response> => {
@@ -336,13 +336,13 @@ export const usersControllerFindOneV1 = async (id: string, options?: RequestInit
 
 export const getUsersControllerFindOneV1InfiniteQueryKey = (id: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/users/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/users/${id}`
     ] as const;
     }
 
 export const getUsersControllerFindOneV1QueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/api/v1/users/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/users/${id}`
     ] as const;
     }
 
@@ -488,7 +488,7 @@ export const getUsersControllerUpdateV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/users/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/users/${id}`
 }
 
 export const usersControllerUpdateV1 = async (id: string,
@@ -565,7 +565,7 @@ export const getUsersControllerRemoveV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/users/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/users/${id}`
 }
 
 export const usersControllerRemoveV1 = async (id: string, options?: RequestInit): Promise<usersControllerRemoveV1Response> => {

@@ -5,6 +5,7 @@
  * API docs
  * OpenAPI spec version: 1.0
  */
+import type { DashboardFeeSummaryNextDueAmount } from './dashboardFeeSummaryNextDueAmount';
 import type { DashboardFeeSummaryNextDueDate } from './dashboardFeeSummaryNextDueDate';
 
 export interface DashboardFeeSummary {
@@ -12,4 +13,5 @@ export interface DashboardFeeSummary {
   paidAmount: number;
   pendingAmount: number;
   nextDueDate?: DashboardFeeSummaryNextDueDate;
+  nextDueAmount?: DashboardFeeSummaryNextDueAmount;
 }

@@ -58,7 +58,7 @@ export const getSalarySlipControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/salary-slips`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/salary-slips`
 }
 
 export const salarySlipControllerCreateV1 = async (createSalarySlipDto: CreateSalarySlipDto, options?: RequestInit): Promise<salarySlipControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getSalarySlipControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/salary-slips`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/salary-slips`
 }
 
 export const salarySlipControllerFindAllV1 = async ( options?: RequestInit): Promise<salarySlipControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const salarySlipControllerFindAllV1 = async ( options?: RequestInit): Pro
 
 export const getSalarySlipControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/salary-slips`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/salary-slips`
     ] as const;
     }
 
 export const getSalarySlipControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/salary-slips`
+    `https://multivendor-updated.vercel.app/api/v1/lms/salary-slips`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getSalarySlipControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/salary-slips/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/salary-slips/${id}`
 }
 
 export const salarySlipControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<salarySlipControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const salarySlipControllerFindOneV1 = async (id: number, options?: Reques
 
 export const getSalarySlipControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/salary-slips/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/salary-slips/${id}`
     ] as const;
     }
 
 export const getSalarySlipControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/salary-slips/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/salary-slips/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getSalarySlipControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/salary-slips/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/salary-slips/${id}`
 }
 
 export const salarySlipControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getSalarySlipControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/salary-slips/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/salary-slips/${id}`
 }
 
 export const salarySlipControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<salarySlipControllerRemoveV1Response> => {

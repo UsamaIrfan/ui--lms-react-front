@@ -10,7 +10,7 @@ import type { CreateLeaveRequestDtoApprovedById } from './createLeaveRequestDtoA
 import type { CreateLeaveRequestDtoStatus } from './createLeaveRequestDtoStatus';
 
 export interface CreateLeaveRequestDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   studentId: number;
   fromDate: string;

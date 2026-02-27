@@ -59,7 +59,7 @@ export const getInstitutionControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/institutions`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/institutions`
 }
 
 export const institutionControllerCreateV1 = async (createInstitutionDto: CreateInstitutionDto, options?: RequestInit): Promise<institutionControllerCreateV1Response> => {
@@ -135,7 +135,7 @@ export const getInstitutionControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/institutions`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/institutions`
 }
 
 export const institutionControllerFindAllV1 = async ( options?: RequestInit): Promise<institutionControllerFindAllV1Response> => {
@@ -155,13 +155,13 @@ export const institutionControllerFindAllV1 = async ( options?: RequestInit): Pr
 
 export const getInstitutionControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/institutions`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/institutions`
     ] as const;
     }
 
 export const getInstitutionControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/institutions`
+    `https://multivendor-updated.vercel.app/api/v1/lms/institutions`
     ] as const;
     }
 
@@ -307,7 +307,7 @@ export const getInstitutionControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/institutions/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/institutions/${id}`
 }
 
 export const institutionControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<institutionControllerFindOneV1Response> => {
@@ -327,13 +327,13 @@ export const institutionControllerFindOneV1 = async (id: number, options?: Reque
 
 export const getInstitutionControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/institutions/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/institutions/${id}`
     ] as const;
     }
 
 export const getInstitutionControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/institutions/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/institutions/${id}`
     ] as const;
     }
 
@@ -479,7 +479,7 @@ export const getInstitutionControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/institutions/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/institutions/${id}`
 }
 
 export const institutionControllerUpdateV1 = async (id: number,
@@ -556,7 +556,7 @@ export const getInstitutionControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/institutions/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/institutions/${id}`
 }
 
 export const institutionControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<institutionControllerRemoveV1Response> => {

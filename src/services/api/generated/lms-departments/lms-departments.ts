@@ -59,7 +59,7 @@ export const getDepartmentControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/departments`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/departments`
 }
 
 export const departmentControllerCreateV1 = async (createDepartmentDto: CreateDepartmentDto, options?: RequestInit): Promise<departmentControllerCreateV1Response> => {
@@ -135,7 +135,7 @@ export const getDepartmentControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/departments`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/departments`
 }
 
 export const departmentControllerFindAllV1 = async ( options?: RequestInit): Promise<departmentControllerFindAllV1Response> => {
@@ -155,13 +155,13 @@ export const departmentControllerFindAllV1 = async ( options?: RequestInit): Pro
 
 export const getDepartmentControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/departments`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/departments`
     ] as const;
     }
 
 export const getDepartmentControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/departments`
+    `https://multivendor-updated.vercel.app/api/v1/lms/departments`
     ] as const;
     }
 
@@ -307,7 +307,7 @@ export const getDepartmentControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/departments/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/departments/${id}`
 }
 
 export const departmentControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<departmentControllerFindOneV1Response> => {
@@ -327,13 +327,13 @@ export const departmentControllerFindOneV1 = async (id: number, options?: Reques
 
 export const getDepartmentControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/departments/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/departments/${id}`
     ] as const;
     }
 
 export const getDepartmentControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/departments/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/departments/${id}`
     ] as const;
     }
 
@@ -479,7 +479,7 @@ export const getDepartmentControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/departments/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/departments/${id}`
 }
 
 export const departmentControllerUpdateV1 = async (id: number,
@@ -556,7 +556,7 @@ export const getDepartmentControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/departments/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/departments/${id}`
 }
 
 export const departmentControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<departmentControllerRemoveV1Response> => {

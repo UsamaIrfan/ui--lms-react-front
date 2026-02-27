@@ -67,7 +67,7 @@ export const getAttendanceControllerMarkV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/attendance/mark`
+  return `https://multivendor-updated.vercel.app/api/v1/attendance/mark`
 }
 
 export const attendanceControllerMarkV1 = async (markAttendanceDto: MarkAttendanceDto, options?: RequestInit): Promise<attendanceControllerMarkV1Response> => {
@@ -143,7 +143,7 @@ export const getAttendanceControllerBulkV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/attendance/bulk`
+  return `https://multivendor-updated.vercel.app/api/v1/attendance/bulk`
 }
 
 export const attendanceControllerBulkV1 = async (bulkAttendanceDto: BulkAttendanceDto, options?: RequestInit): Promise<attendanceControllerBulkV1Response> => {
@@ -226,7 +226,7 @@ export const getAttendanceControllerQueryV1Url = (params?: AttendanceControllerQ
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/attendance?${stringifiedParams}` : `http://localhost:3000/api/v1/attendance`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/attendance?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/attendance`
 }
 
 export const attendanceControllerQueryV1 = async (params?: AttendanceControllerQueryV1Params, options?: RequestInit): Promise<attendanceControllerQueryV1Response> => {
@@ -246,13 +246,13 @@ export const attendanceControllerQueryV1 = async (params?: AttendanceControllerQ
 
 export const getAttendanceControllerQueryV1InfiniteQueryKey = (params?: AttendanceControllerQueryV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/attendance`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/attendance`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getAttendanceControllerQueryV1QueryKey = (params?: AttendanceControllerQueryV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/attendance`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/attendance`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -405,7 +405,7 @@ export const getAttendanceControllerSummaryV1Url = (params: AttendanceController
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/attendance/reports/summary?${stringifiedParams}` : `http://localhost:3000/api/v1/attendance/reports/summary`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/attendance/reports/summary?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/attendance/reports/summary`
 }
 
 export const attendanceControllerSummaryV1 = async (params: AttendanceControllerSummaryV1Params, options?: RequestInit): Promise<attendanceControllerSummaryV1Response> => {
@@ -425,13 +425,13 @@ export const attendanceControllerSummaryV1 = async (params: AttendanceController
 
 export const getAttendanceControllerSummaryV1InfiniteQueryKey = (params?: AttendanceControllerSummaryV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/attendance/reports/summary`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/attendance/reports/summary`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getAttendanceControllerSummaryV1QueryKey = (params?: AttendanceControllerSummaryV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/attendance/reports/summary`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/attendance/reports/summary`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -584,7 +584,7 @@ export const getAttendanceControllerDetailedV1Url = (params: AttendanceControlle
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/attendance/reports/detailed?${stringifiedParams}` : `http://localhost:3000/api/v1/attendance/reports/detailed`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/attendance/reports/detailed?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/attendance/reports/detailed`
 }
 
 export const attendanceControllerDetailedV1 = async (params: AttendanceControllerDetailedV1Params, options?: RequestInit): Promise<attendanceControllerDetailedV1Response> => {
@@ -604,13 +604,13 @@ export const attendanceControllerDetailedV1 = async (params: AttendanceControlle
 
 export const getAttendanceControllerDetailedV1InfiniteQueryKey = (params?: AttendanceControllerDetailedV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/attendance/reports/detailed`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/attendance/reports/detailed`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getAttendanceControllerDetailedV1QueryKey = (params?: AttendanceControllerDetailedV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/attendance/reports/detailed`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/attendance/reports/detailed`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -763,7 +763,7 @@ export const getAttendanceControllerAlertsV1Url = (params?: AttendanceController
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/attendance/alerts?${stringifiedParams}` : `http://localhost:3000/api/v1/attendance/alerts`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/attendance/alerts?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/attendance/alerts`
 }
 
 export const attendanceControllerAlertsV1 = async (params?: AttendanceControllerAlertsV1Params, options?: RequestInit): Promise<attendanceControllerAlertsV1Response> => {
@@ -783,13 +783,13 @@ export const attendanceControllerAlertsV1 = async (params?: AttendanceController
 
 export const getAttendanceControllerAlertsV1InfiniteQueryKey = (params?: AttendanceControllerAlertsV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/attendance/alerts`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/attendance/alerts`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getAttendanceControllerAlertsV1QueryKey = (params?: AttendanceControllerAlertsV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/attendance/alerts`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/attendance/alerts`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -935,7 +935,7 @@ export const getAttendanceControllerApplyLeaveV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/attendance/leaves`
+  return `https://multivendor-updated.vercel.app/api/v1/attendance/leaves`
 }
 
 export const attendanceControllerApplyLeaveV1 = async (applyLeaveDto: ApplyLeaveDto, options?: RequestInit): Promise<attendanceControllerApplyLeaveV1Response> => {
@@ -1019,7 +1019,7 @@ export const getAttendanceControllerApproveV1Url = (id: number,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/attendance/leaves/${id}/approve?${stringifiedParams}` : `http://localhost:3000/api/v1/attendance/leaves/${id}/approve`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/attendance/leaves/${id}/approve?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/attendance/leaves/${id}/approve`
 }
 
 export const attendanceControllerApproveV1 = async (id: number,
@@ -1105,7 +1105,7 @@ export const getAttendanceControllerRejectV1Url = (id: number,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/attendance/leaves/${id}/reject?${stringifiedParams}` : `http://localhost:3000/api/v1/attendance/leaves/${id}/reject`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/attendance/leaves/${id}/reject?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/attendance/leaves/${id}/reject`
 }
 
 export const attendanceControllerRejectV1 = async (id: number,

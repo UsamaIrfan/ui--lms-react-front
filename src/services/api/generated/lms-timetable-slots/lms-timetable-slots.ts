@@ -58,7 +58,7 @@ export const getTimetableSlotControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/timetable-slots`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/timetable-slots`
 }
 
 export const timetableSlotControllerCreateV1 = async (createTimetableSlotDto: CreateTimetableSlotDto, options?: RequestInit): Promise<timetableSlotControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getTimetableSlotControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/timetable-slots`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/timetable-slots`
 }
 
 export const timetableSlotControllerFindAllV1 = async ( options?: RequestInit): Promise<timetableSlotControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const timetableSlotControllerFindAllV1 = async ( options?: RequestInit): 
 
 export const getTimetableSlotControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/timetable-slots`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/timetable-slots`
     ] as const;
     }
 
 export const getTimetableSlotControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/timetable-slots`
+    `https://multivendor-updated.vercel.app/api/v1/lms/timetable-slots`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getTimetableSlotControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/timetable-slots/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/timetable-slots/${id}`
 }
 
 export const timetableSlotControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<timetableSlotControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const timetableSlotControllerFindOneV1 = async (id: number, options?: Req
 
 export const getTimetableSlotControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/timetable-slots/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/timetable-slots/${id}`
     ] as const;
     }
 
 export const getTimetableSlotControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/timetable-slots/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/timetable-slots/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getTimetableSlotControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/timetable-slots/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/timetable-slots/${id}`
 }
 
 export const timetableSlotControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getTimetableSlotControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/timetable-slots/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/timetable-slots/${id}`
 }
 
 export const timetableSlotControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<timetableSlotControllerRemoveV1Response> => {

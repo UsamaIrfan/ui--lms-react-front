@@ -24,6 +24,10 @@ export interface RegisterStudentDto {
   institutionId: number;
   dateOfBirth: string;
   gender: RegisterStudentDtoGender;
+  /** Section ID — if provided with academicYearId, the student will be auto-enrolled */
+  sectionId?: number;
+  /** Academic Year ID — if provided with sectionId, the student will be auto-enrolled */
+  academicYearId?: number;
   guardianName: string;
   guardianPhone: string;
   guardianEmail?: RegisterStudentDtoGuardianEmail;

@@ -12,7 +12,7 @@ import type { CreateBranchExpenseDtoRemarks } from './createBranchExpenseDtoRema
 import type { CreateBranchExpenseDtoStatus } from './createBranchExpenseDtoStatus';
 
 export interface CreateBranchExpenseDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   /** Expense category */
   category: string;

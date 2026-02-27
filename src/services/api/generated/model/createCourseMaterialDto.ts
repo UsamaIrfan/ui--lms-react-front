@@ -12,7 +12,7 @@ import type { CreateCourseMaterialDtoType } from './createCourseMaterialDtoType'
 import type { CreateCourseMaterialDtoUploadedById } from './createCourseMaterialDtoUploadedById';
 
 export interface CreateCourseMaterialDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   subjectId: number;
   uploadedById?: CreateCourseMaterialDtoUploadedById;

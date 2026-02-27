@@ -9,7 +9,7 @@ import type { CreateStudentAttendanceDtoRemarks } from './createStudentAttendanc
 import type { CreateStudentAttendanceDtoStatus } from './createStudentAttendanceDtoStatus';
 
 export interface CreateStudentAttendanceDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   studentId: number;
   sectionId: number;

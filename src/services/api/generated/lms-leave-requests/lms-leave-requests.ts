@@ -58,7 +58,7 @@ export const getLeaveRequestControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/leave-requests`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/leave-requests`
 }
 
 export const leaveRequestControllerCreateV1 = async (createLeaveRequestDto: CreateLeaveRequestDto, options?: RequestInit): Promise<leaveRequestControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getLeaveRequestControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/leave-requests`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/leave-requests`
 }
 
 export const leaveRequestControllerFindAllV1 = async ( options?: RequestInit): Promise<leaveRequestControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const leaveRequestControllerFindAllV1 = async ( options?: RequestInit): P
 
 export const getLeaveRequestControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/leave-requests`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/leave-requests`
     ] as const;
     }
 
 export const getLeaveRequestControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/leave-requests`
+    `https://multivendor-updated.vercel.app/api/v1/lms/leave-requests`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getLeaveRequestControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/leave-requests/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/leave-requests/${id}`
 }
 
 export const leaveRequestControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<leaveRequestControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const leaveRequestControllerFindOneV1 = async (id: number, options?: Requ
 
 export const getLeaveRequestControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/leave-requests/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/leave-requests/${id}`
     ] as const;
     }
 
 export const getLeaveRequestControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/leave-requests/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/leave-requests/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getLeaveRequestControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/leave-requests/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/leave-requests/${id}`
 }
 
 export const leaveRequestControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getLeaveRequestControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/leave-requests/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/leave-requests/${id}`
 }
 
 export const leaveRequestControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<leaveRequestControllerRemoveV1Response> => {

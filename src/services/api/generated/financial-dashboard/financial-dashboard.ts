@@ -63,7 +63,7 @@ export const getFinancialDashboardControllerGetDashboardV1Url = (params?: Financ
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/financial-dashboard?${stringifiedParams}` : `http://localhost:3000/api/v1/financial-dashboard`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/financial-dashboard?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/financial-dashboard`
 }
 
 export const financialDashboardControllerGetDashboardV1 = async (params?: FinancialDashboardControllerGetDashboardV1Params, options?: RequestInit): Promise<financialDashboardControllerGetDashboardV1Response> => {
@@ -83,13 +83,13 @@ export const financialDashboardControllerGetDashboardV1 = async (params?: Financ
 
 export const getFinancialDashboardControllerGetDashboardV1InfiniteQueryKey = (params?: FinancialDashboardControllerGetDashboardV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/financial-dashboard`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/financial-dashboard`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getFinancialDashboardControllerGetDashboardV1QueryKey = (params?: FinancialDashboardControllerGetDashboardV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/financial-dashboard`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/financial-dashboard`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -242,7 +242,7 @@ export const getFinancialDashboardControllerGetProfitLossV1Url = (params?: Finan
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/financial-dashboard/profit-loss?${stringifiedParams}` : `http://localhost:3000/api/v1/financial-dashboard/profit-loss`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/profit-loss?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/profit-loss`
 }
 
 export const financialDashboardControllerGetProfitLossV1 = async (params?: FinancialDashboardControllerGetProfitLossV1Params, options?: RequestInit): Promise<financialDashboardControllerGetProfitLossV1Response> => {
@@ -262,13 +262,13 @@ export const financialDashboardControllerGetProfitLossV1 = async (params?: Finan
 
 export const getFinancialDashboardControllerGetProfitLossV1InfiniteQueryKey = (params?: FinancialDashboardControllerGetProfitLossV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/financial-dashboard/profit-loss`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/profit-loss`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getFinancialDashboardControllerGetProfitLossV1QueryKey = (params?: FinancialDashboardControllerGetProfitLossV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/financial-dashboard/profit-loss`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/profit-loss`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -421,7 +421,7 @@ export const getFinancialDashboardControllerGetBalanceSheetV1Url = (params?: Fin
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/financial-dashboard/balance-sheet?${stringifiedParams}` : `http://localhost:3000/api/v1/financial-dashboard/balance-sheet`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/balance-sheet?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/balance-sheet`
 }
 
 export const financialDashboardControllerGetBalanceSheetV1 = async (params?: FinancialDashboardControllerGetBalanceSheetV1Params, options?: RequestInit): Promise<financialDashboardControllerGetBalanceSheetV1Response> => {
@@ -441,13 +441,13 @@ export const financialDashboardControllerGetBalanceSheetV1 = async (params?: Fin
 
 export const getFinancialDashboardControllerGetBalanceSheetV1InfiniteQueryKey = (params?: FinancialDashboardControllerGetBalanceSheetV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/financial-dashboard/balance-sheet`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/balance-sheet`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getFinancialDashboardControllerGetBalanceSheetV1QueryKey = (params?: FinancialDashboardControllerGetBalanceSheetV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/financial-dashboard/balance-sheet`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/balance-sheet`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -600,7 +600,7 @@ export const getFinancialDashboardControllerGetCashFlowV1Url = (params?: Financi
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/financial-dashboard/cash-flow?${stringifiedParams}` : `http://localhost:3000/api/v1/financial-dashboard/cash-flow`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/cash-flow?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/cash-flow`
 }
 
 export const financialDashboardControllerGetCashFlowV1 = async (params?: FinancialDashboardControllerGetCashFlowV1Params, options?: RequestInit): Promise<financialDashboardControllerGetCashFlowV1Response> => {
@@ -620,13 +620,13 @@ export const financialDashboardControllerGetCashFlowV1 = async (params?: Financi
 
 export const getFinancialDashboardControllerGetCashFlowV1InfiniteQueryKey = (params?: FinancialDashboardControllerGetCashFlowV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/financial-dashboard/cash-flow`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/cash-flow`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getFinancialDashboardControllerGetCashFlowV1QueryKey = (params?: FinancialDashboardControllerGetCashFlowV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/financial-dashboard/cash-flow`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/financial-dashboard/cash-flow`, ...(params ? [params] : [])
     ] as const;
     }
 

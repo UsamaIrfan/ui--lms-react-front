@@ -58,7 +58,7 @@ export const getPayrollControllerProcessV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/payroll/process`
+  return `https://multivendor-updated.vercel.app/api/v1/payroll/process`
 }
 
 export const payrollControllerProcessV1 = async (processPayrollDto: ProcessPayrollDto, options?: RequestInit): Promise<payrollControllerProcessV1Response> => {
@@ -134,7 +134,7 @@ export const getPayrollControllerFindAllSlipsV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/payroll/slips`
+  return `https://multivendor-updated.vercel.app/api/v1/payroll/slips`
 }
 
 export const payrollControllerFindAllSlipsV1 = async ( options?: RequestInit): Promise<payrollControllerFindAllSlipsV1Response> => {
@@ -154,13 +154,13 @@ export const payrollControllerFindAllSlipsV1 = async ( options?: RequestInit): P
 
 export const getPayrollControllerFindAllSlipsV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/payroll/slips`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/payroll/slips`
     ] as const;
     }
 
 export const getPayrollControllerFindAllSlipsV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/payroll/slips`
+    `https://multivendor-updated.vercel.app/api/v1/payroll/slips`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getPayrollControllerFindOneSlipV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/payroll/slips/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/payroll/slips/${id}`
 }
 
 export const payrollControllerFindOneSlipV1 = async (id: number, options?: RequestInit): Promise<payrollControllerFindOneSlipV1Response> => {
@@ -326,13 +326,13 @@ export const payrollControllerFindOneSlipV1 = async (id: number, options?: Reque
 
 export const getPayrollControllerFindOneSlipV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/payroll/slips/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/payroll/slips/${id}`
     ] as const;
     }
 
 export const getPayrollControllerFindOneSlipV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/payroll/slips/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/payroll/slips/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getPayrollControllerGeneratePdfV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/payroll/slips/${id}/pdf`
+  return `https://multivendor-updated.vercel.app/api/v1/payroll/slips/${id}/pdf`
 }
 
 export const payrollControllerGeneratePdfV1 = async (id: number, options?: RequestInit): Promise<payrollControllerGeneratePdfV1Response> => {
@@ -498,13 +498,13 @@ export const payrollControllerGeneratePdfV1 = async (id: number, options?: Reque
 
 export const getPayrollControllerGeneratePdfV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/payroll/slips/${id}/pdf`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/payroll/slips/${id}/pdf`
     ] as const;
     }
 
 export const getPayrollControllerGeneratePdfV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/payroll/slips/${id}/pdf`
+    `https://multivendor-updated.vercel.app/api/v1/payroll/slips/${id}/pdf`
     ] as const;
     }
 

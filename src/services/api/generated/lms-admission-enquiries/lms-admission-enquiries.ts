@@ -58,7 +58,7 @@ export const getAdmissionEnquiryControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/admission-enquiries`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/admission-enquiries`
 }
 
 export const admissionEnquiryControllerCreateV1 = async (createAdmissionEnquiryDto: CreateAdmissionEnquiryDto, options?: RequestInit): Promise<admissionEnquiryControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getAdmissionEnquiryControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/admission-enquiries`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/admission-enquiries`
 }
 
 export const admissionEnquiryControllerFindAllV1 = async ( options?: RequestInit): Promise<admissionEnquiryControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const admissionEnquiryControllerFindAllV1 = async ( options?: RequestInit
 
 export const getAdmissionEnquiryControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/admission-enquiries`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/admission-enquiries`
     ] as const;
     }
 
 export const getAdmissionEnquiryControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/admission-enquiries`
+    `https://multivendor-updated.vercel.app/api/v1/lms/admission-enquiries`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getAdmissionEnquiryControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/admission-enquiries/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/admission-enquiries/${id}`
 }
 
 export const admissionEnquiryControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<admissionEnquiryControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const admissionEnquiryControllerFindOneV1 = async (id: number, options?: 
 
 export const getAdmissionEnquiryControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/admission-enquiries/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/admission-enquiries/${id}`
     ] as const;
     }
 
 export const getAdmissionEnquiryControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/admission-enquiries/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/admission-enquiries/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getAdmissionEnquiryControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/admission-enquiries/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/admission-enquiries/${id}`
 }
 
 export const admissionEnquiryControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getAdmissionEnquiryControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/admission-enquiries/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/admission-enquiries/${id}`
 }
 
 export const admissionEnquiryControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<admissionEnquiryControllerRemoveV1Response> => {

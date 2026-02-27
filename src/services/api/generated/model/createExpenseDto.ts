@@ -13,7 +13,7 @@ import type { CreateExpenseDtoSalarySlipId } from './createExpenseDtoSalarySlipI
 import type { CreateExpenseDtoStatus } from './createExpenseDtoStatus';
 
 export interface CreateExpenseDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   institutionId: number;
   salarySlipId?: CreateExpenseDtoSalarySlipId;

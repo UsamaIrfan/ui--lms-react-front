@@ -9,8 +9,8 @@ import type { AddPeriodDtoRoom } from './addPeriodDtoRoom';
 
 export interface AddPeriodDto {
   timetableId: string;
-  subjectId: string;
-  teacherId: string;
+  subjectId: number;
+  teacherId: number;
   /** 0=Sunday … 6=Saturday */
   dayOfWeek: number;
   startTime: string;

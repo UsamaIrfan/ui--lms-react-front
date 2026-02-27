@@ -60,7 +60,7 @@ export const getNoticesControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/notices`
+  return `https://multivendor-updated.vercel.app/api/v1/notices`
 }
 
 export const noticesControllerCreateV1 = async (createNoticeDto: CreateNoticeDto, options?: RequestInit): Promise<noticesControllerCreateV1Response> => {
@@ -136,7 +136,7 @@ export const getNoticesControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/notices`
+  return `https://multivendor-updated.vercel.app/api/v1/notices`
 }
 
 export const noticesControllerFindAllV1 = async ( options?: RequestInit): Promise<noticesControllerFindAllV1Response> => {
@@ -156,13 +156,13 @@ export const noticesControllerFindAllV1 = async ( options?: RequestInit): Promis
 
 export const getNoticesControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/notices`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/notices`
     ] as const;
     }
 
 export const getNoticesControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/notices`
+    `https://multivendor-updated.vercel.app/api/v1/notices`
     ] as const;
     }
 
@@ -315,7 +315,7 @@ export const getNoticesControllerGetMyNoticesV1Url = (params?: NoticesController
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/notices/my-notices?${stringifiedParams}` : `http://localhost:3000/api/v1/notices/my-notices`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/notices/my-notices?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/notices/my-notices`
 }
 
 export const noticesControllerGetMyNoticesV1 = async (params?: NoticesControllerGetMyNoticesV1Params, options?: RequestInit): Promise<noticesControllerGetMyNoticesV1Response> => {
@@ -335,13 +335,13 @@ export const noticesControllerGetMyNoticesV1 = async (params?: NoticesController
 
 export const getNoticesControllerGetMyNoticesV1InfiniteQueryKey = (params?: NoticesControllerGetMyNoticesV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/notices/my-notices`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/notices/my-notices`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getNoticesControllerGetMyNoticesV1QueryKey = (params?: NoticesControllerGetMyNoticesV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/notices/my-notices`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/notices/my-notices`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -487,7 +487,7 @@ export const getNoticesControllerFindByBranchV1Url = (branchId: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/notices/branch/${branchId}`
+  return `https://multivendor-updated.vercel.app/api/v1/notices/branch/${branchId}`
 }
 
 export const noticesControllerFindByBranchV1 = async (branchId: string, options?: RequestInit): Promise<noticesControllerFindByBranchV1Response> => {
@@ -507,13 +507,13 @@ export const noticesControllerFindByBranchV1 = async (branchId: string, options?
 
 export const getNoticesControllerFindByBranchV1InfiniteQueryKey = (branchId: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/notices/branch/${branchId}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/notices/branch/${branchId}`
     ] as const;
     }
 
 export const getNoticesControllerFindByBranchV1QueryKey = (branchId: string,) => {
     return [
-    `http://localhost:3000/api/v1/notices/branch/${branchId}`
+    `https://multivendor-updated.vercel.app/api/v1/notices/branch/${branchId}`
     ] as const;
     }
 
@@ -659,7 +659,7 @@ export const getNoticesControllerFindOneV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/notices/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/notices/${id}`
 }
 
 export const noticesControllerFindOneV1 = async (id: string, options?: RequestInit): Promise<noticesControllerFindOneV1Response> => {
@@ -679,13 +679,13 @@ export const noticesControllerFindOneV1 = async (id: string, options?: RequestIn
 
 export const getNoticesControllerFindOneV1InfiniteQueryKey = (id: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/notices/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/notices/${id}`
     ] as const;
     }
 
 export const getNoticesControllerFindOneV1QueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/api/v1/notices/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/notices/${id}`
     ] as const;
     }
 
@@ -831,7 +831,7 @@ export const getNoticesControllerUpdateV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/notices/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/notices/${id}`
 }
 
 export const noticesControllerUpdateV1 = async (id: string,
@@ -908,7 +908,7 @@ export const getNoticesControllerRemoveV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/notices/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/notices/${id}`
 }
 
 export const noticesControllerRemoveV1 = async (id: string, options?: RequestInit): Promise<noticesControllerRemoveV1Response> => {

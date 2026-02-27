@@ -63,7 +63,7 @@ export const getFeesControllerCreateStructureV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/structures`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/structures`
 }
 
 export const feesControllerCreateStructureV1 = async (createFeeStructureDto: CreateFeeStructureDto, options?: RequestInit): Promise<feesControllerCreateStructureV1Response> => {
@@ -139,7 +139,7 @@ export const getFeesControllerGetStructureV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/structures/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/structures/${id}`
 }
 
 export const feesControllerGetStructureV1 = async (id: number, options?: RequestInit): Promise<feesControllerGetStructureV1Response> => {
@@ -159,13 +159,13 @@ export const feesControllerGetStructureV1 = async (id: number, options?: Request
 
 export const getFeesControllerGetStructureV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/fees/structures/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/fees/structures/${id}`
     ] as const;
     }
 
 export const getFeesControllerGetStructureV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/fees/structures/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/fees/structures/${id}`
     ] as const;
     }
 
@@ -311,7 +311,7 @@ export const getFeesControllerGenerateChallanV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/challans/generate`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/challans/generate`
 }
 
 export const feesControllerGenerateChallanV1 = async (generateChallanDto: GenerateChallanDto, options?: RequestInit): Promise<feesControllerGenerateChallanV1Response> => {
@@ -387,7 +387,7 @@ export const getFeesControllerGenerateBulkChallansV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/challans/generate-bulk`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/challans/generate-bulk`
 }
 
 export const feesControllerGenerateBulkChallansV1 = async (generateBulkChallanDto: GenerateBulkChallanDto, options?: RequestInit): Promise<feesControllerGenerateBulkChallansV1Response> => {
@@ -463,7 +463,7 @@ export const getFeesControllerGetChallanV1Url = (challanNumber: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/challans/${challanNumber}`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/challans/${challanNumber}`
 }
 
 export const feesControllerGetChallanV1 = async (challanNumber: string, options?: RequestInit): Promise<feesControllerGetChallanV1Response> => {
@@ -483,13 +483,13 @@ export const feesControllerGetChallanV1 = async (challanNumber: string, options?
 
 export const getFeesControllerGetChallanV1InfiniteQueryKey = (challanNumber: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/fees/challans/${challanNumber}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/fees/challans/${challanNumber}`
     ] as const;
     }
 
 export const getFeesControllerGetChallanV1QueryKey = (challanNumber: string,) => {
     return [
-    `http://localhost:3000/api/v1/fees/challans/${challanNumber}`
+    `https://multivendor-updated.vercel.app/api/v1/fees/challans/${challanNumber}`
     ] as const;
     }
 
@@ -635,7 +635,7 @@ export const getFeesControllerRecordPaymentV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/payments`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/payments`
 }
 
 export const feesControllerRecordPaymentV1 = async (recordPaymentDto: RecordPaymentDto, options?: RequestInit): Promise<feesControllerRecordPaymentV1Response> => {
@@ -711,7 +711,7 @@ export const getFeesControllerVerifyPaymentV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/payments/${id}/verify`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/payments/${id}/verify`
 }
 
 export const feesControllerVerifyPaymentV1 = async (id: number, options?: RequestInit): Promise<feesControllerVerifyPaymentV1Response> => {
@@ -786,7 +786,7 @@ export const getFeesControllerApplyConcessionV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/concessions`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/concessions`
 }
 
 export const feesControllerApplyConcessionV1 = async (applyConcessionDto: ApplyConcessionDto, options?: RequestInit): Promise<feesControllerApplyConcessionV1Response> => {
@@ -862,7 +862,7 @@ export const getFeesControllerGetEffectiveConcessionV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/students/${id}/effective-concession`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/students/${id}/effective-concession`
 }
 
 export const feesControllerGetEffectiveConcessionV1 = async (id: number, options?: RequestInit): Promise<feesControllerGetEffectiveConcessionV1Response> => {
@@ -882,13 +882,13 @@ export const feesControllerGetEffectiveConcessionV1 = async (id: number, options
 
 export const getFeesControllerGetEffectiveConcessionV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/fees/students/${id}/effective-concession`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/fees/students/${id}/effective-concession`
     ] as const;
     }
 
 export const getFeesControllerGetEffectiveConcessionV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/fees/students/${id}/effective-concession`
+    `https://multivendor-updated.vercel.app/api/v1/fees/students/${id}/effective-concession`
     ] as const;
     }
 
@@ -1034,7 +1034,7 @@ export const getFeesControllerGetReceiptPdfV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/receipts/${id}/pdf`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/receipts/${id}/pdf`
 }
 
 export const feesControllerGetReceiptPdfV1 = async (id: number, options?: RequestInit): Promise<feesControllerGetReceiptPdfV1Response> => {
@@ -1054,13 +1054,13 @@ export const feesControllerGetReceiptPdfV1 = async (id: number, options?: Reques
 
 export const getFeesControllerGetReceiptPdfV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/fees/receipts/${id}/pdf`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/fees/receipts/${id}/pdf`
     ] as const;
     }
 
 export const getFeesControllerGetReceiptPdfV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/fees/receipts/${id}/pdf`
+    `https://multivendor-updated.vercel.app/api/v1/fees/receipts/${id}/pdf`
     ] as const;
     }
 
@@ -1213,7 +1213,7 @@ export const getFeesControllerGetCollectionReportV1Url = (params?: FeesControlle
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/fees/reports/collection?${stringifiedParams}` : `http://localhost:3000/api/v1/fees/reports/collection`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/fees/reports/collection?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/fees/reports/collection`
 }
 
 export const feesControllerGetCollectionReportV1 = async (params?: FeesControllerGetCollectionReportV1Params, options?: RequestInit): Promise<feesControllerGetCollectionReportV1Response> => {
@@ -1233,13 +1233,13 @@ export const feesControllerGetCollectionReportV1 = async (params?: FeesControlle
 
 export const getFeesControllerGetCollectionReportV1InfiniteQueryKey = (params?: FeesControllerGetCollectionReportV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/fees/reports/collection`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/fees/reports/collection`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getFeesControllerGetCollectionReportV1QueryKey = (params?: FeesControllerGetCollectionReportV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/fees/reports/collection`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/fees/reports/collection`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -1385,7 +1385,7 @@ export const getFeesControllerGetPendingReportV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/reports/pending`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/reports/pending`
 }
 
 export const feesControllerGetPendingReportV1 = async ( options?: RequestInit): Promise<feesControllerGetPendingReportV1Response> => {
@@ -1405,13 +1405,13 @@ export const feesControllerGetPendingReportV1 = async ( options?: RequestInit): 
 
 export const getFeesControllerGetPendingReportV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/fees/reports/pending`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/fees/reports/pending`
     ] as const;
     }
 
 export const getFeesControllerGetPendingReportV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/fees/reports/pending`
+    `https://multivendor-updated.vercel.app/api/v1/fees/reports/pending`
     ] as const;
     }
 
@@ -1557,7 +1557,7 @@ export const getFeesControllerGetDefaultersReportV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/reports/defaulters`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/reports/defaulters`
 }
 
 export const feesControllerGetDefaultersReportV1 = async ( options?: RequestInit): Promise<feesControllerGetDefaultersReportV1Response> => {
@@ -1577,13 +1577,13 @@ export const feesControllerGetDefaultersReportV1 = async ( options?: RequestInit
 
 export const getFeesControllerGetDefaultersReportV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/fees/reports/defaulters`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/fees/reports/defaulters`
     ] as const;
     }
 
 export const getFeesControllerGetDefaultersReportV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/fees/reports/defaulters`
+    `https://multivendor-updated.vercel.app/api/v1/fees/reports/defaulters`
     ] as const;
     }
 
@@ -1729,7 +1729,7 @@ export const getFeesControllerSendRemindersV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/send-reminders`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/send-reminders`
 }
 
 export const feesControllerSendRemindersV1 = async (sendRemindersDto: SendRemindersDto, options?: RequestInit): Promise<feesControllerSendRemindersV1Response> => {
@@ -1805,7 +1805,7 @@ export const getFeesControllerGetMyChallansV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/fees/my-challans`
+  return `https://multivendor-updated.vercel.app/api/v1/fees/my-challans`
 }
 
 export const feesControllerGetMyChallansV1 = async ( options?: RequestInit): Promise<feesControllerGetMyChallansV1Response> => {
@@ -1825,13 +1825,13 @@ export const feesControllerGetMyChallansV1 = async ( options?: RequestInit): Pro
 
 export const getFeesControllerGetMyChallansV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/fees/my-challans`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/fees/my-challans`
     ] as const;
     }
 
 export const getFeesControllerGetMyChallansV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/fees/my-challans`
+    `https://multivendor-updated.vercel.app/api/v1/fees/my-challans`
     ] as const;
     }
 

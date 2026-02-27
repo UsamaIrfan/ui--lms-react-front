@@ -58,7 +58,7 @@ export const getExamControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/exams`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/exams`
 }
 
 export const examControllerCreateV1 = async (createExamDto: CreateExamDto, options?: RequestInit): Promise<examControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getExamControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/exams`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/exams`
 }
 
 export const examControllerFindAllV1 = async ( options?: RequestInit): Promise<examControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const examControllerFindAllV1 = async ( options?: RequestInit): Promise<e
 
 export const getExamControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/exams`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/exams`
     ] as const;
     }
 
 export const getExamControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/exams`
+    `https://multivendor-updated.vercel.app/api/v1/lms/exams`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getExamControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/exams/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/exams/${id}`
 }
 
 export const examControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<examControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const examControllerFindOneV1 = async (id: number, options?: RequestInit)
 
 export const getExamControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/exams/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/exams/${id}`
     ] as const;
     }
 
 export const getExamControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/exams/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/exams/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getExamControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/exams/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/exams/${id}`
 }
 
 export const examControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getExamControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/exams/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/exams/${id}`
 }
 
 export const examControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<examControllerRemoveV1Response> => {

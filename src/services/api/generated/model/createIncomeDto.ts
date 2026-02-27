@@ -12,7 +12,7 @@ import type { CreateIncomeDtoReferenceNumber } from './createIncomeDtoReferenceN
 import type { CreateIncomeDtoRemarks } from './createIncomeDtoRemarks';
 
 export interface CreateIncomeDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   institutionId: number;
   feePaymentId?: CreateIncomeDtoFeePaymentId;

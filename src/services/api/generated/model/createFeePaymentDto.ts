@@ -12,7 +12,7 @@ import type { CreateFeePaymentDtoRemarks } from './createFeePaymentDtoRemarks';
 import type { CreateFeePaymentDtoTransactionRef } from './createFeePaymentDtoTransactionRef';
 
 export interface CreateFeePaymentDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   feeChallanId: number;
   amount: number;

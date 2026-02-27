@@ -8,7 +8,7 @@
 import type { ApplyStaffLeaveDtoLeaveType } from './applyStaffLeaveDtoLeaveType';
 
 export interface ApplyStaffLeaveDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   /** Staff ID (from staff_mgmt) */
   staffId: number;

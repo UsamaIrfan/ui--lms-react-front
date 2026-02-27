@@ -7,7 +7,7 @@
  */
 
 export interface CreateAcademicYearDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   institutionId: number;
   name: string;

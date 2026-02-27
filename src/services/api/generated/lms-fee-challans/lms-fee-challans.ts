@@ -58,7 +58,7 @@ export const getFeeChallanControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-challans`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-challans`
 }
 
 export const feeChallanControllerCreateV1 = async (createFeeChallanDto: CreateFeeChallanDto, options?: RequestInit): Promise<feeChallanControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getFeeChallanControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-challans`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-challans`
 }
 
 export const feeChallanControllerFindAllV1 = async ( options?: RequestInit): Promise<feeChallanControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const feeChallanControllerFindAllV1 = async ( options?: RequestInit): Pro
 
 export const getFeeChallanControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/fee-challans`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/fee-challans`
     ] as const;
     }
 
 export const getFeeChallanControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/fee-challans`
+    `https://multivendor-updated.vercel.app/api/v1/lms/fee-challans`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getFeeChallanControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-challans/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-challans/${id}`
 }
 
 export const feeChallanControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<feeChallanControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const feeChallanControllerFindOneV1 = async (id: number, options?: Reques
 
 export const getFeeChallanControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/fee-challans/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/fee-challans/${id}`
     ] as const;
     }
 
 export const getFeeChallanControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/fee-challans/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/fee-challans/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getFeeChallanControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-challans/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-challans/${id}`
 }
 
 export const feeChallanControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getFeeChallanControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-challans/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-challans/${id}`
 }
 
 export const feeChallanControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<feeChallanControllerRemoveV1Response> => {

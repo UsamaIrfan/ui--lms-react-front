@@ -60,7 +60,7 @@ export const getStaffAttendanceCheckControllerCheckInV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/staff/attendance/check-in`
+  return `https://multivendor-updated.vercel.app/api/v1/staff/attendance/check-in`
 }
 
 export const staffAttendanceCheckControllerCheckInV1 = async (checkInDto: CheckInDto, options?: RequestInit): Promise<staffAttendanceCheckControllerCheckInV1Response> => {
@@ -136,7 +136,7 @@ export const getStaffAttendanceCheckControllerCheckOutV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/staff/attendance/check-out`
+  return `https://multivendor-updated.vercel.app/api/v1/staff/attendance/check-out`
 }
 
 export const staffAttendanceCheckControllerCheckOutV1 = async (checkOutDto: CheckOutDto, options?: RequestInit): Promise<staffAttendanceCheckControllerCheckOutV1Response> => {
@@ -219,7 +219,7 @@ export const getStaffAttendanceCheckControllerGetReportsV1Url = (params?: StaffA
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/staff/attendance/reports?${stringifiedParams}` : `http://localhost:3000/api/v1/staff/attendance/reports`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/staff/attendance/reports?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/staff/attendance/reports`
 }
 
 export const staffAttendanceCheckControllerGetReportsV1 = async (params?: StaffAttendanceCheckControllerGetReportsV1Params, options?: RequestInit): Promise<staffAttendanceCheckControllerGetReportsV1Response> => {
@@ -239,13 +239,13 @@ export const staffAttendanceCheckControllerGetReportsV1 = async (params?: StaffA
 
 export const getStaffAttendanceCheckControllerGetReportsV1InfiniteQueryKey = (params?: StaffAttendanceCheckControllerGetReportsV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/staff/attendance/reports`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/staff/attendance/reports`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getStaffAttendanceCheckControllerGetReportsV1QueryKey = (params?: StaffAttendanceCheckControllerGetReportsV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/staff/attendance/reports`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/staff/attendance/reports`, ...(params ? [params] : [])
     ] as const;
     }
 

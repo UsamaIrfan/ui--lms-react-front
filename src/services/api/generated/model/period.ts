@@ -15,8 +15,8 @@ export interface Period {
   updatedAt: string;
   deletedAt?: string;
   timetableId: string;
-  subjectId: string;
-  teacherId: string;
+  subjectId: number;
+  teacherId: number;
   /** 0=Sunday, 1=Monday, ..., 6=Saturday */
   dayOfWeek: number;
   /** Start time in HH:mm */

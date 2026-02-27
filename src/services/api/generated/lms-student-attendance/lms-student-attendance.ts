@@ -58,7 +58,7 @@ export const getStudentAttendanceControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/student-attendance`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/student-attendance`
 }
 
 export const studentAttendanceControllerCreateV1 = async (createStudentAttendanceDto: CreateStudentAttendanceDto, options?: RequestInit): Promise<studentAttendanceControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getStudentAttendanceControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/student-attendance`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/student-attendance`
 }
 
 export const studentAttendanceControllerFindAllV1 = async ( options?: RequestInit): Promise<studentAttendanceControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const studentAttendanceControllerFindAllV1 = async ( options?: RequestIni
 
 export const getStudentAttendanceControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/student-attendance`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/student-attendance`
     ] as const;
     }
 
 export const getStudentAttendanceControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/student-attendance`
+    `https://multivendor-updated.vercel.app/api/v1/lms/student-attendance`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getStudentAttendanceControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/student-attendance/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/student-attendance/${id}`
 }
 
 export const studentAttendanceControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<studentAttendanceControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const studentAttendanceControllerFindOneV1 = async (id: number, options?:
 
 export const getStudentAttendanceControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/student-attendance/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/student-attendance/${id}`
     ] as const;
     }
 
 export const getStudentAttendanceControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/student-attendance/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/student-attendance/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getStudentAttendanceControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/student-attendance/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/student-attendance/${id}`
 }
 
 export const studentAttendanceControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getStudentAttendanceControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/student-attendance/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/student-attendance/${id}`
 }
 
 export const studentAttendanceControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<studentAttendanceControllerRemoveV1Response> => {

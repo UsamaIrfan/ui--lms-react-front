@@ -63,7 +63,7 @@ export const getStaffManagementControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/staff-management`
+  return `https://multivendor-updated.vercel.app/api/v1/staff-management`
 }
 
 export const staffManagementControllerCreateV1 = async (createStaffMgmtDto: CreateStaffMgmtDto, options?: RequestInit): Promise<staffManagementControllerCreateV1Response> => {
@@ -146,7 +146,7 @@ export const getStaffManagementControllerFindAllV1Url = (params?: StaffManagemen
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/staff-management?${stringifiedParams}` : `http://localhost:3000/api/v1/staff-management`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/staff-management?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/staff-management`
 }
 
 export const staffManagementControllerFindAllV1 = async (params?: StaffManagementControllerFindAllV1Params, options?: RequestInit): Promise<staffManagementControllerFindAllV1Response> => {
@@ -166,13 +166,13 @@ export const staffManagementControllerFindAllV1 = async (params?: StaffManagemen
 
 export const getStaffManagementControllerFindAllV1InfiniteQueryKey = (params?: StaffManagementControllerFindAllV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/staff-management`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/staff-management`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getStaffManagementControllerFindAllV1QueryKey = (params?: StaffManagementControllerFindAllV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/staff-management`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/staff-management`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -318,7 +318,7 @@ export const getStaffManagementControllerGetMyBranchesV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/staff-management/my-branches`
+  return `https://multivendor-updated.vercel.app/api/v1/staff-management/my-branches`
 }
 
 export const staffManagementControllerGetMyBranchesV1 = async ( options?: RequestInit): Promise<staffManagementControllerGetMyBranchesV1Response> => {
@@ -338,13 +338,13 @@ export const staffManagementControllerGetMyBranchesV1 = async ( options?: Reques
 
 export const getStaffManagementControllerGetMyBranchesV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/staff-management/my-branches`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/staff-management/my-branches`
     ] as const;
     }
 
 export const getStaffManagementControllerGetMyBranchesV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/staff-management/my-branches`
+    `https://multivendor-updated.vercel.app/api/v1/staff-management/my-branches`
     ] as const;
     }
 
@@ -490,7 +490,7 @@ export const getStaffManagementControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/staff-management/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/staff-management/${id}`
 }
 
 export const staffManagementControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<staffManagementControllerFindOneV1Response> => {
@@ -510,13 +510,13 @@ export const staffManagementControllerFindOneV1 = async (id: number, options?: R
 
 export const getStaffManagementControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/staff-management/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/staff-management/${id}`
     ] as const;
     }
 
 export const getStaffManagementControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/staff-management/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/staff-management/${id}`
     ] as const;
     }
 
@@ -662,7 +662,7 @@ export const getStaffManagementControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/staff-management/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/staff-management/${id}`
 }
 
 export const staffManagementControllerUpdateV1 = async (id: number,
@@ -739,7 +739,7 @@ export const getStaffManagementControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/staff-management/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/staff-management/${id}`
 }
 
 export const staffManagementControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<staffManagementControllerRemoveV1Response> => {
@@ -814,7 +814,7 @@ export const getStaffManagementControllerAssignToBranchV1Url = (id: number,) => 
 
   
 
-  return `http://localhost:3000/api/v1/staff-management/${id}/branches`
+  return `https://multivendor-updated.vercel.app/api/v1/staff-management/${id}/branches`
 }
 
 export const staffManagementControllerAssignToBranchV1 = async (id: number,
@@ -891,7 +891,7 @@ export const getStaffManagementControllerGetStaffBranchesV1Url = (id: number,) =
 
   
 
-  return `http://localhost:3000/api/v1/staff-management/${id}/branches`
+  return `https://multivendor-updated.vercel.app/api/v1/staff-management/${id}/branches`
 }
 
 export const staffManagementControllerGetStaffBranchesV1 = async (id: number, options?: RequestInit): Promise<staffManagementControllerGetStaffBranchesV1Response> => {
@@ -911,13 +911,13 @@ export const staffManagementControllerGetStaffBranchesV1 = async (id: number, op
 
 export const getStaffManagementControllerGetStaffBranchesV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/staff-management/${id}/branches`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/staff-management/${id}/branches`
     ] as const;
     }
 
 export const getStaffManagementControllerGetStaffBranchesV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/staff-management/${id}/branches`
+    `https://multivendor-updated.vercel.app/api/v1/staff-management/${id}/branches`
     ] as const;
     }
 
@@ -1063,7 +1063,7 @@ export const getStaffManagementControllerTransferBranchV1Url = (id: number,) => 
 
   
 
-  return `http://localhost:3000/api/v1/staff-management/${id}/transfer-branch`
+  return `https://multivendor-updated.vercel.app/api/v1/staff-management/${id}/transfer-branch`
 }
 
 export const staffManagementControllerTransferBranchV1 = async (id: number,
@@ -1140,7 +1140,7 @@ export const getStaffManagementControllerRemoveBranchAssignmentV1Url = (id: numb
 
   
 
-  return `http://localhost:3000/api/v1/staff-management/branch-assignments/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/staff-management/branch-assignments/${id}`
 }
 
 export const staffManagementControllerRemoveBranchAssignmentV1 = async (id: number, options?: RequestInit): Promise<staffManagementControllerRemoveBranchAssignmentV1Response> => {

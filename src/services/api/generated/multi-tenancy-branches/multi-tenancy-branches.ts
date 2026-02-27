@@ -59,7 +59,7 @@ export const getBranchControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/branches`
+  return `https://multivendor-updated.vercel.app/api/v1/branches`
 }
 
 export const branchControllerCreateV1 = async (createBranchDto: CreateBranchDto, options?: RequestInit): Promise<branchControllerCreateV1Response> => {
@@ -135,7 +135,7 @@ export const getBranchControllerFindAllByTenantV1Url = (tenantId: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/branches/tenant/${tenantId}`
+  return `https://multivendor-updated.vercel.app/api/v1/branches/tenant/${tenantId}`
 }
 
 export const branchControllerFindAllByTenantV1 = async (tenantId: string, options?: RequestInit): Promise<branchControllerFindAllByTenantV1Response> => {
@@ -155,13 +155,13 @@ export const branchControllerFindAllByTenantV1 = async (tenantId: string, option
 
 export const getBranchControllerFindAllByTenantV1InfiniteQueryKey = (tenantId: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/branches/tenant/${tenantId}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/branches/tenant/${tenantId}`
     ] as const;
     }
 
 export const getBranchControllerFindAllByTenantV1QueryKey = (tenantId: string,) => {
     return [
-    `http://localhost:3000/api/v1/branches/tenant/${tenantId}`
+    `https://multivendor-updated.vercel.app/api/v1/branches/tenant/${tenantId}`
     ] as const;
     }
 
@@ -307,7 +307,7 @@ export const getBranchControllerFindOneV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/branches/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/branches/${id}`
 }
 
 export const branchControllerFindOneV1 = async (id: string, options?: RequestInit): Promise<branchControllerFindOneV1Response> => {
@@ -327,13 +327,13 @@ export const branchControllerFindOneV1 = async (id: string, options?: RequestIni
 
 export const getBranchControllerFindOneV1InfiniteQueryKey = (id: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/branches/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/branches/${id}`
     ] as const;
     }
 
 export const getBranchControllerFindOneV1QueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/api/v1/branches/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/branches/${id}`
     ] as const;
     }
 
@@ -479,7 +479,7 @@ export const getBranchControllerUpdateV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/branches/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/branches/${id}`
 }
 
 export const branchControllerUpdateV1 = async (id: string,
@@ -556,7 +556,7 @@ export const getBranchControllerRemoveV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/branches/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/branches/${id}`
 }
 
 export const branchControllerRemoveV1 = async (id: string, options?: RequestInit): Promise<branchControllerRemoveV1Response> => {

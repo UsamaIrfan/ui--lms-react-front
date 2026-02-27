@@ -15,7 +15,7 @@ import type { CreateInstitutionDtoState } from './createInstitutionDtoState';
 import type { CreateInstitutionDtoWebsite } from './createInstitutionDtoWebsite';
 
 export interface CreateInstitutionDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   name: string;
   code: string;

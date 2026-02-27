@@ -11,7 +11,7 @@ import type { CreateBranchIncomeDtoReferenceNumber } from './createBranchIncomeD
 import type { CreateBranchIncomeDtoRemarks } from './createBranchIncomeDtoRemarks';
 
 export interface CreateBranchIncomeDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   /** Income category */
   category: string;

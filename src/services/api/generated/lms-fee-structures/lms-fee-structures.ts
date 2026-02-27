@@ -58,7 +58,7 @@ export const getFeeStructureControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-structures`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-structures`
 }
 
 export const feeStructureControllerCreateV1 = async (createFeeStructureDto: CreateFeeStructureDto, options?: RequestInit): Promise<feeStructureControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getFeeStructureControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-structures`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-structures`
 }
 
 export const feeStructureControllerFindAllV1 = async ( options?: RequestInit): Promise<feeStructureControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const feeStructureControllerFindAllV1 = async ( options?: RequestInit): P
 
 export const getFeeStructureControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/fee-structures`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/fee-structures`
     ] as const;
     }
 
 export const getFeeStructureControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/fee-structures`
+    `https://multivendor-updated.vercel.app/api/v1/lms/fee-structures`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getFeeStructureControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-structures/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-structures/${id}`
 }
 
 export const feeStructureControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<feeStructureControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const feeStructureControllerFindOneV1 = async (id: number, options?: Requ
 
 export const getFeeStructureControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/fee-structures/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/fee-structures/${id}`
     ] as const;
     }
 
 export const getFeeStructureControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/fee-structures/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/fee-structures/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getFeeStructureControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-structures/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-structures/${id}`
 }
 
 export const feeStructureControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getFeeStructureControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-structures/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-structures/${id}`
 }
 
 export const feeStructureControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<feeStructureControllerRemoveV1Response> => {

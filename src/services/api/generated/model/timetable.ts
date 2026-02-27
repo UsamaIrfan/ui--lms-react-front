@@ -6,6 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 import type { TimetableName } from './timetableName';
+import type { TimetableSectionName } from './timetableSectionName';
 
 export interface Timetable {
   id: string;
@@ -15,8 +16,12 @@ export interface Timetable {
   createdAt: string;
   updatedAt: string;
   deletedAt?: string;
-  classId: string;
-  academicYearId: string;
+  classId: number;
+  className?: string;
+  sectionId?: number;
+  sectionName?: TimetableSectionName;
+  academicYearId: number;
+  academicYearName?: string;
   name?: TimetableName;
   isActive: boolean;
 }

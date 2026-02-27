@@ -9,7 +9,7 @@ import type { SubmitAssignmentDtoFilePath } from './submitAssignmentDtoFilePath'
 import type { SubmitAssignmentDtoRemarks } from './submitAssignmentDtoRemarks';
 
 export interface SubmitAssignmentDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   /** Student ID submitting the assignment */
   studentId: number;

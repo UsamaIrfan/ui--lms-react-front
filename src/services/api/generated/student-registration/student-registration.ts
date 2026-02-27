@@ -64,7 +64,7 @@ export const getStudentRegistrationControllerRegisterV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/student-registration`
+  return `https://multivendor-updated.vercel.app/api/v1/student-registration`
 }
 
 export const studentRegistrationControllerRegisterV1 = async (registerStudentDto: RegisterStudentDto, options?: RequestInit): Promise<studentRegistrationControllerRegisterV1Response> => {
@@ -147,7 +147,7 @@ export const getStudentRegistrationControllerFindAllV1Url = (params?: StudentReg
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/student-registration?${stringifiedParams}` : `http://localhost:3000/api/v1/student-registration`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/student-registration?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/student-registration`
 }
 
 export const studentRegistrationControllerFindAllV1 = async (params?: StudentRegistrationControllerFindAllV1Params, options?: RequestInit): Promise<studentRegistrationControllerFindAllV1Response> => {
@@ -167,13 +167,13 @@ export const studentRegistrationControllerFindAllV1 = async (params?: StudentReg
 
 export const getStudentRegistrationControllerFindAllV1InfiniteQueryKey = (params?: StudentRegistrationControllerFindAllV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/student-registration`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/student-registration`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getStudentRegistrationControllerFindAllV1QueryKey = (params?: StudentRegistrationControllerFindAllV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/student-registration`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/student-registration`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -319,7 +319,7 @@ export const getStudentRegistrationControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/student-registration/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}`
 }
 
 export const studentRegistrationControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<studentRegistrationControllerFindOneV1Response> => {
@@ -339,13 +339,13 @@ export const studentRegistrationControllerFindOneV1 = async (id: number, options
 
 export const getStudentRegistrationControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/student-registration/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}`
     ] as const;
     }
 
 export const getStudentRegistrationControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/student-registration/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}`
     ] as const;
     }
 
@@ -491,7 +491,7 @@ export const getStudentRegistrationControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/student-registration/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}`
 }
 
 export const studentRegistrationControllerUpdateV1 = async (id: number,
@@ -568,7 +568,7 @@ export const getStudentRegistrationControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/student-registration/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}`
 }
 
 export const studentRegistrationControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<studentRegistrationControllerRemoveV1Response> => {
@@ -643,7 +643,7 @@ export const getStudentRegistrationControllerUploadDocumentV1Url = (id: number,)
 
   
 
-  return `http://localhost:3000/api/v1/student-registration/${id}/documents`
+  return `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}/documents`
 }
 
 export const studentRegistrationControllerUploadDocumentV1 = async (id: number,
@@ -728,7 +728,7 @@ export const getStudentRegistrationControllerFindDocumentsV1Url = (id: number,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/student-registration/${id}/documents?${stringifiedParams}` : `http://localhost:3000/api/v1/student-registration/${id}/documents`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}/documents?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}/documents`
 }
 
 export const studentRegistrationControllerFindDocumentsV1 = async (id: number,
@@ -750,14 +750,14 @@ export const studentRegistrationControllerFindDocumentsV1 = async (id: number,
 export const getStudentRegistrationControllerFindDocumentsV1InfiniteQueryKey = (id: number,
     params?: StudentRegistrationControllerFindDocumentsV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/student-registration/${id}/documents`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}/documents`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getStudentRegistrationControllerFindDocumentsV1QueryKey = (id: number,
     params?: StudentRegistrationControllerFindDocumentsV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/student-registration/${id}/documents`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}/documents`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -913,7 +913,7 @@ export const getStudentRegistrationControllerEnrollV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/student-registration/${id}/enroll`
+  return `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}/enroll`
 }
 
 export const studentRegistrationControllerEnrollV1 = async (id: number,
@@ -990,7 +990,7 @@ export const getStudentRegistrationControllerAddGuardianV1Url = (id: number,) =>
 
   
 
-  return `http://localhost:3000/api/v1/student-registration/${id}/guardians`
+  return `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}/guardians`
 }
 
 export const studentRegistrationControllerAddGuardianV1 = async (id: number,
@@ -1067,7 +1067,7 @@ export const getStudentRegistrationControllerFindGuardiansV1Url = (id: number,) 
 
   
 
-  return `http://localhost:3000/api/v1/student-registration/${id}/guardians`
+  return `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}/guardians`
 }
 
 export const studentRegistrationControllerFindGuardiansV1 = async (id: number, options?: RequestInit): Promise<studentRegistrationControllerFindGuardiansV1Response> => {
@@ -1087,13 +1087,13 @@ export const studentRegistrationControllerFindGuardiansV1 = async (id: number, o
 
 export const getStudentRegistrationControllerFindGuardiansV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/student-registration/${id}/guardians`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}/guardians`
     ] as const;
     }
 
 export const getStudentRegistrationControllerFindGuardiansV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/student-registration/${id}/guardians`
+    `https://multivendor-updated.vercel.app/api/v1/student-registration/${id}/guardians`
     ] as const;
     }
 
@@ -1239,7 +1239,7 @@ export const getStudentRegistrationControllerImportStudentsV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/student-registration/import`
+  return `https://multivendor-updated.vercel.app/api/v1/student-registration/import`
 }
 
 export const studentRegistrationControllerImportStudentsV1 = async (studentRegistrationControllerImportStudentsV1Body: StudentRegistrationControllerImportStudentsV1Body, options?: RequestInit): Promise<studentRegistrationControllerImportStudentsV1Response> => {

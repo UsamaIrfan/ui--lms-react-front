@@ -62,7 +62,7 @@ export const getTimetablesControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/timetables`
+  return `https://multivendor-updated.vercel.app/api/v1/timetables`
 }
 
 export const timetablesControllerCreateV1 = async (createTimetableDto: CreateTimetableDto, options?: RequestInit): Promise<timetablesControllerCreateV1Response> => {
@@ -138,7 +138,7 @@ export const getTimetablesControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/timetables`
+  return `https://multivendor-updated.vercel.app/api/v1/timetables`
 }
 
 export const timetablesControllerFindAllV1 = async ( options?: RequestInit): Promise<timetablesControllerFindAllV1Response> => {
@@ -158,13 +158,13 @@ export const timetablesControllerFindAllV1 = async ( options?: RequestInit): Pro
 
 export const getTimetablesControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/timetables`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/timetables`
     ] as const;
     }
 
 export const getTimetablesControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/timetables`
+    `https://multivendor-updated.vercel.app/api/v1/timetables`
     ] as const;
     }
 
@@ -310,7 +310,7 @@ export const getTimetablesControllerFindByBranchV1Url = (branchId: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/timetables/branch/${branchId}`
+  return `https://multivendor-updated.vercel.app/api/v1/timetables/branch/${branchId}`
 }
 
 export const timetablesControllerFindByBranchV1 = async (branchId: string, options?: RequestInit): Promise<timetablesControllerFindByBranchV1Response> => {
@@ -330,13 +330,13 @@ export const timetablesControllerFindByBranchV1 = async (branchId: string, optio
 
 export const getTimetablesControllerFindByBranchV1InfiniteQueryKey = (branchId: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/timetables/branch/${branchId}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/timetables/branch/${branchId}`
     ] as const;
     }
 
 export const getTimetablesControllerFindByBranchV1QueryKey = (branchId: string,) => {
     return [
-    `http://localhost:3000/api/v1/timetables/branch/${branchId}`
+    `https://multivendor-updated.vercel.app/api/v1/timetables/branch/${branchId}`
     ] as const;
     }
 
@@ -489,7 +489,7 @@ export const getTimetablesControllerCheckConflictsV1Url = (params: TimetablesCon
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/timetables/conflicts?${stringifiedParams}` : `http://localhost:3000/api/v1/timetables/conflicts`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/timetables/conflicts?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/timetables/conflicts`
 }
 
 export const timetablesControllerCheckConflictsV1 = async (params: TimetablesControllerCheckConflictsV1Params, options?: RequestInit): Promise<timetablesControllerCheckConflictsV1Response> => {
@@ -509,13 +509,13 @@ export const timetablesControllerCheckConflictsV1 = async (params: TimetablesCon
 
 export const getTimetablesControllerCheckConflictsV1InfiniteQueryKey = (params?: TimetablesControllerCheckConflictsV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/timetables/conflicts`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/timetables/conflicts`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getTimetablesControllerCheckConflictsV1QueryKey = (params?: TimetablesControllerCheckConflictsV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/timetables/conflicts`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/timetables/conflicts`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -661,7 +661,7 @@ export const getTimetablesControllerFindOneV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/timetables/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/timetables/${id}`
 }
 
 export const timetablesControllerFindOneV1 = async (id: string, options?: RequestInit): Promise<timetablesControllerFindOneV1Response> => {
@@ -681,13 +681,13 @@ export const timetablesControllerFindOneV1 = async (id: string, options?: Reques
 
 export const getTimetablesControllerFindOneV1InfiniteQueryKey = (id: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/timetables/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/timetables/${id}`
     ] as const;
     }
 
 export const getTimetablesControllerFindOneV1QueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/api/v1/timetables/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/timetables/${id}`
     ] as const;
     }
 
@@ -833,7 +833,7 @@ export const getTimetablesControllerUpdateV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/timetables/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/timetables/${id}`
 }
 
 export const timetablesControllerUpdateV1 = async (id: string,
@@ -910,7 +910,7 @@ export const getTimetablesControllerRemoveV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/timetables/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/timetables/${id}`
 }
 
 export const timetablesControllerRemoveV1 = async (id: string, options?: RequestInit): Promise<timetablesControllerRemoveV1Response> => {
@@ -985,7 +985,7 @@ export const getTimetablesControllerAddPeriodV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/timetables/${id}/periods`
+  return `https://multivendor-updated.vercel.app/api/v1/timetables/${id}/periods`
 }
 
 export const timetablesControllerAddPeriodV1 = async (id: string,
@@ -1062,7 +1062,7 @@ export const getTimetablesControllerFindPeriodsV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/timetables/${id}/periods`
+  return `https://multivendor-updated.vercel.app/api/v1/timetables/${id}/periods`
 }
 
 export const timetablesControllerFindPeriodsV1 = async (id: string, options?: RequestInit): Promise<timetablesControllerFindPeriodsV1Response> => {
@@ -1082,13 +1082,13 @@ export const timetablesControllerFindPeriodsV1 = async (id: string, options?: Re
 
 export const getTimetablesControllerFindPeriodsV1InfiniteQueryKey = (id: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/timetables/${id}/periods`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/timetables/${id}/periods`
     ] as const;
     }
 
 export const getTimetablesControllerFindPeriodsV1QueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/api/v1/timetables/${id}/periods`
+    `https://multivendor-updated.vercel.app/api/v1/timetables/${id}/periods`
     ] as const;
     }
 
@@ -1234,7 +1234,7 @@ export const getTimetablesControllerRemovePeriodV1Url = (periodId: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/timetables/periods/${periodId}`
+  return `https://multivendor-updated.vercel.app/api/v1/timetables/periods/${periodId}`
 }
 
 export const timetablesControllerRemovePeriodV1 = async (periodId: string, options?: RequestInit): Promise<timetablesControllerRemovePeriodV1Response> => {

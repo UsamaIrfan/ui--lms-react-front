@@ -49,7 +49,7 @@ export const getHomeControllerAppInfoUrl = () => {
 
   
 
-  return `http://localhost:3000/`
+  return `https://multivendor-updated.vercel.app/`
 }
 
 export const homeControllerAppInfo = async ( options?: RequestInit): Promise<homeControllerAppInfoResponse> => {
@@ -69,13 +69,13 @@ export const homeControllerAppInfo = async ( options?: RequestInit): Promise<hom
 
 export const getHomeControllerAppInfoInfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/`
+    'infinite', `https://multivendor-updated.vercel.app/`
     ] as const;
     }
 
 export const getHomeControllerAppInfoQueryKey = () => {
     return [
-    `http://localhost:3000/`
+    `https://multivendor-updated.vercel.app/`
     ] as const;
     }
 

@@ -49,7 +49,7 @@ export const getIncomeControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/income/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/income/${id}`
 }
 
 export const incomeControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<incomeControllerFindOneV1Response> => {
@@ -69,13 +69,13 @@ export const incomeControllerFindOneV1 = async (id: number, options?: RequestIni
 
 export const getIncomeControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/income/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/income/${id}`
     ] as const;
     }
 
 export const getIncomeControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/income/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/income/${id}`
     ] as const;
     }
 

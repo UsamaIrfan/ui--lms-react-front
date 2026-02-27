@@ -60,7 +60,7 @@ export const getIncomeControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/income`
+  return `https://multivendor-updated.vercel.app/api/v1/income`
 }
 
 export const incomeControllerCreateV1 = async (createBranchIncomeDto: CreateBranchIncomeDto, options?: RequestInit): Promise<incomeControllerCreateV1Response> => {
@@ -136,7 +136,7 @@ export const getIncomeControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/income`
+  return `https://multivendor-updated.vercel.app/api/v1/income`
 }
 
 export const incomeControllerFindAllV1 = async ( options?: RequestInit): Promise<incomeControllerFindAllV1Response> => {
@@ -156,13 +156,13 @@ export const incomeControllerFindAllV1 = async ( options?: RequestInit): Promise
 
 export const getIncomeControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/income`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/income`
     ] as const;
     }
 
 export const getIncomeControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/income`
+    `https://multivendor-updated.vercel.app/api/v1/income`
     ] as const;
     }
 
@@ -308,7 +308,7 @@ export const getIncomeControllerUpdateV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/income/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/income/${id}`
 }
 
 export const incomeControllerUpdateV1 = async (id: string,
@@ -385,7 +385,7 @@ export const getIncomeControllerRemoveV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/income/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/income/${id}`
 }
 
 export const incomeControllerRemoveV1 = async (id: string, options?: RequestInit): Promise<incomeControllerRemoveV1Response> => {
@@ -467,7 +467,7 @@ export const getIncomeControllerGetIncomeReportV1Url = (params?: IncomeControlle
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/income/reports?${stringifiedParams}` : `http://localhost:3000/api/v1/income/reports`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/income/reports?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/income/reports`
 }
 
 export const incomeControllerGetIncomeReportV1 = async (params?: IncomeControllerGetIncomeReportV1Params, options?: RequestInit): Promise<incomeControllerGetIncomeReportV1Response> => {
@@ -487,13 +487,13 @@ export const incomeControllerGetIncomeReportV1 = async (params?: IncomeControlle
 
 export const getIncomeControllerGetIncomeReportV1InfiniteQueryKey = (params?: IncomeControllerGetIncomeReportV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/income/reports`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/income/reports`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getIncomeControllerGetIncomeReportV1QueryKey = (params?: IncomeControllerGetIncomeReportV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/income/reports`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/income/reports`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -646,7 +646,7 @@ export const getIncomeControllerGetConsolidatedReportV1Url = (params?: IncomeCon
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `http://localhost:3000/api/v1/income/reports/consolidated?${stringifiedParams}` : `http://localhost:3000/api/v1/income/reports/consolidated`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/income/reports/consolidated?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/income/reports/consolidated`
 }
 
 export const incomeControllerGetConsolidatedReportV1 = async (params?: IncomeControllerGetConsolidatedReportV1Params, options?: RequestInit): Promise<incomeControllerGetConsolidatedReportV1Response> => {
@@ -666,13 +666,13 @@ export const incomeControllerGetConsolidatedReportV1 = async (params?: IncomeCon
 
 export const getIncomeControllerGetConsolidatedReportV1InfiniteQueryKey = (params?: IncomeControllerGetConsolidatedReportV1Params,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/income/reports/consolidated`, ...(params ? [params] : [])
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/income/reports/consolidated`, ...(params ? [params] : [])
     ] as const;
     }
 
 export const getIncomeControllerGetConsolidatedReportV1QueryKey = (params?: IncomeControllerGetConsolidatedReportV1Params,) => {
     return [
-    `http://localhost:3000/api/v1/income/reports/consolidated`, ...(params ? [params] : [])
+    `https://multivendor-updated.vercel.app/api/v1/income/reports/consolidated`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -818,7 +818,7 @@ export const getIncomeControllerFindByIdV1Url = (id: string,) => {
 
   
 
-  return `http://localhost:3000/api/v1/income/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/income/${id}`
 }
 
 export const incomeControllerFindByIdV1 = async (id: string, options?: RequestInit): Promise<incomeControllerFindByIdV1Response> => {
@@ -838,13 +838,13 @@ export const incomeControllerFindByIdV1 = async (id: string, options?: RequestIn
 
 export const getIncomeControllerFindByIdV1InfiniteQueryKey = (id: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/income/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/income/${id}`
     ] as const;
     }
 
 export const getIncomeControllerFindByIdV1QueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/api/v1/income/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/income/${id}`
     ] as const;
     }
 

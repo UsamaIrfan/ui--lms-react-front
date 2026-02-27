@@ -59,7 +59,7 @@ export const getAcademicYearControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/academic-years`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/academic-years`
 }
 
 export const academicYearControllerCreateV1 = async (createAcademicYearDto: CreateAcademicYearDto, options?: RequestInit): Promise<academicYearControllerCreateV1Response> => {
@@ -135,7 +135,7 @@ export const getAcademicYearControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/academic-years`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/academic-years`
 }
 
 export const academicYearControllerFindAllV1 = async ( options?: RequestInit): Promise<academicYearControllerFindAllV1Response> => {
@@ -155,13 +155,13 @@ export const academicYearControllerFindAllV1 = async ( options?: RequestInit): P
 
 export const getAcademicYearControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/academic-years`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/academic-years`
     ] as const;
     }
 
 export const getAcademicYearControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/academic-years`
+    `https://multivendor-updated.vercel.app/api/v1/lms/academic-years`
     ] as const;
     }
 
@@ -307,7 +307,7 @@ export const getAcademicYearControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/academic-years/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/academic-years/${id}`
 }
 
 export const academicYearControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<academicYearControllerFindOneV1Response> => {
@@ -327,13 +327,13 @@ export const academicYearControllerFindOneV1 = async (id: number, options?: Requ
 
 export const getAcademicYearControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/academic-years/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/academic-years/${id}`
     ] as const;
     }
 
 export const getAcademicYearControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/academic-years/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/academic-years/${id}`
     ] as const;
     }
 
@@ -479,7 +479,7 @@ export const getAcademicYearControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/academic-years/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/academic-years/${id}`
 }
 
 export const academicYearControllerUpdateV1 = async (id: number,
@@ -556,7 +556,7 @@ export const getAcademicYearControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/academic-years/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/academic-years/${id}`
 }
 
 export const academicYearControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<academicYearControllerRemoveV1Response> => {

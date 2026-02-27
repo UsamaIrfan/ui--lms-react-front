@@ -59,7 +59,7 @@ export const getGradeClassControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/grade-classes`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/grade-classes`
 }
 
 export const gradeClassControllerCreateV1 = async (createGradeClassDto: CreateGradeClassDto, options?: RequestInit): Promise<gradeClassControllerCreateV1Response> => {
@@ -135,7 +135,7 @@ export const getGradeClassControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/grade-classes`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/grade-classes`
 }
 
 export const gradeClassControllerFindAllV1 = async ( options?: RequestInit): Promise<gradeClassControllerFindAllV1Response> => {
@@ -155,13 +155,13 @@ export const gradeClassControllerFindAllV1 = async ( options?: RequestInit): Pro
 
 export const getGradeClassControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/grade-classes`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/grade-classes`
     ] as const;
     }
 
 export const getGradeClassControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/grade-classes`
+    `https://multivendor-updated.vercel.app/api/v1/lms/grade-classes`
     ] as const;
     }
 
@@ -307,7 +307,7 @@ export const getGradeClassControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/grade-classes/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/grade-classes/${id}`
 }
 
 export const gradeClassControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<gradeClassControllerFindOneV1Response> => {
@@ -327,13 +327,13 @@ export const gradeClassControllerFindOneV1 = async (id: number, options?: Reques
 
 export const getGradeClassControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/grade-classes/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/grade-classes/${id}`
     ] as const;
     }
 
 export const getGradeClassControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/grade-classes/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/grade-classes/${id}`
     ] as const;
     }
 
@@ -479,7 +479,7 @@ export const getGradeClassControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/grade-classes/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/grade-classes/${id}`
 }
 
 export const gradeClassControllerUpdateV1 = async (id: number,
@@ -556,7 +556,7 @@ export const getGradeClassControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/grade-classes/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/grade-classes/${id}`
 }
 
 export const gradeClassControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<gradeClassControllerRemoveV1Response> => {

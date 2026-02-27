@@ -58,7 +58,7 @@ export const getFeePaymentControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-payments`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-payments`
 }
 
 export const feePaymentControllerCreateV1 = async (createFeePaymentDto: CreateFeePaymentDto, options?: RequestInit): Promise<feePaymentControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getFeePaymentControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-payments`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-payments`
 }
 
 export const feePaymentControllerFindAllV1 = async ( options?: RequestInit): Promise<feePaymentControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const feePaymentControllerFindAllV1 = async ( options?: RequestInit): Pro
 
 export const getFeePaymentControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/fee-payments`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/fee-payments`
     ] as const;
     }
 
 export const getFeePaymentControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/fee-payments`
+    `https://multivendor-updated.vercel.app/api/v1/lms/fee-payments`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getFeePaymentControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-payments/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-payments/${id}`
 }
 
 export const feePaymentControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<feePaymentControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const feePaymentControllerFindOneV1 = async (id: number, options?: Reques
 
 export const getFeePaymentControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/fee-payments/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/fee-payments/${id}`
     ] as const;
     }
 
 export const getFeePaymentControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/fee-payments/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/fee-payments/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getFeePaymentControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-payments/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-payments/${id}`
 }
 
 export const feePaymentControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getFeePaymentControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/fee-payments/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/fee-payments/${id}`
 }
 
 export const feePaymentControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<feePaymentControllerRemoveV1Response> => {

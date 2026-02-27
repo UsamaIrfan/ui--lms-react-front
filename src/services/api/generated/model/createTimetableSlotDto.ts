@@ -10,7 +10,7 @@ import type { CreateTimetableSlotDtoRoom } from './createTimetableSlotDtoRoom';
 import type { CreateTimetableSlotDtoStaffId } from './createTimetableSlotDtoStaffId';
 
 export interface CreateTimetableSlotDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   sectionId: number;
   subjectId: number;

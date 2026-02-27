@@ -11,7 +11,7 @@ import type { CreateStaffLeaveDtoLeaveType } from './createStaffLeaveDtoLeaveTyp
 import type { CreateStaffLeaveDtoStatus } from './createStaffLeaveDtoStatus';
 
 export interface CreateStaffLeaveDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   staffId: number;
   fromDate: string;

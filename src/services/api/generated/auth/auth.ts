@@ -69,7 +69,7 @@ export const getAuthControllerLoginV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/email/login`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/email/login`
 }
 
 export const authControllerLoginV1 = async (authEmailLoginDto: AuthEmailLoginDto, options?: RequestInit): Promise<authControllerLoginV1Response> => {
@@ -145,7 +145,7 @@ export const getAuthControllerRegisterV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/email/register`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/email/register`
 }
 
 export const authControllerRegisterV1 = async (authRegisterLoginDto: AuthRegisterLoginDto, options?: RequestInit): Promise<authControllerRegisterV1Response> => {
@@ -221,7 +221,7 @@ export const getAuthControllerConfirmEmailV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/email/confirm`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/email/confirm`
 }
 
 export const authControllerConfirmEmailV1 = async (authConfirmEmailDto: AuthConfirmEmailDto, options?: RequestInit): Promise<authControllerConfirmEmailV1Response> => {
@@ -297,7 +297,7 @@ export const getAuthControllerConfirmNewEmailV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/email/confirm/new`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/email/confirm/new`
 }
 
 export const authControllerConfirmNewEmailV1 = async (authConfirmEmailDto: AuthConfirmEmailDto, options?: RequestInit): Promise<authControllerConfirmNewEmailV1Response> => {
@@ -373,7 +373,7 @@ export const getAuthControllerForgotPasswordV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/forgot/password`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/forgot/password`
 }
 
 export const authControllerForgotPasswordV1 = async (authForgotPasswordDto: AuthForgotPasswordDto, options?: RequestInit): Promise<authControllerForgotPasswordV1Response> => {
@@ -449,7 +449,7 @@ export const getAuthControllerResetPasswordV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/reset/password`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/reset/password`
 }
 
 export const authControllerResetPasswordV1 = async (authResetPasswordDto: AuthResetPasswordDto, options?: RequestInit): Promise<authControllerResetPasswordV1Response> => {
@@ -525,7 +525,7 @@ export const getAuthControllerMeV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/me`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/me`
 }
 
 export const authControllerMeV1 = async ( options?: RequestInit): Promise<authControllerMeV1Response> => {
@@ -545,13 +545,13 @@ export const authControllerMeV1 = async ( options?: RequestInit): Promise<authCo
 
 export const getAuthControllerMeV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/auth/me`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/auth/me`
     ] as const;
     }
 
 export const getAuthControllerMeV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/auth/me`
+    `https://multivendor-updated.vercel.app/api/v1/auth/me`
     ] as const;
     }
 
@@ -697,7 +697,7 @@ export const getAuthControllerUpdateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/me`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/me`
 }
 
 export const authControllerUpdateV1 = async (authUpdateDto: AuthUpdateDto, options?: RequestInit): Promise<authControllerUpdateV1Response> => {
@@ -773,7 +773,7 @@ export const getAuthControllerDeleteV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/me`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/me`
 }
 
 export const authControllerDeleteV1 = async ( options?: RequestInit): Promise<authControllerDeleteV1Response> => {
@@ -848,7 +848,7 @@ export const getAuthControllerRefreshV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/refresh`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/refresh`
 }
 
 export const authControllerRefreshV1 = async ( options?: RequestInit): Promise<authControllerRefreshV1Response> => {
@@ -923,7 +923,7 @@ export const getAuthControllerLogoutV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/logout`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/logout`
 }
 
 export const authControllerLogoutV1 = async ( options?: RequestInit): Promise<authControllerLogoutV1Response> => {
@@ -998,7 +998,7 @@ export const getAuthControllerSelectTenantV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/tenant/select`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/tenant/select`
 }
 
 export const authControllerSelectTenantV1 = async (authSelectTenantDto: AuthSelectTenantDto, options?: RequestInit): Promise<authControllerSelectTenantV1Response> => {
@@ -1074,7 +1074,7 @@ export const getAuthControllerGetTenantsV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/tenants`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/tenants`
 }
 
 export const authControllerGetTenantsV1 = async ( options?: RequestInit): Promise<authControllerGetTenantsV1Response> => {
@@ -1094,13 +1094,13 @@ export const authControllerGetTenantsV1 = async ( options?: RequestInit): Promis
 
 export const getAuthControllerGetTenantsV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/auth/tenants`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/auth/tenants`
     ] as const;
     }
 
 export const getAuthControllerGetTenantsV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/auth/tenants`
+    `https://multivendor-updated.vercel.app/api/v1/auth/tenants`
     ] as const;
     }
 
@@ -1246,7 +1246,7 @@ export const getAuthFacebookControllerLoginV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/facebook/login`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/facebook/login`
 }
 
 export const authFacebookControllerLoginV1 = async (authFacebookLoginDto: AuthFacebookLoginDto, options?: RequestInit): Promise<authFacebookControllerLoginV1Response> => {
@@ -1322,7 +1322,7 @@ export const getAuthGoogleControllerLoginV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/google/login`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/google/login`
 }
 
 export const authGoogleControllerLoginV1 = async (authGoogleLoginDto: AuthGoogleLoginDto, options?: RequestInit): Promise<authGoogleControllerLoginV1Response> => {
@@ -1398,7 +1398,7 @@ export const getAuthAppleControllerLoginV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/auth/apple/login`
+  return `https://multivendor-updated.vercel.app/api/v1/auth/apple/login`
 }
 
 export const authAppleControllerLoginV1 = async (authAppleLoginDto: AuthAppleLoginDto, options?: RequestInit): Promise<authAppleControllerLoginV1Response> => {

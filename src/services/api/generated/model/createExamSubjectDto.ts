@@ -8,7 +8,7 @@
 import type { CreateExamSubjectDtoExamDate } from './createExamSubjectDtoExamDate';
 
 export interface CreateExamSubjectDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   examId: number;
   subjectId: number;

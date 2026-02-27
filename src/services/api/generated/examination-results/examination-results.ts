@@ -62,7 +62,7 @@ export const getExamsControllerCreateGradingScaleV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/exams/grading-scales`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/grading-scales`
 }
 
 export const examsControllerCreateGradingScaleV1 = async (createGradingScaleDto: CreateGradingScaleDto, options?: RequestInit): Promise<examsControllerCreateGradingScaleV1Response> => {
@@ -138,7 +138,7 @@ export const getExamsControllerListGradingScalesV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/exams/grading-scales`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/grading-scales`
 }
 
 export const examsControllerListGradingScalesV1 = async ( options?: RequestInit): Promise<examsControllerListGradingScalesV1Response> => {
@@ -158,13 +158,13 @@ export const examsControllerListGradingScalesV1 = async ( options?: RequestInit)
 
 export const getExamsControllerListGradingScalesV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/exams/grading-scales`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/exams/grading-scales`
     ] as const;
     }
 
 export const getExamsControllerListGradingScalesV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/exams/grading-scales`
+    `https://multivendor-updated.vercel.app/api/v1/exams/grading-scales`
     ] as const;
     }
 
@@ -310,7 +310,7 @@ export const getExamsControllerGetGradingScaleV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/exams/grading-scales/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/grading-scales/${id}`
 }
 
 export const examsControllerGetGradingScaleV1 = async (id: number, options?: RequestInit): Promise<examsControllerGetGradingScaleV1Response> => {
@@ -330,13 +330,13 @@ export const examsControllerGetGradingScaleV1 = async (id: number, options?: Req
 
 export const getExamsControllerGetGradingScaleV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/exams/grading-scales/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/exams/grading-scales/${id}`
     ] as const;
     }
 
 export const getExamsControllerGetGradingScaleV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/exams/grading-scales/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/exams/grading-scales/${id}`
     ] as const;
     }
 
@@ -482,7 +482,7 @@ export const getExamsControllerCreateScheduleV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/exams/schedules`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/schedules`
 }
 
 export const examsControllerCreateScheduleV1 = async (createExamScheduleDto: CreateExamScheduleDto, options?: RequestInit): Promise<examsControllerCreateScheduleV1Response> => {
@@ -558,7 +558,7 @@ export const getExamsControllerGetScheduleV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/exams/schedules/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/schedules/${id}`
 }
 
 export const examsControllerGetScheduleV1 = async (id: number, options?: RequestInit): Promise<examsControllerGetScheduleV1Response> => {
@@ -578,13 +578,13 @@ export const examsControllerGetScheduleV1 = async (id: number, options?: Request
 
 export const getExamsControllerGetScheduleV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/exams/schedules/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/exams/schedules/${id}`
     ] as const;
     }
 
 export const getExamsControllerGetScheduleV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/exams/schedules/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/exams/schedules/${id}`
     ] as const;
     }
 
@@ -730,7 +730,7 @@ export const getExamsControllerUpdateStatusV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/exams/schedules/${id}/status`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/schedules/${id}/status`
 }
 
 export const examsControllerUpdateStatusV1 = async (id: number,
@@ -807,7 +807,7 @@ export const getExamsControllerEnterMarksV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/exams/marks`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/marks`
 }
 
 export const examsControllerEnterMarksV1 = async (enterMarksDto: EnterMarksDto, options?: RequestInit): Promise<examsControllerEnterMarksV1Response> => {
@@ -883,7 +883,7 @@ export const getExamsControllerBulkImportMarksV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/exams/marks/bulk`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/marks/bulk`
 }
 
 export const examsControllerBulkImportMarksV1 = async (bulkMarksImportDto: BulkMarksImportDto, options?: RequestInit): Promise<examsControllerBulkImportMarksV1Response> => {
@@ -959,7 +959,7 @@ export const getExamsControllerGetMarksV1Url = (examSubjectId: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/exams/marks/${examSubjectId}`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/marks/${examSubjectId}`
 }
 
 export const examsControllerGetMarksV1 = async (examSubjectId: number, options?: RequestInit): Promise<examsControllerGetMarksV1Response> => {
@@ -979,13 +979,13 @@ export const examsControllerGetMarksV1 = async (examSubjectId: number, options?:
 
 export const getExamsControllerGetMarksV1InfiniteQueryKey = (examSubjectId: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/exams/marks/${examSubjectId}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/exams/marks/${examSubjectId}`
     ] as const;
     }
 
 export const getExamsControllerGetMarksV1QueryKey = (examSubjectId: number,) => {
     return [
-    `http://localhost:3000/api/v1/exams/marks/${examSubjectId}`
+    `https://multivendor-updated.vercel.app/api/v1/exams/marks/${examSubjectId}`
     ] as const;
     }
 
@@ -1131,7 +1131,7 @@ export const getExamsControllerPublishResultsV1Url = (examId: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/exams/${examId}/publish`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/${examId}/publish`
 }
 
 export const examsControllerPublishResultsV1 = async (examId: number,
@@ -1208,7 +1208,7 @@ export const getExamsControllerGetStudentResultsV1Url = (studentId: number,) => 
 
   
 
-  return `http://localhost:3000/api/v1/exams/results/student/${studentId}`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/results/student/${studentId}`
 }
 
 export const examsControllerGetStudentResultsV1 = async (studentId: number, options?: RequestInit): Promise<examsControllerGetStudentResultsV1Response> => {
@@ -1228,13 +1228,13 @@ export const examsControllerGetStudentResultsV1 = async (studentId: number, opti
 
 export const getExamsControllerGetStudentResultsV1InfiniteQueryKey = (studentId: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/exams/results/student/${studentId}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/exams/results/student/${studentId}`
     ] as const;
     }
 
 export const getExamsControllerGetStudentResultsV1QueryKey = (studentId: number,) => {
     return [
-    `http://localhost:3000/api/v1/exams/results/student/${studentId}`
+    `https://multivendor-updated.vercel.app/api/v1/exams/results/student/${studentId}`
     ] as const;
     }
 
@@ -1381,7 +1381,7 @@ export const getExamsControllerGetStudentExamResultV1Url = (studentId: number,
 
   
 
-  return `http://localhost:3000/api/v1/exams/results/student/${studentId}/exam/${examId}`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/results/student/${studentId}/exam/${examId}`
 }
 
 export const examsControllerGetStudentExamResultV1 = async (studentId: number,
@@ -1403,14 +1403,14 @@ export const examsControllerGetStudentExamResultV1 = async (studentId: number,
 export const getExamsControllerGetStudentExamResultV1InfiniteQueryKey = (studentId: number,
     examId: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/exams/results/student/${studentId}/exam/${examId}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/exams/results/student/${studentId}/exam/${examId}`
     ] as const;
     }
 
 export const getExamsControllerGetStudentExamResultV1QueryKey = (studentId: number,
     examId: number,) => {
     return [
-    `http://localhost:3000/api/v1/exams/results/student/${studentId}/exam/${examId}`
+    `https://multivendor-updated.vercel.app/api/v1/exams/results/student/${studentId}/exam/${examId}`
     ] as const;
     }
 
@@ -1567,7 +1567,7 @@ export const getExamsControllerGetReportCardV1Url = (studentId: number,
 
   
 
-  return `http://localhost:3000/api/v1/exams/results/student/${studentId}/exam/${examId}/report-card`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/results/student/${studentId}/exam/${examId}/report-card`
 }
 
 export const examsControllerGetReportCardV1 = async (studentId: number,
@@ -1589,14 +1589,14 @@ export const examsControllerGetReportCardV1 = async (studentId: number,
 export const getExamsControllerGetReportCardV1InfiniteQueryKey = (studentId: number,
     examId: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/exams/results/student/${studentId}/exam/${examId}/report-card`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/exams/results/student/${studentId}/exam/${examId}/report-card`
     ] as const;
     }
 
 export const getExamsControllerGetReportCardV1QueryKey = (studentId: number,
     examId: number,) => {
     return [
-    `http://localhost:3000/api/v1/exams/results/student/${studentId}/exam/${examId}/report-card`
+    `https://multivendor-updated.vercel.app/api/v1/exams/results/student/${studentId}/exam/${examId}/report-card`
     ] as const;
     }
 
@@ -1752,7 +1752,7 @@ export const getExamsControllerGetExamAnalyticsV1Url = (examId: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/exams/analytics/exam/${examId}`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/analytics/exam/${examId}`
 }
 
 export const examsControllerGetExamAnalyticsV1 = async (examId: number, options?: RequestInit): Promise<examsControllerGetExamAnalyticsV1Response> => {
@@ -1772,13 +1772,13 @@ export const examsControllerGetExamAnalyticsV1 = async (examId: number, options?
 
 export const getExamsControllerGetExamAnalyticsV1InfiniteQueryKey = (examId: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/exams/analytics/exam/${examId}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/exams/analytics/exam/${examId}`
     ] as const;
     }
 
 export const getExamsControllerGetExamAnalyticsV1QueryKey = (examId: number,) => {
     return [
-    `http://localhost:3000/api/v1/exams/analytics/exam/${examId}`
+    `https://multivendor-updated.vercel.app/api/v1/exams/analytics/exam/${examId}`
     ] as const;
     }
 
@@ -1924,7 +1924,7 @@ export const getExamsControllerGetSubjectAnalyticsV1Url = (examSubjectId: number
 
   
 
-  return `http://localhost:3000/api/v1/exams/analytics/subject/${examSubjectId}`
+  return `https://multivendor-updated.vercel.app/api/v1/exams/analytics/subject/${examSubjectId}`
 }
 
 export const examsControllerGetSubjectAnalyticsV1 = async (examSubjectId: number, options?: RequestInit): Promise<examsControllerGetSubjectAnalyticsV1Response> => {
@@ -1944,13 +1944,13 @@ export const examsControllerGetSubjectAnalyticsV1 = async (examSubjectId: number
 
 export const getExamsControllerGetSubjectAnalyticsV1InfiniteQueryKey = (examSubjectId: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/exams/analytics/subject/${examSubjectId}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/exams/analytics/subject/${examSubjectId}`
     ] as const;
     }
 
 export const getExamsControllerGetSubjectAnalyticsV1QueryKey = (examSubjectId: number,) => {
     return [
-    `http://localhost:3000/api/v1/exams/analytics/subject/${examSubjectId}`
+    `https://multivendor-updated.vercel.app/api/v1/exams/analytics/subject/${examSubjectId}`
     ] as const;
     }
 

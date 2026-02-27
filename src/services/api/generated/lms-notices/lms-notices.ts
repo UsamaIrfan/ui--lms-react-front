@@ -58,7 +58,7 @@ export const getNoticeControllerCreateV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/notices`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/notices`
 }
 
 export const noticeControllerCreateV1 = async (createNoticeDto: CreateNoticeDto, options?: RequestInit): Promise<noticeControllerCreateV1Response> => {
@@ -134,7 +134,7 @@ export const getNoticeControllerFindAllV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/notices`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/notices`
 }
 
 export const noticeControllerFindAllV1 = async ( options?: RequestInit): Promise<noticeControllerFindAllV1Response> => {
@@ -154,13 +154,13 @@ export const noticeControllerFindAllV1 = async ( options?: RequestInit): Promise
 
 export const getNoticeControllerFindAllV1InfiniteQueryKey = () => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/notices`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/notices`
     ] as const;
     }
 
 export const getNoticeControllerFindAllV1QueryKey = () => {
     return [
-    `http://localhost:3000/api/v1/lms/notices`
+    `https://multivendor-updated.vercel.app/api/v1/lms/notices`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getNoticeControllerFindOneV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/notices/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/notices/${id}`
 }
 
 export const noticeControllerFindOneV1 = async (id: number, options?: RequestInit): Promise<noticeControllerFindOneV1Response> => {
@@ -326,13 +326,13 @@ export const noticeControllerFindOneV1 = async (id: number, options?: RequestIni
 
 export const getNoticeControllerFindOneV1InfiniteQueryKey = (id: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/lms/notices/${id}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/notices/${id}`
     ] as const;
     }
 
 export const getNoticeControllerFindOneV1QueryKey = (id: number,) => {
     return [
-    `http://localhost:3000/api/v1/lms/notices/${id}`
+    `https://multivendor-updated.vercel.app/api/v1/lms/notices/${id}`
     ] as const;
     }
 
@@ -478,7 +478,7 @@ export const getNoticeControllerUpdateV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/notices/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/notices/${id}`
 }
 
 export const noticeControllerUpdateV1 = async (id: number,
@@ -555,7 +555,7 @@ export const getNoticeControllerRemoveV1Url = (id: number,) => {
 
   
 
-  return `http://localhost:3000/api/v1/lms/notices/${id}`
+  return `https://multivendor-updated.vercel.app/api/v1/lms/notices/${id}`
 }
 
 export const noticeControllerRemoveV1 = async (id: number, options?: RequestInit): Promise<noticeControllerRemoveV1Response> => {

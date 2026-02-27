@@ -10,7 +10,7 @@ import type { CreateExamResultDtoMarksObtained } from './createExamResultDtoMark
 import type { CreateExamResultDtoRemarks } from './createExamResultDtoRemarks';
 
 export interface CreateExamResultDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   examSubjectId: number;
   studentId: number;

@@ -58,7 +58,7 @@ export const getTenantUserControllerAssignV1Url = () => {
 
   
 
-  return `http://localhost:3000/api/v1/tenant-users`
+  return `https://multivendor-updated.vercel.app/api/v1/tenant-users`
 }
 
 export const tenantUserControllerAssignV1 = async (assignUserToTenantDto: AssignUserToTenantDto, options?: RequestInit): Promise<tenantUserControllerAssignV1Response> => {
@@ -134,7 +134,7 @@ export const getTenantUserControllerFindTenantsByUserV1Url = (userId: number,) =
 
   
 
-  return `http://localhost:3000/api/v1/tenant-users/user/${userId}`
+  return `https://multivendor-updated.vercel.app/api/v1/tenant-users/user/${userId}`
 }
 
 export const tenantUserControllerFindTenantsByUserV1 = async (userId: number, options?: RequestInit): Promise<tenantUserControllerFindTenantsByUserV1Response> => {
@@ -154,13 +154,13 @@ export const tenantUserControllerFindTenantsByUserV1 = async (userId: number, op
 
 export const getTenantUserControllerFindTenantsByUserV1InfiniteQueryKey = (userId: number,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/tenant-users/user/${userId}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/tenant-users/user/${userId}`
     ] as const;
     }
 
 export const getTenantUserControllerFindTenantsByUserV1QueryKey = (userId: number,) => {
     return [
-    `http://localhost:3000/api/v1/tenant-users/user/${userId}`
+    `https://multivendor-updated.vercel.app/api/v1/tenant-users/user/${userId}`
     ] as const;
     }
 
@@ -306,7 +306,7 @@ export const getTenantUserControllerFindUsersByTenantV1Url = (tenantId: string,)
 
   
 
-  return `http://localhost:3000/api/v1/tenant-users/tenant/${tenantId}`
+  return `https://multivendor-updated.vercel.app/api/v1/tenant-users/tenant/${tenantId}`
 }
 
 export const tenantUserControllerFindUsersByTenantV1 = async (tenantId: string, options?: RequestInit): Promise<tenantUserControllerFindUsersByTenantV1Response> => {
@@ -326,13 +326,13 @@ export const tenantUserControllerFindUsersByTenantV1 = async (tenantId: string, 
 
 export const getTenantUserControllerFindUsersByTenantV1InfiniteQueryKey = (tenantId: string,) => {
     return [
-    'infinite', `http://localhost:3000/api/v1/tenant-users/tenant/${tenantId}`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/tenant-users/tenant/${tenantId}`
     ] as const;
     }
 
 export const getTenantUserControllerFindUsersByTenantV1QueryKey = (tenantId: string,) => {
     return [
-    `http://localhost:3000/api/v1/tenant-users/tenant/${tenantId}`
+    `https://multivendor-updated.vercel.app/api/v1/tenant-users/tenant/${tenantId}`
     ] as const;
     }
 
@@ -479,7 +479,7 @@ export const getTenantUserControllerRemoveUserFromTenantV1Url = (tenantId: strin
 
   
 
-  return `http://localhost:3000/api/v1/tenant-users/${tenantId}/user/${userId}`
+  return `https://multivendor-updated.vercel.app/api/v1/tenant-users/${tenantId}/user/${userId}`
 }
 
 export const tenantUserControllerRemoveUserFromTenantV1 = async (tenantId: string,

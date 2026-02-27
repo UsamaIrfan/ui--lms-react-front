@@ -11,4 +11,5 @@ export interface DashboardAttendanceSummary {
   totalDays: number;
   presentDays: number;
   absentDays: number;
+  lateDays: number;
 }

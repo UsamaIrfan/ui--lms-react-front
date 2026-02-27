@@ -17,7 +17,7 @@ import type { CreateStaffMgmtDtoSpecialization } from './createStaffMgmtDtoSpeci
 import type { CreateStaffMgmtDtoUserRole } from './createStaffMgmtDtoUserRole';
 
 export interface CreateStaffMgmtDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   /** User ID (OneToOne). Provide either userId OR (email + password + firstName + lastName) to auto-create a user account. */
   userId?: number;

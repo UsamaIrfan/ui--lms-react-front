@@ -16,7 +16,7 @@ import type { CreateStaffDtoQualification } from './createStaffDtoQualification'
 import type { CreateStaffDtoSpecialization } from './createStaffDtoSpecialization';
 
 export interface CreateStaffDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   /** User ID (OneToOne) */
   userId: number;

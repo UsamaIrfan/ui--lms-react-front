@@ -9,7 +9,7 @@ import type { CreateStudentDocumentDtoFileId } from './createStudentDocumentDtoF
 import type { CreateStudentDocumentDtoRemarks } from './createStudentDocumentDtoRemarks';
 
 export interface CreateStudentDocumentDto {
-  tenantId: string;
+  tenantId?: string;
   branchId?: string;
   studentId: number;
   documentType: string;

@@ -21,4 +21,5 @@ action?: string;
 resourceType?: string;
 limit?: number;
 offset?: number;
+page?: number;
 };

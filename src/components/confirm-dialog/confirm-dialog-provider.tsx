@@ -71,16 +71,24 @@ function ConfirmDialogProvider({ children }: { children: React.ReactNode }) {
         {children}
       </ConfirmDialogActionsContext.Provider>
       <Dialog open={isOpen} onOpenChange={(open) => !open && onCancel()}>
-        <DialogContent>
+        <DialogContent data-testid="confirm-dialog">
           <DialogHeader>
             <DialogTitle>{confirmDialogInfo.title}</DialogTitle>
             <DialogDescription>{confirmDialogInfo.message}</DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={onCancel}>
+            <Button
+              variant="outline"
+              onClick={onCancel}
+              data-testid="confirm-dialog-cancel"
+            >
               {confirmDialogInfo.cancelButtonText}
             </Button>
-            <Button onClick={onSuccess} autoFocus>
+            <Button
+              onClick={onSuccess}
+              autoFocus
+              data-testid="confirm-dialog-confirm"
+            >
               {confirmDialogInfo.successButtonText}
             </Button>
           </DialogFooter>

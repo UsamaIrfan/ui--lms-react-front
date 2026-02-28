@@ -90,7 +90,7 @@ function MaterialsPageContent() {
   // ── Loading ──
   if (isLoading || enrollmentLoading) {
     return (
-      <div className="flex flex-col gap-6">
+      <div data-testid="student-materials-page" className="flex flex-col gap-6">
         <div>
           <h1 className="text-title-h4 text-text-strong-950">
             {t("pageTitle")}
@@ -107,7 +107,7 @@ function MaterialsPageContent() {
   // ── Error ──
   if (isError) {
     return (
-      <div className="flex flex-col gap-6">
+      <div data-testid="student-materials-page" className="flex flex-col gap-6">
         <div>
           <h1 className="text-title-h4 text-text-strong-950">
             {t("pageTitle")}
@@ -125,7 +125,7 @@ function MaterialsPageContent() {
   // ── Not enrolled ──
   if (!enrollment?.isEnrolled) {
     return (
-      <div className="flex flex-col gap-6">
+      <div data-testid="student-materials-page" className="flex flex-col gap-6">
         <div>
           <h1 className="text-title-h4 text-text-strong-950">
             {t("pageTitle")}
@@ -145,7 +145,7 @@ function MaterialsPageContent() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div data-testid="student-materials-page" className="flex flex-col gap-6">
       {/* Header */}
       <div>
         <h1 className="text-title-h4 text-text-strong-950">{t("pageTitle")}</h1>

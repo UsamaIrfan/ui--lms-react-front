@@ -150,7 +150,7 @@ function FeeConfiguration() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4">
+    <div data-testid="admin-settings-fees-page" className="mx-auto max-w-3xl px-4">
       <div className="grid gap-6 pt-6">
         {/* Header */}
         <div className="flex items-center gap-3">

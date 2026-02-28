@@ -276,7 +276,7 @@ function Users() {
   }, [result, searchQuery]);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-8">
+    <div data-testid="admin-users-page" className="mx-auto max-w-7xl px-4 pb-8">
       <div className="grid gap-6 pt-6">
         {/* ── Page header ─────────────────────────── */}
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">

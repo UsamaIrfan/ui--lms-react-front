@@ -327,7 +327,7 @@ function StudentsMaterials() {
     `px-4 py-2 text-paragraph-sm font-medium rounded-md transition-colors ${activeTab === tab ? "bg-primary-base text-static-white" : "text-text-soft-400 hover:text-text-strong-950 hover:bg-bg-weak-50"}`;
 
   return (
-    <div className="mx-auto max-w-7xl px-4">
+    <div data-testid="admin-students-materials-page" className="mx-auto max-w-7xl px-4">
       <div className="grid gap-6 pt-6">
         <h3 className="text-3xl font-bold tracking-tight">
           {t("admin-panel-students-materials:title")}

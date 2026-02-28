@@ -172,7 +172,7 @@ function AssignmentsPageContent() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div data-testid="student-assignments-page" className="flex flex-col gap-6">
       {/* Header */}
       <div>
         <h1 className="text-title-h4 text-text-strong-950">{t("pageTitle")}</h1>

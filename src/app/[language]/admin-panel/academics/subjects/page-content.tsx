@@ -176,7 +176,7 @@ function AcademicSubjects() {
   );
 
   return (
-    <div className="mx-auto max-w-7xl px-4">
+    <div data-testid="admin-academics-subjects-page" className="mx-auto max-w-7xl px-4">
       <div className="grid gap-6 pt-6">
         <div className="flex items-center justify-between gap-4">
           <h3 className="text-3xl font-bold tracking-tight">

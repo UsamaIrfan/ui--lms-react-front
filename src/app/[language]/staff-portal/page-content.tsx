@@ -106,7 +106,7 @@ function StaffPortal() {
   const { data, isLoading, isError, refetch } = useStaffDashboard();
 
   return (
-    <div className="flex flex-col gap-6 p-4 lg:p-6">
+    <div data-testid="staff-dashboard" className="flex flex-col gap-6 p-4 lg:p-6">
       {/* ── Error State ── */}
       {isError && (
         <DashboardError

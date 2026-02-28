@@ -480,7 +480,7 @@ function StudentRegistrations() {
 
         {/* Pagination */}
         {paginatedData.length > 0 && (
-          <div className="flex items-center justify-between gap-4 pb-4">
+          <div data-testid="admin-students-registrations-page" className="flex items-center justify-between gap-4 pb-4">
             <div className="flex items-center gap-2 text-paragraph-sm text-text-soft-400">
               <span>
                 {t("admin-panel-students-registrations:pagination.rowsPerPage")}

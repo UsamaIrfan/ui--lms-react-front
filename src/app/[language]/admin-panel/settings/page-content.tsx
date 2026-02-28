@@ -87,7 +87,7 @@ function SettingsHub() {
   const { t } = useTranslation("admin-panel-settings");
 
   return (
-    <div className="mx-auto max-w-5xl px-4">
+    <div data-testid="admin-settings-page" className="mx-auto max-w-5xl px-4">
       <div className="grid gap-6 pt-6">
         {/* Header */}
         <div>

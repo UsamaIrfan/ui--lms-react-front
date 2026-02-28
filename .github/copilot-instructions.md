@@ -2,7 +2,7 @@
 
 ## Stack
 
-Next.js 15.5.9 (App Router, Turbopack), React 19.1, TypeScript 5.9, AlignUI + Radix UI + Tailwind CSS v4, React Hook Form + Yup, TanStack React Query 5, Recharts 3, i18next, Playwright for E2E, Storybook 9.
+Next.js 15.5.9 (App Router, Turbopack), React 19.1, TypeScript 5.9, AlignUI + Radix UI + Tailwind CSS v4, React Hook Form + Yup, TanStack React Query 5, Recharts 3, i18next, Playwright 1.55 for E2E, Storybook 9.
 
 | Layer         | Library                                                               | Purpose                                                                      |
 | ------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
@@ -16,6 +16,7 @@ Next.js 15.5.9 (App Router, Turbopack), React 19.1, TypeScript 5.9, AlignUI + Ra
 | Dates         | `date-fns`                                                            | Date utilities                                                               |
 | Toasts        | `react-toastify`                                                      | Toast/snackbar notifications                                                 |
 | Demo data     | `@faker-js/faker`                                                     | Generating fallback demo data for dashboards                                 |
+| E2E testing   | **Playwright 1.55** (`@playwright/test`)                              | End-to-end browser tests (139 tests across 19 spec files)                    |
 
 ## Project Structure
 
@@ -28,8 +29,16 @@ src/
 │       │   ├── components/      # Dashboard chart components (metric-card, charts, etc.)
 │       │   ├── queries/         # useAdminDashboard hook + demo-data fallback
 │       │   ├── types.ts         # AdminDashboardData type
-│       │   └── users/           # User management CRUD (list, create, edit)
-│       ├── student-portal/      # Student dashboard (attendance, fees, exams, materials)
+│       │   ├── users/           # User management CRUD (list, create, edit)
+│       │   ├── students/        # Student admin: registrations, enquiries, attendance, fees, exams, materials
+│       │   ├── staff/           # Staff admin: list, attendance, leaves, payroll, timetable
+│       │   ├── academics/       # Academics: courses, classes, subjects, year
+│       │   ├── accounts/        # Accounts: income, expenses, reports
+│       │   ├── reports/         # General reports dashboard
+│       │   ├── notices/         # Notice management
+│       │   ├── authorization/   # Role permissions, audit logs
+│       │   └── settings/        # General, tenants, branches, fees, attendance, notifications, invitations
+│       ├── student-portal/      # Student dashboard (attendance, fees, exams, materials, assignments, timetable, notices)
 │       │   ├── components/      # Portal-specific components
 │       │   └── queries/         # useStudentDashboard hook + demo-data fallback
 │       ├── staff-portal/        # Staff dashboard (attendance, leaves, payroll, timetable)
@@ -260,6 +269,78 @@ Always use `import Link from '@/components/link'` — it:
 
 Use `react-virtuoso` (`TableVirtuoso`) with `TableComponents` from `src/components/table/table-components.tsx` for virtualized tables. Combine with infinite query pagination.
 
+## E2E Testing (Playwright)
+
+139 tests across 19 spec files using Playwright 1.55. Full documentation in `docs/e2e-test-summary.md`.
+
+### Test Structure
+
+```
+playwright-tests/
+├── helpers/
+│   ├── auth.ts              # Auth setup — authenticates 7 role users, saves storageState
+│   ├── constants.ts         # TEST_USERS, ROLE_ACCESSIBLE_ROUTES, ROLE_NAV_ITEMS
+│   ├── login.ts             # loginAs(page, role) helper
+│   ├── navigation.ts        # navigateToSection(page, section) helper
+│   ├── api-requests.ts      # Direct API call helpers
+│   └── email.ts             # Email verification helpers
+├── 1-auth/                  # Auth flow tests (sign-in, sign-up, forgot-password)
+├── 2-admin/                 # Admin panel tests (dashboard, students, staff, academics, settings, etc.)
+├── 3-student/               # Student portal tests (dashboard, attendance, fees, exams, etc.)
+├── 4-tenant/                # Tenant selection tests
+├── 5-profile/               # Profile page tests
+└── 6-staff/                 # Staff portal tests
+```
+
+### Playwright Config
+
+- **6 projects**: `auth-setup` (serial, first), `chromium`, `admin`, `student`, `staff`, `role-access`
+- **Retries**: 1 locally, 2 in CI
+- **Timeouts**: 2 min per test, 20s for expect assertions
+- **Trace**: on-first-retry
+- **Web server**: `npm run dev -- --port 3001` (local), `npm run build:e2e && npm run start -- --port 3001` (CI)
+- **Base URL**: `http://localhost:3001`
+- **Backend API**: `http://localhost:3000/api`
+
+### Test Users (7 roles)
+
+Each role has a dedicated test user with email pattern `test.<role>@example.com` and password `Secret1!`. The `auth-setup` project authenticates all users and saves their `storageState` to `playwright-tests/.auth/`.
+
+### Running Tests
+
+```bash
+npx playwright test                              # Run all tests
+npx playwright test --project=admin              # Run only admin tests
+npx playwright test --project=student            # Run only student tests
+npx playwright test playwright-tests/2-admin/    # Run tests in a specific folder
+npx playwright test --ui                         # Interactive UI mode
+npx playwright test --headed                     # Run with visible browser
+```
+
+### Writing Tests
+
+- Use `test.use({ storageState: 'playwright-tests/.auth/<role>.json' })` to authenticate as a specific role
+- Use `data-testid` selectors: `page.getByTestId('admin-staff-page')`
+- Wait for page load with: `await page.waitForSelector('[data-testid="<page-testid>"]')`
+- The `withPageRequiredAuth` HOC renders `null` and does an async `router.replace()` for unauthorized users — tests must account for the redirect not producing a visible error page
+- AlignUI `Input` renders `data-testid` directly on the `<input>` element (no wrapper div), so `page.getByTestId('email')` targets the input directly
+
+### data-testid Naming Convention
+
+All pages must have a `data-testid` on their outermost rendered `<div>`. Follow these patterns:
+
+| Section            | Pattern                                      | Examples                                                                               |
+| ------------------ | -------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Admin dashboard    | `admin-dashboard`                            | —                                                                                      |
+| Admin sub-pages    | `admin-<subsection>-page`                    | `admin-staff-page`, `admin-notices-page`, `admin-reports-page`                         |
+| Admin nested pages | `admin-<section>-<subsection>-page`          | `admin-staff-attendance-page`, `admin-settings-fees-page`, `admin-students-exams-page` |
+| Student portal     | `student-dashboard` or `student-<page>-page` | `student-fees-page`, `student-timetable-page`                                          |
+| Staff portal       | `staff-dashboard`                            | —                                                                                      |
+| Auth pages         | action name on submit button                 | `sign-in-submit`, `sign-up-submit`, `send-email`                                       |
+| Form fields        | field name                                   | `email`, `password`, `firstName`                                                       |
+| Tenant selection   | `select-tenant-{id}`, `select-branch-{id}`   | `skip-branch-selection`, `continue-without-branch`                                     |
+| Profile            | descriptive name                             | `user-icon`, `user-name`, `edit-profile`                                               |
+
 ## Code Generation
 
 ```bash
@@ -284,6 +365,7 @@ npm run api:generate              # Generate API hooks from backend OpenAPI spec
 npm run api:generate:file         # Generate from local openapi.json file
 npm run api:generate:watch        # Watch mode during development
 npx playwright test               # E2E tests (needs running dev server)
+npx playwright test --project=admin  # Run specific test project
 npm run sb                        # Storybook dev server
 npm run build-storybook           # Storybook production build
 ```
@@ -304,4 +386,4 @@ All client-exposed env vars use `NEXT_PUBLIC_` prefix. Key vars (see `example.en
 - **Imports**: Use `@/` alias (maps to `src/`)
 - **Commit messages**: Conventional Commits (enforced by `commitlint`)
 - **No default exports for services/hooks** — only pages and components use default exports
-- **`data-testid` attributes**: Add to interactive elements for Playwright selectors (e.g., `data-testid="sign-in-submit"`)
+- **`data-testid` attributes**: Add to page root elements and interactive elements for Playwright selectors. Naming convention: `<section>-<page>-page` for pages (e.g., `admin-staff-page`, `student-fees-page`), action names for buttons (e.g., `sign-in-submit`). All pages must have a `data-testid` on their outermost rendered div. See `docs/e2e-test-summary.md` for the full data-testid inventory

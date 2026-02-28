@@ -134,7 +134,7 @@ function StudentFeesPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6 p-4 lg:p-6" ref={printRef}>
+    <div data-testid="student-fees-page" className="flex flex-col gap-6 p-4 lg:p-6" ref={printRef}>
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div>

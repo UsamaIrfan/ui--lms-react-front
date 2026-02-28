@@ -134,6 +134,7 @@ function SidebarNavItem({
     <Link
       href={item.href}
       onClick={close}
+      data-testid={`nav-${item.id}`}
       className={cn(
         "group flex items-center gap-3 rounded-lg px-3 py-2 text-paragraph-sm no-underline transition-colors duration-150",
         depth > 0 && "ml-4 pl-5",
@@ -215,6 +216,7 @@ function SidebarNavGroup({
         <TooltipTrigger asChild>
           <button
             onClick={handleToggle}
+            data-testid={`nav-group-${item.id}`}
             className={cn(
               "group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-paragraph-sm transition-colors duration-150",
               parentActive
@@ -254,6 +256,7 @@ function SidebarNavGroup({
     <div>
       <button
         onClick={handleToggle}
+        data-testid={`nav-group-${item.id}`}
         className={cn(
           "group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-paragraph-sm transition-colors duration-150",
           parentActive

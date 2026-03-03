@@ -78,7 +78,7 @@ const plans = [
       "Unlimited admin accounts",
     ],
     cta: "Contact sales",
-    href: "/sign-up",
+    href: "mailto:sales@eduflow.com",
   },
 ];
 

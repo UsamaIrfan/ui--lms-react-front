@@ -19,6 +19,12 @@ const PLAIN_ROUTES = [
   "/select-tenant",
   "/privacy-policy",
   "/showcase",
+  "/features",
+  "/pricing",
+  "/about",
+  "/contact",
+  "/demo",
+  "/legal",
 ];
 
 function isPlainRoute(pathname: string, language: string): boolean {

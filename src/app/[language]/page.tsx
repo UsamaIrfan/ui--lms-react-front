@@ -184,8 +184,7 @@ const faqs = [
   },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function Home(props: Props) {
+export default async function Home(_props: Props) {
   return (
     <MarketingLayout>
       {/* Hero */}

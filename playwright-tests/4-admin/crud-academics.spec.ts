@@ -3,13 +3,9 @@ import {
   apiCreateInstitution,
   apiDeleteInstitution,
   apiCreateDepartment,
-  apiDeleteDepartment,
   apiCreateGradeClass,
-  apiDeleteGradeClass,
   apiCreateSubject,
-  apiDeleteSubject,
   apiCreateAcademicYear,
-  apiDeleteAcademicYear,
   apiGet,
 } from "../helpers/api-requests";
 
@@ -141,7 +137,7 @@ test.describe("Admin — Academics CRUD", () => {
 
     test("should delete an institution", async ({ page }) => {
       const code = `DEL-${RUN}`;
-      const inst = await apiCreateInstitution({
+      await apiCreateInstitution({
         name: `Del Inst ${RUN}`,
         code,
       });
@@ -218,7 +214,7 @@ test.describe("Admin — Academics CRUD", () => {
       const institutions = await apiGet("/v1/lms/institutions");
       const instId = institutions[0].id;
 
-      const dept = await apiCreateDepartment({
+      await apiCreateDepartment({
         name: `Del Dept ${RUN}`,
         code: `DD-${RUN}`,
         institutionId: instId,
@@ -327,7 +323,7 @@ test.describe("Admin — Academics CRUD", () => {
       const institutions = await apiGet("/v1/lms/institutions");
       const instId = institutions[0].id;
 
-      const cls = await apiCreateGradeClass({
+      await apiCreateGradeClass({
         name: `Del Class ${RUN}`,
         numericGrade: 98,
         institutionId: instId,
@@ -390,7 +386,7 @@ test.describe("Admin — Academics CRUD", () => {
       const departments = await apiGet("/v1/lms/departments");
       const deptId = departments[0].id;
 
-      const subj = await apiCreateSubject({
+      await apiCreateSubject({
         name: `Del Subj ${RUN}`,
         code: `DS-${RUN}`,
         departmentId: deptId,
@@ -453,7 +449,7 @@ test.describe("Admin — Academics CRUD", () => {
       const institutions = await apiGet("/v1/lms/institutions");
       const instId = institutions[0].id;
 
-      const year = await apiCreateAcademicYear({
+      await apiCreateAcademicYear({
         name: `Del Year ${RUN}`,
         startDate: "2098-01-01",
         endDate: "2098-12-31",

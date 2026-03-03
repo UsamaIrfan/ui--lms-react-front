@@ -112,7 +112,7 @@ test.describe("Admin — Notices CRUD", () => {
   });
 
   test("should delete a notice via confirm dialog", async ({ page }) => {
-    const notice = await apiCreateNotice({
+    await apiCreateNotice({
       title: `Del Notice ${RUN}`,
       content: "To be deleted",
     });

@@ -184,7 +184,10 @@ function TenantManagement() {
   );
 
   return (
-    <div data-testid="admin-settings-tenants-page" className="mx-auto max-w-7xl px-4">
+    <div
+      data-testid="admin-settings-tenants-page"
+      className="mx-auto max-w-7xl px-4"
+    >
       <div className="grid gap-6 pt-6">
         {/* Header */}
         <div className="flex items-center gap-3">

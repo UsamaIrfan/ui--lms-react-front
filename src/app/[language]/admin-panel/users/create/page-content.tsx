@@ -149,7 +149,10 @@ function FormCreateUser() {
 
   return (
     <FormProvider {...methods}>
-      <div data-testid="admin-users-create-page" className="mx-auto max-w-lg px-4 pb-8">
+      <div
+        data-testid="admin-users-create-page"
+        className="mx-auto max-w-lg px-4 pb-8"
+      >
         <div className="grid gap-6 pt-6">
           {/* ── Page header ─────────────────────────── */}
           <div className="flex items-center gap-3">

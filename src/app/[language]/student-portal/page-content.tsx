@@ -111,7 +111,10 @@ function StudentPortal() {
   const { data, isLoading, isError, refetch } = useStudentDashboard();
 
   return (
-    <div data-testid="student-dashboard" className="flex flex-col gap-6 p-4 lg:p-6">
+    <div
+      data-testid="student-dashboard"
+      className="flex flex-col gap-6 p-4 lg:p-6"
+    >
       {/* ── Error State ── */}
       {isError && (
         <DashboardError

@@ -136,8 +136,9 @@ test.describe("Admin — Timetable CRUD", () => {
     const classId = gradeClasses[0].id;
     const sections = await apiGet("/v1/lms/sections");
     const sectionId =
-      sections.find((s: any) => s.gradeClassId === classId)?.id ??
-      sections[0].id;
+      sections.find(
+        (s: { gradeClassId: number; id: number }) => s.gradeClassId === classId
+      )?.id ?? sections[0].id;
     const academicYears = await apiGet("/v1/lms/academic-years");
     const academicYearId = academicYears[0].id;
     const tt = await apiCreateTimetable({
@@ -185,11 +186,12 @@ test.describe("Admin — Timetable CRUD", () => {
     const classId = gradeClasses[0].id;
     const sections = await apiGet("/v1/lms/sections");
     const sectionId =
-      sections.find((s: any) => s.gradeClassId === classId)?.id ??
-      sections[0].id;
+      sections.find(
+        (s: { gradeClassId: number; id: number }) => s.gradeClassId === classId
+      )?.id ?? sections[0].id;
     const academicYears = await apiGet("/v1/lms/academic-years");
     const academicYearId = academicYears[0].id;
-    const tt = await apiCreateTimetable({
+    await apiCreateTimetable({
       name: ttName,
       classId,
       sectionId,
@@ -222,8 +224,9 @@ test.describe("Admin — Timetable CRUD", () => {
     const classId = gradeClasses[0].id;
     const sections = await apiGet("/v1/lms/sections");
     const sectionId =
-      sections.find((s: any) => s.gradeClassId === classId)?.id ??
-      sections[0].id;
+      sections.find(
+        (s: { gradeClassId: number; id: number }) => s.gradeClassId === classId
+      )?.id ?? sections[0].id;
     const academicYears = await apiGet("/v1/lms/academic-years");
     const academicYearId = academicYears[0].id;
     const tt = await apiCreateTimetable({

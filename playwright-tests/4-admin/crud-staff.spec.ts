@@ -149,7 +149,7 @@ test.describe("Admin — Staff Management CRUD", () => {
     const institutions = await apiGet("/v1/lms/institutions");
     const instId = institutions[0].id;
 
-    const staff = await apiCreateStaff({
+    await apiCreateStaff({
       email: `e2e-del-${RUN}@example.com`,
       password: "Secret1!",
       firstName: "DeleteMe",

@@ -1,10 +1,9 @@
-import { Page, request, expect } from "@playwright/test";
+import { Page, request, expect, type APIResponse } from "@playwright/test";
 import {
   API_URL,
   DEFAULT_TENANT_ID,
   DEFAULT_BRANCH_ID,
   TEST_USERS,
-  type TestUser,
 } from "./constants";
 
 // ─────────────────────────────────────────────
@@ -17,7 +16,11 @@ import {
 export async function apiLogin(
   email: string,
   password: string
-): Promise<{ token: string; refreshToken: string; user: any }> {
+): Promise<{
+  token: string;
+  refreshToken: string;
+  user: Record<string, unknown>;
+}> {
   const ctx = await request.newContext();
   const res = await ctx.post(`${API_URL}/v1/auth/email/login`, {
     data: { email, password },
@@ -33,7 +36,11 @@ export async function apiLogin(
 export async function apiSelectTenant(
   token: string,
   tenantId: string = DEFAULT_TENANT_ID
-): Promise<{ token: string; refreshToken: string; user: any }> {
+): Promise<{
+  token: string;
+  refreshToken: string;
+  user: Record<string, unknown>;
+}> {
   const ctx = await request.newContext();
   const res = await ctx.post(`${API_URL}/v1/auth/tenant/select`, {
     data: { tenantId },
@@ -184,7 +191,7 @@ export async function apiCreateUserWithRole(
   firstName: string,
   lastName: string,
   roleId: number
-): Promise<any> {
+): Promise<APIResponse> {
   const ctx = await request.newContext();
   const res = await ctx.post(`${API_URL}/v1/users`, {
     data: {

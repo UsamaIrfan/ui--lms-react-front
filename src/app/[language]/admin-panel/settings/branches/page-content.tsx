@@ -199,7 +199,10 @@ function BranchManagement() {
   );
 
   return (
-    <div data-testid="admin-settings-branches-page" className="mx-auto max-w-7xl px-4">
+    <div
+      data-testid="admin-settings-branches-page"
+      className="mx-auto max-w-7xl px-4"
+    >
       <div className="grid gap-6 pt-6">
         {/* Header */}
         <div className="flex items-center justify-between gap-4">

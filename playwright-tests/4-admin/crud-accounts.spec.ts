@@ -115,7 +115,7 @@ test.describe("Admin — Accounts CRUD", () => {
     });
 
     test("should delete an income entry", async ({ page }) => {
-      const income = await apiCreateIncome({
+      await apiCreateIncome({
         category: `Del Inc ${RUN}`,
         amount: 500,
         date: "2026-02-01",
@@ -218,7 +218,7 @@ test.describe("Admin — Accounts CRUD", () => {
     });
 
     test("should delete an expense entry", async ({ page }) => {
-      const expense = await apiCreateExpense({
+      await apiCreateExpense({
         category: `Del Exp ${RUN}`,
         amount: 300,
         date: "2026-02-10",

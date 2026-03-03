@@ -1,10 +1,5 @@
 import { test as setup, expect, request } from "@playwright/test";
-import {
-  API_URL,
-  DEFAULT_TENANT_ID,
-  TEST_USERS,
-  RoleId,
-} from "./helpers/constants";
+import { API_URL, DEFAULT_TENANT_ID, TEST_USERS } from "./helpers/constants";
 
 /**
  * Global auth setup — creates storageState files for each role.

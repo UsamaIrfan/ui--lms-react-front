@@ -94,7 +94,7 @@ function StaffPayroll() {
       const blob =
         pdfData instanceof Blob
           ? pdfData
-          : new Blob([pdfData as BlobPart], { type: "application/pdf" });
+          : new Blob([pdfData as unknown as BlobPart], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;

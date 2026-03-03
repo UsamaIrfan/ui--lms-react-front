@@ -14,6 +14,7 @@ import {
   useGenerateChallanMutation,
   usePaymentsQuery,
   useRecordPaymentMutation,
+  useVerifyPaymentMutation,
 } from "./queries/queries";
 import type { FeeStructureItem, ChallanItem } from "./queries/queries";
 import { useInstitutionsListQuery } from "../../academics/courses/queries/queries";
@@ -42,6 +43,7 @@ import {
   RiEditLine,
   RiDeleteBinLine,
   RiMoneyDollarCircleLine,
+  RiCheckLine,
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
@@ -102,6 +104,7 @@ function StudentsFees() {
   // Payments
   const { data: payments, isLoading: payLoading } = usePaymentsQuery();
   const recordPaymentMutation = useRecordPaymentMutation();
+  const verifyPaymentMutation = useVerifyPaymentMutation();
   const [payModalOpen, setPayModalOpen] = useState(false);
   const [payChallanId, setPayChallanId] = useState("");
   const [payAmount, setPayAmount] = useState("");
@@ -293,6 +296,29 @@ function StudentsFees() {
     enqueueSnackbar,
     t,
   ]);
+
+  // Verify Payment handler
+  const handleVerifyPayment = useCallback(
+    async (paymentId: number) => {
+      const confirmed = await confirmDialog({
+        title: t("admin-panel-students-fees:confirm.verifyTitle"),
+        message: t("admin-panel-students-fees:confirm.verify"),
+      });
+      if (!confirmed) return;
+      try {
+        await verifyPaymentMutation.mutateAsync(paymentId);
+        enqueueSnackbar(
+          t("admin-panel-students-fees:notifications.paymentVerified"),
+          { variant: "success" }
+        );
+      } catch {
+        enqueueSnackbar(t("admin-panel-students-fees:notifications.error"), {
+          variant: "error",
+        });
+      }
+    },
+    [confirmDialog, verifyPaymentMutation, enqueueSnackbar, t]
+  );
 
   const challanStatus = (s: string) => {
     if (s === "paid") return "default" as const;
@@ -542,19 +568,22 @@ function StudentsFees() {
                     <TableHead>
                       {t("admin-panel-students-fees:table.verified")}
                     </TableHead>
+                    <TableHead style={{ width: 80 }}>
+                      {t("admin-panel-students-fees:table.actions")}
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {payLoading ? (
                     <TableRow>
-                      <TableCell colSpan={5} className="h-40 text-center">
+                      <TableCell colSpan={6} className="h-40 text-center">
                         <Spinner size="md" />
                       </TableCell>
                     </TableRow>
                   ) : !payments || payments.length === 0 ? (
                     <TableRow>
                       <TableCell
-                        colSpan={5}
+                        colSpan={6}
                         className="h-40 text-center text-paragraph-sm text-text-soft-400"
                       >
                         {t("admin-panel-students-fees:table.empty")}
@@ -579,8 +608,23 @@ function StudentsFees() {
                           <Badge
                             variant={item.verified ? "default" : "outline"}
                           >
-                            {item.verified ? "Verified" : "Pending"}
+                            {item.verified
+                              ? t("admin-panel-students-fees:table.verifiedLabel")
+                              : t("admin-panel-students-fees:table.pendingLabel")}
                           </Badge>
+                        </TableCell>
+                        <TableCell>
+                          {!item.verified && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => void handleVerifyPayment(item.id)}
+                              disabled={verifyPaymentMutation.isPending}
+                            >
+                              <RiCheckLine className="mr-1 h-4 w-4" />
+                              {t("admin-panel-students-fees:actions.verify")}
+                            </Button>
+                          )}
                         </TableCell>
                       </TableRow>
                     ))

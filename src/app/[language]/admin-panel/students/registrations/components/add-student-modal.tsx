@@ -942,9 +942,28 @@ export default function AddStudentModal({
   const handleSaveDraft = useCallback(async () => {
     if (isEditing) return; // Draft only for new registrations
     const formData = methods.getValues();
+
+    // Minimal validation: need at least a first name and email
+    if (!formData.firstName?.trim() || !formData.email?.trim()) {
+      enqueueSnackbar(
+        t(
+          "admin-panel-students-registrations:addStudent.draftMinFieldsRequired"
+        ),
+        { variant: "error" }
+      );
+      return;
+    }
+
     try {
+      const payload = buildPayload(formData);
       await registerMutation.mutateAsync({
-        ...buildPayload(formData),
+        ...payload,
+        // Override empty strings with undefined so server validation doesn't fail
+        password: payload.password || undefined,
+        dateOfBirth: payload.dateOfBirth || undefined,
+        gender: formData.gender?.id || undefined,
+        guardianName: payload.guardianName || undefined,
+        guardianPhone: payload.guardianPhone || undefined,
         isDraft: true,
       } as any);
       enqueueSnackbar(
@@ -956,7 +975,10 @@ export default function AddStudentModal({
       setCurrentStep(0);
       setPendingDocuments([]);
     } catch {
-      enqueueSnackbar("Failed to save draft", { variant: "error" });
+      enqueueSnackbar(
+        t("admin-panel-students-registrations:addStudent.draftError"),
+        { variant: "error" }
+      );
     }
   }, [
     isEditing,

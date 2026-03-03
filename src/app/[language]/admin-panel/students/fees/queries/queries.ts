@@ -187,7 +187,7 @@ export function useCollectionReportQuery(params?: {
     queryKey: [...FEES_KEY, "collection-report", params],
     queryFn: async ({ signal }) => {
       const res = await feesControllerGetCollectionReportV1(params, { signal });
-      return res;
+      return (res as unknown as { data: unknown })?.data ?? res;
     },
   });
 }
@@ -197,7 +197,7 @@ export function usePendingReportQuery() {
     queryKey: [...FEES_KEY, "pending-report"],
     queryFn: async ({ signal }) => {
       const res = await feesControllerGetPendingReportV1({ signal });
-      return res;
+      return (res as unknown as { data: unknown })?.data ?? res;
     },
   });
 }
@@ -207,7 +207,7 @@ export function useDefaultersReportQuery() {
     queryKey: [...FEES_KEY, "defaulters-report"],
     queryFn: async ({ signal }) => {
       const res = await feesControllerGetDefaultersReportV1({ signal });
-      return res;
+      return (res as unknown as { data: unknown })?.data ?? res;
     },
   });
 }

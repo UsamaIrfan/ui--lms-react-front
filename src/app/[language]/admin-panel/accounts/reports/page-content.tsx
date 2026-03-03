@@ -8,6 +8,7 @@ import {
   useIncomeReportQuery,
   useExpenseReportQuery,
   useIncomeConsolidatedQuery,
+  useExpenseConsolidatedQuery,
 } from "./queries/queries";
 import {
   Table,
@@ -38,8 +39,20 @@ function AccountsReports() {
     return p;
   }, [startDate, endDate]);
 
-  const { data: consolidated, isLoading: consLoading } =
+  const { data: incomeConsolidated, isLoading: incConsLoading } =
     useIncomeConsolidatedQuery(dateParams);
+  const { data: expenseConsolidated, isLoading: expConsLoading } =
+    useExpenseConsolidatedQuery(dateParams);
+  const consLoading = incConsLoading || expConsLoading;
+  const consolidated = useMemo(() => {
+    const totalIncome = incomeConsolidated?.totalIncome ?? 0;
+    const totalExpenses = expenseConsolidated?.totalExpenses ?? 0;
+    return {
+      totalIncome,
+      totalExpenses,
+      netBalance: totalIncome - totalExpenses,
+    };
+  }, [incomeConsolidated, expenseConsolidated]);
   const { data: incomeReport, isLoading: incLoading } =
     useIncomeReportQuery(dateParams);
   const { data: expenseReport, isLoading: expLoading } =
@@ -195,7 +208,7 @@ function AccountsReports() {
                         {r.category}
                       </TableCell>
                       <TableCell className="text-paragraph-sm text-success-base">
-                        {r.total.toLocaleString()}
+                        {(r.total ?? 0).toLocaleString()}
                       </TableCell>
                       <TableCell className="text-paragraph-sm">
                         {r.count}
@@ -248,7 +261,7 @@ function AccountsReports() {
                         {r.category}
                       </TableCell>
                       <TableCell className="text-paragraph-sm text-error-base">
-                        {r.total.toLocaleString()}
+                        {(r.total ?? 0).toLocaleString()}
                       </TableCell>
                       <TableCell className="text-paragraph-sm">
                         {r.count}

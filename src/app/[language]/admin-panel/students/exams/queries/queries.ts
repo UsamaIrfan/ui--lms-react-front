@@ -53,6 +53,14 @@ export type ExamItem = {
   status?: string;
   termId?: number;
   description?: string;
+  subjects?: Array<{
+    id: number;
+    subjectId: number;
+    subjectName: string;
+    examDate?: string;
+    totalMarks: number;
+    passingMarks: number;
+  }>;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -122,6 +130,8 @@ export type SubjectAnalytics = {
 };
 
 export type StudentExamResult = {
+  student?: { id: number; name: string };
+  exam?: { id: number; name: string; type: string; status: string };
   examId: number;
   examName: string;
   subjects: {
@@ -131,10 +141,12 @@ export type StudentExamResult = {
     percentage: number;
     grade: string;
     isAbsent: boolean;
+    passed?: boolean;
   }[];
   totalMarks: number;
   obtainedMarks: number;
   percentage: number;
+  overallGrade?: string;
   grade: string;
   rank?: number;
 };

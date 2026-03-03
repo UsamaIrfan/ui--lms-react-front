@@ -8,9 +8,11 @@ import { useSearchParams } from "next/navigation";
 import {
   useExamsQuery,
   useStudentExamResultQuery,
-  useReportCardDownload,
   type ExamItem,
 } from "../queries/queries";
+import { getExamsControllerGetReportCardV1Url } from "@/services/api/generated/examination-results/examination-results";
+import { fetchBinary } from "@/utils/fetch-binary";
+import { downloadBlob } from "@/utils/pdf";
 import { useStudentsListQuery } from "../../../students/registrations/queries/queries";
 import {
   Table,
@@ -49,7 +51,7 @@ function ReportCardContent() {
 
   const { data: exams } = useExamsQuery();
   const { data: students } = useStudentsListQuery();
-  const reportCard = useReportCardDownload();
+  const [downloading, setDownloading] = useState(false);
 
   const [selectedExamId, setSelectedExamId] = useState(preselectedExamId);
   const [studentId, setStudentId] = useState(
@@ -66,23 +68,22 @@ function ReportCardContent() {
   const handleDownload = useCallback(async () => {
     if (studentIdNum <= 0 || selectedExamId <= 0) return;
     try {
-      const res = await reportCard.mutateAsync({
-        studentId: studentIdNum,
-        examId: selectedExamId,
-      });
-      const blob = new Blob([res as unknown as BlobPart], {
-        type: "application/pdf",
-      });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `report-card-${studentIdNum}-exam-${selectedExamId}.pdf`;
-      a.click();
-      URL.revokeObjectURL(url);
+      setDownloading(true);
+      const url = getExamsControllerGetReportCardV1Url(
+        studentIdNum,
+        selectedExamId
+      );
+      const blob = await fetchBinary(url);
+      downloadBlob(
+        blob,
+        `report-card-${studentIdNum}-exam-${selectedExamId}.pdf`
+      );
     } catch {
       enqueueSnackbar(t("notifications.error"), { variant: "error" });
+    } finally {
+      setDownloading(false);
     }
-  }, [studentIdNum, selectedExamId, reportCard, enqueueSnackbar, t]);
+  }, [studentIdNum, selectedExamId, enqueueSnackbar, t]);
 
   const handlePrint = useCallback(() => {
     window.print();
@@ -109,8 +110,8 @@ function ReportCardContent() {
                 <RiPrinterLine className="mr-2 size-4" />
                 Print
               </Button>
-              <Button onClick={handleDownload} disabled={reportCard.isPending}>
-                {reportCard.isPending ? (
+              <Button onClick={handleDownload} disabled={downloading}>
+                {downloading ? (
                   <Spinner size="sm" />
                 ) : (
                   <>
@@ -175,7 +176,9 @@ function ReportCardContent() {
                 <div className="mb-6 text-center">
                   <h2 className="text-title-lg font-bold">{result.examName}</h2>
                   <p className="text-paragraph-sm text-text-soft-400">
-                    Student ID: {studentIdNum}
+                    {result.student?.name
+                      ? result.student.name
+                      : `Student ID: ${studentIdNum}`}
                   </p>
                 </div>
 

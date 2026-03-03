@@ -12,6 +12,7 @@ import {
   useUpdateStructureMutation,
   useDeleteStructureMutation,
   useProcessPayrollMutation,
+  usePayrollSlipPdfQuery,
 } from "./queries/queries";
 import type {
   SalaryStructureItem,
@@ -41,6 +42,7 @@ import {
   RiEditLine,
   RiDeleteBinLine,
   RiPlayLine,
+  RiDownloadLine,
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
@@ -76,6 +78,35 @@ function StaffPayroll() {
   const updateMutation = useUpdateStructureMutation();
   const deleteMutation = useDeleteStructureMutation();
   const processMutation = useProcessPayrollMutation();
+
+  const [pdfSlipId, setPdfSlipId] = useState<number | null>(null);
+  const { data: pdfData } = usePayrollSlipPdfQuery(pdfSlipId);
+
+  const handleDownloadPdf = useCallback(
+    (slipId: number) => {
+      setPdfSlipId(slipId);
+    },
+    []
+  );
+
+  // Effect to trigger download when PDF data is ready
+  const prevPdfRef = useState<unknown>(null);
+  if (pdfData && pdfData !== prevPdfRef[0]) {
+    prevPdfRef[0] = pdfData;
+    try {
+      const blob = pdfData instanceof Blob ? pdfData : new Blob([pdfData as BlobPart], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `payroll-slip-${pdfSlipId}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      enqueueSnackbar(t("admin-panel-staff-payroll:notifications.error"), {
+        variant: "error",
+      });
+    }
+  }
 
   const [activeTab, setActiveTab] = useState<"structures" | "slips">(
     "structures"
@@ -390,19 +421,22 @@ function StaffPayroll() {
                   <TableHead style={{ width: 80 }}>
                     {t("admin-panel-staff-payroll:slips.table.status")}
                   </TableHead>
+                  <TableHead style={{ width: 80 }}>
+                    {t("admin-panel-staff-payroll:slips.table.columns.actions")}
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {slipsLoading ? (
                   <TableRow>
-                    <TableCell colSpan={7} className="h-40 text-center">
+                    <TableCell colSpan={8} className="h-40 text-center">
                       <Spinner size="md" />
                     </TableCell>
                   </TableRow>
                 ) : !slips || slips.length === 0 ? (
                   <TableRow>
                     <TableCell
-                      colSpan={7}
+                      colSpan={8}
                       className="h-40 text-center text-paragraph-sm text-text-soft-400"
                     >
                       {t("admin-panel-staff-payroll:table.empty")}
@@ -435,6 +469,16 @@ function StaffPayroll() {
                         >
                           {slip.status}
                         </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDownloadPdf(slip.id)}
+                          title={t("admin-panel-staff-payroll:slips.actions.downloadPdf")}
+                        >
+                          <RiDownloadLine className="h-4 w-4" />
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))

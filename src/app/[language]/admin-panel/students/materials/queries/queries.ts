@@ -20,7 +20,9 @@ import {
 import {
   submissionsControllerFindOneV1,
   submissionsControllerRemoveV1,
+  getSubmissionsControllerFindOneV1Url,
 } from "@/services/api/generated/materials-submissions/materials-submissions";
+import { customFetch } from "@/services/api/generated/custom-fetch";
 
 export type MaterialItem = {
   id: number;
@@ -45,6 +47,22 @@ export type AssignmentItem = {
   dueDate: string;
   totalMarks: number;
   isActive?: boolean;
+  createdAt?: string;
+};
+
+export type SubmissionItem = {
+  id: number;
+  assignmentId?: number;
+  studentId?: number;
+  student?: { id?: number; name?: string };
+  filePath?: string | null;
+  fileSize?: number;
+  remarks?: string | null;
+  marks?: number | null;
+  grade?: string | null;
+  feedback?: string | null;
+  gradedAt?: string | null;
+  gradedBy?: number | null;
   createdAt?: string;
 };
 
@@ -291,6 +309,36 @@ export function useDeleteSubmissionMutation() {
   return useMutation({
     mutationFn: async (id: number) => {
       return submissionsControllerRemoveV1(id);
+    },
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ["assignments"] });
+      void qc.invalidateQueries({ queryKey: ["submissions"] });
+    },
+  });
+}
+
+// --- Grade submission ---
+
+export function useGradeSubmissionMutation() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      id,
+      marks,
+      grade,
+      feedback,
+    }: {
+      id: number;
+      marks: number;
+      grade?: string;
+      feedback?: string;
+    }) => {
+      const url = `${getSubmissionsControllerFindOneV1Url(id)}/grade`;
+      return customFetch(url, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ marks, grade, feedback }),
+      });
     },
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["assignments"] });

@@ -1,8 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createQueryKeys } from "@/services/react-query/query-key-factory";
-import { assignmentsControllerFindAllV1 } from "@/services/api/generated/materials-assignments/materials-assignments";
 import { assignmentsControllerSubmitV1 } from "@/services/api/generated/materials-assignments/materials-assignments";
 import { portalsControllerGetStudentDashboardV1 } from "@/services/api/generated/portals/portals";
+import { customFetch } from "@/services/api/generated/custom-fetch";
+import { getAssignmentsControllerCreateV1Url } from "@/services/api/generated/materials-assignments/materials-assignments";
 import type { SubmitAssignmentDto } from "@/services/api/generated/model";
 import type { AssignmentDetail, SubmissionInfo } from "../types";
 
@@ -60,11 +61,16 @@ interface RawDashboardResponse {
 // ─────────────────────────────────────────────
 
 async function fetchAssignments(
+  studentId: number,
   signal?: AbortSignal
 ): Promise<AssignmentDetail[]> {
   try {
-    const res = (await assignmentsControllerFindAllV1({
+    // Call the student-specific endpoint that returns assignments WITH submission data
+    const baseUrl = getAssignmentsControllerCreateV1Url(); // .../materials/assignments
+    const url = `${baseUrl}/student/${studentId}`;
+    const res = (await customFetch(url, {
       signal,
+      method: "GET",
     })) as unknown as RawAssignmentsResponse;
 
     const assignments = res?.data ?? [];
@@ -123,30 +129,30 @@ async function fetchAssignments(
 // ─────────────────────────────────────────────
 
 export function useAssignments() {
+  const { data: studentId } = useStudentId();
   return useQuery({
-    queryKey: assignmentsPageQueryKeys.list().key,
-    queryFn: ({ signal }) => fetchAssignments(signal),
+    queryKey: [...assignmentsPageQueryKeys.list().key, studentId],
+    queryFn: ({ signal }) => fetchAssignments(studentId!, signal),
     staleTime: 2 * 60 * 1000,
+    enabled: !!studentId,
   });
 }
 
 /**
  * Get current student's numeric ID from the dashboard endpoint.
+ * Errors are NOT caught so React Query retries automatically.
  */
 export function useStudentId() {
   return useQuery({
     queryKey: ["student-portal-student-id"],
     queryFn: async ({ signal }) => {
-      try {
-        const res = (await portalsControllerGetStudentDashboardV1(undefined, {
-          signal,
-        })) as unknown as RawDashboardResponse;
-        return res?.data?.student?.id ?? null;
-      } catch {
-        return null;
-      }
+      const res = (await portalsControllerGetStudentDashboardV1(undefined, {
+        signal,
+      })) as unknown as RawDashboardResponse;
+      return res?.data?.student?.id ?? null;
     },
     staleTime: 10 * 60 * 1000,
+    retry: 2,
   });
 }
 

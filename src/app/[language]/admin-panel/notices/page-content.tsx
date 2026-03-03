@@ -56,7 +56,7 @@ function NoticesPage() {
   const [editItem, setEditItem] = useState<Notice | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [targetRoles, setTargetRoles] = useState("");
+  const [targetRoles, setTargetRoles] = useState<string[]>([]);
   const [isPublished, setIsPublished] = useState(false);
   const [publishDate, setPublishDate] = useState("");
   const [expiresAt, setExpiresAt] = useState("");
@@ -64,7 +64,7 @@ function NoticesPage() {
   const resetForm = useCallback(() => {
     setTitle("");
     setContent("");
-    setTargetRoles("");
+    setTargetRoles([]);
     setIsPublished(false);
     setPublishDate("");
     setExpiresAt("");
@@ -80,7 +80,7 @@ function NoticesPage() {
     setEditItem(item);
     setTitle(item.title);
     setContent(item.content);
-    setTargetRoles(item.targetRoles?.join(", ") ?? "");
+    setTargetRoles(item.targetRoles ?? []);
     setIsPublished(item.isPublished ?? false);
     setPublishDate(
       item.publishDate ? String(item.publishDate).split("T")[0] : ""
@@ -97,10 +97,7 @@ function NoticesPage() {
       return;
     }
     try {
-      const roles = targetRoles
-        .split(",")
-        .map((r) => r.trim())
-        .filter(Boolean);
+      const roles = targetRoles;
       const payload = {
         title,
         content,
@@ -306,11 +303,37 @@ function NoticesPage() {
             </div>
             <div className="grid gap-2">
               <Label>{t("admin-panel-notices:form.targetRoles")}</Label>
-              <Input
-                placeholder="admin, teacher, staff"
-                value={targetRoles}
-                onChange={(e) => setTargetRoles(e.target.value)}
-              />
+              <div className="flex flex-wrap gap-3 rounded-md border border-stroke-soft-200 p-3">
+                {[
+                  { value: "admin", label: "Admin" },
+                  { value: "teacher", label: "Teacher" },
+                  { value: "staff", label: "Staff" },
+                  { value: "student", label: "Student" },
+                  { value: "parent", label: "Parent" },
+                  { value: "accountant", label: "Accountant" },
+                ].map((role) => (
+                  <label
+                    key={role.value}
+                    className="flex items-center gap-2 text-paragraph-sm cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 rounded border-stroke-soft-200"
+                      checked={targetRoles.includes(role.value)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setTargetRoles((prev) => [...prev, role.value]);
+                        } else {
+                          setTargetRoles((prev) =>
+                            prev.filter((r) => r !== role.value)
+                          );
+                        }
+                      }}
+                    />
+                    {role.label}
+                  </label>
+                ))}
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">

@@ -106,7 +106,7 @@ export function AssignmentDetailDialog({
   labels,
 }: AssignmentDetailDialogProps) {
   const { tenantId } = useTenant();
-  const { data: studentId } = useStudentId();
+  const { data: studentId, isLoading: isLoadingStudentId } = useStudentId();
   const submitMutation = useSubmitAssignment();
 
   const [file, setFile] = useState<File | null>(null);
@@ -166,6 +166,8 @@ export function AssignmentDetailDialog({
     assignment.status === "not_submitted" || assignment.status === "overdue";
   const hasSubmission = !!assignment.submission;
   const isSubmitting = isUploading || submitMutation.isPending;
+  const canPressSubmit =
+    !isSubmitting && !isLoadingStudentId && !!tenantId && !!studentId;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -328,9 +330,13 @@ export function AssignmentDetailDialog({
           {canSubmit && (
             <Button
               onClick={handleSubmit}
-              disabled={isSubmitting || !tenantId || !studentId}
+              disabled={!canPressSubmit}
             >
-              {isSubmitting ? labels.submitting : labels.submit}
+              {isLoadingStudentId
+                ? "..."
+                : isSubmitting
+                  ? labels.submitting
+                  : labels.submit}
             </Button>
           )}
         </DialogFooter>

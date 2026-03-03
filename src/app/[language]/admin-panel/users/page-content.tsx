@@ -224,7 +224,10 @@ function Users() {
     limit: rowsPerPage,
   });
 
-  const paginatedData = queryResult?.data ?? [];
+  const paginatedData = useMemo(
+    () => queryResult?.data ?? [],
+    [queryResult?.data]
+  );
   const hasNextPage = queryResult?.hasNextPage ?? false;
 
   const filteredResult = useMemo(() => {

@@ -1,10 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { loginAsRoleViaAPI } from "../helpers/auth";
-import {
-  TEST_USERS,
-  ROLE_ACCESSIBLE_ROUTES,
-  ROLE_FORBIDDEN_ROUTES,
-} from "../helpers/constants";
+import { ROLE_ACCESSIBLE_ROUTES } from "../helpers/constants";
 
 test.describe("Role-Based Access Control", () => {
   // ── Admin Access ──

@@ -35,21 +35,21 @@ function useValidationSchema() {
     section: yup
       .object()
       .shape({ id: yup.number().required(), name: yup.string().required() })
-      .nullable()
       .required(
         t(
           "admin-panel-students-registrations:enroll.inputs.sectionId.validation.required"
         )
-      ),
+      )
+      .nullable(),
     academicYear: yup
       .object()
       .shape({ id: yup.number().required(), name: yup.string().required() })
-      .nullable()
       .required(
         t(
           "admin-panel-students-registrations:enroll.inputs.academicYearId.validation.required"
         )
-      ),
+      )
+      .nullable(),
   });
 }
 

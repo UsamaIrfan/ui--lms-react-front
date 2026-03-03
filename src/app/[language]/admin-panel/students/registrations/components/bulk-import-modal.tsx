@@ -203,7 +203,7 @@ function BulkImportModal({ open, onOpenChange }: BulkImportModalProps) {
       });
       setState("preview");
     }
-  }, [selectedFile, importMutation, enqueueSnackbar, t]);
+  }, [selectedFile, selectedInstitutionId, importMutation, enqueueSnackbar, t]);
 
   const validCount = previewRows.filter((r) => r.valid).length;
   const invalidCount = previewRows.filter((r) => !r.valid).length;

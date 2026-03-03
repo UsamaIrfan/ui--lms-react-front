@@ -17,7 +17,7 @@ test.describe("Admin — Academics", () => {
         "table, [role='table'], [class*='card'], [class*='empty']"
       );
       await page.waitForTimeout(3000);
-      const visible = await content
+      await content
         .first()
         .isVisible()
         .catch(() => false);
@@ -70,7 +70,7 @@ test.describe("Admin — Academics", () => {
         "table, [role='table'], [class*='card'], [class*='empty']"
       );
       await page.waitForTimeout(3000);
-      const visible = await content
+      await content
         .first()
         .isVisible()
         .catch(() => false);

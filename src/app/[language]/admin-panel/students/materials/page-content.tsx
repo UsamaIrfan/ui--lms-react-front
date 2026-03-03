@@ -356,7 +356,9 @@ function StudentsMaterials() {
 
   const handleOpenGrade = useCallback((sub: SubmissionItem) => {
     setGradingSubmission(sub);
-    setGradeMarks(sub.marks != null ? String(sub.marks) : "");
+    setGradeMarks(
+      sub.marks !== null && sub.marks !== undefined ? String(sub.marks) : ""
+    );
     setGradeGrade(sub.grade ?? "");
     setGradeFeedback(sub.feedback ?? "");
     setGradeModalOpen(true);
@@ -935,7 +937,9 @@ function StudentsMaterials() {
                           : "—"}
                       </TableCell>
                       <TableCell className="text-paragraph-sm">
-                        {sub.marks != null ? sub.marks : "—"}
+                        {sub.marks !== null && sub.marks !== undefined
+                          ? sub.marks
+                          : "—"}
                       </TableCell>
                       <TableCell className="text-paragraph-sm">
                         {sub.grade ?? "—"}

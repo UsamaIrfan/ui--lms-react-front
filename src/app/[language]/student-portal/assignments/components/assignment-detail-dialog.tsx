@@ -328,10 +328,7 @@ export function AssignmentDetailDialog({
             <Button variant="outline">{labels.close}</Button>
           </DialogClose>
           {canSubmit && (
-            <Button
-              onClick={handleSubmit}
-              disabled={!canPressSubmit}
-            >
+            <Button onClick={handleSubmit} disabled={!canPressSubmit}>
               {isLoadingStudentId
                 ? "..."
                 : isSubmitting

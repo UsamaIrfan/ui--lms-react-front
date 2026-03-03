@@ -980,9 +980,7 @@ function StudentsMaterials() {
           </Dialog.DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label>
-                {t("admin-panel-students-materials:grading.marks")}
-              </Label>
+              <Label>{t("admin-panel-students-materials:grading.marks")}</Label>
               <Input
                 type="number"
                 min="0"
@@ -992,9 +990,7 @@ function StudentsMaterials() {
               />
             </div>
             <div className="grid gap-2">
-              <Label>
-                {t("admin-panel-students-materials:grading.grade")}
-              </Label>
+              <Label>{t("admin-panel-students-materials:grading.grade")}</Label>
               <Input
                 value={gradeGrade}
                 onChange={(e) => setGradeGrade(e.target.value)}
@@ -1018,10 +1014,7 @@ function StudentsMaterials() {
             </div>
           </div>
           <Dialog.DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setGradeModalOpen(false)}
-            >
+            <Button variant="outline" onClick={() => setGradeModalOpen(false)}>
               {t("admin-panel-students-materials:actions.cancel")}
             </Button>
             <Button

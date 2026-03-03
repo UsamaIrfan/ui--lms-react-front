@@ -609,8 +609,12 @@ function StudentsFees() {
                             variant={item.verified ? "default" : "outline"}
                           >
                             {item.verified
-                              ? t("admin-panel-students-fees:table.verifiedLabel")
-                              : t("admin-panel-students-fees:table.pendingLabel")}
+                              ? t(
+                                  "admin-panel-students-fees:table.verifiedLabel"
+                                )
+                              : t(
+                                  "admin-panel-students-fees:table.pendingLabel"
+                                )}
                           </Badge>
                         </TableCell>
                         <TableCell>

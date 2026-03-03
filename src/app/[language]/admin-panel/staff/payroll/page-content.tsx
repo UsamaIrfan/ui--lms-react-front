@@ -82,19 +82,19 @@ function StaffPayroll() {
   const [pdfSlipId, setPdfSlipId] = useState<number | null>(null);
   const { data: pdfData } = usePayrollSlipPdfQuery(pdfSlipId);
 
-  const handleDownloadPdf = useCallback(
-    (slipId: number) => {
-      setPdfSlipId(slipId);
-    },
-    []
-  );
+  const handleDownloadPdf = useCallback((slipId: number) => {
+    setPdfSlipId(slipId);
+  }, []);
 
   // Effect to trigger download when PDF data is ready
   const prevPdfRef = useState<unknown>(null);
   if (pdfData && pdfData !== prevPdfRef[0]) {
     prevPdfRef[0] = pdfData;
     try {
-      const blob = pdfData instanceof Blob ? pdfData : new Blob([pdfData as BlobPart], { type: "application/pdf" });
+      const blob =
+        pdfData instanceof Blob
+          ? pdfData
+          : new Blob([pdfData as BlobPart], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -475,7 +475,9 @@ function StaffPayroll() {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleDownloadPdf(slip.id)}
-                          title={t("admin-panel-staff-payroll:slips.actions.downloadPdf")}
+                          title={t(
+                            "admin-panel-staff-payroll:slips.actions.downloadPdf"
+                          )}
                         >
                           <RiDownloadLine className="h-4 w-4" />
                         </Button>

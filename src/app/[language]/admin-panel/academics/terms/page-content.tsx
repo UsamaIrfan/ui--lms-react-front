@@ -139,10 +139,9 @@ function AcademicTerms() {
       setModalOpen(false);
       resetForm();
     } catch {
-      enqueueSnackbar(
-        t("admin-panel-academics-terms:notifications.error"),
-        { variant: "error" }
-      );
+      enqueueSnackbar(t("admin-panel-academics-terms:notifications.error"), {
+        variant: "error",
+      });
     }
   }, [
     formName,
@@ -211,9 +210,7 @@ function AcademicTerms() {
                   {t("admin-panel-academics-terms:table.columns.name")}
                 </TableHead>
                 <TableHead style={{ width: 200 }}>
-                  {t(
-                    "admin-panel-academics-terms:table.columns.academicYear"
-                  )}
+                  {t("admin-panel-academics-terms:table.columns.academicYear")}
                 </TableHead>
                 <TableHead style={{ width: 150 }}>
                   {t("admin-panel-academics-terms:table.columns.startDate")}
@@ -341,9 +338,7 @@ function AcademicTerms() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
-                <Label>
-                  {t("admin-panel-academics-terms:form.startDate")}
-                </Label>
+                <Label>{t("admin-panel-academics-terms:form.startDate")}</Label>
                 <Input
                   data-testid="term-start-date"
                   type="date"
@@ -352,9 +347,7 @@ function AcademicTerms() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label>
-                  {t("admin-panel-academics-terms:form.endDate")}
-                </Label>
+                <Label>{t("admin-panel-academics-terms:form.endDate")}</Label>
                 <Input
                   data-testid="term-end-date"
                   type="date"

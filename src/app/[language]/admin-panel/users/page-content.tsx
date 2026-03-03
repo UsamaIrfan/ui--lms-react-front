@@ -4,10 +4,7 @@ import { RoleEnum } from "@/services/api/types/role";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useTranslation } from "@/services/i18n/client";
 import { PropsWithChildren, useCallback, useMemo, useState } from "react";
-import {
-  useGetUsersQuery,
-  usersListBaseQueryKey,
-} from "./queries/queries";
+import { useGetUsersQuery, usersListBaseQueryKey } from "./queries/queries";
 import {
   Table,
   TableBody,
@@ -374,9 +371,7 @@ function Users() {
                         {tRoles(`role.${user?.role?.id}`)}
                       </Badge>
                     </TableCell>
-                    <TableCell>
-                      {!!user && <Actions user={user} />}
-                    </TableCell>
+                    <TableCell>{!!user && <Actions user={user} />}</TableCell>
                   </TableRow>
                 ))
               )}
@@ -388,9 +383,7 @@ function Users() {
         {paginatedData.length > 0 && (
           <div className="flex items-center justify-between gap-4 pb-4">
             <div className="flex items-center gap-2 text-paragraph-sm text-text-soft-400">
-              <span>
-                {tUsers("admin-panel-users:pagination.rowsPerPage")}
-              </span>
+              <span>{tUsers("admin-panel-users:pagination.rowsPerPage")}</span>
               <Select
                 value={String(rowsPerPage)}
                 onValueChange={(val) => {

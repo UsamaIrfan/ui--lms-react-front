@@ -134,10 +134,9 @@ export default function EnrollStudentModal({
       onOpenChange(false);
       reset();
     } catch {
-      enqueueSnackbar(
-        t("admin-panel-students-registrations:enroll.error"),
-        { variant: "error" }
-      );
+      enqueueSnackbar(t("admin-panel-students-registrations:enroll.error"), {
+        variant: "error",
+      });
     }
   });
 

@@ -255,7 +255,9 @@ function AccountsExpenses() {
                     </TableCell>
                     <TableCell>
                       <Badge variant={statusVariant(item.status)}>
-                        {t(`admin-panel-accounts-expenses:statuses.${item.status ?? "pending"}`)}
+                        {t(
+                          `admin-panel-accounts-expenses:statuses.${item.status ?? "pending"}`
+                        )}
                       </Badge>
                     </TableCell>
                     <TableCell>

@@ -482,9 +482,9 @@ test.describe("Admin — Academics CRUD", () => {
       const termName = `E2E Term ${RUN}`;
 
       await page.goto("/en/admin-panel/academics/terms");
-      await expect(
-        page.getByTestId("admin-academics-terms-page")
-      ).toBeVisible({ timeout: 30000 });
+      await expect(page.getByTestId("admin-academics-terms-page")).toBeVisible({
+        timeout: 30000,
+      });
 
       await page.getByRole("button", { name: /add term/i }).click();
 
@@ -530,9 +530,9 @@ test.describe("Admin — Academics CRUD", () => {
       });
 
       await page.goto("/en/admin-panel/academics/terms");
-      await expect(
-        page.getByTestId("admin-academics-terms-page")
-      ).toBeVisible({ timeout: 30000 });
+      await expect(page.getByTestId("admin-academics-terms-page")).toBeVisible({
+        timeout: 30000,
+      });
       await page.waitForLoadState("networkidle");
 
       const row = page.locator("tr", { hasText: `Del Term ${RUN}` });

@@ -387,7 +387,8 @@ function ExamsPageContent() {
                         )}
                       </TableCell>
                       <TableCell className="text-paragraph-sm max-w-[200px] truncate">
-                        {exam.subjects?.map((s) => s.subjectName).join(", ") ?? "—"}
+                        {exam.subjects?.map((s) => s.subjectName).join(", ") ??
+                          "—"}
                       </TableCell>
                       <TableCell className="text-paragraph-sm">
                         {new Date(exam.startDate).toLocaleDateString()} -{" "}

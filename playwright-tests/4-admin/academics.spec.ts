@@ -58,9 +58,9 @@ test.describe("Admin — Academics", () => {
     test("should render terms page", async ({ page }) => {
       await page.goto("/en/admin-panel/academics/terms");
       await page.waitForLoadState("networkidle");
-      await expect(
-        page.getByTestId("admin-academics-terms-page")
-      ).toBeVisible({ timeout: 30000 });
+      await expect(page.getByTestId("admin-academics-terms-page")).toBeVisible({
+        timeout: 30000,
+      });
     });
 
     test("should display terms content", async ({ page }) => {

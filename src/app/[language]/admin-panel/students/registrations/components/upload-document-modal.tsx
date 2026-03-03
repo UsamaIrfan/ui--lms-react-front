@@ -22,11 +22,7 @@ import { useUploadDocumentMutation } from "../queries/queries";
 import { DOCUMENT_TYPES } from "../types";
 import { useCallback, useRef, useState } from "react";
 import { uploadFile } from "@/services/api/upload-file";
-import {
-  RiUploadLine,
-  RiFileTextLine,
-  RiCloseLine,
-} from "@remixicon/react";
+import { RiUploadLine, RiFileTextLine, RiCloseLine } from "@remixicon/react";
 
 type UploadDocumentFormData = {
   documentType: { id: string };
@@ -99,9 +95,7 @@ export default function UploadDocumentModal({
         // 10MB max
         if (file.size > 10 * 1024 * 1024) {
           enqueueSnackbar(
-            t(
-              "admin-panel-students-registrations:uploadDocument.fileTooLarge"
-            ),
+            t("admin-panel-students-registrations:uploadDocument.fileTooLarge"),
             { variant: "error" }
           );
           return;
@@ -131,9 +125,7 @@ export default function UploadDocumentModal({
           fileId = uploadedFile.id;
         } catch {
           enqueueSnackbar(
-            t(
-              "admin-panel-students-registrations:uploadDocument.uploadFailed"
-            ),
+            t("admin-panel-students-registrations:uploadDocument.uploadFailed"),
             { variant: "error" }
           );
           return;

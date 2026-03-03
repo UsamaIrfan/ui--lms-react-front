@@ -19,8 +19,7 @@ import {
 } from "@remixicon/react";
 import { getServerTranslation } from "@/services/i18n";
 import { MarketingLayout } from "@/components/marketing/marketing-layout";
-import { Button } from "@/components/ui/button";
-import Link from "@/components/link";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/utils/cn";
 
 type Props = {
@@ -158,7 +157,9 @@ const categories = [
   },
 ];
 
-export default async function FeaturesPage(_props: Props) {
+export default async function FeaturesPage(props: Props) {
+  const params = await props.params;
+  const lang = params.language;
   return (
     <MarketingLayout>
       <div data-testid="features-page">
@@ -234,18 +235,21 @@ export default async function FeaturesPage(_props: Props) {
               their operations and improve outcomes.
             </p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <Button asChild size="lg">
-                <Link href="/sign-up">
-                  Get started free
-                  <RiArrowRightLine
-                    className="ml-2 size-4"
-                    aria-hidden="true"
-                  />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/pricing">View pricing</Link>
-              </Button>
+              <a
+                href={`/${lang}/sign-up`}
+                className={cn(buttonVariants({ size: "lg" }))}
+              >
+                Get started free
+                <RiArrowRightLine className="ml-2 size-4" aria-hidden="true" />
+              </a>
+              <a
+                href={`/${lang}/pricing`}
+                className={cn(
+                  buttonVariants({ size: "lg", variant: "outline" })
+                )}
+              >
+                View pricing
+              </a>
             </div>
           </div>
         </section>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getServerTranslation } from "@/services/i18n";
-import Link from "@/components/link";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,6 +10,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { MarketingLayout } from "@/components/marketing/marketing-layout";
+import { cn } from "@/utils/cn";
 
 type Props = {
   params: Promise<{ language: string }>;
@@ -184,7 +184,10 @@ const faqs = [
   },
 ];
 
-export default async function Home(_props: Props) {
+export default async function Home(props: Props) {
+  const params = await props.params;
+  const lang = params.language;
+
   return (
     <MarketingLayout>
       {/* Hero */}
@@ -205,22 +208,24 @@ export default async function Home(_props: Props) {
             educators.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button
-              size="lg"
-              variant="outline"
-              className="w-full sm:w-auto"
-              asChild
+            <a
+              href={`/${lang}/sign-up`}
+              className={cn(
+                buttonVariants({ size: "lg", variant: "outline" }),
+                "w-full sm:w-auto"
+              )}
             >
-              <Link href="/sign-up">Start Free Trial</Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="ghost"
-              className="w-full text-static-white hover:bg-static-white/10 hover:text-static-white sm:w-auto"
-              asChild
+              Start Free Trial
+            </a>
+            <a
+              href={`/${lang}/demo`}
+              className={cn(
+                buttonVariants({ size: "lg", variant: "ghost" }),
+                "w-full text-static-white hover:bg-static-white/10 hover:text-static-white sm:w-auto"
+              )}
             >
-              <Link href="/demo">Request Demo</Link>
-            </Button>
+              Request Demo
+            </a>
           </div>
           <p className="mt-8 text-label-sm text-static-white/60">
             Trusted by 500+ institutions worldwide
@@ -384,30 +389,30 @@ export default async function Home(_props: Props) {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button
-                    variant={plan.highlighted ? "default" : "outline"}
-                    className="w-full"
-                    asChild
+                  <a
+                    href={`/${lang}/${plan.name === "Enterprise" ? "demo" : "sign-up"}`}
+                    className={cn(
+                      buttonVariants({
+                        variant: plan.highlighted ? "default" : "outline",
+                      }),
+                      "w-full"
+                    )}
                   >
-                    <Link
-                      href={plan.name === "Enterprise" ? "/demo" : "/sign-up"}
-                    >
-                      {plan.name === "Enterprise"
-                        ? "Contact Sales"
-                        : "Get Started"}
-                    </Link>
-                  </Button>
+                    {plan.name === "Enterprise"
+                      ? "Contact Sales"
+                      : "Get Started"}
+                  </a>
                 </CardFooter>
               </Card>
             ))}
           </div>
           <p className="mt-8 text-center text-paragraph-sm text-text-sub-600">
-            <Link
-              href="/pricing"
+            <a
+              href={`/${lang}/pricing`}
               className="text-primary-base underline hover:opacity-80"
             >
               View full pricing details →
-            </Link>
+            </a>
           </p>
         </div>
       </section>
@@ -426,9 +431,12 @@ export default async function Home(_props: Props) {
             better educational experiences.
           </p>
           <div className="mt-10">
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/sign-up">Start Your Free Trial</Link>
-            </Button>
+            <a
+              href={`/${lang}/sign-up`}
+              className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
+            >
+              Start Your Free Trial
+            </a>
           </div>
         </div>
       </section>

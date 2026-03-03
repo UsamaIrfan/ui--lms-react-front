@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { RiCheckLine, RiCloseLine, RiArrowRightLine } from "@remixicon/react";
 import { getServerTranslation } from "@/services/i18n";
 import { MarketingLayout } from "@/components/marketing/marketing-layout";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,7 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Link from "@/components/link";
 import { cn } from "@/utils/cn";
 
 type Props = {
@@ -208,7 +207,9 @@ function FeatureValue({ value }: { value: boolean | string }) {
   );
 }
 
-export default async function PricingPage(_props: Props) {
+export default async function PricingPage(props: Props) {
+  const params = await props.params;
+  const lang = params.language;
   return (
     <MarketingLayout>
       <div data-testid="pricing-page">
@@ -280,13 +281,21 @@ export default async function PricingPage(_props: Props) {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button
-                    asChild
-                    variant={plan.highlighted ? "default" : "outline"}
-                    className="w-full"
+                  <a
+                    href={
+                      plan.href.startsWith("/")
+                        ? `/${lang}${plan.href}`
+                        : plan.href
+                    }
+                    className={cn(
+                      buttonVariants({
+                        variant: plan.highlighted ? "default" : "outline",
+                      }),
+                      "w-full"
+                    )}
                   >
-                    <Link href={plan.href}>{plan.cta}</Link>
-                  </Button>
+                    {plan.cta}
+                  </a>
                 </CardFooter>
               </Card>
             ))}
@@ -381,18 +390,21 @@ export default async function PricingPage(_props: Props) {
               Starter plan, or try Professional free for 14 days.
             </p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <Button asChild size="lg">
-                <Link href="/sign-up">
-                  Get started free
-                  <RiArrowRightLine
-                    className="ml-2 size-4"
-                    aria-hidden="true"
-                  />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/features">Explore features</Link>
-              </Button>
+              <a
+                href={`/${lang}/sign-up`}
+                className={cn(buttonVariants({ size: "lg" }))}
+              >
+                Get started free
+                <RiArrowRightLine className="ml-2 size-4" aria-hidden="true" />
+              </a>
+              <a
+                href={`/${lang}/features`}
+                className={cn(
+                  buttonVariants({ size: "lg", variant: "outline" })
+                )}
+              >
+                Explore features
+              </a>
             </div>
           </div>
         </section>

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { getServerTranslation } from "@/services/i18n";
 import { MarketingLayout } from "@/components/marketing/marketing-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "@/components/link";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/utils/cn";
 
 type Props = { params: Promise<{ language: string }> };
 
@@ -43,8 +43,9 @@ const values = [
   },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function AboutPage(_props: Props) {
+export default async function AboutPage(props: Props) {
+  const params = await props.params;
+  const lang = params.language;
   return (
     <MarketingLayout>
       <div data-testid="about-page">
@@ -138,9 +139,9 @@ export default async function AboutPage(_props: Props) {
               Discover how EduFlow can help your institution thrive.
             </p>
             <div className="mt-8">
-              <Button asChild>
-                <Link href="/contact">Get Started</Link>
-              </Button>
+              <a href={`/${lang}/contact`} className={cn(buttonVariants())}>
+                Get Started
+              </a>
             </div>
           </div>
         </section>

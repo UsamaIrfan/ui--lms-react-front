@@ -54,7 +54,7 @@ export const useGetUsersQuery = ({
       const { data } = await usersControllerFindAllV1(params, { signal });
 
       return {
-        data: (data.data ?? []) as User[],
+        data: (data.data ?? []) as unknown as User[],
         hasNextPage: data.hasNextPage ?? false,
       };
     },

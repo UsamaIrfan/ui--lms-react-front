@@ -101,7 +101,7 @@ function statusBadgeVariant(
 function ExamsPageContent() {
   const { t } = useTranslation("admin-panel-students-exams");
   const { enqueueSnackbar } = useSnackbar();
-  const confirmDialog = useConfirmDialog();
+  const { confirmDialog } = useConfirmDialog();
 
   const [activeTab, setActiveTab] = useState<
     "schedules" | "results" | "gradingScales" | "analytics"

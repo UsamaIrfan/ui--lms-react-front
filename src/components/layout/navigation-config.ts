@@ -258,6 +258,13 @@ export const navigationItems: NavItem[] = [
         icon: RiCalendarLine,
         roles: [RoleEnum.ADMIN],
       },
+      {
+        id: "academics-terms",
+        labelKey: "navigation.academics.terms",
+        href: "/admin-panel/academics/terms",
+        icon: RiTimeLine,
+        roles: [RoleEnum.ADMIN],
+      },
     ],
   },
   {

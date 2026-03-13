@@ -42,12 +42,7 @@ import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const STATUS_OPTIONS = [
-  { value: "pending", label: "Pending" },
-  { value: "approved", label: "Approved" },
-  { value: "paid", label: "Paid" },
-  { value: "rejected", label: "Rejected" },
-];
+const STATUS_VALUES = ["pending", "approved", "paid", "rejected"] as const;
 
 function AccountsExpenses() {
   const { t } = useTranslation("admin-panel-accounts-expenses");
@@ -260,7 +255,9 @@ function AccountsExpenses() {
                     </TableCell>
                     <TableCell>
                       <Badge variant={statusVariant(item.status)}>
-                        {item.status ?? "pending"}
+                        {t(
+                          `admin-panel-accounts-expenses:statuses.${item.status ?? "pending"}`
+                        )}
                       </Badge>
                     </TableCell>
                     <TableCell>
@@ -372,9 +369,9 @@ function AccountsExpenses() {
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
                 >
-                  {STATUS_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
+                  {STATUS_VALUES.map((o) => (
+                    <option key={o} value={o}>
+                      {t(`admin-panel-accounts-expenses:statuses.${o}`)}
                     </option>
                   ))}
                 </select>

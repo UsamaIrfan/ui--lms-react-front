@@ -62,18 +62,17 @@ function ResultDetailDialog({
 
   const handleDownloadReportCard = async () => {
     try {
-      const { examsControllerGetReportCardV1 } = await import(
+      const { getExamsControllerGetReportCardV1Url } = await import(
         "@/services/api/generated/examination-results/examination-results"
       );
-      const response = await examsControllerGetReportCardV1(
+      const { fetchBinary } = await import("@/utils/fetch-binary");
+      const { downloadBlob } = await import("@/utils/pdf");
+      const url = getExamsControllerGetReportCardV1Url(
         studentId,
         result.examId
       );
-      // The report card endpoint likely returns a PDF blob
-      const { downloadBlob } = await import("@/utils/pdf");
-      if (response instanceof Blob) {
-        downloadBlob(response, `report-card-${result.examName}.pdf`);
-      }
+      const blob = await fetchBinary(url);
+      downloadBlob(blob, `report-card-${result.examName}.pdf`);
     } catch {
       // Silently handle if report card is not available
     }

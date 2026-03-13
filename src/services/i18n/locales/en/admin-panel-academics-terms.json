@@ -1,0 +1,39 @@
+{
+  "title": "Academic Terms",
+  "actions": {
+    "create": "Add Term",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "table": {
+    "columns": {
+      "name": "Name",
+      "academicYear": "Academic Year",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "actions": "Actions"
+    },
+    "empty": "No terms found. Click \"Add Term\" to create one."
+  },
+  "form": {
+    "name": "Term Name",
+    "academicYearId": "Academic Year",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "validation": {
+      "nameRequired": "Please fill in all required fields"
+    }
+  },
+  "notifications": {
+    "created": "Term created successfully",
+    "updated": "Term updated successfully",
+    "deleted": "Term deleted successfully",
+    "error": "An error occurred. Please try again."
+  },
+  "confirm": {
+    "deleteTitle": "Delete Term",
+    "delete": "Are you sure you want to delete this term? This action cannot be undone."
+  }
+}

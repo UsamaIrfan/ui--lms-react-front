@@ -53,7 +53,8 @@
       "courses": "Institutions",
       "classes": "Classes",
       "subjects": "Subjects",
-      "year": "Academic Year"
+      "year": "Academic Year",
+      "terms": "Terms"
     },
     "accounts": {
       "title": "Accounts",

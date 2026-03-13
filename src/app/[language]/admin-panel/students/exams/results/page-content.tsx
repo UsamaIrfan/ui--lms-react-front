@@ -11,12 +11,14 @@ import {
   useGetMarksQuery,
   useGradingScalesQuery,
   usePublishResultsMutation,
-  useReportCardDownload,
   type ExamItem,
   type ExamSubjectItem,
   type MarkResult,
   type GradingScaleItem,
 } from "../queries/queries";
+import { getExamsControllerGetReportCardV1Url } from "@/services/api/generated/examination-results/examination-results";
+import { fetchBinary } from "@/utils/fetch-binary";
+import { downloadBlob } from "@/utils/pdf";
 import {
   Table,
   TableBody,
@@ -64,7 +66,7 @@ function ResultsPageContent() {
   const { data: examSubjects } = useExamSubjectsQuery();
   const { data: gradingScales } = useGradingScalesQuery();
   const publishResults = usePublishResultsMutation();
-  const reportCard = useReportCardDownload();
+  const [downloadingReportCard, setDownloadingReportCard] = useState(false);
 
   const [selectedExamId, setSelectedExamId] = useState(preselectedExamId);
   const [selectedSubjectId, setSelectedSubjectId] = useState(0);
@@ -111,25 +113,23 @@ function ResultsPageContent() {
   const handleDownloadReportCard = useCallback(
     async (studentId: number) => {
       try {
-        const res = await reportCard.mutateAsync({
+        setDownloadingReportCard(true);
+        const url = getExamsControllerGetReportCardV1Url(
           studentId,
-          examId: selectedExamId,
-        });
-        // The API returns a PDF buffer; create a blob download
-        const blob = new Blob([res as unknown as BlobPart], {
-          type: "application/pdf",
-        });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `report-card-${studentId}-exam-${selectedExamId}.pdf`;
-        a.click();
-        URL.revokeObjectURL(url);
+          selectedExamId
+        );
+        const blob = await fetchBinary(url);
+        downloadBlob(
+          blob,
+          `report-card-${studentId}-exam-${selectedExamId}.pdf`
+        );
       } catch {
         enqueueSnackbar(t("notifications.error"), { variant: "error" });
+      } finally {
+        setDownloadingReportCard(false);
       }
     },
-    [selectedExamId, reportCard, enqueueSnackbar, t]
+    [selectedExamId, enqueueSnackbar, t]
   );
 
   // Stats
@@ -356,7 +356,7 @@ function ResultsPageContent() {
                             onClick={() =>
                               handleDownloadReportCard(m.studentId)
                             }
-                            disabled={reportCard.isPending}
+                            disabled={downloadingReportCard}
                           >
                             <RiDownloadLine className="size-4" />
                           </Button>

@@ -173,6 +173,25 @@ export async function apiDeleteAcademicYear(id: number) {
   await ctx.delete(`/v1/lms/academic-years/${id}`);
 }
 
+// ── Terms ──
+
+export async function apiCreateTerm(data: {
+  name: string;
+  startDate: string;
+  endDate: string;
+  academicYearId: number;
+}) {
+  const { ctx } = await adminContext();
+  const res = await ctx.post("/v1/lms/terms", { data });
+  expect(res.ok()).toBeTruthy();
+  return await res.json();
+}
+
+export async function apiDeleteTerm(id: number) {
+  const { ctx } = await adminContext();
+  await ctx.delete(`/v1/lms/terms/${id}`);
+}
+
 // ── Notices ──
 
 export async function apiCreateNotice(data: {

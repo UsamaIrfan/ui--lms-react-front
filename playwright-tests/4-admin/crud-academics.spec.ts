@@ -6,6 +6,7 @@ import {
   apiCreateGradeClass,
   apiCreateSubject,
   apiCreateAcademicYear,
+  apiCreateTerm,
   apiGet,
 } from "../helpers/api-requests";
 
@@ -469,6 +470,78 @@ test.describe("Admin — Academics CRUD", () => {
       await page.getByTestId("confirm-dialog-confirm").click();
 
       await expect(page.getByText(`Del Year ${RUN}`)).toBeHidden({
+        timeout: 10000,
+      });
+    });
+  });
+
+  // ────────────── Terms ──────────────
+
+  test.describe("Terms", () => {
+    test("should create a term via dialog", async ({ page }) => {
+      const termName = `E2E Term ${RUN}`;
+
+      await page.goto("/en/admin-panel/academics/terms");
+      await expect(page.getByTestId("admin-academics-terms-page")).toBeVisible({
+        timeout: 30000,
+      });
+
+      await page.getByRole("button", { name: /add term/i }).click();
+
+      const dialog = page.getByRole("dialog");
+      await dialog.waitFor();
+
+      // Fill term name
+      await dialog.getByTestId("term-name").fill(termName);
+
+      // Select academic year (Radix Select)
+      await dialog.getByTestId("term-academic-year").click();
+      const firstOption = page.getByRole("option").first();
+      await firstOption.waitFor({ timeout: 10000 });
+      await firstOption.click();
+
+      // Fill dates
+      await dialog.getByTestId("term-start-date").fill("2099-01-01");
+      await dialog.getByTestId("term-end-date").fill("2099-06-30");
+
+      // Save and wait for API
+      await clickSaveAndWait(page, dialog, "/terms");
+      await expect(dialog).toBeHidden({ timeout: 10000 });
+
+      await expect(page.getByText(termName)).toBeVisible({ timeout: 10000 });
+    });
+
+    test("should delete a term", async ({ page }) => {
+      // Create AY first (term needs an academic year)
+      const institutions = await apiGet("/v1/lms/institutions");
+      const instId = institutions[0].id;
+      const ay = await apiCreateAcademicYear({
+        name: `AY Term Del ${RUN}`,
+        startDate: "2097-01-01",
+        endDate: "2097-12-31",
+        institutionId: instId,
+      });
+
+      await apiCreateTerm({
+        name: `Del Term ${RUN}`,
+        startDate: "2097-01-01",
+        endDate: "2097-06-30",
+        academicYearId: ay.id,
+      });
+
+      await page.goto("/en/admin-panel/academics/terms");
+      await expect(page.getByTestId("admin-academics-terms-page")).toBeVisible({
+        timeout: 30000,
+      });
+      await page.waitForLoadState("networkidle");
+
+      const row = page.locator("tr", { hasText: `Del Term ${RUN}` });
+      await row.locator("button").last().click();
+      await page.getByRole("menuitem", { name: /delete/i }).click();
+
+      await page.getByTestId("confirm-dialog-confirm").click();
+
+      await expect(page.getByText(`Del Term ${RUN}`)).toBeHidden({
         timeout: 10000,
       });
     });

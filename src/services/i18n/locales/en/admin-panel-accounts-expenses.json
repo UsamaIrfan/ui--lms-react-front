@@ -43,6 +43,7 @@
   "statuses": {
     "pending": "Pending",
     "approved": "Approved",
+    "paid": "Paid",
     "rejected": "Rejected"
   },
   "notifications": {

@@ -14,8 +14,14 @@ import {
   useCreateAssignmentMutation,
   useUpdateAssignmentMutation,
   useDeleteAssignmentMutation,
+  useAssignmentSubmissionsQuery,
+  useGradeSubmissionMutation,
 } from "./queries/queries";
-import type { MaterialItem, AssignmentItem } from "./queries/queries";
+import type {
+  MaterialItem,
+  AssignmentItem,
+  SubmissionItem,
+} from "./queries/queries";
 import { useSubjectsListQuery } from "../../academics/subjects/queries/queries";
 import {
   Table,
@@ -40,12 +46,15 @@ import {
   RiMoreLine,
   RiEditLine,
   RiDeleteBinLine,
+  RiEyeLine,
+  RiCheckLine,
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -102,6 +111,22 @@ function StudentsMaterials() {
   const [assignDueDate, setAssignDueDate] = useState("");
   const [assignTotalMarks, setAssignTotalMarks] = useState("");
   const [assignIsActive, setAssignIsActive] = useState(true);
+
+  // Submissions & Grading
+  const [submissionsAssignmentId, setSubmissionsAssignmentId] = useState<
+    number | null
+  >(null);
+  const [submissionsModalOpen, setSubmissionsModalOpen] = useState(false);
+  const [gradeModalOpen, setGradeModalOpen] = useState(false);
+  const [gradingSubmission, setGradingSubmission] =
+    useState<SubmissionItem | null>(null);
+  const [gradeMarks, setGradeMarks] = useState("");
+  const [gradeGrade, setGradeGrade] = useState("");
+  const [gradeFeedback, setGradeFeedback] = useState("");
+
+  const { data: submissions, isLoading: submissionsLoading } =
+    useAssignmentSubmissionsQuery(submissionsAssignmentId);
+  const gradeSubmissionMut = useGradeSubmissionMutation();
 
   const resetMatForm = useCallback(() => {
     setMatTitle("");
@@ -322,6 +347,58 @@ function StudentsMaterials() {
     },
     [confirmDialog, deleteAssignmentMut, enqueueSnackbar, t]
   );
+
+  // Submissions & Grading handlers
+  const handleViewSubmissions = useCallback((item: AssignmentItem) => {
+    setSubmissionsAssignmentId(item.id);
+    setSubmissionsModalOpen(true);
+  }, []);
+
+  const handleOpenGrade = useCallback((sub: SubmissionItem) => {
+    setGradingSubmission(sub);
+    setGradeMarks(
+      sub.marks !== null && sub.marks !== undefined ? String(sub.marks) : ""
+    );
+    setGradeGrade(sub.grade ?? "");
+    setGradeFeedback(sub.feedback ?? "");
+    setGradeModalOpen(true);
+  }, []);
+
+  const handleSubmitGrade = useCallback(async () => {
+    if (!gradingSubmission || !gradeMarks) {
+      enqueueSnackbar(
+        t("admin-panel-students-materials:form.validation.required"),
+        { variant: "error" }
+      );
+      return;
+    }
+    try {
+      await gradeSubmissionMut.mutateAsync({
+        id: gradingSubmission.id,
+        marks: Number(gradeMarks),
+        grade: gradeGrade || undefined,
+        feedback: gradeFeedback || undefined,
+      });
+      enqueueSnackbar(
+        t("admin-panel-students-materials:notifications.graded"),
+        { variant: "success" }
+      );
+      setGradeModalOpen(false);
+      setGradingSubmission(null);
+    } catch {
+      enqueueSnackbar(t("admin-panel-students-materials:notifications.error"), {
+        variant: "error",
+      });
+    }
+  }, [
+    gradingSubmission,
+    gradeMarks,
+    gradeGrade,
+    gradeFeedback,
+    gradeSubmissionMut,
+    enqueueSnackbar,
+    t,
+  ]);
 
   const tabClass = (tab: string) =>
     `px-4 py-2 text-paragraph-sm font-medium rounded-md transition-colors ${activeTab === tab ? "bg-primary-base text-static-white" : "text-text-soft-400 hover:text-text-strong-950 hover:bg-bg-weak-50"}`;
@@ -547,6 +624,15 @@ function StudentsMaterials() {
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
+                              <DropdownMenuItem
+                                onClick={() => handleViewSubmissions(item)}
+                              >
+                                <RiEyeLine className="mr-2 h-4 w-4" />
+                                {t(
+                                  "admin-panel-students-materials:actions.viewSubmissions"
+                                )}
+                              </DropdownMenuItem>
+                              <DropdownMenuSeparator />
                               <DropdownMenuItem
                                 onClick={() => handleOpenEditAssign(item)}
                               >
@@ -775,6 +861,171 @@ function StudentsMaterials() {
             >
               {(createAssignmentMut.isPending ||
                 updateAssignmentMut.isPending) && (
+                <Spinner size="sm" className="mr-2" />
+              )}
+              {t("admin-panel-students-materials:actions.save")}
+            </Button>
+          </Dialog.DialogFooter>
+        </Dialog.DialogContent>
+      </Dialog.Dialog>
+
+      {/* View Submissions Modal */}
+      <Dialog.Dialog
+        open={submissionsModalOpen}
+        onOpenChange={setSubmissionsModalOpen}
+      >
+        <Dialog.DialogContent className="sm:max-w-[700px]">
+          <Dialog.DialogHeader>
+            <Dialog.DialogTitle>
+              {t("admin-panel-students-materials:submissions.title")}
+            </Dialog.DialogTitle>
+          </Dialog.DialogHeader>
+          <div className="max-h-[400px] overflow-auto rounded-lg border border-stroke-soft-200">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>
+                    {t(
+                      "admin-panel-students-materials:submissions.studentName"
+                    )}
+                  </TableHead>
+                  <TableHead>
+                    {t(
+                      "admin-panel-students-materials:submissions.submittedAt"
+                    )}
+                  </TableHead>
+                  <TableHead>
+                    {t("admin-panel-students-materials:submissions.marks")}
+                  </TableHead>
+                  <TableHead>
+                    {t("admin-panel-students-materials:submissions.grade")}
+                  </TableHead>
+                  <TableHead>
+                    {t("admin-panel-students-materials:submissions.remarks")}
+                  </TableHead>
+                  <TableHead style={{ width: 80 }}>
+                    {t("admin-panel-students-materials:table.actions")}
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {submissionsLoading ? (
+                  <TableRow>
+                    <TableCell colSpan={6} className="h-32 text-center">
+                      <Spinner size="md" />
+                    </TableCell>
+                  </TableRow>
+                ) : !submissions || submissions.length === 0 ? (
+                  <TableRow>
+                    <TableCell
+                      colSpan={6}
+                      className="h-32 text-center text-paragraph-sm text-text-soft-400"
+                    >
+                      {t("admin-panel-students-materials:submissions.empty")}
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  (submissions as SubmissionItem[]).map((sub) => (
+                    <TableRow key={sub.id}>
+                      <TableCell className="text-paragraph-sm">
+                        {sub.student?.name ??
+                          `Student #${sub.studentId ?? sub.id}`}
+                      </TableCell>
+                      <TableCell className="text-paragraph-sm">
+                        {sub.createdAt
+                          ? new Date(sub.createdAt).toLocaleDateString()
+                          : "—"}
+                      </TableCell>
+                      <TableCell className="text-paragraph-sm">
+                        {sub.marks !== null && sub.marks !== undefined
+                          ? sub.marks
+                          : "—"}
+                      </TableCell>
+                      <TableCell className="text-paragraph-sm">
+                        {sub.grade ?? "—"}
+                      </TableCell>
+                      <TableCell className="text-paragraph-sm">
+                        {sub.remarks ?? "—"}
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleOpenGrade(sub)}
+                        >
+                          <RiCheckLine className="mr-1 h-3.5 w-3.5" />
+                          {t("admin-panel-students-materials:actions.grade")}
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </div>
+          <Dialog.DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setSubmissionsModalOpen(false)}
+            >
+              {t("admin-panel-students-materials:actions.cancel")}
+            </Button>
+          </Dialog.DialogFooter>
+        </Dialog.DialogContent>
+      </Dialog.Dialog>
+
+      {/* Grade Submission Modal */}
+      <Dialog.Dialog open={gradeModalOpen} onOpenChange={setGradeModalOpen}>
+        <Dialog.DialogContent className="sm:max-w-[450px]">
+          <Dialog.DialogHeader>
+            <Dialog.DialogTitle>
+              {t("admin-panel-students-materials:grading.title")}
+            </Dialog.DialogTitle>
+          </Dialog.DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label>{t("admin-panel-students-materials:grading.marks")}</Label>
+              <Input
+                type="number"
+                min="0"
+                value={gradeMarks}
+                onChange={(e) => setGradeMarks(e.target.value)}
+                data-testid="grade-marks"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label>{t("admin-panel-students-materials:grading.grade")}</Label>
+              <Input
+                value={gradeGrade}
+                onChange={(e) => setGradeGrade(e.target.value)}
+                placeholder="A+, A, B+, ..."
+                data-testid="grade-grade"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label>
+                {t("admin-panel-students-materials:grading.feedback")}
+              </Label>
+              <Textarea
+                value={gradeFeedback}
+                onChange={(e) => setGradeFeedback(e.target.value)}
+                placeholder={t(
+                  "admin-panel-students-materials:grading.feedbackPlaceholder"
+                )}
+                rows={3}
+                data-testid="grade-feedback"
+              />
+            </div>
+          </div>
+          <Dialog.DialogFooter>
+            <Button variant="outline" onClick={() => setGradeModalOpen(false)}>
+              {t("admin-panel-students-materials:actions.cancel")}
+            </Button>
+            <Button
+              onClick={() => void handleSubmitGrade()}
+              disabled={gradeSubmissionMut.isPending}
+            >
+              {gradeSubmissionMut.isPending && (
                 <Spinner size="sm" className="mr-2" />
               )}
               {t("admin-panel-students-materials:actions.save")}

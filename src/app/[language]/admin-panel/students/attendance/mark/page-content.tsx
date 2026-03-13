@@ -33,6 +33,7 @@ import { useSnackbar } from "@/hooks/use-snackbar";
 import {
   useAttendanceListQuery,
   useBulkAttendanceMutation,
+  useEnrolledStudentsQuery,
 } from "../queries/queries";
 import { AttendanceStatus, ATTENDANCE_STATUSES } from "../types";
 import type { AttendanceRecord } from "../types";
@@ -85,13 +86,51 @@ function MarkAttendance() {
     limit: 500,
   });
 
-  // Build student rows from existing data
+  // Fetch enrolled students for the selected section
+  const { data: enrolledStudents, isLoading: isLoadingEnrolled } =
+    useEnrolledStudentsQuery(sectionId ? Number(sectionId) : undefined);
+
+  // Build student rows from enrolled students + existing attendance data
   const [statusOverrides, setStatusOverrides] = useState<
     Map<number, { status: AttendanceStatus | null; remarks: string }>
   >(new Map());
 
   const students: StudentRow[] = useMemo(() => {
     const records = existingData?.data ?? [];
+
+    // Build a map of existing attendance by student/attendable ID
+    const attendanceMap = new Map<
+      number,
+      { status: AttendanceStatus | null; remarks: string }
+    >();
+    for (const r of records as AttendanceRecord[]) {
+      attendanceMap.set(r.attendableId, {
+        status: r.status ?? null,
+        remarks: r.remarks ?? "",
+      });
+    }
+
+    // If we have enrolled students, use them as the base list
+    if (enrolledStudents && enrolledStudents.length > 0) {
+      return enrolledStudents.map((enrolled) => {
+        const override = statusOverrides.get(enrolled.studentId);
+        const existing = attendanceMap.get(enrolled.studentId);
+        const nameParts = enrolled.studentName.split(" ");
+        const firstName = nameParts[0] ?? "";
+        const lastName = nameParts.slice(1).join(" ");
+        return {
+          attendableId: enrolled.studentId,
+          name: enrolled.studentName || `Student #${enrolled.studentId}`,
+          studentId: enrolled.rollNumber || String(enrolled.studentId),
+          initials:
+            `${firstName[0] ?? ""}${lastName[0] ?? ""}`.toUpperCase() || "?",
+          status: override?.status ?? existing?.status ?? null,
+          remarks: override?.remarks ?? existing?.remarks ?? "",
+        };
+      });
+    }
+
+    // Fallback: use existing attendance records
     return records.map((r: AttendanceRecord) => {
       const override = statusOverrides.get(r.attendableId);
       const firstName = r.studentName?.split(" ")[0] ?? "";
@@ -106,7 +145,7 @@ function MarkAttendance() {
         remarks: override?.remarks ?? r.remarks ?? "",
       };
     });
-  }, [existingData, statusOverrides]);
+  }, [existingData, enrolledStudents, statusOverrides]);
 
   const isFutureDate = selectedDate > today;
 
@@ -351,7 +390,7 @@ function MarkAttendance() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {isLoading ? (
+                  {isLoading || isLoadingEnrolled ? (
                     <TableRow>
                       <TableCell colSpan={6} className="h-40 text-center">
                         <Spinner size="md" />

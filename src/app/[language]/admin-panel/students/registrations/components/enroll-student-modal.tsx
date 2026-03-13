@@ -15,31 +15,41 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import FormTextInput from "@/components/form/text-input/form-text-input";
+import FormSelectInput from "@/components/form/select/form-select";
 import { useEnrollStudentMutation } from "../queries/queries";
+import { useSectionsListQuery } from "../../../academics/classes/queries/queries";
+import { useAcademicYearsListQuery } from "../../../academics/year/queries/queries";
+import { useMemo } from "react";
+
+type SectionOption = { id: number; name: string };
+type AcademicYearOption = { id: number; name: string };
 
 type EnrollFormData = {
-  sectionId: string;
-  academicYearId: string;
+  section: SectionOption | null;
+  academicYear: AcademicYearOption | null;
 };
 
 function useValidationSchema() {
   const { t } = useTranslation("admin-panel-students-registrations");
   return yup.object().shape({
-    sectionId: yup
-      .string()
+    section: yup
+      .object()
+      .shape({ id: yup.number().required(), name: yup.string().required() })
       .required(
         t(
           "admin-panel-students-registrations:enroll.inputs.sectionId.validation.required"
         )
-      ),
-    academicYearId: yup
-      .string()
+      )
+      .nullable(),
+    academicYear: yup
+      .object()
+      .shape({ id: yup.number().required(), name: yup.string().required() })
       .required(
         t(
           "admin-panel-students-registrations:enroll.inputs.academicYearId.validation.required"
         )
-      ),
+      )
+      .nullable(),
   });
 }
 
@@ -71,26 +81,50 @@ export default function EnrollStudentModal({
   const { enqueueSnackbar } = useSnackbar();
   const enrollMutation = useEnrollStudentMutation();
 
+  const { data: sections } = useSectionsListQuery();
+  const { data: academicYears } = useAcademicYearsListQuery();
+
+  const sectionOptions: SectionOption[] = useMemo(
+    () =>
+      (sections ?? []).map((s) => ({
+        id: typeof s.id === "number" ? s.id : Number(s.id),
+        name: s.name ?? `Section #${s.id}`,
+      })),
+    [sections]
+  );
+
+  const academicYearOptions: AcademicYearOption[] = useMemo(
+    () =>
+      (academicYears ?? []).map((ay) => ({
+        id: typeof ay.id === "number" ? ay.id : Number(ay.id),
+        name: ay.name ?? `Year #${ay.id}`,
+      })),
+    [academicYears]
+  );
+
   const validationSchema = useValidationSchema();
 
   const methods = useForm<EnrollFormData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: yupResolver(validationSchema) as any,
     defaultValues: {
-      sectionId: "",
-      academicYearId: "",
+      section: null,
+      academicYear: null,
     },
   });
 
   const { handleSubmit, reset } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
+    if (!formData.section || !formData.academicYear) {
+      return;
+    }
     try {
       await enrollMutation.mutateAsync({
         studentId,
         data: {
-          sectionId: parseInt(formData.sectionId, 10),
-          academicYearId: parseInt(formData.academicYearId, 10),
+          sectionId: formData.section.id,
+          academicYearId: formData.academicYear.id,
         },
       });
 
@@ -100,7 +134,9 @@ export default function EnrollStudentModal({
       onOpenChange(false);
       reset();
     } catch {
-      enqueueSnackbar("Failed to enroll student", { variant: "error" });
+      enqueueSnackbar(t("admin-panel-students-registrations:enroll.error"), {
+        variant: "error",
+      });
     }
   });
 
@@ -119,18 +155,24 @@ export default function EnrollStudentModal({
 
         <FormProvider {...methods}>
           <form onSubmit={onSubmit} className="grid gap-4">
-            <FormTextInput<EnrollFormData>
-              name="sectionId"
+            <FormSelectInput<EnrollFormData, SectionOption>
+              name="section"
               label={t(
                 "admin-panel-students-registrations:enroll.inputs.sectionId.label"
               )}
+              options={sectionOptions}
+              keyValue="id"
+              renderOption={(o) => o.name}
               testId="enroll-section"
             />
-            <FormTextInput<EnrollFormData>
-              name="academicYearId"
+            <FormSelectInput<EnrollFormData, AcademicYearOption>
+              name="academicYear"
               label={t(
                 "admin-panel-students-registrations:enroll.inputs.academicYearId.label"
               )}
+              options={academicYearOptions}
+              keyValue="id"
+              renderOption={(o) => o.name}
               testId="enroll-academic-year"
             />
 

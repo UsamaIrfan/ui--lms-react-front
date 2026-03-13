@@ -34,6 +34,10 @@
     "deleted": "User deleted successfully",
     "error": "An error occurred"
   },
+  "pagination": {
+    "rowsPerPage": "Rows per page",
+    "pageLabel": "Page {{current}}"
+  },
   "filter": {
     "actions": {
       "filter": "Filter",

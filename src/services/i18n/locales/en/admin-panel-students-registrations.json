@@ -112,6 +112,8 @@
     "success": "Student registered successfully",
     "updateSuccess": "Student updated successfully",
     "draftSuccess": "Student saved as draft",
+    "draftError": "Failed to save draft",
+    "draftMinFieldsRequired": "Please fill in at least the first name and email to save as draft",
     "steps": {
       "basicInfo": "Basic Info",
       "enrollmentDetails": "Enrollment",
@@ -343,6 +345,7 @@
     "title": "Enroll Student",
     "description": "Enroll this student in a class section for an academic year.",
     "success": "Student enrolled successfully",
+    "error": "Failed to enroll student",
     "inputs": {
       "sectionId": {
         "label": "Section",
@@ -358,6 +361,10 @@
     "title": "Upload Document",
     "description": "Upload a document for this student.",
     "success": "Document uploaded successfully",
+    "error": "Failed to upload document",
+    "uploading": "Uploading file...",
+    "uploadFailed": "Failed to upload file. Please try again.",
+    "fileTooLarge": "File is too large. Maximum size is 10MB.",
     "inputs": {
       "documentType": {
         "label": "Document Type",
@@ -367,7 +374,9 @@
         "label": "Remarks (optional)"
       },
       "file": {
-        "label": "File",
+        "label": "Document File",
+        "placeholder": "Click to select a file",
+        "hint": "PDF, DOC, DOCX, JPG, PNG — max 10MB",
         "validation": { "required": "File is required" }
       }
     }

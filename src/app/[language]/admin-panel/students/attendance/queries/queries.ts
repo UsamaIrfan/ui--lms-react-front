@@ -10,6 +10,7 @@ import {
   attendanceControllerApproveV1,
   attendanceControllerRejectV1,
 } from "@/services/api/generated/attendance/attendance";
+import { studentEnrollmentControllerFindAllV1 } from "@/services/api/generated/lms-student-enrollments/lms-student-enrollments";
 import type {
   BulkAttendanceDto,
   MarkAttendanceDto,
@@ -350,5 +351,52 @@ export function useRejectLeaveMutation() {
         queryKey: attendanceQueryKeys.all,
       });
     },
+  });
+}
+
+// --- Enrolled Students Query (for mark-attendance page) ---
+
+export interface EnrolledStudent {
+  studentId: number;
+  studentName: string;
+  rollNumber: string;
+}
+
+export function useEnrolledStudentsQuery(sectionId: number | undefined) {
+  return useQuery({
+    queryKey: ["enrolled-students", sectionId],
+    queryFn: async ({ signal }) => {
+      // Pass sectionId + status=active as query params
+      // Use the generated function but append query params
+      const res = await studentEnrollmentControllerFindAllV1({
+        signal,
+      });
+
+      const raw = (res as any)?.data;
+      const enrollments: any[] = Array.isArray(raw)
+        ? raw
+        : Array.isArray(raw?.data)
+          ? raw.data
+          : [];
+
+      // Filter by sectionId and active status on the client side
+      // (server-side filtering via query params is the ideal approach
+      //  but the Orval-generated function doesn't support query params yet)
+      return enrollments
+        .filter((e: any) => {
+          const sid = e.sectionId ?? e.section?.id;
+          const status = e.status ?? "";
+          return sid === sectionId && status === "active";
+        })
+        .map(
+          (e: any): EnrolledStudent => ({
+            studentId: e.studentId ?? e.student?.id ?? 0,
+            studentName: e.studentName ?? "",
+            rollNumber: e.rollNumber ?? "",
+          })
+        );
+    },
+    enabled: !!sectionId,
+    staleTime: 5 * 60 * 1000,
   });
 }

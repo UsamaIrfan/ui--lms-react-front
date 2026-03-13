@@ -11,7 +11,9 @@
     "delete": "Delete",
     "cancel": "Cancel",
     "save": "Save",
-    "download": "Download"
+    "download": "Download",
+    "viewSubmissions": "View Submissions",
+    "grade": "Grade"
   },
   "table": {
     "title": "Title",
@@ -46,11 +48,28 @@
     "deleted": "Deleted successfully",
     "uploaded": "Material uploaded successfully",
     "assignmentCreated": "Assignment created successfully",
+    "graded": "Submission graded successfully",
     "error": "An error occurred"
   },
   "confirm": {
     "delete": "Are you sure you want to delete this?",
     "deleteTitle": "Confirm Delete"
+  },
+  "submissions": {
+    "title": "Submissions",
+    "studentName": "Student",
+    "submittedAt": "Submitted At",
+    "marks": "Marks",
+    "grade": "Grade",
+    "remarks": "Remarks",
+    "empty": "No submissions yet"
+  },
+  "grading": {
+    "title": "Grade Submission",
+    "marks": "Marks",
+    "grade": "Grade (optional)",
+    "feedback": "Feedback (optional)",
+    "feedbackPlaceholder": "Enter feedback for the student..."
   },
   "materials": {
     "title": "Course Materials",

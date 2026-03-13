@@ -56,6 +56,7 @@ import {
   RiBarChartBoxLine,
   RiFileEditLine,
 } from "@remixicon/react";
+import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -100,6 +101,7 @@ function statusBadgeVariant(
 function ExamsPageContent() {
   const { t } = useTranslation("admin-panel-students-exams");
   const { enqueueSnackbar } = useSnackbar();
+  const { confirmDialog } = useConfirmDialog();
 
   const [activeTab, setActiveTab] = useState<
     "schedules" | "results" | "gradingScales" | "analytics"
@@ -185,6 +187,11 @@ function ExamsPageContent() {
 
   const handleDeleteExam = useCallback(
     async (id: number) => {
+      const confirmed = await confirmDialog({
+        title: t("confirm.deleteTitle"),
+        message: t("confirm.delete"),
+      });
+      if (!confirmed) return;
       try {
         await deleteExam.mutateAsync(id);
         enqueueSnackbar(t("notifications.deleted"), { variant: "success" });
@@ -192,7 +199,7 @@ function ExamsPageContent() {
         enqueueSnackbar(t("notifications.error"), { variant: "error" });
       }
     },
-    [deleteExam, enqueueSnackbar, t]
+    [confirmDialog, deleteExam, enqueueSnackbar, t]
   );
 
   const handleUpdateStatus = useCallback(async () => {
@@ -346,6 +353,7 @@ function ExamsPageContent() {
                 <TableRow>
                   <TableHead>{t("schedules.table.columns.name")}</TableHead>
                   <TableHead>{t("schedules.table.columns.type")}</TableHead>
+                  <TableHead>{t("schedules.table.columns.subject")}</TableHead>
                   <TableHead>{t("schedules.table.columns.date")}</TableHead>
                   <TableHead>{t("schedules.table.columns.status")}</TableHead>
                   <TableHead>{t("schedules.table.columns.actions")}</TableHead>
@@ -354,14 +362,14 @@ function ExamsPageContent() {
               <TableBody>
                 {examsLoading ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="h-40 text-center">
+                    <TableCell colSpan={6} className="h-40 text-center">
                       <Spinner size="md" />
                     </TableCell>
                   </TableRow>
                 ) : !exams || exams.length === 0 ? (
                   <TableRow>
                     <TableCell
-                      colSpan={5}
+                      colSpan={6}
                       className="h-40 text-center text-paragraph-sm text-text-soft-400"
                     >
                       {t("schedules.table.empty")}
@@ -377,6 +385,10 @@ function ExamsPageContent() {
                         {t(
                           `schedules.types.${exam.type}` as `schedules.types.class_test`
                         )}
+                      </TableCell>
+                      <TableCell className="text-paragraph-sm max-w-[200px] truncate">
+                        {exam.subjects?.map((s) => s.subjectName).join(", ") ??
+                          "—"}
                       </TableCell>
                       <TableCell className="text-paragraph-sm">
                         {new Date(exam.startDate).toLocaleDateString()} -{" "}
@@ -421,7 +433,7 @@ function ExamsPageContent() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => handleDeleteExam(exam.id)}
+                            onClick={() => void handleDeleteExam(exam.id)}
                           >
                             <RiDeleteBinLine className="size-4 text-error-base" />
                           </Button>

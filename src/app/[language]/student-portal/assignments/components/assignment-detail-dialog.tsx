@@ -10,7 +10,7 @@ import {
   RiDownloadLine,
 } from "@remixicon/react";
 import { useDropzone } from "react-dropzone";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/toast";
 
 import {
   Dialog,
@@ -108,6 +108,7 @@ export function AssignmentDetailDialog({
   const { tenantId } = useTenant();
   const { data: studentId } = useStudentId();
   const submitMutation = useSubmitAssignment();
+  const { toast } = useToast();
 
   const [file, setFile] = useState<File | null>(null);
   const [remarks, setRemarks] = useState("");
@@ -149,12 +150,12 @@ export function AssignmentDetailDialog({
         remarks: remarks || undefined,
       });
 
-      toast.success(labels.success);
+      toast(labels.success, { variant: "success" });
       setFile(null);
       setRemarks("");
       onOpenChange(false);
     } catch {
-      toast.error(labels.error);
+      toast(labels.error, { variant: "error" });
     } finally {
       setIsUploading(false);
     }

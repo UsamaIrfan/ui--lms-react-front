@@ -3,7 +3,7 @@
 import { RoleEnum } from "@/services/api/types/role";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useTranslation } from "@/services/i18n/client";
-import { PropsWithChildren, useCallback, useState } from "react";
+import { PropsWithChildren, useCallback, useMemo, useState } from "react";
 import {
   useStudentsListQuery,
   useDeleteStudentMutation,
@@ -136,7 +136,10 @@ function StudentRegistrations() {
     rowsPerPage
   );
 
-  const paginatedData = queryResult?.data ?? [];
+  const paginatedData = useMemo(
+    () => queryResult?.data ?? [],
+    [queryResult?.data]
+  );
   const hasNextPage = queryResult?.hasNextPage ?? false;
 
   const handleRequestSort = useCallback(

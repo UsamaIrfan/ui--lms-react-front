@@ -87,6 +87,7 @@ function ImagePicker(props: ImagePickerProps) {
                 <RiCloseLine className="h-12.5 w-12.5" />
               </button>
             </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={props.value.path}
               alt=""

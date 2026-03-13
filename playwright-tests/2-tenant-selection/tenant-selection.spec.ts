@@ -1,9 +1,5 @@
 import { test, expect } from "@playwright/test";
-import {
-  TEST_USERS,
-  DEFAULT_TENANT_ID,
-  DEFAULT_BRANCH_ID,
-} from "../helpers/constants";
+import { TEST_USERS, DEFAULT_TENANT_ID } from "../helpers/constants";
 
 test.describe("Tenant Selection", () => {
   test.beforeEach(async ({ page }) => {

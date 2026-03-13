@@ -82,7 +82,7 @@ function FormActions() {
 function Form() {
   const { setUser } = useAuthActions();
   const { setTokensInfo } = useAuthTokens();
-  const { tenants, selectTenant } = useTenant();
+  const { selectTenant } = useTenant();
   const { t } = useTranslation("sign-in");
   const language = useLanguage();
   const router = useRouter();

@@ -5,7 +5,7 @@ import { dir } from "i18next";
 import "@/services/i18n/config";
 import { languages } from "@/services/i18n/config";
 import type { Metadata } from "next";
-import ToastContainer from "@/components/snackbar-provider";
+import { ToastProvider } from "@/components/ui/toast";
 import { getServerTranslation } from "@/services/i18n";
 import StoreLanguageProvider from "@/services/i18n/store-language-provider";
 import ThemeProvider from "@/components/theme/theme-provider";
@@ -58,11 +58,9 @@ export default async function RootLayout(props: {
                     <GoogleAuthProvider>
                       <FacebookAuthProvider>
                         <LeavePageProvider>
-                          <LayoutSelector>{children}</LayoutSelector>
-                          <ToastContainer
-                            position="bottom-left"
-                            hideProgressBar
-                          />
+                          <ToastProvider>
+                            <LayoutSelector>{children}</LayoutSelector>
+                          </ToastProvider>
                         </LeavePageProvider>
                       </FacebookAuthProvider>
                     </GoogleAuthProvider>

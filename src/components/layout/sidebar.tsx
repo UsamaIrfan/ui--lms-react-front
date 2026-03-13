@@ -85,7 +85,7 @@ function SidebarLogo({ collapsed }: { collapsed: boolean }) {
   const { t } = useTranslation("common");
 
   return (
-    <div className="flex h-16 shrink-0 items-center border-b border-stroke-soft-200 px-4">
+    <div className="flex h-16 shrink-0 items-center border-b border-stroke-soft-200 px-4 w-full">
       <Link
         href="/admin-panel"
         className="flex items-center gap-3 no-underline"

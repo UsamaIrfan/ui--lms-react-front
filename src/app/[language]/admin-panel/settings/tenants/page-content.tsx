@@ -13,6 +13,8 @@ import {
 import type { Tenant } from "@/services/api/generated/model";
 import { useSnackbar } from "@/hooks/use-snackbar";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
+import useAuthActions from "@/services/auth/use-auth-actions";
+import useTenant from "@/services/tenant/use-tenant";
 import Link from "@/components/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -42,6 +44,7 @@ import {
   RiMoreLine,
   RiEditLine,
   RiDeleteBinLine,
+  RiLogoutBoxRLine,
 } from "@remixicon/react";
 
 function TenantManagement() {
@@ -53,8 +56,11 @@ function TenantManagement() {
   const createMutation = useCreateTenantMutation();
   const updateMutation = useUpdateTenantMutation();
   const deleteMutation = useDeleteTenantMutation();
+  const { logOut } = useAuthActions();
+  const { clearTenant } = useTenant();
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const [editItem, setEditItem] = useState<Tenant | null>(null);
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
@@ -118,6 +124,10 @@ function TenantManagement() {
           t("admin-panel-settings:tenants.notifications.created"),
           { variant: "success" }
         );
+        setModalOpen(false);
+        resetForm();
+        setLogoutDialogOpen(true);
+        return;
       }
       setModalOpen(false);
       resetForm();
@@ -182,6 +192,11 @@ function TenantManagement() {
     },
     [updateMutation, enqueueSnackbar, t]
   );
+
+  const handleLogOut = useCallback(async () => {
+    clearTenant();
+    await logOut();
+  }, [clearTenant, logOut]);
 
   return (
     <div
@@ -397,6 +412,45 @@ function TenantManagement() {
                 <Spinner size="sm" className="mr-1" />
               ) : null}
               {t("admin-panel-settings:tenants.actions.save")}
+            </Button>
+          </Dialog.DialogFooter>
+        </Dialog.DialogContent>
+      </Dialog.Dialog>
+
+      {/* Logout prompt after tenant creation */}
+      <Dialog.Dialog open={logoutDialogOpen} onOpenChange={setLogoutDialogOpen}>
+        <Dialog.DialogContent className="sm:max-w-md">
+          <Dialog.DialogHeader>
+            <Dialog.DialogTitle>
+              {t(
+                "admin-panel-settings:tenants.notifications.logoutTitle"
+              )}
+            </Dialog.DialogTitle>
+          </Dialog.DialogHeader>
+
+          <div className="flex items-start gap-3 py-4">
+            <RiLogoutBoxRLine className="mt-0.5 h-5 w-5 shrink-0 text-primary-base" />
+            <p className="text-paragraph-sm text-text-sub-600">
+              {t(
+                "admin-panel-settings:tenants.notifications.logoutMessage"
+              )}
+            </p>
+          </div>
+
+          <Dialog.DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setLogoutDialogOpen(false)}
+            >
+              {t(
+                "admin-panel-settings:tenants.notifications.logoutCancel"
+              )}
+            </Button>
+            <Button onClick={() => void handleLogOut()}>
+              <RiLogoutBoxRLine className="mr-1 h-4 w-4" />
+              {t(
+                "admin-panel-settings:tenants.notifications.logoutConfirm"
+              )}
             </Button>
           </Dialog.DialogFooter>
         </Dialog.DialogContent>

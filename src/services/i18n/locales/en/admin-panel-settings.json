@@ -306,7 +306,11 @@
       "created": "Tenant created successfully",
       "updated": "Tenant updated successfully",
       "deleted": "Tenant deleted successfully",
-      "error": "Failed to save tenant. Please try again."
+      "error": "Failed to save tenant. Please try again.",
+      "logoutTitle": "Tenant Created",
+      "logoutMessage": "To access the new tenant, you need to log out and log back in. Would you like to log out now?",
+      "logoutConfirm": "Log Out Now",
+      "logoutCancel": "Stay Logged In"
     }
   }
 }

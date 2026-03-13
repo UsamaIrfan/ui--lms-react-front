@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import FormTextInput from "@/components/form/text-input/form-text-input";
+import { format } from "date-fns";
 import FormDatePickerInput from "@/components/form/date-pickers/date-picker";
 import FormRadioInput from "@/components/form/radio-group/form-radio-group";
 import FormSelectInput from "@/components/form/select/form-select";
@@ -845,8 +846,8 @@ export default function AddStudentModal({
       password: formData.password,
       institutionId: parseInt(formData.institutionId.id, 10) || 1,
       dateOfBirth: formData.dateOfBirth
-        ? formData.dateOfBirth.toISOString().split("T")[0]
-        : "",
+        ? format(formData.dateOfBirth, "yyyy-MM-dd")
+        : undefined,
       gender: formData.gender?.id || "male",
       guardianName: formData.guardianName,
       guardianPhone: formData.guardianPhone,
@@ -858,7 +859,7 @@ export default function AddStudentModal({
       nationality: formData.nationality || undefined,
       religion: formData.religion || undefined,
       admissionDate: formData.admissionDate
-        ? formData.admissionDate.toISOString().split("T")[0]
+        ? format(formData.admissionDate, "yyyy-MM-dd")
         : undefined,
       emergencyContactName: formData.emergencyContactName || undefined,
       emergencyContactPhone: formData.emergencyContactPhone || undefined,
@@ -889,10 +890,10 @@ export default function AddStudentModal({
       nationality: formData.nationality || undefined,
       religion: formData.religion || undefined,
       dateOfBirth: formData.dateOfBirth
-        ? formData.dateOfBirth.toISOString().split("T")[0]
+        ? format(formData.dateOfBirth, "yyyy-MM-dd")
         : undefined,
       admissionDate: formData.admissionDate
-        ? formData.admissionDate.toISOString().split("T")[0]
+        ? format(formData.admissionDate, "yyyy-MM-dd")
         : undefined,
       institutionId: parseInt(formData.institutionId.id, 10) || undefined,
       sectionId: formData.sectionId

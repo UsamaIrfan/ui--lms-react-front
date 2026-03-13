@@ -164,7 +164,9 @@ function MarksEntryContent() {
       });
       enqueueSnackbar(t("notifications.marksEntered"), { variant: "success" });
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), {
+        variant: "error",
+      });
     }
   }, [selectedSubjectId, marksEntries, enterMarks, enqueueSnackbar, t]);
 

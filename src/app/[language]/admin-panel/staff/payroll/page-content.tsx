@@ -105,9 +105,13 @@ function StaffPayroll() {
       a.click();
       URL.revokeObjectURL(url);
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-payroll:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-staff-payroll:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }
 
@@ -204,9 +208,13 @@ function StaffPayroll() {
       setStructureOpen(false);
       resetStructureForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-payroll:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-staff-payroll:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     structName,
@@ -234,9 +242,13 @@ function StaffPayroll() {
             { variant: "success" }
           );
         } catch (error) {
-          enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-payroll:notifications.error"), {
-            variant: "error",
-          });
+          enqueueSnackbar(
+            getHttpErrorMessage(error) ??
+              t("admin-panel-staff-payroll:notifications.error"),
+            {
+              variant: "error",
+            }
+          );
         }
       }
     },
@@ -254,9 +266,13 @@ function StaffPayroll() {
       });
       setProcessOpen(false);
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-payroll:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-staff-payroll:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [processMonth, processYear, processMutation, enqueueSnackbar, t]);
 
@@ -496,7 +512,7 @@ function StaffPayroll() {
 
       {/* Salary Structure Modal */}
       <Dialog.Dialog open={structureOpen} onOpenChange={setStructureOpen}>
-        <Dialog.DialogContent className="sm:max-w-[600px]">
+        <Dialog.DialogContent className="sm:max-w-150">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editStructure
@@ -625,7 +641,7 @@ function StaffPayroll() {
 
       {/* Process Payroll Modal */}
       <Dialog.Dialog open={processOpen} onOpenChange={setProcessOpen}>
-        <Dialog.DialogContent className="sm:max-w-[400px]">
+        <Dialog.DialogContent className="sm:max-w-100">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {t("admin-panel-staff-payroll:slips.actions.process")}

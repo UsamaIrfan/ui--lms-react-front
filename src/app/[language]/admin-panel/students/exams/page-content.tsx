@@ -170,7 +170,9 @@ function ExamsPageContent() {
       setShowCreateDialog(false);
       resetCreateForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), {
+        variant: "error",
+      });
     }
   }, [
     formName,
@@ -197,7 +199,10 @@ function ExamsPageContent() {
         await deleteExam.mutateAsync(id);
         enqueueSnackbar(t("notifications.deleted"), { variant: "success" });
       } catch (error) {
-        enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
+        enqueueSnackbar(
+          getHttpErrorMessage(error) ?? t("notifications.error"),
+          { variant: "error" }
+        );
       }
     },
     [confirmDialog, deleteExam, enqueueSnackbar, t]
@@ -217,7 +222,9 @@ function ExamsPageContent() {
       setSelectedExam(null);
       setStatusValue("");
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), {
+        variant: "error",
+      });
     }
   }, [selectedExam, statusValue, updateStatus, enqueueSnackbar, t]);
 
@@ -296,7 +303,9 @@ function ExamsPageContent() {
       setShowGradingDialog(false);
       setGradingName("");
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), {
+        variant: "error",
+      });
     }
   }, [gradingName, gradingGrades, createGradingScale, enqueueSnackbar, t]);
 
@@ -387,7 +396,7 @@ function ExamsPageContent() {
                           `schedules.types.${exam.type}` as `schedules.types.class_test`
                         )}
                       </TableCell>
-                      <TableCell className="text-paragraph-sm max-w-[200px] truncate">
+                      <TableCell className="text-paragraph-sm max-w-50 truncate">
                         {exam.subjects?.map((s) => s.subjectName).join(", ") ??
                           "—"}
                       </TableCell>

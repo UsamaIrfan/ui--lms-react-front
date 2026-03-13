@@ -133,9 +133,13 @@ function TenantManagement() {
       setModalOpen(false);
       resetForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-settings:tenants.notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-settings:tenants.notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     name,
@@ -165,7 +169,8 @@ function TenantManagement() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-settings:tenants.notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-settings:tenants.notifications.error"),
             { variant: "error" }
           );
         }
@@ -186,9 +191,13 @@ function TenantManagement() {
           { variant: "success" }
         );
       } catch (error) {
-        enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-settings:tenants.notifications.error"), {
-          variant: "error",
-        });
+        enqueueSnackbar(
+          getHttpErrorMessage(error) ??
+            t("admin-panel-settings:tenants.notifications.error"),
+          {
+            variant: "error",
+          }
+        );
       }
     },
     [updateMutation, enqueueSnackbar, t]

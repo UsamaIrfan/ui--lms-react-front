@@ -133,9 +133,13 @@ function AccountsExpenses() {
       setModalOpen(false);
       resetForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-accounts-expenses:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-accounts-expenses:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     category,
@@ -169,7 +173,8 @@ function AccountsExpenses() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-accounts-expenses:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-accounts-expenses:notifications.error"),
             { variant: "error" }
           );
         }
@@ -299,7 +304,7 @@ function AccountsExpenses() {
       </div>
 
       <Dialog.Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[550px]">
+        <Dialog.DialogContent className="sm:max-w-137.5">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editItem

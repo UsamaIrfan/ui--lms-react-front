@@ -157,9 +157,13 @@ function AcademicClasses() {
       setClassModalOpen(false);
       resetClassForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-classes:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-academics-classes:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     className,
@@ -189,7 +193,8 @@ function AcademicClasses() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-academics-classes:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-academics-classes:notifications.error"),
             { variant: "error" }
           );
         }
@@ -218,9 +223,13 @@ function AcademicClasses() {
       setSectionModalOpen(false);
       resetSectionForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-classes:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-academics-classes:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     sectionName,
@@ -247,7 +256,8 @@ function AcademicClasses() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-academics-classes:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-academics-classes:notifications.error"),
             { variant: "error" }
           );
         }
@@ -405,7 +415,7 @@ function AcademicClasses() {
 
       {/* Class Modal */}
       <Dialog.Dialog open={classModalOpen} onOpenChange={setClassModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[500px]">
+        <Dialog.DialogContent className="sm:max-w-125">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editClass
@@ -483,7 +493,7 @@ function AcademicClasses() {
 
       {/* Section Modal */}
       <Dialog.Dialog open={sectionModalOpen} onOpenChange={setSectionModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[400px]">
+        <Dialog.DialogContent className="sm:max-w-100">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {t("admin-panel-academics-classes:sections.actions.create")}

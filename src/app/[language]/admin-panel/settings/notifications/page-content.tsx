@@ -123,7 +123,8 @@ function NotificationSettings() {
       );
     } catch (error) {
       enqueueSnackbar(
-        getHttpErrorMessage(error) ?? t("admin-panel-settings:notifications.notifications.error"),
+        getHttpErrorMessage(error) ??
+          t("admin-panel-settings:notifications.notifications.error"),
         { variant: "error" }
       );
     }

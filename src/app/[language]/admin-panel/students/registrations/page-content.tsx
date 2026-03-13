@@ -170,7 +170,10 @@ function StudentRegistrations() {
             { variant: "success" }
           );
         } catch (error) {
-          enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to delete student", { variant: "error" });
+          enqueueSnackbar(
+            getHttpErrorMessage(error) ?? "Failed to delete student",
+            { variant: "error" }
+          );
         }
       }
     },
@@ -499,7 +502,7 @@ function StudentRegistrations() {
                   setPage(0);
                 }}
               >
-                <SelectTrigger className="h-8 w-[70px]">
+                <SelectTrigger className="h-8 w-17.5">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

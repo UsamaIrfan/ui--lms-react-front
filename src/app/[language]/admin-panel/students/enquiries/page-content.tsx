@@ -149,7 +149,10 @@ function Enquiries() {
             { variant: "success" }
           );
         } catch (error) {
-          enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to delete enquiry", { variant: "error" });
+          enqueueSnackbar(
+            getHttpErrorMessage(error) ?? "Failed to delete enquiry",
+            { variant: "error" }
+          );
         }
       }
     },

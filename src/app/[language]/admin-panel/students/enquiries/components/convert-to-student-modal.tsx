@@ -52,7 +52,10 @@ export default function ConvertToStudentModal({
       onOpenChange(false);
       onSuccess?.();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to convert enquiry", { variant: "error" });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ?? "Failed to convert enquiry",
+        { variant: "error" }
+      );
     } finally {
       setIsConverting(false);
     }

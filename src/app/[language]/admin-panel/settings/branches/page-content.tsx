@@ -153,9 +153,13 @@ function BranchManagement() {
       setModalOpen(false);
       resetForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-settings:branches.notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-settings:branches.notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     name,
@@ -190,7 +194,8 @@ function BranchManagement() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-settings:branches.notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-settings:branches.notifications.error"),
             { variant: "error" }
           );
         }
@@ -257,7 +262,7 @@ function BranchManagement() {
                   <TableHead>
                     {t("admin-panel-settings:branches.table.headquarters")}
                   </TableHead>
-                  <TableHead className="w-[50px]" />
+                  <TableHead className="w-12.5" />
                 </TableRow>
               </TableHeader>
               <TableBody>

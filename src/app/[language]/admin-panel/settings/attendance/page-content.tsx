@@ -96,7 +96,8 @@ function AttendanceConfiguration() {
       );
     } catch (error) {
       enqueueSnackbar(
-        getHttpErrorMessage(error) ?? t("admin-panel-settings:attendance.notifications.error"),
+        getHttpErrorMessage(error) ??
+          t("admin-panel-settings:attendance.notifications.error"),
         { variant: "error" }
       );
     }

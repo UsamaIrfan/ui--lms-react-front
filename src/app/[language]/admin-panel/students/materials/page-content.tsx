@@ -200,9 +200,13 @@ function StudentsMaterials() {
       setMatModalOpen(false);
       resetMatForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-materials:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-students-materials:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     matTitle,
@@ -234,7 +238,8 @@ function StudentsMaterials() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-students-materials:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-students-materials:notifications.error"),
             { variant: "error" }
           );
         }
@@ -306,9 +311,13 @@ function StudentsMaterials() {
       setAssignModalOpen(false);
       resetAssignForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-materials:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-students-materials:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     assignTitle,
@@ -340,7 +349,8 @@ function StudentsMaterials() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-students-materials:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-students-materials:notifications.error"),
             { variant: "error" }
           );
         }
@@ -387,9 +397,13 @@ function StudentsMaterials() {
       setGradeModalOpen(false);
       setGradingSubmission(null);
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-materials:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-students-materials:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     gradingSubmission,
@@ -667,7 +681,7 @@ function StudentsMaterials() {
 
       {/* Create/Edit Material Modal */}
       <Dialog.Dialog open={matModalOpen} onOpenChange={setMatModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[550px]">
+        <Dialog.DialogContent className="sm:max-w-137.5">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editMat
@@ -772,7 +786,7 @@ function StudentsMaterials() {
 
       {/* Create/Edit Assignment Modal */}
       <Dialog.Dialog open={assignModalOpen} onOpenChange={setAssignModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[550px]">
+        <Dialog.DialogContent className="sm:max-w-137.5">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editAssign
@@ -875,13 +889,13 @@ function StudentsMaterials() {
         open={submissionsModalOpen}
         onOpenChange={setSubmissionsModalOpen}
       >
-        <Dialog.DialogContent className="sm:max-w-[700px]">
+        <Dialog.DialogContent className="sm:max-w-175">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {t("admin-panel-students-materials:submissions.title")}
             </Dialog.DialogTitle>
           </Dialog.DialogHeader>
-          <div className="max-h-[400px] overflow-auto rounded-lg border border-stroke-soft-200">
+          <div className="max-h-100 overflow-auto rounded-lg border border-stroke-soft-200">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -977,7 +991,7 @@ function StudentsMaterials() {
 
       {/* Grade Submission Modal */}
       <Dialog.Dialog open={gradeModalOpen} onOpenChange={setGradeModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[450px]">
+        <Dialog.DialogContent className="sm:max-w-112.5">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {t("admin-panel-students-materials:grading.title")}

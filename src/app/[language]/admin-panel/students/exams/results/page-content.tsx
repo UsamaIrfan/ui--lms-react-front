@@ -107,7 +107,9 @@ function ResultsPageContent() {
       });
       setShowPublishDialog(false);
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), {
+        variant: "error",
+      });
     }
   }, [gradingScaleId, selectedExamId, publishResults, enqueueSnackbar, t]);
 
@@ -125,7 +127,10 @@ function ResultsPageContent() {
           `report-card-${studentId}-exam-${selectedExamId}.pdf`
         );
       } catch (error) {
-        enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
+        enqueueSnackbar(
+          getHttpErrorMessage(error) ?? t("notifications.error"),
+          { variant: "error" }
+        );
       } finally {
         setDownloadingReportCard(false);
       }

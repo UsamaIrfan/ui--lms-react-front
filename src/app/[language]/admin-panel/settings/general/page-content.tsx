@@ -85,9 +85,13 @@ function GeneralSettings() {
         variant: "success",
       });
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-settings:general.notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-settings:general.notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     name,

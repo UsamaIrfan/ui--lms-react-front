@@ -243,7 +243,9 @@ function BulkAttendance() {
         },
         onError: (error) => {
           setState("preview");
-          enqueueSnackbar(getHttpErrorMessage(error) ?? t(`${NS}:bulk.error`), { variant: "error" });
+          enqueueSnackbar(getHttpErrorMessage(error) ?? t(`${NS}:bulk.error`), {
+            variant: "error",
+          });
         },
       }
     );

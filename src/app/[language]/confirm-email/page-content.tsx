@@ -28,9 +28,12 @@ export default function ConfirmEmail() {
           });
           router.replace("/profile");
         } catch (error) {
-          enqueueSnackbar(getHttpErrorMessage(error) ?? t("confirm-email:emailConfirmFailed"), {
-            variant: "error",
-          });
+          enqueueSnackbar(
+            getHttpErrorMessage(error) ?? t("confirm-email:emailConfirmFailed"),
+            {
+              variant: "error",
+            }
+          );
           router.replace("/");
         }
       }

@@ -77,7 +77,9 @@ export function ApplyLeaveDialog({ trigger }: ApplyLeaveDialogProps) {
       reset();
     },
     onError: (error) => {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("leave.error"), { variant: "error" });
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("leave.error"), {
+        variant: "error",
+      });
     },
   });
 

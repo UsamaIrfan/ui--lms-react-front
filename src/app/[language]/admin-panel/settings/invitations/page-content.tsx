@@ -31,7 +31,10 @@ import {
   resendInvitation,
   type InvitationResponse,
 } from "@/services/api/services/invitations";
-import { HttpError, getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
+import {
+  HttpError,
+  getHttpErrorMessage,
+} from "@/services/api/generated/custom-fetch";
 import {
   RiMailSendLine,
   RiRefreshLine,
@@ -183,9 +186,13 @@ function InvitationsSettings() {
           { variant: "error" }
         );
       } else {
-        enqueueSnackbar(getHttpErrorMessage(err) ?? t("admin-panel-invitations:notifications.error"), {
-          variant: "error",
-        });
+        enqueueSnackbar(
+          getHttpErrorMessage(err) ??
+            t("admin-panel-invitations:notifications.error"),
+          {
+            variant: "error",
+          }
+        );
       }
     }
   });
@@ -198,9 +205,13 @@ function InvitationsSettings() {
         variant: "success",
       });
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-invitations:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-invitations:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   };
 
@@ -213,9 +224,13 @@ function InvitationsSettings() {
       });
       await loadInvitations();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-invitations:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-invitations:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   };
 

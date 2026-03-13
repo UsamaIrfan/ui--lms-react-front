@@ -91,9 +91,13 @@ function StaffAttendance() {
       setCheckInStaffId("");
       setCheckInRemarks("");
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-attendance:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-staff-attendance:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [checkInStaffId, checkInRemarks, checkInMutation, enqueueSnackbar, t]);
 
@@ -116,9 +120,13 @@ function StaffAttendance() {
       setCheckOutOpen(false);
       setCheckOutStaffId("");
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-attendance:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-staff-attendance:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [checkOutStaffId, checkOutMutation, enqueueSnackbar, t]);
 
@@ -268,7 +276,7 @@ function StaffAttendance() {
 
       {/* Check In Modal */}
       <Dialog.Dialog open={checkInOpen} onOpenChange={setCheckInOpen}>
-        <Dialog.DialogContent className="sm:max-w-[400px]">
+        <Dialog.DialogContent className="sm:max-w-100">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {t("admin-panel-staff-attendance:actions.checkIn")}
@@ -321,7 +329,7 @@ function StaffAttendance() {
 
       {/* Check Out Modal */}
       <Dialog.Dialog open={checkOutOpen} onOpenChange={setCheckOutOpen}>
-        <Dialog.DialogContent className="sm:max-w-[400px]">
+        <Dialog.DialogContent className="sm:max-w-100">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {t("admin-panel-staff-attendance:actions.checkOut")}

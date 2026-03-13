@@ -79,9 +79,13 @@ function RolePermissionsPage() {
       setPermissions(res.data ?? []);
     } catch (err) {
       console.error("[RolePermissions] Failed to load permissions:", err);
-      enqueueSnackbar(getHttpErrorMessage(err) ?? t("admin-panel-authorization:rolePermissions.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(err) ??
+          t("admin-panel-authorization:rolePermissions.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [enqueueSnackbar, t]);
 
@@ -99,9 +103,13 @@ function RolePermissionsPage() {
         );
         setRolePermissions([]);
         setLoadError(t("admin-panel-authorization:rolePermissions.loadError"));
-        enqueueSnackbar(getHttpErrorMessage(err) ?? t("admin-panel-authorization:rolePermissions.error"), {
-          variant: "error",
-        });
+        enqueueSnackbar(
+          getHttpErrorMessage(err) ??
+            t("admin-panel-authorization:rolePermissions.error"),
+          {
+            variant: "error",
+          }
+        );
       } finally {
         setLoading(false);
       }
@@ -162,9 +170,13 @@ function RolePermissionsPage() {
       );
       await loadRolePermissions(Number(selectedRoleId));
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-authorization:rolePermissions.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-authorization:rolePermissions.error"),
+        {
+          variant: "error",
+        }
+      );
     } finally {
       setAddingPermId(null);
     }
@@ -180,9 +192,13 @@ function RolePermissionsPage() {
       );
       await loadRolePermissions(Number(selectedRoleId));
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-authorization:rolePermissions.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-authorization:rolePermissions.error"),
+        {
+          variant: "error",
+        }
+      );
     } finally {
       setRemovingPermId(null);
     }

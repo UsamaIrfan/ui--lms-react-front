@@ -141,9 +141,13 @@ function Actions({ user }: { user: User }) {
           variant: "success",
         });
       } catch (error) {
-        enqueueSnackbar(getHttpErrorMessage(error) ?? tUsers("admin-panel-users:notifications.error"), {
-          variant: "error",
-        });
+        enqueueSnackbar(
+          getHttpErrorMessage(error) ??
+            tUsers("admin-panel-users:notifications.error"),
+          {
+            variant: "error",
+          }
+        );
       }
     }
   };
@@ -300,7 +304,7 @@ function Users() {
                 >
                   {tUsers("admin-panel-users:table.id")}
                 </TableSortCellWrapper>
-                <TableHead className="min-w-[180px]">
+                <TableHead className="min-w-45">
                   {tUsers("admin-panel-users:table.name")}
                 </TableHead>
                 <TableSortCellWrapper
@@ -395,7 +399,7 @@ function Users() {
                   setPage(0);
                 }}
               >
-                <SelectTrigger className="h-8 w-[70px]">
+                <SelectTrigger className="h-8 w-17.5">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

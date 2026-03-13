@@ -935,7 +935,10 @@ export default function AddStudentModal({
       setPendingDocuments([]);
     } catch (error) {
       enqueueSnackbar(
-        getHttpErrorMessage(error) ?? (isEditing ? "Failed to update student" : "Failed to register student"),
+        getHttpErrorMessage(error) ??
+          (isEditing
+            ? "Failed to update student"
+            : "Failed to register student"),
         { variant: "error" }
       );
     }
@@ -978,7 +981,8 @@ export default function AddStudentModal({
       setPendingDocuments([]);
     } catch (error) {
       enqueueSnackbar(
-        getHttpErrorMessage(error) ?? t("admin-panel-students-registrations:addStudent.draftError"),
+        getHttpErrorMessage(error) ??
+          t("admin-panel-students-registrations:addStudent.draftError"),
         { variant: "error" }
       );
     }

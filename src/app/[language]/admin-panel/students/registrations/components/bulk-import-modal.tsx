@@ -199,9 +199,13 @@ function BulkImportModal({ open, onOpenChange }: BulkImportModalProps) {
         );
       }
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-registrations:import.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-students-registrations:import.error"),
+        {
+          variant: "error",
+        }
+      );
       setState("preview");
     }
   }, [selectedFile, selectedInstitutionId, importMutation, enqueueSnackbar, t]);

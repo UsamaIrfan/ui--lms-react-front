@@ -167,9 +167,13 @@ function AcademicCourses() {
       setInstModalOpen(false);
       resetInstForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-courses:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-academics-courses:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     instName,
@@ -201,7 +205,8 @@ function AcademicCourses() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-academics-courses:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-academics-courses:notifications.error"),
             { variant: "error" }
           );
         }
@@ -263,9 +268,13 @@ function AcademicCourses() {
       setDeptModalOpen(false);
       resetDeptForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-courses:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-academics-courses:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     deptName,
@@ -295,7 +304,8 @@ function AcademicCourses() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-academics-courses:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-academics-courses:notifications.error"),
             { variant: "error" }
           );
         }
@@ -559,7 +569,7 @@ function AcademicCourses() {
 
       {/* Institution Modal */}
       <Dialog.Dialog open={instModalOpen} onOpenChange={setInstModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[500px]">
+        <Dialog.DialogContent className="sm:max-w-125">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editInst
@@ -653,7 +663,7 @@ function AcademicCourses() {
 
       {/* Department Modal */}
       <Dialog.Dialog open={deptModalOpen} onOpenChange={setDeptModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[500px]">
+        <Dialog.DialogContent className="sm:max-w-125">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editDept

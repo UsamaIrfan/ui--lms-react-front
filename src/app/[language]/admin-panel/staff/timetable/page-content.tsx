@@ -198,9 +198,13 @@ function StaffTimetable() {
       setTtModalOpen(false);
       resetTtForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-timetable:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-staff-timetable:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     ttClassId,
@@ -230,7 +234,8 @@ function StaffTimetable() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-staff-timetable:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-staff-timetable:notifications.error"),
             { variant: "error" }
           );
         }
@@ -282,9 +287,13 @@ function StaffTimetable() {
       setPeriodEnd("");
       setPeriodRoom("");
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-timetable:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-staff-timetable:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     selectedTtId,
@@ -314,7 +323,8 @@ function StaffTimetable() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-staff-timetable:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-staff-timetable:notifications.error"),
             { variant: "error" }
           );
         }
@@ -446,7 +456,7 @@ function StaffTimetable() {
 
       {/* Timetable Create/Edit Modal */}
       <Dialog.Dialog open={ttModalOpen} onOpenChange={setTtModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[500px]">
+        <Dialog.DialogContent className="sm:max-w-125">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editTt
@@ -556,7 +566,7 @@ function StaffTimetable() {
 
       {/* Periods View Modal */}
       <Dialog.Dialog open={periodsViewOpen} onOpenChange={setPeriodsViewOpen}>
-        <Dialog.DialogContent className="sm:max-w-[700px]">
+        <Dialog.DialogContent className="sm:max-w-175">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {t("admin-panel-staff-timetable:periods.title")}
@@ -567,7 +577,7 @@ function StaffTimetable() {
               <RiAddLine className="mr-1 h-4 w-4" />
               {t("admin-panel-staff-timetable:periods.actions.add")}
             </Button>
-            <div className="rounded-lg border border-stroke-soft-200 max-h-[400px] overflow-y-auto">
+            <div className="rounded-lg border border-stroke-soft-200 max-h-100 overflow-y-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -639,7 +649,7 @@ function StaffTimetable() {
 
       {/* Add Period Modal */}
       <Dialog.Dialog open={periodOpen} onOpenChange={setPeriodOpen}>
-        <Dialog.DialogContent className="sm:max-w-[500px]">
+        <Dialog.DialogContent className="sm:max-w-125">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {t("admin-panel-staff-timetable:periods.actions.add")}

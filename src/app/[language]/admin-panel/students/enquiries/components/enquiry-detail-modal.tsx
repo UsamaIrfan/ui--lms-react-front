@@ -128,7 +128,9 @@ export default function EnquiryDetailModal({
       enqueueSnackbar("Status updated", { variant: "success" });
       void refetch();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to update status", { variant: "error" });
+      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to update status", {
+        variant: "error",
+      });
     }
   };
 
@@ -146,7 +148,10 @@ export default function EnquiryDetailModal({
       onOpenChange(false);
       onDeleted?.();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to delete enquiry", { variant: "error" });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ?? "Failed to delete enquiry",
+        { variant: "error" }
+      );
     }
   };
 

@@ -126,7 +126,10 @@ export default function UploadDocumentModal({
           fileId = uploadedFile.id;
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-students-registrations:uploadDocument.uploadFailed"),
+            getHttpErrorMessage(error) ??
+              t(
+                "admin-panel-students-registrations:uploadDocument.uploadFailed"
+              ),
             { variant: "error" }
           );
           return;
@@ -153,7 +156,8 @@ export default function UploadDocumentModal({
       setSelectedFile(null);
     } catch (error) {
       enqueueSnackbar(
-        getHttpErrorMessage(error) ?? t("admin-panel-students-registrations:uploadDocument.error"),
+        getHttpErrorMessage(error) ??
+          t("admin-panel-students-registrations:uploadDocument.error"),
         { variant: "error" }
       );
     }

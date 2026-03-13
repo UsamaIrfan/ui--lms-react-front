@@ -124,9 +124,13 @@ function NoticesPage() {
       setModalOpen(false);
       resetForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-notices:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-notices:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     title,
@@ -156,9 +160,13 @@ function NoticesPage() {
             variant: "success",
           });
         } catch (error) {
-          enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-notices:notifications.error"), {
-            variant: "error",
-          });
+          enqueueSnackbar(
+            getHttpErrorMessage(error) ??
+              t("admin-panel-notices:notifications.error"),
+            {
+              variant: "error",
+            }
+          );
         }
       }
     },
@@ -220,7 +228,7 @@ function NoticesPage() {
               ) : (
                 notices.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCell className="font-medium text-paragraph-sm text-text-strong-950 max-w-[200px] truncate">
+                    <TableCell className="font-medium text-paragraph-sm text-text-strong-950 max-w-50 truncate">
                       {item.title}
                     </TableCell>
                     <TableCell className="text-paragraph-sm">
@@ -281,7 +289,7 @@ function NoticesPage() {
       </div>
 
       <Dialog.Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[600px]">
+        <Dialog.DialogContent className="sm:max-w-150">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editItem
@@ -297,7 +305,7 @@ function NoticesPage() {
             <div className="grid gap-2">
               <Label>{t("admin-panel-notices:form.content")}</Label>
               <textarea
-                className="flex min-h-[100px] w-full rounded-md border border-stroke-soft-200 bg-bg-white-0 px-3 py-2 text-paragraph-sm"
+                className="flex min-h-25 w-full rounded-md border border-stroke-soft-200 bg-bg-white-0 px-3 py-2 text-paragraph-sm"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
               />

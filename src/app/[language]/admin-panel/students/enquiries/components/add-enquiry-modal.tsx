@@ -142,7 +142,10 @@ export default function AddEnquiryModal({
         reset();
       }
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to create enquiry", { variant: "error" });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ?? "Failed to create enquiry",
+        { variant: "error" }
+      );
     }
   });
 

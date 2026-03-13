@@ -126,9 +126,13 @@ function AccountsIncome() {
       setModalOpen(false);
       resetForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-accounts-income:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-accounts-income:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     category,
@@ -161,7 +165,8 @@ function AccountsIncome() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-accounts-income:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-accounts-income:notifications.error"),
             { variant: "error" }
           );
         }
@@ -281,7 +286,7 @@ function AccountsIncome() {
       </div>
 
       <Dialog.Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[550px]">
+        <Dialog.DialogContent className="sm:max-w-137.5">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editItem

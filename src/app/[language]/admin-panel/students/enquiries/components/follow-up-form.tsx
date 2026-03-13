@@ -91,7 +91,10 @@ export default function FollowUpForm({
       reset();
       onSuccess?.();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to add follow-up note", { variant: "error" });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ?? "Failed to add follow-up note",
+        { variant: "error" }
+      );
     }
   });
 

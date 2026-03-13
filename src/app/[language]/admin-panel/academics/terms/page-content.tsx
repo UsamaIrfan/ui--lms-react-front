@@ -140,9 +140,13 @@ function AcademicTerms() {
       setModalOpen(false);
       resetForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-terms:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-academics-terms:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     formName,
@@ -173,7 +177,8 @@ function AcademicTerms() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-academics-terms:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-academics-terms:notifications.error"),
             { variant: "error" }
           );
         }

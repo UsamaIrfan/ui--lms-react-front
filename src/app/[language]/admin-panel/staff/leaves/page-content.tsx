@@ -125,9 +125,13 @@ function StaffLeaves() {
       setToDate("");
       setReason("");
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-leaves:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-staff-leaves:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     staffId,
@@ -171,9 +175,13 @@ function StaffLeaves() {
       }
       setRemarksOpen(false);
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-leaves:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-staff-leaves:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     remarksAction,
@@ -276,7 +284,7 @@ function StaffLeaves() {
                       <TableCell className="text-paragraph-sm">
                         {new Date(item.toDate).toLocaleDateString()}
                       </TableCell>
-                      <TableCell className="text-paragraph-sm truncate max-w-[200px]">
+                      <TableCell className="text-paragraph-sm truncate max-w-50">
                         {item.reason}
                       </TableCell>
                       <TableCell>
@@ -395,7 +403,7 @@ function StaffLeaves() {
 
       {/* Apply Leave Modal */}
       <Dialog.Dialog open={applyOpen} onOpenChange={setApplyOpen}>
-        <Dialog.DialogContent className="sm:max-w-[500px]">
+        <Dialog.DialogContent className="sm:max-w-125">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {t("admin-panel-staff-leaves:actions.apply")}
@@ -477,7 +485,7 @@ function StaffLeaves() {
 
       {/* Approve/Reject Remarks Modal */}
       <Dialog.Dialog open={remarksOpen} onOpenChange={setRemarksOpen}>
-        <Dialog.DialogContent className="sm:max-w-[400px]">
+        <Dialog.DialogContent className="sm:max-w-100">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {remarksAction === "approve"

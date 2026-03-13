@@ -134,9 +134,13 @@ function AcademicSubjects() {
       setModalOpen(false);
       resetForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-subjects:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-academics-subjects:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     formName,
@@ -167,7 +171,8 @@ function AcademicSubjects() {
           );
         } catch (error) {
           enqueueSnackbar(
-            getHttpErrorMessage(error) ?? t("admin-panel-academics-subjects:notifications.error"),
+            getHttpErrorMessage(error) ??
+              t("admin-panel-academics-subjects:notifications.error"),
             { variant: "error" }
           );
         }
@@ -286,7 +291,7 @@ function AcademicSubjects() {
       </div>
 
       <Dialog.Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[500px]">
+        <Dialog.DialogContent className="sm:max-w-125">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editItem

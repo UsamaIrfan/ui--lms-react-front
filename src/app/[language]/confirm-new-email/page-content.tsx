@@ -51,9 +51,13 @@ export default function ConfirmNewEmail() {
           router.replace("/");
         }
       } catch (error) {
-        enqueueSnackbar(getHttpErrorMessage(error) ?? t("confirm-new-email:emailConfirmFailed"), {
-          variant: "error",
-        });
+        enqueueSnackbar(
+          getHttpErrorMessage(error) ??
+            t("confirm-new-email:emailConfirmFailed"),
+          {
+            variant: "error",
+          }
+        );
         router.replace("/");
       }
     };

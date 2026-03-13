@@ -123,9 +123,13 @@ function FeeConfiguration() {
         variant: "success",
       });
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-settings:fees.notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-settings:fees.notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     tenantId,

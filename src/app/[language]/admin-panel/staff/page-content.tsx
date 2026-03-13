@@ -201,9 +201,13 @@ function StaffManagement() {
       setModalOpen(false);
       resetForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-staff:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     createNewUser,
@@ -244,9 +248,13 @@ function StaffManagement() {
             variant: "success",
           });
         } catch (error) {
-          enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff:notifications.error"), {
-            variant: "error",
-          });
+          enqueueSnackbar(
+            getHttpErrorMessage(error) ??
+              t("admin-panel-staff:notifications.error"),
+            {
+              variant: "error",
+            }
+          );
         }
       }
     },
@@ -371,7 +379,7 @@ function StaffManagement() {
       </div>
 
       <Dialog.Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[600px]">
+        <Dialog.DialogContent className="sm:max-w-150">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editItem

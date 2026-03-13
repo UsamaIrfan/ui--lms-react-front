@@ -144,9 +144,13 @@ function AcademicYear() {
       setModalOpen(false);
       resetForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-year:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-academics-year:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     formName,
@@ -177,9 +181,13 @@ function AcademicYear() {
             { variant: "success" }
           );
         } catch (error) {
-          enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-year:notifications.error"), {
-            variant: "error",
-          });
+          enqueueSnackbar(
+            getHttpErrorMessage(error) ??
+              t("admin-panel-academics-year:notifications.error"),
+            {
+              variant: "error",
+            }
+          );
         }
       }
     },
@@ -300,7 +308,7 @@ function AcademicYear() {
       </div>
 
       <Dialog.Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[500px]">
+        <Dialog.DialogContent className="sm:max-w-125">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editItem

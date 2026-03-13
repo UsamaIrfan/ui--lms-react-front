@@ -80,7 +80,9 @@ function ReportCardContent() {
         `report-card-${studentIdNum}-exam-${selectedExamId}.pdf`
       );
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), {
+        variant: "error",
+      });
     } finally {
       setDownloading(false);
     }

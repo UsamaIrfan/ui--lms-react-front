@@ -223,7 +223,9 @@ function MarkAttendance() {
       });
       setSubmitted(true);
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t(`${NS}:mark.error`), { variant: "error" });
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t(`${NS}:mark.error`), {
+        variant: "error",
+      });
     }
   }, [
     allMarked,

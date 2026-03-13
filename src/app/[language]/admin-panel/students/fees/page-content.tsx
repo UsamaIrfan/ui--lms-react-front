@@ -171,9 +171,13 @@ function StudentsFees() {
       setStructModalOpen(false);
       resetStructForm();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-fees:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-students-fees:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     structName,
@@ -203,9 +207,13 @@ function StudentsFees() {
             { variant: "success" }
           );
         } catch (error) {
-          enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-fees:notifications.error"), {
-            variant: "error",
-          });
+          enqueueSnackbar(
+            getHttpErrorMessage(error) ??
+              t("admin-panel-students-fees:notifications.error"),
+            {
+              variant: "error",
+            }
+          );
         }
       }
     },
@@ -235,9 +243,13 @@ function StudentsFees() {
       setChallanStructureId("");
       setChallanDueDate("");
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-fees:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-students-fees:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     challanStudentId,
@@ -278,9 +290,13 @@ function StudentsFees() {
       setPayMethod("cash");
       setPayRef("");
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-fees:notifications.error"), {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        getHttpErrorMessage(error) ??
+          t("admin-panel-students-fees:notifications.error"),
+        {
+          variant: "error",
+        }
+      );
     }
   }, [
     payChallanId,
@@ -307,9 +323,13 @@ function StudentsFees() {
           { variant: "success" }
         );
       } catch (error) {
-        enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-fees:notifications.error"), {
-          variant: "error",
-        });
+        enqueueSnackbar(
+          getHttpErrorMessage(error) ??
+            t("admin-panel-students-fees:notifications.error"),
+          {
+            variant: "error",
+          }
+        );
       }
     },
     [confirmDialog, verifyPaymentMutation, enqueueSnackbar, t]
@@ -415,7 +435,7 @@ function StudentsFees() {
                         <TableCell className="text-paragraph-sm">
                           {item.frequency ?? "one_time"}
                         </TableCell>
-                        <TableCell className="text-paragraph-sm max-w-[200px] truncate">
+                        <TableCell className="text-paragraph-sm max-w-50 truncate">
                           {item.description ?? "—"}
                         </TableCell>
                         <TableCell>
@@ -637,7 +657,7 @@ function StudentsFees() {
 
       {/* Fee Structure Modal */}
       <Dialog.Dialog open={structModalOpen} onOpenChange={setStructModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[500px]">
+        <Dialog.DialogContent className="sm:max-w-125">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {editStruct
@@ -727,7 +747,7 @@ function StudentsFees() {
 
       {/* Generate Challan Modal */}
       <Dialog.Dialog open={challanModalOpen} onOpenChange={setChallanModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[450px]">
+        <Dialog.DialogContent className="sm:max-w-112.5">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {t("admin-panel-students-fees:actions.generateChallan")}
@@ -805,7 +825,7 @@ function StudentsFees() {
 
       {/* Record Payment Modal */}
       <Dialog.Dialog open={payModalOpen} onOpenChange={setPayModalOpen}>
-        <Dialog.DialogContent className="sm:max-w-[450px]">
+        <Dialog.DialogContent className="sm:max-w-112.5">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
               {t("admin-panel-students-fees:actions.recordPayment")}

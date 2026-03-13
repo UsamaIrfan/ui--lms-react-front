@@ -124,7 +124,9 @@ export default function AddGuardianModal({
       onOpenChange(false);
       reset();
     } catch (error) {
-      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to add guardian", { variant: "error" });
+      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to add guardian", {
+        variant: "error",
+      });
     }
   });
 

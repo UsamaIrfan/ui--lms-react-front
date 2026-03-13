@@ -91,6 +91,7 @@ function MultipleImagePicker(props: MultipleImagePickerProps) {
                   <RiCloseLine className="h-12.5 w-12.5" />
                 </button>
               </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={item.path}
                 alt=""

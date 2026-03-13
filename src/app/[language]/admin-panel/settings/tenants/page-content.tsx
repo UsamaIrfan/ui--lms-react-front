@@ -422,18 +422,14 @@ function TenantManagement() {
         <Dialog.DialogContent className="sm:max-w-md">
           <Dialog.DialogHeader>
             <Dialog.DialogTitle>
-              {t(
-                "admin-panel-settings:tenants.notifications.logoutTitle"
-              )}
+              {t("admin-panel-settings:tenants.notifications.logoutTitle")}
             </Dialog.DialogTitle>
           </Dialog.DialogHeader>
 
           <div className="flex items-start gap-3 py-4">
             <RiLogoutBoxRLine className="mt-0.5 h-5 w-5 shrink-0 text-primary-base" />
             <p className="text-paragraph-sm text-text-sub-600">
-              {t(
-                "admin-panel-settings:tenants.notifications.logoutMessage"
-              )}
+              {t("admin-panel-settings:tenants.notifications.logoutMessage")}
             </p>
           </div>
 
@@ -442,15 +438,11 @@ function TenantManagement() {
               variant="outline"
               onClick={() => setLogoutDialogOpen(false)}
             >
-              {t(
-                "admin-panel-settings:tenants.notifications.logoutCancel"
-              )}
+              {t("admin-panel-settings:tenants.notifications.logoutCancel")}
             </Button>
             <Button onClick={() => void handleLogOut()}>
               <RiLogoutBoxRLine className="mr-1 h-4 w-4" />
-              {t(
-                "admin-panel-settings:tenants.notifications.logoutConfirm"
-              )}
+              {t("admin-panel-settings:tenants.notifications.logoutConfirm")}
             </Button>
           </Dialog.DialogFooter>
         </Dialog.DialogContent>

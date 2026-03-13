@@ -1,7 +1,14 @@
 "use client";
 
-import * as React from "react";
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import type { ReactNode } from "react";
 import { cn } from "@/utils/cn";
 import {
   RiCheckboxCircleFill,
@@ -43,9 +50,9 @@ function ToastItem({
   toast: Toast;
   onDismiss: (id: string) => void;
 }) {
-  const [isExiting, setIsExiting] = React.useState(false);
+  const [isExiting, setIsExiting] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
     }, t.duration - 300);
@@ -100,7 +107,7 @@ function ToastItem({
 // ─── Provider ───────────────────────────────────────────
 let toastCounter = 0;
 
-export function ToastProvider({ children }: { children: React.ReactNode }) {
+export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const dismiss = useCallback((id: string) => {

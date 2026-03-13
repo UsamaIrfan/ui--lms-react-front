@@ -43,6 +43,7 @@ import type {
   RolePermission,
 } from "@/services/api/services/authorization";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 
 const ALL_ROLES = [
   { id: RoleEnum.ADMIN, key: "1" },
@@ -78,7 +79,7 @@ function RolePermissionsPage() {
       setPermissions(res.data ?? []);
     } catch (err) {
       console.error("[RolePermissions] Failed to load permissions:", err);
-      enqueueSnackbar(t("admin-panel-authorization:rolePermissions.error"), {
+      enqueueSnackbar(getHttpErrorMessage(err) ?? t("admin-panel-authorization:rolePermissions.error"), {
         variant: "error",
       });
     }
@@ -98,7 +99,7 @@ function RolePermissionsPage() {
         );
         setRolePermissions([]);
         setLoadError(t("admin-panel-authorization:rolePermissions.loadError"));
-        enqueueSnackbar(t("admin-panel-authorization:rolePermissions.error"), {
+        enqueueSnackbar(getHttpErrorMessage(err) ?? t("admin-panel-authorization:rolePermissions.error"), {
           variant: "error",
         });
       } finally {
@@ -160,8 +161,8 @@ function RolePermissionsPage() {
         { variant: "success" }
       );
       await loadRolePermissions(Number(selectedRoleId));
-    } catch {
-      enqueueSnackbar(t("admin-panel-authorization:rolePermissions.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-authorization:rolePermissions.error"), {
         variant: "error",
       });
     } finally {
@@ -178,8 +179,8 @@ function RolePermissionsPage() {
         { variant: "success" }
       );
       await loadRolePermissions(Number(selectedRoleId));
-    } catch {
-      enqueueSnackbar(t("admin-panel-authorization:rolePermissions.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-authorization:rolePermissions.error"), {
         variant: "error",
       });
     } finally {

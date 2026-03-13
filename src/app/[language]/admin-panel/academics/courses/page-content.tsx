@@ -41,6 +41,7 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -165,8 +166,8 @@ function AcademicCourses() {
       }
       setInstModalOpen(false);
       resetInstForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-academics-courses:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-courses:notifications.error"), {
         variant: "error",
       });
     }
@@ -198,9 +199,9 @@ function AcademicCourses() {
             t("admin-panel-academics-courses:notifications.deleted"),
             { variant: "success" }
           );
-        } catch {
+        } catch (error) {
           enqueueSnackbar(
-            t("admin-panel-academics-courses:notifications.error"),
+            getHttpErrorMessage(error) ?? t("admin-panel-academics-courses:notifications.error"),
             { variant: "error" }
           );
         }
@@ -261,8 +262,8 @@ function AcademicCourses() {
       }
       setDeptModalOpen(false);
       resetDeptForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-academics-courses:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-courses:notifications.error"), {
         variant: "error",
       });
     }
@@ -292,9 +293,9 @@ function AcademicCourses() {
             t("admin-panel-academics-courses:notifications.deleted"),
             { variant: "success" }
           );
-        } catch {
+        } catch (error) {
           enqueueSnackbar(
-            t("admin-panel-academics-courses:notifications.error"),
+            getHttpErrorMessage(error) ?? t("admin-panel-academics-courses:notifications.error"),
             { variant: "error" }
           );
         }

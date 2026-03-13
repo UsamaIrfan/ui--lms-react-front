@@ -30,6 +30,7 @@ import {
   RiCloseCircleLine,
 } from "@remixicon/react";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import {
   useAttendanceListQuery,
   useBulkAttendanceMutation,
@@ -221,8 +222,8 @@ function MarkAttendance() {
         variant: "success",
       });
       setSubmitted(true);
-    } catch {
-      enqueueSnackbar(t(`${NS}:mark.error`), { variant: "error" });
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t(`${NS}:mark.error`), { variant: "error" });
     }
   }, [
     allMarked,

@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "@/services/i18n/client";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import {
   Dialog,
   DialogContent,
@@ -140,8 +141,8 @@ export default function AddEnquiryModal({
         onOpenChange(false);
         reset();
       }
-    } catch {
-      enqueueSnackbar("Failed to create enquiry", { variant: "error" });
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to create enquiry", { variant: "error" });
     }
   });
 

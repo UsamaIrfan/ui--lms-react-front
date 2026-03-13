@@ -34,6 +34,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import Link from "@/components/link";
 import {
   RiArrowLeftLine,
@@ -78,8 +79,8 @@ function ReportCardContent() {
         blob,
         `report-card-${studentIdNum}-exam-${selectedExamId}.pdf`
       );
-    } catch {
-      enqueueSnackbar(t("notifications.error"), { variant: "error" });
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
     } finally {
       setDownloading(false);
     }

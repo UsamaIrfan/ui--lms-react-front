@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "@/services/i18n/client";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import {
   Dialog,
   DialogContent,
@@ -197,8 +198,8 @@ function BulkImportModal({ open, onOpenChange }: BulkImportModalProps) {
           { variant: "success" }
         );
       }
-    } catch {
-      enqueueSnackbar(t("admin-panel-students-registrations:import.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-registrations:import.error"), {
         variant: "error",
       });
       setState("preview");

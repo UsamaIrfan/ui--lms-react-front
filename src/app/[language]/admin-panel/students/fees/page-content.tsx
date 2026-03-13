@@ -47,6 +47,7 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -169,8 +170,8 @@ function StudentsFees() {
       }
       setStructModalOpen(false);
       resetStructForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-students-fees:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-fees:notifications.error"), {
         variant: "error",
       });
     }
@@ -201,8 +202,8 @@ function StudentsFees() {
             t("admin-panel-students-fees:notifications.deleted"),
             { variant: "success" }
           );
-        } catch {
-          enqueueSnackbar(t("admin-panel-students-fees:notifications.error"), {
+        } catch (error) {
+          enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-fees:notifications.error"), {
             variant: "error",
           });
         }
@@ -233,8 +234,8 @@ function StudentsFees() {
       setChallanStudentId("");
       setChallanStructureId("");
       setChallanDueDate("");
-    } catch {
-      enqueueSnackbar(t("admin-panel-students-fees:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-fees:notifications.error"), {
         variant: "error",
       });
     }
@@ -276,16 +277,10 @@ function StudentsFees() {
       setPayAmount("");
       setPayMethod("cash");
       setPayRef("");
-    } catch (err: any) {
-      const serverErrors = err?.response?.data?.errors ?? err?.data?.errors;
-      if (serverErrors) {
-        const message = Object.values(serverErrors).join(". ");
-        enqueueSnackbar(message, { variant: "error" });
-      } else {
-        enqueueSnackbar(t("admin-panel-students-fees:notifications.error"), {
-          variant: "error",
-        });
-      }
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-fees:notifications.error"), {
+        variant: "error",
+      });
     }
   }, [
     payChallanId,
@@ -311,8 +306,8 @@ function StudentsFees() {
           t("admin-panel-students-fees:notifications.paymentVerified"),
           { variant: "success" }
         );
-      } catch {
-        enqueueSnackbar(t("admin-panel-students-fees:notifications.error"), {
+      } catch (error) {
+        enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-fees:notifications.error"), {
           variant: "error",
         });
       }

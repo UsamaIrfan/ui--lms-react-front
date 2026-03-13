@@ -36,6 +36,7 @@ import {
   RiCloseLine,
 } from "@remixicon/react";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -123,8 +124,8 @@ function StaffLeaves() {
       setFromDate("");
       setToDate("");
       setReason("");
-    } catch {
-      enqueueSnackbar(t("admin-panel-staff-leaves:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-leaves:notifications.error"), {
         variant: "error",
       });
     }
@@ -169,8 +170,8 @@ function StaffLeaves() {
         });
       }
       setRemarksOpen(false);
-    } catch {
-      enqueueSnackbar(t("admin-panel-staff-leaves:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-leaves:notifications.error"), {
         variant: "error",
       });
     }

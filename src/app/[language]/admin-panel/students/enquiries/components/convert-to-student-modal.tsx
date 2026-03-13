@@ -2,6 +2,7 @@
 
 import { useTranslation } from "@/services/i18n/client";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import {
   Dialog,
   DialogContent,
@@ -50,8 +51,8 @@ export default function ConvertToStudentModal({
       });
       onOpenChange(false);
       onSuccess?.();
-    } catch {
-      enqueueSnackbar("Failed to convert enquiry", { variant: "error" });
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to convert enquiry", { variant: "error" });
     } finally {
       setIsConverting(false);
     }

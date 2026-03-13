@@ -39,6 +39,7 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import EnquiryFilter from "./components/enquiry-filter";
 import AddEnquiryModal from "./components/add-enquiry-modal";
 import EnquiryDetailModal from "./components/enquiry-detail-modal";
@@ -147,8 +148,8 @@ function Enquiries() {
             t("admin-panel-students-enquiries:confirm.delete.success"),
             { variant: "success" }
           );
-        } catch {
-          enqueueSnackbar("Failed to delete enquiry", { variant: "error" });
+        } catch (error) {
+          enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to delete enquiry", { variant: "error" });
         }
       }
     },

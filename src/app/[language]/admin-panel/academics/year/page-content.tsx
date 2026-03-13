@@ -37,6 +37,7 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -142,8 +143,8 @@ function AcademicYear() {
       }
       setModalOpen(false);
       resetForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-academics-year:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-year:notifications.error"), {
         variant: "error",
       });
     }
@@ -175,8 +176,8 @@ function AcademicYear() {
             t("admin-panel-academics-year:notifications.deleted"),
             { variant: "success" }
           );
-        } catch {
-          enqueueSnackbar(t("admin-panel-academics-year:notifications.error"), {
+        } catch (error) {
+          enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-academics-year:notifications.error"), {
             variant: "error",
           });
         }

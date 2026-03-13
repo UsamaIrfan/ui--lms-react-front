@@ -52,6 +52,7 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import StudentFilter from "./components/student-filter";
 import AddStudentModal from "./components/add-student-modal";
 import StudentDetailModal from "./components/student-detail-modal";
@@ -168,8 +169,8 @@ function StudentRegistrations() {
             t("admin-panel-students-registrations:confirm.delete.success"),
             { variant: "success" }
           );
-        } catch {
-          enqueueSnackbar("Failed to delete student", { variant: "error" });
+        } catch (error) {
+          enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to delete student", { variant: "error" });
         }
       }
     },

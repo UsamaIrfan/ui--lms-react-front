@@ -51,6 +51,7 @@ import Link from "@/components/link";
 import useAuth from "@/services/auth/use-auth";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import { usersControllerRemoveV1 } from "@/services/api/generated/users/users";
 import { useQueryClient } from "@tanstack/react-query";
 import UserFilter from "./user-filter";
@@ -139,8 +140,8 @@ function Actions({ user }: { user: User }) {
         enqueueSnackbar(tUsers("admin-panel-users:notifications.deleted"), {
           variant: "success",
         });
-      } catch {
-        enqueueSnackbar(tUsers("admin-panel-users:notifications.error"), {
+      } catch (error) {
+        enqueueSnackbar(getHttpErrorMessage(error) ?? tUsers("admin-panel-users:notifications.error"), {
           variant: "error",
         });
       }

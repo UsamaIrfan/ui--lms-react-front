@@ -47,6 +47,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import Link from "@/components/link";
 import {
   RiAddLine,
@@ -168,8 +169,8 @@ function ExamsPageContent() {
       enqueueSnackbar(t("notifications.created"), { variant: "success" });
       setShowCreateDialog(false);
       resetCreateForm();
-    } catch {
-      enqueueSnackbar(t("notifications.error"), { variant: "error" });
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
     }
   }, [
     formName,
@@ -195,8 +196,8 @@ function ExamsPageContent() {
       try {
         await deleteExam.mutateAsync(id);
         enqueueSnackbar(t("notifications.deleted"), { variant: "success" });
-      } catch {
-        enqueueSnackbar(t("notifications.error"), { variant: "error" });
+      } catch (error) {
+        enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
       }
     },
     [confirmDialog, deleteExam, enqueueSnackbar, t]
@@ -215,8 +216,8 @@ function ExamsPageContent() {
       setShowStatusDialog(false);
       setSelectedExam(null);
       setStatusValue("");
-    } catch {
-      enqueueSnackbar(t("notifications.error"), { variant: "error" });
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
     }
   }, [selectedExam, statusValue, updateStatus, enqueueSnackbar, t]);
 
@@ -294,8 +295,8 @@ function ExamsPageContent() {
       enqueueSnackbar(t("notifications.created"), { variant: "success" });
       setShowGradingDialog(false);
       setGradingName("");
-    } catch {
-      enqueueSnackbar(t("notifications.error"), { variant: "error" });
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
     }
   }, [gradingName, gradingGrades, createGradingScale, enqueueSnackbar, t]);
 

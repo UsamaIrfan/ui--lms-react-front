@@ -2,6 +2,7 @@
 
 import { useTranslation } from "@/services/i18n/client";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import {
   Dialog,
   DialogContent,
@@ -126,8 +127,8 @@ export default function EnquiryDetailModal({
       });
       enqueueSnackbar("Status updated", { variant: "success" });
       void refetch();
-    } catch {
-      enqueueSnackbar("Failed to update status", { variant: "error" });
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to update status", { variant: "error" });
     }
   };
 
@@ -144,8 +145,8 @@ export default function EnquiryDetailModal({
       enqueueSnackbar("Enquiry deleted", { variant: "success" });
       onOpenChange(false);
       onDeleted?.();
-    } catch {
-      enqueueSnackbar("Failed to delete enquiry", { variant: "error" });
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to delete enquiry", { variant: "error" });
     }
   };
 

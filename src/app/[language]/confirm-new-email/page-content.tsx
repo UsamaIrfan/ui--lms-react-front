@@ -9,6 +9,7 @@ import {
 } from "@/services/api/generated/auth/auth";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import { useTranslation } from "@/services/i18n/client";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuth from "@/services/auth/use-auth";
@@ -49,8 +50,8 @@ export default function ConfirmNewEmail() {
         } else {
           router.replace("/");
         }
-      } catch {
-        enqueueSnackbar(t("confirm-new-email:emailConfirmFailed"), {
+      } catch (error) {
+        enqueueSnackbar(getHttpErrorMessage(error) ?? t("confirm-new-email:emailConfirmFailed"), {
           variant: "error",
         });
         router.replace("/");

@@ -39,6 +39,7 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -199,8 +200,8 @@ function StaffManagement() {
       }
       setModalOpen(false);
       resetForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-staff:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff:notifications.error"), {
         variant: "error",
       });
     }
@@ -242,8 +243,8 @@ function StaffManagement() {
           enqueueSnackbar(t("admin-panel-staff:notifications.deleted"), {
             variant: "success",
           });
-        } catch {
-          enqueueSnackbar(t("admin-panel-staff:notifications.error"), {
+        } catch (error) {
+          enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff:notifications.error"), {
             variant: "error",
           });
         }

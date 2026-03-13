@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "@/services/i18n/client";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import FormTextInput from "@/components/form/text-input/form-text-input";
@@ -89,8 +90,8 @@ export default function FollowUpForm({
       });
       reset();
       onSuccess?.();
-    } catch {
-      enqueueSnackbar("Failed to add follow-up note", { variant: "error" });
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? "Failed to add follow-up note", { variant: "error" });
     }
   });
 

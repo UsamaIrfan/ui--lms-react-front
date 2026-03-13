@@ -33,6 +33,7 @@ import {
   RiFileTextLine,
 } from "@remixicon/react";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import { useBulkAttendanceMutation } from "../queries/queries";
 import { AttendanceStatus } from "../types";
 import { useSectionsListQuery } from "../../../academics/classes/queries/queries";
@@ -240,9 +241,9 @@ function BulkAttendance() {
             { variant: "success" }
           );
         },
-        onError: () => {
+        onError: (error) => {
           setState("preview");
-          enqueueSnackbar(t(`${NS}:bulk.error`), { variant: "error" });
+          enqueueSnackbar(getHttpErrorMessage(error) ?? t(`${NS}:bulk.error`), { variant: "error" });
         },
       }
     );

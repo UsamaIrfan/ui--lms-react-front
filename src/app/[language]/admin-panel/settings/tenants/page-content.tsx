@@ -12,6 +12,7 @@ import {
 } from "./queries/queries";
 import type { Tenant } from "@/services/api/generated/model";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useTenant from "@/services/tenant/use-tenant";
@@ -131,8 +132,8 @@ function TenantManagement() {
       }
       setModalOpen(false);
       resetForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-settings:tenants.notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-settings:tenants.notifications.error"), {
         variant: "error",
       });
     }
@@ -162,9 +163,9 @@ function TenantManagement() {
             t("admin-panel-settings:tenants.notifications.deleted"),
             { variant: "success" }
           );
-        } catch {
+        } catch (error) {
           enqueueSnackbar(
-            t("admin-panel-settings:tenants.notifications.error"),
+            getHttpErrorMessage(error) ?? t("admin-panel-settings:tenants.notifications.error"),
             { variant: "error" }
           );
         }
@@ -184,8 +185,8 @@ function TenantManagement() {
           t("admin-panel-settings:tenants.notifications.updated"),
           { variant: "success" }
         );
-      } catch {
-        enqueueSnackbar(t("admin-panel-settings:tenants.notifications.error"), {
+      } catch (error) {
+        enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-settings:tenants.notifications.error"), {
           variant: "error",
         });
       }

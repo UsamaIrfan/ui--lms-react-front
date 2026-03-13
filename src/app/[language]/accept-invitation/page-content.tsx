@@ -18,7 +18,7 @@ import {
   type VerifyInvitationResponse,
 } from "@/services/api/services/invitations";
 
-import { isValidationError } from "@/services/api/generated/custom-fetch";
+import { isValidationError, getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";
 import { useTranslation } from "@/services/i18n/client";
@@ -167,7 +167,7 @@ function AcceptInvitation() {
           }
         );
       } else {
-        enqueueSnackbar(t("accept-invitation:error"), {
+        enqueueSnackbar(getHttpErrorMessage(err) ?? t("accept-invitation:error"), {
           variant: "error",
         });
       }
@@ -197,8 +197,8 @@ function AcceptInvitation() {
       });
 
       router.replace("/");
-    } catch {
-      enqueueSnackbar(t("accept-invitation:error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("accept-invitation:error"), {
         variant: "error",
       });
     }

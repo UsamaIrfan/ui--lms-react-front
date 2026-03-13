@@ -7,6 +7,7 @@ import { useTranslation } from "@/services/i18n/client";
 import useTenant from "@/services/tenant/use-tenant";
 import { useTenantQuery, useUpdateTenantMutation } from "./queries/queries";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import Link from "@/components/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -83,8 +84,8 @@ function GeneralSettings() {
       enqueueSnackbar(t("admin-panel-settings:general.notifications.saved"), {
         variant: "success",
       });
-    } catch {
-      enqueueSnackbar(t("admin-panel-settings:general.notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-settings:general.notifications.error"), {
         variant: "error",
       });
     }

@@ -7,6 +7,7 @@ import { RiAddLine } from "@remixicon/react";
 
 import { useTranslation } from "@/services/i18n/client";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -75,8 +76,8 @@ export function ApplyLeaveDialog({ trigger }: ApplyLeaveDialogProps) {
       setOpen(false);
       reset();
     },
-    onError: () => {
-      enqueueSnackbar(t("leave.error"), { variant: "error" });
+    onError: (error) => {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("leave.error"), { variant: "error" });
     },
   });
 

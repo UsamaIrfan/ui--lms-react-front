@@ -17,7 +17,7 @@ import {
   usersControllerFindOneV1,
   usersControllerUpdateV1,
 } from "@/services/api/generated/users/users";
-import { isValidationError } from "@/services/api/generated/custom-fetch";
+import { isValidationError, getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import { useParams } from "next/navigation";
 import { Role, RoleEnum } from "@/services/api/types/role";
 import FormSelectInput from "@/components/form/select/form-select";
@@ -460,8 +460,8 @@ function PermissionOverrides() {
       setShowAddForm(false);
       setSelectedPermissionId("");
       await loadData();
-    } catch {
-      enqueueSnackbar(t("admin-panel-users-edit:permissionOverrides.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-users-edit:permissionOverrides.error"), {
         variant: "error",
       });
     } finally {
@@ -487,8 +487,8 @@ function PermissionOverrides() {
           { variant: "success" }
         );
         await loadData();
-      } catch {
-        enqueueSnackbar(t("admin-panel-users-edit:permissionOverrides.error"), {
+      } catch (error) {
+        enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-users-edit:permissionOverrides.error"), {
           variant: "error",
         });
       }

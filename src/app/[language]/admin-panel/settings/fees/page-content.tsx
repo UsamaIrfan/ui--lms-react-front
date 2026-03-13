@@ -10,6 +10,7 @@ import {
   useUpdateTenantMutation,
 } from "../general/queries/queries";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import Link from "@/components/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -121,8 +122,8 @@ function FeeConfiguration() {
       enqueueSnackbar(t("admin-panel-settings:fees.notifications.saved"), {
         variant: "success",
       });
-    } catch {
-      enqueueSnackbar(t("admin-panel-settings:fees.notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-settings:fees.notifications.error"), {
         variant: "error",
       });
     }

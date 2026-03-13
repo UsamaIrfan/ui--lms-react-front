@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "@/services/i18n/client";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import {
   Dialog,
   DialogContent,
@@ -932,9 +933,9 @@ export default function AddStudentModal({
       reset();
       setCurrentStep(0);
       setPendingDocuments([]);
-    } catch {
+    } catch (error) {
       enqueueSnackbar(
-        isEditing ? "Failed to update student" : "Failed to register student",
+        getHttpErrorMessage(error) ?? (isEditing ? "Failed to update student" : "Failed to register student"),
         { variant: "error" }
       );
     }
@@ -975,9 +976,9 @@ export default function AddStudentModal({
       reset();
       setCurrentStep(0);
       setPendingDocuments([]);
-    } catch {
+    } catch (error) {
       enqueueSnackbar(
-        t("admin-panel-students-registrations:addStudent.draftError"),
+        getHttpErrorMessage(error) ?? t("admin-panel-students-registrations:addStudent.draftError"),
         { variant: "error" }
       );
     }

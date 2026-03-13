@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { authControllerConfirmEmailV1 } from "@/services/api/generated/auth/auth";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import { useTranslation } from "@/services/i18n/client";
 
 export default function ConfirmEmail() {
@@ -26,8 +27,8 @@ export default function ConfirmEmail() {
             variant: "success",
           });
           router.replace("/profile");
-        } catch {
-          enqueueSnackbar(t("confirm-email:emailConfirmFailed"), {
+        } catch (error) {
+          enqueueSnackbar(getHttpErrorMessage(error) ?? t("confirm-email:emailConfirmFailed"), {
             variant: "error",
           });
           router.replace("/");

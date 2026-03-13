@@ -23,6 +23,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { RiLoginBoxLine, RiLogoutBoxLine } from "@remixicon/react";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -89,8 +90,8 @@ function StaffAttendance() {
       setCheckInOpen(false);
       setCheckInStaffId("");
       setCheckInRemarks("");
-    } catch {
-      enqueueSnackbar(t("admin-panel-staff-attendance:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-attendance:notifications.error"), {
         variant: "error",
       });
     }
@@ -114,8 +115,8 @@ function StaffAttendance() {
       );
       setCheckOutOpen(false);
       setCheckOutStaffId("");
-    } catch {
-      enqueueSnackbar(t("admin-panel-staff-attendance:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-attendance:notifications.error"), {
         variant: "error",
       });
     }

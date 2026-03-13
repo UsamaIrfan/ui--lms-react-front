@@ -38,6 +38,7 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -122,8 +123,8 @@ function NoticesPage() {
       }
       setModalOpen(false);
       resetForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-notices:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-notices:notifications.error"), {
         variant: "error",
       });
     }
@@ -154,8 +155,8 @@ function NoticesPage() {
           enqueueSnackbar(t("admin-panel-notices:notifications.deleted"), {
             variant: "success",
           });
-        } catch {
-          enqueueSnackbar(t("admin-panel-notices:notifications.error"), {
+        } catch (error) {
+          enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-notices:notifications.error"), {
             variant: "error",
           });
         }

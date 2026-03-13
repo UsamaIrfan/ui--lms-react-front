@@ -14,6 +14,7 @@ import {
 } from "./queries/queries";
 import type { Branch } from "@/services/api/generated/model";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import Link from "@/components/link";
 import { Button } from "@/components/ui/button";
@@ -151,8 +152,8 @@ function BranchManagement() {
       }
       setModalOpen(false);
       resetForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-settings:branches.notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-settings:branches.notifications.error"), {
         variant: "error",
       });
     }
@@ -187,9 +188,9 @@ function BranchManagement() {
             t("admin-panel-settings:branches.notifications.deleted"),
             { variant: "success" }
           );
-        } catch {
+        } catch (error) {
           enqueueSnackbar(
-            t("admin-panel-settings:branches.notifications.error"),
+            getHttpErrorMessage(error) ?? t("admin-panel-settings:branches.notifications.error"),
             { variant: "error" }
           );
         }

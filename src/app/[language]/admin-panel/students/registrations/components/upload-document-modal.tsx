@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "@/services/i18n/client";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import {
   Dialog,
   DialogContent,
@@ -123,9 +124,9 @@ export default function UploadDocumentModal({
         try {
           const uploadedFile = await uploadFile(selectedFile);
           fileId = uploadedFile.id;
-        } catch {
+        } catch (error) {
           enqueueSnackbar(
-            t("admin-panel-students-registrations:uploadDocument.uploadFailed"),
+            getHttpErrorMessage(error) ?? t("admin-panel-students-registrations:uploadDocument.uploadFailed"),
             { variant: "error" }
           );
           return;
@@ -150,9 +151,9 @@ export default function UploadDocumentModal({
       onOpenChange(false);
       reset();
       setSelectedFile(null);
-    } catch {
+    } catch (error) {
       enqueueSnackbar(
-        t("admin-panel-students-registrations:uploadDocument.error"),
+        getHttpErrorMessage(error) ?? t("admin-panel-students-registrations:uploadDocument.error"),
         { variant: "error" }
       );
     }

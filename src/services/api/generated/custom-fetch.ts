@@ -36,6 +36,53 @@ export function isValidationError(error: unknown): error is HttpError & {
 }
 
 /**
+ * Extract a human-readable error message from an unknown error.
+ *
+ * Handles the common NestJS response shapes:
+ *  - `{ errors: { field: "message", ... } }` → joins all values
+ *  - `{ message: "..." }` or `{ message: ["..."] }` → returns/joins
+ *  - Plain string body
+ *
+ * Returns `undefined` when no meaningful message can be extracted,
+ * so callers can fall back to a generic i18n string:
+ *
+ * ```ts
+ * enqueueSnackbar(getHttpErrorMessage(error) ?? t("generic.error"), { variant: "error" });
+ * ```
+ */
+export function getHttpErrorMessage(error: unknown): string | undefined {
+  if (!(error instanceof HttpError)) return undefined;
+
+  const body = error.body as Record<string, unknown> | undefined;
+  if (!body || typeof body !== "object") return undefined;
+
+  // Shape: { errors: { field: "msg", ... } }
+  if (
+    "errors" in body &&
+    typeof body.errors === "object" &&
+    body.errors !== null
+  ) {
+    const values = Object.values(body.errors as Record<string, string>).filter(
+      Boolean
+    );
+    if (values.length > 0) return values.join(". ");
+  }
+
+  // Shape: { message: "..." } or { message: ["..."] }
+  if ("message" in body) {
+    if (typeof body.message === "string" && body.message) return body.message;
+    if (Array.isArray(body.message)) {
+      const msgs = body.message.filter(
+        (m): m is string => typeof m === "string" && m.length > 0
+      );
+      if (msgs.length > 0) return msgs.join(". ");
+    }
+  }
+
+  return undefined;
+}
+
+/**
  * Custom fetch mutator for Orval-generated hooks.
  *
  * Matches the Orval mutator contract for `httpClient: 'fetch'`:

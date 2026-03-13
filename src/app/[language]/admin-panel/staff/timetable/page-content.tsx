@@ -55,6 +55,7 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -196,8 +197,8 @@ function StaffTimetable() {
       }
       setTtModalOpen(false);
       resetTtForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-staff-timetable:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-timetable:notifications.error"), {
         variant: "error",
       });
     }
@@ -227,9 +228,9 @@ function StaffTimetable() {
             t("admin-panel-staff-timetable:notifications.deleted"),
             { variant: "success" }
           );
-        } catch {
+        } catch (error) {
           enqueueSnackbar(
-            t("admin-panel-staff-timetable:notifications.error"),
+            getHttpErrorMessage(error) ?? t("admin-panel-staff-timetable:notifications.error"),
             { variant: "error" }
           );
         }
@@ -280,8 +281,8 @@ function StaffTimetable() {
       setPeriodStart("");
       setPeriodEnd("");
       setPeriodRoom("");
-    } catch {
-      enqueueSnackbar(t("admin-panel-staff-timetable:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-timetable:notifications.error"), {
         variant: "error",
       });
     }
@@ -311,9 +312,9 @@ function StaffTimetable() {
             t("admin-panel-staff-timetable:notifications.periodDeleted"),
             { variant: "success" }
           );
-        } catch {
+        } catch (error) {
           enqueueSnackbar(
-            t("admin-panel-staff-timetable:notifications.error"),
+            getHttpErrorMessage(error) ?? t("admin-panel-staff-timetable:notifications.error"),
             { variant: "error" }
           );
         }

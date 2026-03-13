@@ -38,6 +38,7 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -131,8 +132,8 @@ function AccountsExpenses() {
       }
       setModalOpen(false);
       resetForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-accounts-expenses:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-accounts-expenses:notifications.error"), {
         variant: "error",
       });
     }
@@ -166,9 +167,9 @@ function AccountsExpenses() {
             t("admin-panel-accounts-expenses:notifications.deleted"),
             { variant: "success" }
           );
-        } catch {
+        } catch (error) {
           enqueueSnackbar(
-            t("admin-panel-accounts-expenses:notifications.error"),
+            getHttpErrorMessage(error) ?? t("admin-panel-accounts-expenses:notifications.error"),
             { variant: "error" }
           );
         }

@@ -11,6 +11,7 @@ import {
 } from "@remixicon/react";
 import { useDropzone } from "react-dropzone";
 import { useToast } from "@/components/ui/toast";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 
 import {
   Dialog,
@@ -154,8 +155,8 @@ export function AssignmentDetailDialog({
       setFile(null);
       setRemarks("");
       onOpenChange(false);
-    } catch {
-      toast(labels.error, { variant: "error" });
+    } catch (error) {
+      toast(getHttpErrorMessage(error) ?? labels.error, { variant: "error" });
     } finally {
       setIsUploading(false);
     }

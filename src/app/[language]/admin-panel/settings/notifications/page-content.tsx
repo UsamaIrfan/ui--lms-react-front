@@ -10,6 +10,7 @@ import {
   useUpdateTenantMutation,
 } from "../general/queries/queries";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import Link from "@/components/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -120,9 +121,9 @@ function NotificationSettings() {
         t("admin-panel-settings:notifications.notifications.saved"),
         { variant: "success" }
       );
-    } catch {
+    } catch (error) {
       enqueueSnackbar(
-        t("admin-panel-settings:notifications.notifications.error"),
+        getHttpErrorMessage(error) ?? t("admin-panel-settings:notifications.notifications.error"),
         { variant: "error" }
       );
     }

@@ -51,6 +51,7 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -198,8 +199,8 @@ function StudentsMaterials() {
       }
       setMatModalOpen(false);
       resetMatForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-students-materials:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-materials:notifications.error"), {
         variant: "error",
       });
     }
@@ -231,9 +232,9 @@ function StudentsMaterials() {
             t("admin-panel-students-materials:notifications.deleted"),
             { variant: "success" }
           );
-        } catch {
+        } catch (error) {
           enqueueSnackbar(
-            t("admin-panel-students-materials:notifications.error"),
+            getHttpErrorMessage(error) ?? t("admin-panel-students-materials:notifications.error"),
             { variant: "error" }
           );
         }
@@ -304,8 +305,8 @@ function StudentsMaterials() {
       }
       setAssignModalOpen(false);
       resetAssignForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-students-materials:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-materials:notifications.error"), {
         variant: "error",
       });
     }
@@ -337,9 +338,9 @@ function StudentsMaterials() {
             t("admin-panel-students-materials:notifications.deleted"),
             { variant: "success" }
           );
-        } catch {
+        } catch (error) {
           enqueueSnackbar(
-            t("admin-panel-students-materials:notifications.error"),
+            getHttpErrorMessage(error) ?? t("admin-panel-students-materials:notifications.error"),
             { variant: "error" }
           );
         }
@@ -385,8 +386,8 @@ function StudentsMaterials() {
       );
       setGradeModalOpen(false);
       setGradingSubmission(null);
-    } catch {
-      enqueueSnackbar(t("admin-panel-students-materials:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-students-materials:notifications.error"), {
         variant: "error",
       });
     }

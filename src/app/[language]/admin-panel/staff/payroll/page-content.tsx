@@ -46,6 +46,7 @@ import {
 } from "@remixicon/react";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import * as Dialog from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -103,8 +104,8 @@ function StaffPayroll() {
       a.download = `payroll-slip-${pdfSlipId}.pdf`;
       a.click();
       URL.revokeObjectURL(url);
-    } catch {
-      enqueueSnackbar(t("admin-panel-staff-payroll:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-payroll:notifications.error"), {
         variant: "error",
       });
     }
@@ -202,8 +203,8 @@ function StaffPayroll() {
       }
       setStructureOpen(false);
       resetStructureForm();
-    } catch {
-      enqueueSnackbar(t("admin-panel-staff-payroll:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-payroll:notifications.error"), {
         variant: "error",
       });
     }
@@ -232,8 +233,8 @@ function StaffPayroll() {
             t("admin-panel-staff-payroll:notifications.deleted"),
             { variant: "success" }
           );
-        } catch {
-          enqueueSnackbar(t("admin-panel-staff-payroll:notifications.error"), {
+        } catch (error) {
+          enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-payroll:notifications.error"), {
             variant: "error",
           });
         }
@@ -252,8 +253,8 @@ function StaffPayroll() {
         variant: "success",
       });
       setProcessOpen(false);
-    } catch {
-      enqueueSnackbar(t("admin-panel-staff-payroll:notifications.error"), {
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("admin-panel-staff-payroll:notifications.error"), {
         variant: "error",
       });
     }

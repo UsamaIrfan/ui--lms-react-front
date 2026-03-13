@@ -47,6 +47,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { useSnackbar } from "@/hooks/use-snackbar";
+import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import Link from "@/components/link";
 import {
   RiArrowLeftLine,
@@ -105,8 +106,8 @@ function ResultsPageContent() {
         variant: "success",
       });
       setShowPublishDialog(false);
-    } catch {
-      enqueueSnackbar(t("notifications.error"), { variant: "error" });
+    } catch (error) {
+      enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
     }
   }, [gradingScaleId, selectedExamId, publishResults, enqueueSnackbar, t]);
 
@@ -123,8 +124,8 @@ function ResultsPageContent() {
           blob,
           `report-card-${studentId}-exam-${selectedExamId}.pdf`
         );
-      } catch {
-        enqueueSnackbar(t("notifications.error"), { variant: "error" });
+      } catch (error) {
+        enqueueSnackbar(getHttpErrorMessage(error) ?? t("notifications.error"), { variant: "error" });
       } finally {
         setDownloadingReportCard(false);
       }

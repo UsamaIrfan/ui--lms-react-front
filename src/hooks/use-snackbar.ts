@@ -1,24 +1,17 @@
-import { useCallback } from "react";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/toast";
 
 export function useSnackbar() {
-  const enqueueSnackbar = useCallback(
-    (
-      message: string,
-      config?: { variant?: "success" | "error"; autoHideDuration?: number }
-    ) => {
-      toast(
-        message,
-        config
-          ? {
-              type: config.variant,
-              autoClose: config.autoHideDuration,
-            }
-          : undefined
-      );
-    },
-    []
-  );
+  const { toast } = useToast();
+
+  const enqueueSnackbar = (
+    message: string,
+    config?: { variant?: "success" | "error"; autoHideDuration?: number }
+  ) => {
+    toast(message, {
+      variant: config?.variant,
+      duration: config?.autoHideDuration,
+    });
+  };
 
   return { enqueueSnackbar };
 }

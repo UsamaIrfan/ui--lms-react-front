@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useTranslation } from "@/services/i18n/client";
 import { RoleEnum } from "@/services/api/types/role";
@@ -59,6 +59,11 @@ function RolePermissionsPage() {
   const { t } = useTranslation("admin-panel-authorization");
   const { enqueueSnackbar } = useSnackbar();
 
+  const tRef = useRef(t);
+  tRef.current = t;
+  const enqueueSnackbarRef = useRef(enqueueSnackbar);
+  enqueueSnackbarRef.current = enqueueSnackbar;
+
   const [selectedRoleId, setSelectedRoleId] = useState<string>(
     String(RoleEnum.ADMIN)
   );
@@ -79,43 +84,39 @@ function RolePermissionsPage() {
       setPermissions(res.data ?? []);
     } catch (err) {
       console.error("[RolePermissions] Failed to load permissions:", err);
-      enqueueSnackbar(
+      enqueueSnackbarRef.current(
         getHttpErrorMessage(err) ??
-          t("admin-panel-authorization:rolePermissions.error"),
+          tRef.current("admin-panel-authorization:rolePermissions.error"),
         {
           variant: "error",
         }
       );
     }
-  }, [enqueueSnackbar, t]);
+  }, []);
 
-  const loadRolePermissions = useCallback(
-    async (roleId: number) => {
-      setLoading(true);
-      setLoadError(null);
-      try {
-        const res = await fetchRolePermissions(roleId);
-        setRolePermissions(res.data ?? []);
-      } catch (err) {
-        console.error(
-          "[RolePermissions] Failed to load role permissions:",
-          err
-        );
-        setRolePermissions([]);
-        setLoadError(t("admin-panel-authorization:rolePermissions.loadError"));
-        enqueueSnackbar(
-          getHttpErrorMessage(err) ??
-            t("admin-panel-authorization:rolePermissions.error"),
-          {
-            variant: "error",
-          }
-        );
-      } finally {
-        setLoading(false);
-      }
-    },
-    [enqueueSnackbar, t]
-  );
+  const loadRolePermissions = useCallback(async (roleId: number) => {
+    setLoading(true);
+    setLoadError(null);
+    try {
+      const res = await fetchRolePermissions(roleId);
+      setRolePermissions(res.data ?? []);
+    } catch (err) {
+      console.error("[RolePermissions] Failed to load role permissions:", err);
+      setRolePermissions([]);
+      setLoadError(
+        tRef.current("admin-panel-authorization:rolePermissions.loadError")
+      );
+      enqueueSnackbarRef.current(
+        getHttpErrorMessage(err) ??
+          tRef.current("admin-panel-authorization:rolePermissions.error"),
+        {
+          variant: "error",
+        }
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     loadPermissions();

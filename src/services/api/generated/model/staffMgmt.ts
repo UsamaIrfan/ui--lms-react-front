@@ -28,7 +28,8 @@ export interface StaffMgmt {
   /** @nullable */
   departmentId?: StaffMgmtDepartmentId;
   staffId: string;
-  primaryBranchId: string;
+  /** @nullable */
+  primaryBranchId?: string | null;
   /** @nullable */
   designation?: StaffMgmtDesignation;
   /** @nullable */

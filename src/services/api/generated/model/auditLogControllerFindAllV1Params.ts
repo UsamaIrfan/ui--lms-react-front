@@ -7,19 +7,19 @@
  */
 
 export type AuditLogControllerFindAllV1Params = {
-/**
- * Filter by user ID
- */
-userId?: number;
-/**
- * Filter by action code
- */
-action?: string;
-/**
- * Filter by resource type
- */
-resourceType?: string;
-limit?: number;
-offset?: number;
-page?: number;
+  /**
+   * Filter by user ID
+   */
+  userId?: number;
+  /**
+   * Filter by action code
+   */
+  action?: string;
+  /**
+   * Filter by resource type
+   */
+  resourceType?: string;
+  page?: number;
+  limit?: number;
+  offset?: number;
 };

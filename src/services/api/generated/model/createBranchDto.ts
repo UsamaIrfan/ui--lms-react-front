@@ -7,7 +7,7 @@
  */
 
 export interface CreateBranchDto {
-  tenantId: string;
+  tenantId?: string;
   name: string;
   code: string;
   address?: string;

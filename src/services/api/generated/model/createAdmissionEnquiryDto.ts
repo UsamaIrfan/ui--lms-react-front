@@ -10,6 +10,7 @@ import type { CreateAdmissionEnquiryDtoEmail } from './createAdmissionEnquiryDto
 import type { CreateAdmissionEnquiryDtoFollowUpDate } from './createAdmissionEnquiryDtoFollowUpDate';
 import type { CreateAdmissionEnquiryDtoGradeApplyingFor } from './createAdmissionEnquiryDtoGradeApplyingFor';
 import type { CreateAdmissionEnquiryDtoGuardianName } from './createAdmissionEnquiryDtoGuardianName';
+import type { CreateAdmissionEnquiryDtoInstitutionId } from './createAdmissionEnquiryDtoInstitutionId';
 import type { CreateAdmissionEnquiryDtoNotes } from './createAdmissionEnquiryDtoNotes';
 import type { CreateAdmissionEnquiryDtoPhone } from './createAdmissionEnquiryDtoPhone';
 import type { CreateAdmissionEnquiryDtoPreviousSchool } from './createAdmissionEnquiryDtoPreviousSchool';
@@ -19,7 +20,7 @@ import type { CreateAdmissionEnquiryDtoStatus } from './createAdmissionEnquiryDt
 export interface CreateAdmissionEnquiryDto {
   tenantId?: string;
   branchId?: string;
-  institutionId: number;
+  institutionId?: CreateAdmissionEnquiryDtoInstitutionId;
   studentName: string;
   guardianName?: CreateAdmissionEnquiryDtoGuardianName;
   phone?: CreateAdmissionEnquiryDtoPhone;

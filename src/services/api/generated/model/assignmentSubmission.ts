@@ -21,5 +21,13 @@ export interface AssignmentSubmission {
   fileSize: number;
   remarks?: string;
   marks?: number;
+  /** Letter grade (A/B/C) */
+  grade?: string;
+  /** Teacher feedback on the submission */
+  feedback?: string;
+  /** When the submission was graded */
+  gradedAt?: string;
+  /** ID of the user who graded */
+  gradedBy?: number;
   submittedAt: string;
 }

@@ -865,3 +865,175 @@ export function useAssignmentsControllerGetSubmissionsV1<TData = Awaited<ReturnT
 
 
 
+export type assignmentsControllerFindForStudentV1Response200 = {
+  data: void
+  status: 200
+}
+
+export type assignmentsControllerFindForStudentV1ResponseSuccess = (assignmentsControllerFindForStudentV1Response200) & {
+  headers: Headers;
+};
+;
+
+export type assignmentsControllerFindForStudentV1Response = (assignmentsControllerFindForStudentV1ResponseSuccess)
+
+export const getAssignmentsControllerFindForStudentV1Url = (studentId: number,) => {
+
+
+  
+
+  return `https://multivendor-updated.vercel.app/api/v1/materials/assignments/student/${studentId}`
+}
+
+export const assignmentsControllerFindForStudentV1 = async (studentId: number, options?: RequestInit): Promise<assignmentsControllerFindForStudentV1Response> => {
+  
+  return customFetch<assignmentsControllerFindForStudentV1Response>(getAssignmentsControllerFindForStudentV1Url(studentId),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+
+
+export const getAssignmentsControllerFindForStudentV1InfiniteQueryKey = (studentId: number,) => {
+    return [
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/materials/assignments/student/${studentId}`
+    ] as const;
+    }
+
+export const getAssignmentsControllerFindForStudentV1QueryKey = (studentId: number,) => {
+    return [
+    `https://multivendor-updated.vercel.app/api/v1/materials/assignments/student/${studentId}`
+    ] as const;
+    }
+
+    
+export const getAssignmentsControllerFindForStudentV1InfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>>, TError = unknown>(studentId: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAssignmentsControllerFindForStudentV1InfiniteQueryKey(studentId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>> = ({ signal }) => assignmentsControllerFindForStudentV1(studentId, { signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(studentId), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AssignmentsControllerFindForStudentV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>>
+export type AssignmentsControllerFindForStudentV1InfiniteQueryError = unknown
+
+
+export function useAssignmentsControllerFindForStudentV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>>, TError = unknown>(
+ studentId: number, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>,
+          TError,
+          Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAssignmentsControllerFindForStudentV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>>, TError = unknown>(
+ studentId: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>,
+          TError,
+          Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAssignmentsControllerFindForStudentV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>>, TError = unknown>(
+ studentId: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useAssignmentsControllerFindForStudentV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>>, TError = unknown>(
+ studentId: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient 
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAssignmentsControllerFindForStudentV1InfiniteQueryOptions(studentId,options)
+
+  const query = useInfiniteQuery(queryOptions, queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+export const getAssignmentsControllerFindForStudentV1QueryOptions = <TData = Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError = unknown>(studentId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getAssignmentsControllerFindForStudentV1QueryKey(studentId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>> = ({ signal }) => assignmentsControllerFindForStudentV1(studentId, { signal, ...requestOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(studentId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AssignmentsControllerFindForStudentV1QueryResult = NonNullable<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>>
+export type AssignmentsControllerFindForStudentV1QueryError = unknown
+
+
+export function useAssignmentsControllerFindForStudentV1<TData = Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError = unknown>(
+ studentId: number, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>,
+          TError,
+          Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAssignmentsControllerFindForStudentV1<TData = Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError = unknown>(
+ studentId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>,
+          TError,
+          Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useAssignmentsControllerFindForStudentV1<TData = Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError = unknown>(
+ studentId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useAssignmentsControllerFindForStudentV1<TData = Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError = unknown>(
+ studentId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof assignmentsControllerFindForStudentV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAssignmentsControllerFindForStudentV1QueryOptions(studentId,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+

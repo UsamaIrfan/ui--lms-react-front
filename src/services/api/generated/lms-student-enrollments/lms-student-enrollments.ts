@@ -31,6 +31,7 @@ import type {
 
 import type {
   CreateStudentEnrollmentDto,
+  StudentEnrollmentControllerFindAllV1Params,
   UpdateStudentEnrollmentDto
 } from '.././model';
 
@@ -129,17 +130,24 @@ export type studentEnrollmentControllerFindAllV1ResponseSuccess = (studentEnroll
 
 export type studentEnrollmentControllerFindAllV1Response = (studentEnrollmentControllerFindAllV1ResponseSuccess)
 
-export const getStudentEnrollmentControllerFindAllV1Url = () => {
+export const getStudentEnrollmentControllerFindAllV1Url = (params?: StudentEnrollmentControllerFindAllV1Params,) => {
+  const normalizedParams = new URLSearchParams();
 
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
 
-  
+  const stringifiedParams = normalizedParams.toString();
 
-  return `https://multivendor-updated.vercel.app/api/v1/lms/student-enrollments`
+  return stringifiedParams.length > 0 ? `https://multivendor-updated.vercel.app/api/v1/lms/student-enrollments?${stringifiedParams}` : `https://multivendor-updated.vercel.app/api/v1/lms/student-enrollments`
 }
 
-export const studentEnrollmentControllerFindAllV1 = async ( options?: RequestInit): Promise<studentEnrollmentControllerFindAllV1Response> => {
+export const studentEnrollmentControllerFindAllV1 = async (params?: StudentEnrollmentControllerFindAllV1Params, options?: RequestInit): Promise<studentEnrollmentControllerFindAllV1Response> => {
   
-  return customFetch<studentEnrollmentControllerFindAllV1Response>(getStudentEnrollmentControllerFindAllV1Url(),
+  return customFetch<studentEnrollmentControllerFindAllV1Response>(getStudentEnrollmentControllerFindAllV1Url(params),
   {      
     ...options,
     method: 'GET'
@@ -152,72 +160,72 @@ export const studentEnrollmentControllerFindAllV1 = async ( options?: RequestIni
 
 
 
-export const getStudentEnrollmentControllerFindAllV1InfiniteQueryKey = () => {
+export const getStudentEnrollmentControllerFindAllV1InfiniteQueryKey = (params?: StudentEnrollmentControllerFindAllV1Params,) => {
     return [
-    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/student-enrollments`
+    'infinite', `https://multivendor-updated.vercel.app/api/v1/lms/student-enrollments`, ...(params ? [params] : [])
     ] as const;
     }
 
-export const getStudentEnrollmentControllerFindAllV1QueryKey = () => {
+export const getStudentEnrollmentControllerFindAllV1QueryKey = (params?: StudentEnrollmentControllerFindAllV1Params,) => {
     return [
-    `https://multivendor-updated.vercel.app/api/v1/lms/student-enrollments`
+    `https://multivendor-updated.vercel.app/api/v1/lms/student-enrollments`, ...(params ? [params] : [])
     ] as const;
     }
 
     
-export const getStudentEnrollmentControllerFindAllV1InfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>>, TError = unknown>( options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getStudentEnrollmentControllerFindAllV1InfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, StudentEnrollmentControllerFindAllV1Params['page']>, TError = unknown>(params?: StudentEnrollmentControllerFindAllV1Params, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData, QueryKey, StudentEnrollmentControllerFindAllV1Params['page']>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getStudentEnrollmentControllerFindAllV1InfiniteQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getStudentEnrollmentControllerFindAllV1InfiniteQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>> = ({ signal }) => studentEnrollmentControllerFindAllV1({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, QueryKey, StudentEnrollmentControllerFindAllV1Params['page']> = ({ signal, pageParam }) => studentEnrollmentControllerFindAllV1({...params, 'page': pageParam || params?.['page']}, { signal, ...requestOptions });
 
       
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData, QueryKey, StudentEnrollmentControllerFindAllV1Params['page']> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
 export type StudentEnrollmentControllerFindAllV1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>>
 export type StudentEnrollmentControllerFindAllV1InfiniteQueryError = unknown
 
 
-export function useStudentEnrollmentControllerFindAllV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>>, TError = unknown>(
-  options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>> & Pick<
+export function useStudentEnrollmentControllerFindAllV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, StudentEnrollmentControllerFindAllV1Params['page']>, TError = unknown>(
+ params: undefined |  StudentEnrollmentControllerFindAllV1Params, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData, QueryKey, StudentEnrollmentControllerFindAllV1Params['page']>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>,
           TError,
-          Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>
+          Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, QueryKey
         > , 'initialData'
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useStudentEnrollmentControllerFindAllV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>> & Pick<
+export function useStudentEnrollmentControllerFindAllV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, StudentEnrollmentControllerFindAllV1Params['page']>, TError = unknown>(
+ params?: StudentEnrollmentControllerFindAllV1Params, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData, QueryKey, StudentEnrollmentControllerFindAllV1Params['page']>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>,
           TError,
-          Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>
+          Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, QueryKey
         > , 'initialData'
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useStudentEnrollmentControllerFindAllV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useStudentEnrollmentControllerFindAllV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, StudentEnrollmentControllerFindAllV1Params['page']>, TError = unknown>(
+ params?: StudentEnrollmentControllerFindAllV1Params, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData, QueryKey, StudentEnrollmentControllerFindAllV1Params['page']>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useStudentEnrollmentControllerFindAllV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useStudentEnrollmentControllerFindAllV1Infinite<TData = InfiniteData<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, StudentEnrollmentControllerFindAllV1Params['page']>, TError = unknown>(
+ params?: StudentEnrollmentControllerFindAllV1Params, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData, QueryKey, StudentEnrollmentControllerFindAllV1Params['page']>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient 
  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getStudentEnrollmentControllerFindAllV1InfiniteQueryOptions(options)
+  const queryOptions = getStudentEnrollmentControllerFindAllV1InfiniteQueryOptions(params,options)
 
   const query = useInfiniteQuery(queryOptions, queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -227,16 +235,16 @@ export function useStudentEnrollmentControllerFindAllV1Infinite<TData = Infinite
 
 
 
-export const getStudentEnrollmentControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getStudentEnrollmentControllerFindAllV1QueryOptions = <TData = Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError = unknown>(params?: StudentEnrollmentControllerFindAllV1Params, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getStudentEnrollmentControllerFindAllV1QueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getStudentEnrollmentControllerFindAllV1QueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>> = ({ signal }) => studentEnrollmentControllerFindAllV1({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>> = ({ signal }) => studentEnrollmentControllerFindAllV1(params, { signal, ...requestOptions });
 
       
 
@@ -250,7 +258,7 @@ export type StudentEnrollmentControllerFindAllV1QueryError = unknown
 
 
 export function useStudentEnrollmentControllerFindAllV1<TData = Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>> & Pick<
+ params: undefined |  StudentEnrollmentControllerFindAllV1Params, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>,
           TError,
@@ -260,7 +268,7 @@ export function useStudentEnrollmentControllerFindAllV1<TData = Awaited<ReturnTy
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useStudentEnrollmentControllerFindAllV1<TData = Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>> & Pick<
+ params?: StudentEnrollmentControllerFindAllV1Params, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>,
           TError,
@@ -270,16 +278,16 @@ export function useStudentEnrollmentControllerFindAllV1<TData = Awaited<ReturnTy
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useStudentEnrollmentControllerFindAllV1<TData = Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ params?: StudentEnrollmentControllerFindAllV1Params, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useStudentEnrollmentControllerFindAllV1<TData = Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ params?: StudentEnrollmentControllerFindAllV1Params, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof studentEnrollmentControllerFindAllV1>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getStudentEnrollmentControllerFindAllV1QueryOptions(options)
+  const queryOptions = getStudentEnrollmentControllerFindAllV1QueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

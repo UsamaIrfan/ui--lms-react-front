@@ -30,7 +30,8 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  AssignmentSubmission
+  AssignmentSubmission,
+  GradeSubmissionDto
 } from '.././model';
 
 import { customFetch } from '.././custom-fetch';
@@ -286,5 +287,82 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
         TContext
       > => {
       return useMutation(getSubmissionsControllerRemoveV1MutationOptions(options), queryClient);
+    }
+    export type submissionsControllerGradeV1Response200 = {
+  data: AssignmentSubmission
+  status: 200
+}
+
+export type submissionsControllerGradeV1ResponseSuccess = (submissionsControllerGradeV1Response200) & {
+  headers: Headers;
+};
+;
+
+export type submissionsControllerGradeV1Response = (submissionsControllerGradeV1ResponseSuccess)
+
+export const getSubmissionsControllerGradeV1Url = (id: number,) => {
+
+
+  
+
+  return `https://multivendor-updated.vercel.app/api/v1/materials/submissions/${id}/grade`
+}
+
+export const submissionsControllerGradeV1 = async (id: number,
+    gradeSubmissionDto: GradeSubmissionDto, options?: RequestInit): Promise<submissionsControllerGradeV1Response> => {
+  
+  return customFetch<submissionsControllerGradeV1Response>(getSubmissionsControllerGradeV1Url(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      gradeSubmissionDto,)
+  }
+);}
+
+
+
+
+export const getSubmissionsControllerGradeV1MutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submissionsControllerGradeV1>>, TError,{id: number;data: GradeSubmissionDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof submissionsControllerGradeV1>>, TError,{id: number;data: GradeSubmissionDto}, TContext> => {
+
+const mutationKey = ['submissionsControllerGradeV1'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof submissionsControllerGradeV1>>, {id: number;data: GradeSubmissionDto}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  submissionsControllerGradeV1(id,data,requestOptions)
+        }
+
+
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SubmissionsControllerGradeV1MutationResult = NonNullable<Awaited<ReturnType<typeof submissionsControllerGradeV1>>>
+    export type SubmissionsControllerGradeV1MutationBody = GradeSubmissionDto
+    export type SubmissionsControllerGradeV1MutationError = unknown
+
+    export const useSubmissionsControllerGradeV1 = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submissionsControllerGradeV1>>, TError,{id: number;data: GradeSubmissionDto}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof submissionsControllerGradeV1>>,
+        TError,
+        {id: number;data: GradeSubmissionDto},
+        TContext
+      > => {
+      return useMutation(getSubmissionsControllerGradeV1MutationOptions(options), queryClient);
     }
     

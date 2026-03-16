@@ -10,6 +10,7 @@ import type { UpdateAdmissionEnquiryDtoEmail } from './updateAdmissionEnquiryDto
 import type { UpdateAdmissionEnquiryDtoFollowUpDate } from './updateAdmissionEnquiryDtoFollowUpDate';
 import type { UpdateAdmissionEnquiryDtoGradeApplyingFor } from './updateAdmissionEnquiryDtoGradeApplyingFor';
 import type { UpdateAdmissionEnquiryDtoGuardianName } from './updateAdmissionEnquiryDtoGuardianName';
+import type { UpdateAdmissionEnquiryDtoInstitutionId } from './updateAdmissionEnquiryDtoInstitutionId';
 import type { UpdateAdmissionEnquiryDtoNotes } from './updateAdmissionEnquiryDtoNotes';
 import type { UpdateAdmissionEnquiryDtoPhone } from './updateAdmissionEnquiryDtoPhone';
 import type { UpdateAdmissionEnquiryDtoPreviousSchool } from './updateAdmissionEnquiryDtoPreviousSchool';
@@ -19,7 +20,7 @@ import type { UpdateAdmissionEnquiryDtoStatus } from './updateAdmissionEnquiryDt
 export interface UpdateAdmissionEnquiryDto {
   tenantId?: string;
   branchId?: string;
-  institutionId?: number;
+  institutionId?: UpdateAdmissionEnquiryDtoInstitutionId;
   studentName?: string;
   guardianName?: UpdateAdmissionEnquiryDtoGuardianName;
   phone?: UpdateAdmissionEnquiryDtoPhone;

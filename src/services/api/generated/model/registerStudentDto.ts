@@ -16,6 +16,8 @@ import type { RegisterStudentDtoNationality } from './registerStudentDtoNational
 import type { RegisterStudentDtoReligion } from './registerStudentDtoReligion';
 
 export interface RegisterStudentDto {
+  /** When true, only firstName, email & institutionId are required */
+  isDraft?: boolean;
   firstName: string;
   lastName: string;
   email: string;

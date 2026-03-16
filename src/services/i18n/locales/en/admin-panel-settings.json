@@ -311,6 +311,33 @@
       "logoutMessage": "To access the new tenant, you need to log out and log back in. Would you like to log out now?",
       "logoutConfirm": "Log Out Now",
       "logoutCancel": "Stay Logged In"
+    },
+    "users": {
+      "title": "Manage Users",
+      "description": "Assign or remove users from this tenant",
+      "addUser": "Add User",
+      "removeUser": "Remove",
+      "manageUsers": "Manage Users",
+      "noUsers": "No users assigned to this tenant yet.",
+      "searchPlaceholder": "Search users by name or email…",
+      "selectUser": "Select a user",
+      "noUsersFound": "No users found",
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "actions": ""
+      },
+      "confirm": {
+        "removeTitle": "Remove User",
+        "remove": "Are you sure you want to remove this user from the tenant? They will lose access to all tenant data."
+      },
+      "notifications": {
+        "assigned": "User assigned to tenant successfully",
+        "removed": "User removed from tenant successfully",
+        "error": "Failed to update tenant users. Please try again.",
+        "conflict": "User is already assigned to this tenant"
+      }
     }
   }
 }

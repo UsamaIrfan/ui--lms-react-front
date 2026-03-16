@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { RoleEnum } from "@/services/api/types/role";
 import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useTranslation } from "@/services/i18n/client";
@@ -9,13 +9,17 @@ import {
   useCreateTenantMutation,
   useUpdateTenantMutation,
   useDeleteTenantMutation,
+  useTenantUsersQuery,
+  useAssignUserToTenantMutation,
+  useRemoveUserFromTenantMutation,
 } from "./queries/queries";
-import type { Tenant } from "@/services/api/generated/model";
+import type { Tenant, TenantUser } from "@/services/api/generated/model";
 import { useSnackbar } from "@/hooks/use-snackbar";
 import { getHttpErrorMessage } from "@/services/api/generated/custom-fetch";
 import useConfirmDialog from "@/components/confirm-dialog/use-confirm-dialog";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useTenant from "@/services/tenant/use-tenant";
+import { usersControllerFindAllV1 } from "@/services/api/generated/users/users";
 import Link from "@/components/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -46,7 +50,47 @@ import {
   RiEditLine,
   RiDeleteBinLine,
   RiLogoutBoxRLine,
+  RiUserLine,
+  RiCloseLine,
+  RiSearchLine,
 } from "@remixicon/react";
+
+const ROLE_LABELS: Record<number, string> = {
+  [RoleEnum.ADMIN]: "Admin",
+  [RoleEnum.USER]: "User",
+  [RoleEnum.STUDENT]: "Student",
+  [RoleEnum.TEACHER]: "Teacher",
+  [RoleEnum.STAFF]: "Staff",
+  [RoleEnum.ACCOUNTANT]: "Accountant",
+  [RoleEnum.PARENT]: "Parent",
+};
+
+function getRoleBadgeVariant(
+  roleId?: number
+): "default" | "secondary" | "warning" | "success" | "destructive" | "outline" {
+  switch (roleId) {
+    case RoleEnum.ADMIN:
+      return "default";
+    case RoleEnum.STUDENT:
+      return "success";
+    case RoleEnum.TEACHER:
+      return "warning";
+    case RoleEnum.ACCOUNTANT:
+      return "destructive";
+    case RoleEnum.STAFF:
+      return "outline";
+    default:
+      return "secondary";
+  }
+}
+
+interface UserOption {
+  id: number;
+  firstName: string | null;
+  lastName: string | null;
+  email: string | null;
+  roleId?: number;
+}
 
 function TenantManagement() {
   const { t } = useTranslation("admin-panel-settings");
@@ -67,6 +111,19 @@ function TenantManagement() {
   const [slug, setSlug] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+
+  // ─── Manage Users state ────────────────────────────────
+  const [manageUsersTenant, setManageUsersTenant] = useState<Tenant | null>(
+    null
+  );
+  const [userSearch, setUserSearch] = useState("");
+  const [userOptions, setUserOptions] = useState<UserOption[]>([]);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+
+  const { data: tenantUsers, isLoading: isLoadingTenantUsers } =
+    useTenantUsersQuery(manageUsersTenant?.id ?? null);
+  const assignMutation = useAssignUserToTenantMutation();
+  const removeMutation = useRemoveUserFromTenantMutation();
 
   const resetForm = useCallback(() => {
     setName("");
@@ -203,6 +260,114 @@ function TenantManagement() {
     [updateMutation, enqueueSnackbar, t]
   );
 
+  // ─── Manage Users handlers ────────────────────────────
+
+  const handleOpenManageUsers = useCallback((item: Tenant) => {
+    setManageUsersTenant(item);
+    setUserSearch("");
+    setUserOptions([]);
+  }, []);
+
+  const handleCloseManageUsers = useCallback(() => {
+    setManageUsersTenant(null);
+    setUserSearch("");
+    setUserOptions([]);
+  }, []);
+
+  const handleSearchUsers = useCallback(async (query: string) => {
+    setUserSearch(query);
+    if (query.trim().length < 2) {
+      setUserOptions([]);
+      return;
+    }
+    setIsLoadingUsers(true);
+    try {
+      const res = await usersControllerFindAllV1({ page: 1, limit: 20 });
+      const raw = res.data as unknown;
+      const list = (
+        Array.isArray(raw)
+          ? raw
+          : ((raw as Record<string, unknown>)?.data ?? [])
+      ) as UserOption[];
+
+      const lower = query.toLowerCase();
+      const filtered = list.filter(
+        (u) =>
+          (u.firstName ?? "").toLowerCase().includes(lower) ||
+          (u.lastName ?? "").toLowerCase().includes(lower) ||
+          (u.email ?? "").toLowerCase().includes(lower)
+      );
+      setUserOptions(filtered);
+    } catch {
+      setUserOptions([]);
+    } finally {
+      setIsLoadingUsers(false);
+    }
+  }, []);
+
+  const assignedUserIds = useMemo(
+    () => new Set((tenantUsers ?? []).map((tu: TenantUser) => tu.userId)),
+    [tenantUsers]
+  );
+
+  const filteredUserOptions = useMemo(
+    () => userOptions.filter((u) => !assignedUserIds.has(u.id)),
+    [userOptions, assignedUserIds]
+  );
+
+  const handleAssignUser = useCallback(
+    async (userId: number) => {
+      if (!manageUsersTenant) return;
+      try {
+        await assignMutation.mutateAsync({
+          tenantId: manageUsersTenant.id,
+          userId,
+        });
+        enqueueSnackbar(
+          t("admin-panel-settings:tenants.users.notifications.assigned"),
+          { variant: "success" }
+        );
+        setUserSearch("");
+        setUserOptions([]);
+      } catch (error) {
+        enqueueSnackbar(
+          getHttpErrorMessage(error) ??
+            t("admin-panel-settings:tenants.users.notifications.error"),
+          { variant: "error" }
+        );
+      }
+    },
+    [manageUsersTenant, assignMutation, enqueueSnackbar, t]
+  );
+
+  const handleRemoveUser = useCallback(
+    async (tu: TenantUser) => {
+      if (!manageUsersTenant) return;
+      const confirmed = await confirmDialog({
+        title: t("admin-panel-settings:tenants.users.confirm.removeTitle"),
+        message: t("admin-panel-settings:tenants.users.confirm.remove"),
+      });
+      if (!confirmed) return;
+      try {
+        await removeMutation.mutateAsync({
+          tenantId: manageUsersTenant.id,
+          userId: tu.userId,
+        });
+        enqueueSnackbar(
+          t("admin-panel-settings:tenants.users.notifications.removed"),
+          { variant: "success" }
+        );
+      } catch (error) {
+        enqueueSnackbar(
+          getHttpErrorMessage(error) ??
+            t("admin-panel-settings:tenants.users.notifications.error"),
+          { variant: "error" }
+        );
+      }
+    },
+    [manageUsersTenant, removeMutation, confirmDialog, enqueueSnackbar, t]
+  );
+
   const handleLogOut = useCallback(async () => {
     clearTenant();
     await logOut();
@@ -320,6 +485,16 @@ function TenantManagement() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
+                          <DropdownMenuItem
+                            data-testid={`manage-tenant-users-${item.id}`}
+                            onClick={() => handleOpenManageUsers(item)}
+                          >
+                            <RiUserLine className="mr-2 h-4 w-4" />
+                            {t(
+                              "admin-panel-settings:tenants.users.manageUsers"
+                            )}
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
                           <DropdownMenuItem
                             onClick={() => handleOpenEdit(item)}
                           >
@@ -453,6 +628,175 @@ function TenantManagement() {
             <Button onClick={() => void handleLogOut()}>
               <RiLogoutBoxRLine className="mr-1 h-4 w-4" />
               {t("admin-panel-settings:tenants.notifications.logoutConfirm")}
+            </Button>
+          </Dialog.DialogFooter>
+        </Dialog.DialogContent>
+      </Dialog.Dialog>
+
+      {/* Manage Users Dialog */}
+      <Dialog.Dialog
+        open={!!manageUsersTenant}
+        onOpenChange={(open) => {
+          if (!open) handleCloseManageUsers();
+        }}
+      >
+        <Dialog.DialogContent
+          className="sm:max-w-2xl"
+          data-testid="manage-tenant-users-dialog"
+        >
+          <Dialog.DialogHeader>
+            <Dialog.DialogTitle>
+              {t("admin-panel-settings:tenants.users.title")} —{" "}
+              {manageUsersTenant?.name}
+            </Dialog.DialogTitle>
+          </Dialog.DialogHeader>
+
+          {/* Add User Search */}
+          <div className="border-b border-stroke-soft-200 pb-4">
+            <Label className="mb-2 block">
+              {t("admin-panel-settings:tenants.users.addUser")}
+            </Label>
+            <div className="relative">
+              <RiSearchLine className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-soft-400" />
+              <Input
+                data-testid="search-users-input"
+                value={userSearch}
+                onChange={(e) => void handleSearchUsers(e.target.value)}
+                placeholder={t(
+                  "admin-panel-settings:tenants.users.searchPlaceholder"
+                )}
+                className="pl-9"
+              />
+            </div>
+
+            {isLoadingUsers && (
+              <div className="flex justify-center py-3">
+                <Spinner size="sm" />
+              </div>
+            )}
+
+            {!isLoadingUsers && filteredUserOptions.length > 0 && (
+              <div className="mt-2 max-h-40 overflow-y-auto rounded-lg border border-stroke-soft-200">
+                {filteredUserOptions.map((user) => (
+                  <button
+                    key={user.id}
+                    data-testid={`assign-user-${user.id}`}
+                    type="button"
+                    className="flex w-full items-center justify-between px-3 py-2 text-left text-paragraph-sm hover:bg-bg-weak-50"
+                    onClick={() => void handleAssignUser(user.id)}
+                    disabled={assignMutation.isPending}
+                  >
+                    <div>
+                      <span className="font-medium text-text-strong-950">
+                        {[user.firstName, user.lastName]
+                          .filter(Boolean)
+                          .join(" ") || "—"}
+                      </span>
+                      <span className="ml-2 text-text-soft-400">
+                        {user.email}
+                      </span>
+                    </div>
+                    {user.roleId && (
+                      <Badge
+                        variant={getRoleBadgeVariant(user.roleId)}
+                        className="ml-2 shrink-0"
+                      >
+                        {ROLE_LABELS[user.roleId] ?? "Unknown"}
+                      </Badge>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {!isLoadingUsers &&
+              userSearch.trim().length >= 2 &&
+              filteredUserOptions.length === 0 && (
+                <p className="mt-2 text-paragraph-sm text-text-soft-400">
+                  {t("admin-panel-settings:tenants.users.noUsersFound")}
+                </p>
+              )}
+          </div>
+
+          {/* Assigned Users List */}
+          <div className="max-h-80 overflow-y-auto">
+            {isLoadingTenantUsers ? (
+              <div className="flex justify-center py-8">
+                <Spinner size="md" />
+              </div>
+            ) : !tenantUsers || tenantUsers.length === 0 ? (
+              <p className="py-8 text-center text-paragraph-sm text-text-soft-400">
+                {t("admin-panel-settings:tenants.users.noUsers")}
+              </p>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>
+                      {t("admin-panel-settings:tenants.users.columns.name")}
+                    </TableHead>
+                    <TableHead>
+                      {t("admin-panel-settings:tenants.users.columns.email")}
+                    </TableHead>
+                    <TableHead>
+                      {t("admin-panel-settings:tenants.users.columns.role")}
+                    </TableHead>
+                    <TableHead style={{ width: 80 }}>
+                      {t("admin-panel-settings:tenants.users.columns.actions")}
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {tenantUsers.map((tu: TenantUser) => (
+                    <TableRow key={tu.id}>
+                      <TableCell className="font-medium text-paragraph-sm text-text-strong-950">
+                        {(tu as Record<string, unknown>).userName
+                          ? String((tu as Record<string, unknown>).userName)
+                          : `User #${tu.userId}`}
+                      </TableCell>
+                      <TableCell className="text-paragraph-sm text-text-sub-600">
+                        {(tu as Record<string, unknown>).userEmail
+                          ? String((tu as Record<string, unknown>).userEmail)
+                          : "—"}
+                      </TableCell>
+                      <TableCell>
+                        {(tu as Record<string, unknown>).userRole ? (
+                          <Badge
+                            variant={getRoleBadgeVariant(
+                              Number((tu as Record<string, unknown>).userRole)
+                            )}
+                          >
+                            {ROLE_LABELS[
+                              Number((tu as Record<string, unknown>).userRole)
+                            ] ?? "Unknown"}
+                          </Badge>
+                        ) : (
+                          "—"
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          data-testid={`remove-user-from-tenant-${tu.userId}`}
+                          variant="outline"
+                          size="sm"
+                          className="h-7 text-error-base hover:text-error-base"
+                          onClick={() => void handleRemoveUser(tu)}
+                          disabled={removeMutation.isPending}
+                        >
+                          <RiCloseLine className="mr-1 h-3.5 w-3.5" />
+                          {t("admin-panel-settings:tenants.users.removeUser")}
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </div>
+
+          <Dialog.DialogFooter>
+            <Button variant="outline" onClick={handleCloseManageUsers}>
+              {t("admin-panel-settings:tenants.actions.cancel")}
             </Button>
           </Dialog.DialogFooter>
         </Dialog.DialogContent>

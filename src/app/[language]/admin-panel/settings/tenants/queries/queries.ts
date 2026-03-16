@@ -5,10 +5,16 @@ import {
   tenantControllerUpdateV1,
   tenantControllerRemoveV1,
 } from "@/services/api/generated/multi-tenancy-tenants/multi-tenancy-tenants";
+import {
+  tenantUserControllerAssignV1,
+  tenantUserControllerFindUsersByTenantV1,
+  tenantUserControllerRemoveUserFromTenantV1,
+} from "@/services/api/generated/multi-tenancy-tenant-users/multi-tenancy-tenant-users";
 import type {
   CreateTenantDto,
   UpdateTenantDto,
   Tenant,
+  TenantUser,
 } from "@/services/api/generated/model";
 
 const TENANTS_KEY = ["settings", "tenants"];
@@ -63,6 +69,60 @@ export function useDeleteTenantMutation() {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: TENANTS_KEY });
+    },
+  });
+}
+
+// ─── Tenant Users ───────────────────────────────────────
+
+const TENANT_USERS_KEY = ["settings", "tenant-users"];
+
+export function useTenantUsersQuery(tenantId: string | null) {
+  return useQuery<TenantUser[]>({
+    queryKey: [...TENANT_USERS_KEY, tenantId],
+    queryFn: async ({ signal }) => {
+      const res = await tenantUserControllerFindUsersByTenantV1(tenantId!, {
+        signal,
+      });
+      const raw = res.data as unknown;
+      return (
+        Array.isArray(raw)
+          ? raw
+          : ((raw as Record<string, unknown>)?.data ?? [])
+      ) as TenantUser[];
+    },
+    enabled: !!tenantId,
+    staleTime: 30_000,
+  });
+}
+
+export function useAssignUserToTenantMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: { tenantId: string; userId: number }) => {
+      const res = await tenantUserControllerAssignV1(data);
+      return res.data;
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: TENANT_USERS_KEY });
+    },
+  });
+}
+
+export function useRemoveUserFromTenantMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      tenantId,
+      userId,
+    }: {
+      tenantId: string;
+      userId: number;
+    }) => {
+      await tenantUserControllerRemoveUserFromTenantV1(tenantId, userId);
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: TENANT_USERS_KEY });
     },
   });
 }

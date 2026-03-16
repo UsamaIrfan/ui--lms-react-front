@@ -305,3 +305,29 @@ export async function apiGet(path: string) {
   expect(res.ok()).toBeTruthy();
   return await res.json();
 }
+
+// ── Tenant Users ──
+
+export async function apiAssignUserToTenant(tenantId: string, userId: number) {
+  const { ctx } = await adminContext();
+  const res = await ctx.post("/v1/tenant-users", {
+    data: { tenantId, userId },
+  });
+  expect(res.ok()).toBeTruthy();
+  return await res.json();
+}
+
+export async function apiRemoveUserFromTenant(
+  tenantId: string,
+  userId: number
+) {
+  const { ctx } = await adminContext();
+  await ctx.delete(`/v1/tenant-users/${tenantId}/user/${userId}`);
+}
+
+export async function apiGetTenantUsers(tenantId: string) {
+  const { ctx } = await adminContext();
+  const res = await ctx.get(`/v1/tenant-users/tenant/${tenantId}`);
+  expect(res.ok()).toBeTruthy();
+  return await res.json();
+}

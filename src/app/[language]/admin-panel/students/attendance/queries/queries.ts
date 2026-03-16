@@ -368,7 +368,7 @@ export function useEnrolledStudentsQuery(sectionId: number | undefined) {
     queryFn: async ({ signal }) => {
       // Pass sectionId + status=active as query params
       // Use the generated function but append query params
-      const res = await studentEnrollmentControllerFindAllV1({
+      const res = await studentEnrollmentControllerFindAllV1(undefined, {
         signal,
       });
 

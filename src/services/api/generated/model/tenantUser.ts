@@ -12,6 +12,12 @@ export interface TenantUser {
   /** Name of the tenant */
   tenantName?: string;
   userId: number;
+  /** Full name of the user */
+  userName?: string;
+  /** Email address of the user */
+  userEmail?: string;
+  /** Role ID of the user */
+  userRole?: number;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;

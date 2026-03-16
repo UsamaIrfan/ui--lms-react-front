@@ -7,13 +7,13 @@
  */
 
 export type StudentEnrollmentControllerFindAllV1Params = {
-  page?: number;
-  /**
-   * Filter by section ID
-   */
-  sectionId?: number;
-  /**
-   * Filter by enrollment status (e.g. active)
-   */
-  status?: string;
+page?: number;
+/**
+ * Filter by section ID
+ */
+sectionId?: number;
+/**
+ * Filter by enrollment status (e.g. active)
+ */
+status?: string;
 };

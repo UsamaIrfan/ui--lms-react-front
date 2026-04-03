@@ -755,20 +755,14 @@ function TenantManagement() {
                           : `User #${tu.userId}`}
                       </TableCell>
                       <TableCell className="text-paragraph-sm text-text-sub-600">
-                        {tu.userEmail
-                          ? String(tu.userEmail)
-                          : "—"}
+                        {tu.userEmail ? String(tu.userEmail) : "—"}
                       </TableCell>
                       <TableCell>
                         {tu.userRole ? (
                           <Badge
-                            variant={getRoleBadgeVariant(
-                              Number(tu.userRole)
-                            )}
+                            variant={getRoleBadgeVariant(Number(tu.userRole))}
                           >
-                            {ROLE_LABELS[
-                              Number(tu.userRole)
-                            ] ?? "Unknown"}
+                            {ROLE_LABELS[Number(tu.userRole)] ?? "Unknown"}
                           </Badge>
                         ) : (
                           "—"

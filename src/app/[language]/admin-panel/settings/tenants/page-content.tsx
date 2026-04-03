@@ -750,24 +750,24 @@ function TenantManagement() {
                   {tenantUsers.map((tu: TenantUser) => (
                     <TableRow key={tu.id}>
                       <TableCell className="font-medium text-paragraph-sm text-text-strong-950">
-                        {(tu as Record<string, unknown>).userName
-                          ? String((tu as Record<string, unknown>).userName)
+                        {tu.userName
+                          ? String(tu.userName)
                           : `User #${tu.userId}`}
                       </TableCell>
                       <TableCell className="text-paragraph-sm text-text-sub-600">
-                        {(tu as Record<string, unknown>).userEmail
-                          ? String((tu as Record<string, unknown>).userEmail)
+                        {tu.userEmail
+                          ? String(tu.userEmail)
                           : "—"}
                       </TableCell>
                       <TableCell>
-                        {(tu as Record<string, unknown>).userRole ? (
+                        {tu.userRole ? (
                           <Badge
                             variant={getRoleBadgeVariant(
-                              Number((tu as Record<string, unknown>).userRole)
+                              Number(tu.userRole)
                             )}
                           >
                             {ROLE_LABELS[
-                              Number((tu as Record<string, unknown>).userRole)
+                              Number(tu.userRole)
                             ] ?? "Unknown"}
                           </Badge>
                         ) : (
